@@ -3,11 +3,13 @@ import axios from "axios";
 
 function LoginForm() {
     const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+        email: "owaruuu@gmail.com",
+        password: "pas$W0rd",
     });
 
     const [errorMsg, setErrorMsg] = useState("");
+
+    const api = axios.create({ withCredentials: true });
 
     function handleChange(event) {
         setFormData((prevFormData) => {
@@ -29,7 +31,7 @@ function LoginForm() {
         );
 
         try {
-            const response = await axios.post("http://localhost:3003/login", {
+            const response = await api.post("http://localhost:3003/login", {
                 email,
                 password,
             });
@@ -38,7 +40,6 @@ function LoginForm() {
                 response
             );
         } catch (error) {
-            setErrorMsg(error.response.data);
             console.log(
                 "🚀 ~ file: LoginForm.js:38 ~ handleLogin ~ error:",
                 error
