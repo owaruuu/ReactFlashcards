@@ -21,17 +21,13 @@ function RegisterForm(props) {
         event.preventDefault();
         console.log("register");
 
-        //hacer check de ambos passwords
+        //TODO hacer check de ambos passwords
 
         console.log(
             "🚀 ~ file: RegisterForm.js:28 ~ handleRegister ~ formData:",
             formData
         );
         const { email, password } = formData;
-        //mandar request, el mismo command deberia revisar si la cuenta ya existe
-        // const response = await axios.get(
-        //     "https://pokeapi.co/api/v2/pokemon/ditto"
-        // );
 
         const response = await axios.post("http://localhost:3003/register", {
             email,

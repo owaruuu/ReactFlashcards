@@ -41,13 +41,12 @@ const TestComponent = () => {
                 .then((res) => {
                     console.log("response after axios await", res);
                     setSaveText("saved to cloud.");
+                    setTimeSinceLastSave(0);
                 })
                 .catch((err) => {
                     console.log(err);
                     setSaveText("error saving to cloud...");
                 });
-
-            setTimeSinceLastSave(0);
         } else {
             console.warn("too soon to attempt to save to cloud");
         }
