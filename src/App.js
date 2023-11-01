@@ -2,7 +2,9 @@ import "./App.css";
 // import { useState } from "react";
 import { RegisterForm } from "./components/RegisterForm.js";
 import { LoginForm } from "./components/LoginForm.js";
-import TestComponent from "./components/TestComponent.js";
+import Main from "./components/Main.js";
+
+import { AppProvider } from "./context/AppContext";
 
 function App() {
     // const handleSave = () => {
@@ -19,24 +21,24 @@ function App() {
     // };
 
     return (
-        <div className="App">
-            <header className="header">
-                <h1>flashcards test</h1>
-                <p className="save">saving</p>
-                <p className="not-logged">not logged in</p>
-            </header>
-            <hr></hr>
-            <main className="main">
-                <TestComponent />
-            </main>
-            <hr></hr>
-            <div className="forms">
-                <RegisterForm />
-                <LoginForm />
+        <AppProvider>
+            <div className="App">
+                <header className="header">
+                    <h1>flashcards test</h1>
+                    <p className="save">saving</p>
+                    <p className="not-logged">not logged in</p>
+                </header>
+                <hr></hr>
+                <Main />
+                <hr></hr>
+                <div className="forms">
+                    <RegisterForm />
+                    <LoginForm />
+                </div>
+                <hr></hr>
+                <footer className="footer">by josue marquez</footer>
             </div>
-            <hr></hr>
-            <footer className="footer">by josue marquez</footer>
-        </div>
+        </AppProvider>
     );
 }
 
