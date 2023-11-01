@@ -29,6 +29,44 @@ hr {
 .main .content {
   display: flex;
 }
+.main .lectureButton {
+  display: flex;
+  background-color: antiquewhite;
+  height: 50px;
+  width: 500px;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 10px 0;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+.main .lectureButton:hover {
+  background-color: rgb(245, 215, 176);
+}
+.main .lectureButton:active {
+  background-color: rgb(243, 187, 149);
+}
+.main .termList .termItem {
+  display: flex;
+  background-color: burlywood;
+  margin: 10px 0;
+}
+.main .termList .termItem .verticalRule {
+  border-left: 1px solid black;
+  background-color: aqua;
+  height: 20px;
+  position: absolute;
+  left: 50%;
+}
+.main .termList .termItem .answer {
+  text-align: end;
+}
+.main .termList .termItem div {
+  flex: 1;
+  align-self: center !important;
+}
+
 .forms {
   display: flex;
   justify-content: space-around;

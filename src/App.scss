@@ -40,6 +40,51 @@ hr {
 
     .checkbox {
     }
+
+    .lectureButton {
+        display: flex;
+        background-color: antiquewhite;
+        height: 50px;
+        width: 500px;
+        border: 1px solid black;
+        border-radius: 15px;
+        margin: 10px 0;
+        justify-content: space-around;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgb(245, 215, 176);
+        }
+
+        &:active {
+            background-color: rgb(243, 187, 149);
+        }
+    }
+
+    .termList {
+        .termItem {
+            display: flex;
+            background-color: burlywood;
+            margin: 10px 0;
+
+            .verticalRule {
+                border-left: 1px solid black;
+                background-color: aqua;
+                height: 20px;
+                position: absolute;
+                left: 50%;
+            }
+
+            .answer {
+                text-align: end;
+            }
+            div {
+                flex: 1;
+                align-self: center !important;
+            }
+        }
+    }
 }
 
 .forms {
