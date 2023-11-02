@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext.js";
 import LectureList from "./LectureList.js";
 import LectureScreen from "./LectureScreen.js";
+import LearnScreen from "./LearnScreen.js";
 import { readFromLocal } from "../utils/utils";
 import axios from "axios";
 
@@ -49,30 +50,33 @@ const setInitialState = async () => {
 };
 
 const Main = () => {
-    const [progress, setProgress] = useState({});
+    // const [progress, setProgress] = useState({});
+    const [percentage, setPercentage] = useState(0);
     // const [loaded, setLoaded] = useState(false);
     const { dispatch, appState } = useContext(AppContext);
     // const [appState, setAppState] = useState({ currentScreen: "lectures" });
 
-    useEffect(() => {
-        const asyncFunc = async () => {
-            const result = await setInitialState();
-            setProgress(result);
-            dispatch({ type: "SET_LOADED", payload: true });
-        };
+    const calculatePercentage = () => {
+        // const ammount =
+    };
 
-        asyncFunc();
-    }, []);
+    // useEffect(() => {
+    //     const asyncFunc = async () => {
+    //         const result = await setInitialState();
+    //         setProgress(result);
+    //         dispatch({ type: "SET_LOADED", payload: true });
+    //     };
+
+    //     asyncFunc();
+    // }, []);
 
     return (
         <main className="main">
-            {appState.currentScreen === "main" && (
-                <LectureList progress={progress} />
-            )}
+            {appState.currentScreen === "main" && <LectureList />}
             {appState.currentScreen === "lecture" && (
                 <LectureScreen></LectureScreen>
             )}
-            {/* {appState.currentScreen === "learn" && <learn></learn>} */}
+            {appState.currentScreen === "learn" && <LearnScreen></LearnScreen>}
         </main>
     );
 };

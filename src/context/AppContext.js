@@ -10,16 +10,23 @@ export const AppReducer = (state, action) => {
             return null;
         case "CHANGE_SCREEN":
             //logica para cambiar la pantalla
-            return (state = {
+            return {
                 ...state,
                 appState: {
                     currentScreen: action.payload.newScreen,
                     currentLecture: action.payload.newLecture,
                 },
-            });
+            };
         case "SET_LOADED":
             //logica para cambiar el estado de loaded
-            return (state = { ...state, loaded: action.payload });
+            return { ...state, loaded: action.payload };
+        case "SET_COGNITO_ERROR":
+            console.log("setting cognito error");
+            return { ...state, cognitoError: action.payload };
+        case "SET_INIT":
+            return { ...state, init: action.payload };
+        case "SET_LOG_STATUS":
+            return { ...state, loggedIn: action.payload };
         default:
             throw "wrong action type: " + action.type;
     }
@@ -27,7 +34,12 @@ export const AppReducer = (state, action) => {
 
 //Crear un initial state leyendo de la base de datos o localStorage
 const initialState = {
+    init: false, //true despues de haber intentado conectarse a cognito
+    cognitoError: false,
+    cognito: false,
     loaded: false,
+    loggedIn: false, //true si ya confirme que tengo tokens validos
+    currentProgress: null,
     appState: { currentScreen: "main", currentLecture: null },
 };
 
@@ -39,7 +51,12 @@ export const AppProvider = (props) => {
     return (
         <AppContext.Provider
             value={{
+                init: state.init,
+                cognitoError: state.cognitoError,
+                cognito: state.cognito,
                 loaded: state.loaded,
+                loggedIn: state.loggedIn,
+                currentProgress: state.currentProgress,
                 appState: state.appState,
                 dispatch,
             }}

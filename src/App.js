@@ -2,7 +2,9 @@ import "./App.css";
 // import { useState } from "react";
 import { RegisterForm } from "./components/RegisterForm.js";
 import { LoginForm } from "./components/LoginForm.js";
+import Header from "./components/Header";
 import Main from "./components/Main.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AppProvider } from "./context/AppContext";
 
@@ -23,11 +25,7 @@ function App() {
     return (
         <AppProvider>
             <div className="App">
-                <header className="header">
-                    <h1>flashcards test</h1>
-                    <p className="save">saving</p>
-                    <p className="not-logged">not logged in</p>
-                </header>
+                <Header />
                 <hr></hr>
                 <Main />
                 <hr></hr>

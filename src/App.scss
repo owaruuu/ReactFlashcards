@@ -62,26 +62,38 @@ hr {
         }
     }
 
-    .termList {
-        .termItem {
+    .lectureScreen {
+        .lectureTitle {
+            text-align: center;
+        }
+        .lectureScreenButtons {
             display: flex;
-            background-color: burlywood;
-            margin: 10px 0;
 
-            .verticalRule {
-                border-left: 1px solid black;
-                background-color: aqua;
-                height: 20px;
-                position: absolute;
-                left: 50%;
+            .backButton {
+                margin-left: auto;
             }
+        }
+        .termList {
+            .termItem {
+                display: flex;
+                background-color: burlywood;
+                margin: 10px 0;
 
-            .answer {
-                text-align: end;
-            }
-            div {
-                flex: 1;
-                align-self: center !important;
+                .verticalRule {
+                    border-left: 1px solid black;
+                    background-color: aqua;
+                    height: 20px;
+                    position: absolute;
+                    left: 50%;
+                }
+
+                .answer {
+                    text-align: end;
+                }
+                div {
+                    flex: 1;
+                    align-self: center !important;
+                }
             }
         }
     }

@@ -47,22 +47,31 @@ hr {
 .main .lectureButton:active {
   background-color: rgb(243, 187, 149);
 }
-.main .termList .termItem {
+.main .lectureScreen .lectureTitle {
+  text-align: center;
+}
+.main .lectureScreen .lectureScreenButtons {
+  display: flex;
+}
+.main .lectureScreen .lectureScreenButtons .backButton {
+  margin-left: auto;
+}
+.main .lectureScreen .termList .termItem {
   display: flex;
   background-color: burlywood;
   margin: 10px 0;
 }
-.main .termList .termItem .verticalRule {
+.main .lectureScreen .termList .termItem .verticalRule {
   border-left: 1px solid black;
   background-color: aqua;
   height: 20px;
   position: absolute;
   left: 50%;
 }
-.main .termList .termItem .answer {
+.main .lectureScreen .termList .termItem .answer {
   text-align: end;
 }
-.main .termList .termItem div {
+.main .lectureScreen .termList .termItem div {
   flex: 1;
   align-self: center !important;
 }

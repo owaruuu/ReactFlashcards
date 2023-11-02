@@ -1,19 +1,11 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import TermItem from "./TermItem";
-import lectures from "../data/lectures";
 
-const TermList = () => {
+const TermList = (props) => {
     const { appState } = useContext(AppContext);
-    console.log(lectures);
 
-    const lectureId = appState.currentLecture;
-    const lecture = lectures.find((lecture) => {
-        return lecture.lectureId === lectureId;
-    });
-    console.log("🚀 ~ file: TermList.js:13 ~ lecture ~ lecture:", lecture);
-
-    const termItems = lecture.termList.map((term) => {
+    const termItems = props.lecture.termList.map((term) => {
         return (
             <TermItem
                 key={term.id}
@@ -23,8 +15,6 @@ const TermList = () => {
             ></TermItem>
         );
     });
-
-    // const terms = appState.currentLecture
 
     return <div className="termList">{termItems}</div>;
 };

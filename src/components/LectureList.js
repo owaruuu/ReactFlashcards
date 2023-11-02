@@ -15,13 +15,14 @@ const LectureList = (props) => {
                 amount={lecture.termList.length}
                 percentage={"50%"}
                 title={lecture.name}
+                lecture={lecture}
             />
         );
     });
 
     return (
         <>
-            <div>{JSON.stringify(props.progress)}</div>
+            {/* <div>{JSON.stringify(props.progress)}</div> */}
             <div>{lectureButtons}</div>
         </>
     );
