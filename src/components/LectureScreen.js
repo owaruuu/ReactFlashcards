@@ -2,7 +2,7 @@ import TermList from "./TermList";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
-import lectures from "../data/lectures";
+import { lectures } from "../data/lectures";
 
 const LectureScreen = () => {
     const { dispatch, appState } = useContext(AppContext);

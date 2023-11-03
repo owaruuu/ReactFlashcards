@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import LectureButton from "./LectureButton";
-import lectures from "../data/lectures";
+import { lectures } from "../data/lectures";
 import { AppContext } from "../context/AppContext";
 
 const LectureList = (props) => {
