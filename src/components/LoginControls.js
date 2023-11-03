@@ -4,9 +4,8 @@ import { connectCognito } from "../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
 
 const LoginControls = () => {
-    const { dispatch, cognito, cognitoError, init, loggedIn } =
+    const { dispatch, cognito, cognitoError, init, loggedIn, user } =
         useContext(AppContext);
-    console.log("🚀 ~ file: LoginControls.js:8 ~ LoginControls ~ init:", init);
 
     const [loggedin, setLoggedin] = useState(false);
     const [userName, setUserNAme] = useState("");
@@ -16,6 +15,10 @@ const LoginControls = () => {
     useEffect(() => {
         const loginStatus = async () => {
             const response = await connectCognito();
+            console.log(
+                "🚀 ~ file: LoginControls.js:19 ~ loginStatus ~ response:",
+                response
+            );
 
             //independiente de la respuesta, cambiar el estado de Init
             dispatch({ type: "SET_INIT", payload: true });
@@ -29,10 +32,19 @@ const LoginControls = () => {
             if (response.value === 0) {
                 return;
             }
-            //si llego aca significa que tengo el payload
-            dispatch({ type: "SET_LOG_STATUS", payload: true });
 
-            setUserNAme(response.value.email);
+            //si llego aca significa que tengo el payload
+            //TODO obtener progress de DB
+
+            dispatch({ type: "SET_LOG_STATUS", payload: true });
+            dispatch({
+                type: "SET_USER",
+                payload: {
+                    userName: response.value.email,
+                    currentProgress: null,
+                },
+            });
+            // setUserNAme(response.value.email);
         };
 
         loginStatus();
@@ -40,12 +52,36 @@ const LoginControls = () => {
 
     const errorMsg = <p>Server down. Trying again later.</p>;
 
-    const loggedInControls = <button>{userName}</button>;
+    const loggedInControls = <button>{user.userName}</button>;
 
     const loggedOutControls = (
         <>
-            <button>register</button>
-            <button>login</button>
+            {/* <button
+                onClick={() =>
+                    dispatch({
+                        type: "CHANGE_SCREEN",
+                        payload: {
+                            newScreen: "register",
+                            newLecture: null,
+                        },
+                    })
+                }
+            >
+                Register
+            </button> */}
+            <button
+                onClick={() =>
+                    dispatch({
+                        type: "CHANGE_SCREEN",
+                        payload: {
+                            newScreen: "login",
+                            newLecture: null,
+                        },
+                    })
+                }
+            >
+                Login
+            </button>
         </>
     );
 
