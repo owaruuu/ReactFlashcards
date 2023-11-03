@@ -1,9 +1,20 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 
 const LectureButton = (props) => {
-    const { dispatch, loaded, loggedIn, currentProgress } =
-        useContext(AppContext);
+    const { dispatch, loaded, loggedIn, user } = useContext(AppContext);
+    const [percentage, setPercentage] = useState(0);
+
+    useEffect(() => {
+        if (user.currentProgress) {
+            const lectureProgress = user.currentProgress[props.id];
+            console.log(
+                "🚀 ~ file: LectureButton.js:12 ~ useEffect ~ lectureProgress:",
+                lectureProgress
+            );
+        }
+    }, [user]);
+
     return (
         <div
             className="lectureButton"
@@ -20,20 +31,14 @@ const LectureButton = (props) => {
             <span>{props.amount} terms</span>
 
             {loggedIn ? (
-                currentProgress ? (
-                    <span>{props.percentage} learned</span>
+                user.currentProgress ? (
+                    <span>{percentage}% learned</span>
                 ) : (
-                    <span>loading</span>
+                    <span>loading...</span>
                 )
             ) : (
                 ""
             )}
-
-            {/* {loggedIn ? (
-                <span>{props.percentage} learned</span>
-            ) : (
-                <span>loading</span>
-            )} */}
 
             <span>{props.title}</span>
         </div>
