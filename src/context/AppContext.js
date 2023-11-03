@@ -2,6 +2,18 @@ import { createContext, useReducer } from "react";
 
 export const AppReducer = (state, action) => {
     switch (action.type) {
+        case "SET_INIT":
+            return { ...state, init: action.payload };
+        case "SET_COGNITO_ERROR":
+            // console.log("setting cognito error");
+            return { ...state, cognitoError: action.payload };
+        case "SET_LOADED":
+            //logica para cambiar el estado de loaded
+            return { ...state, loaded: action.payload };
+        case "SET_LOG_STATUS":
+            return { ...state, loggedIn: action.payload };
+        case "SET_USER":
+            return { ...state, user: action.payload };
         case "GREEN_TERM":
             //logica para cambiar un termino a 'learned'
             return null;
@@ -17,16 +29,7 @@ export const AppReducer = (state, action) => {
                     currentLecture: action.payload.newLecture,
                 },
             };
-        case "SET_LOADED":
-            //logica para cambiar el estado de loaded
-            return { ...state, loaded: action.payload };
-        case "SET_COGNITO_ERROR":
-            console.log("setting cognito error");
-            return { ...state, cognitoError: action.payload };
-        case "SET_INIT":
-            return { ...state, init: action.payload };
-        case "SET_LOG_STATUS":
-            return { ...state, loggedIn: action.payload };
+
         default:
             throw "wrong action type: " + action.type;
     }
@@ -39,7 +42,10 @@ const initialState = {
     cognito: false,
     loaded: false,
     loggedIn: false, //true si ya confirme que tengo tokens validos
-    currentProgress: null,
+    user: {
+        userName: "",
+        currentProgress: null,
+    },
     appState: { currentScreen: "main", currentLecture: null },
 };
 
@@ -56,7 +62,7 @@ export const AppProvider = (props) => {
                 cognito: state.cognito,
                 loaded: state.loaded,
                 loggedIn: state.loggedIn,
-                currentProgress: state.currentProgress,
+                user: state.user,
                 appState: state.appState,
                 dispatch,
             }}
