@@ -2,7 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext.js";
 import LectureList from "./LectureList.js";
 import LectureScreen from "./LectureScreen.js";
-import LearnScreen from "./LearnScreen.js";
+import LearnScreen from "./LearnScreen/LearnScreen.js";
+import LoginForm from "./LoginForm.js";
+import RegisterForm from "./RegisterForm.js";
 import { readFromLocal } from "../utils/utils";
 import axios from "axios";
 
@@ -77,6 +79,10 @@ const Main = () => {
                 <LectureScreen></LectureScreen>
             )}
             {appState.currentScreen === "learn" && <LearnScreen></LearnScreen>}
+            {appState.currentScreen === "login" && <LoginForm></LoginForm>}
+            {appState.currentScreen === "register" && (
+                <RegisterForm></RegisterForm>
+            )}
         </main>
     );
 };

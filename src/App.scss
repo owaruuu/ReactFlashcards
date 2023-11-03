@@ -28,6 +28,16 @@ hr {
     justify-content: center;
     align-items: center;
 
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
     .timer {
     }
 
@@ -97,19 +107,84 @@ hr {
             }
         }
     }
+
+    .learnScreen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .termCardSection {
+            display: flex;
+
+            button {
+                margin: 40px 0;
+
+                &:hover {
+                    background-color: brown;
+                }
+            }
+        }
+
+        .termCard {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            width: 700px;
+
+            background-color: blanchedalmond;
+            margin: 10px;
+            border-radius: 15px;
+            overflow: hidden;
+
+            div {
+                display: grid;
+            }
+
+            .term,
+            .answerSection {
+                font-size: clamp(1rem, 1rem + 2vw, 2rem);
+                flex: 1;
+                text-align: center;
+
+                span {
+                    align-self: center;
+                }
+            }
+
+            .answerSection {
+                flex: 1;
+                background-color: bisque;
+            }
+        }
+
+        .learnButtons {
+            button {
+                border: none;
+                margin: 0 25px;
+                padding: 20px 40px;
+            }
+            .learningButton {
+                background-color: rgb(225 183 167);
+
+                &:hover {
+                    background-color: rgb(216, 142, 113);
+                }
+            }
+
+            .learnedButton {
+                background-color: rgb(200 233 173);
+
+                &:hover {
+                    background-color: rgb(137, 199, 87);
+                }
+            }
+        }
+    }
 }
 
 .forms {
     display: flex;
     justify-content: space-around;
     padding: 0 50px 50px 50px;
-
-    .form {
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-    }
 }
 
 .footer {
