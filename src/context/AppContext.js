@@ -46,7 +46,7 @@ const initialState = {
         userName: "",
         currentProgress: null,
     },
-    appState: { currentScreen: "main", currentLecture: null },
+    appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
 };
 
 export const AppContext = createContext();
