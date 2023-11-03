@@ -2,11 +2,9 @@ import LoginControls from "./LoginControls";
 
 const LoginHeader = () => {
     return (
-        <>
-            <p className="save">saving</p>
-
+        <div className="loginControls">
             <LoginControls />
-        </>
+        </div>
     );
 };
 
