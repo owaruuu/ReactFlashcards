@@ -8,10 +8,24 @@ const LectureButton = (props) => {
     useEffect(() => {
         if (user.currentProgress) {
             const lectureProgress = user.currentProgress[props.id];
-            console.log(
-                "🚀 ~ file: LectureButton.js:12 ~ useEffect ~ lectureProgress:",
-                lectureProgress
-            );
+
+            if (lectureProgress) {
+                let learnedAmount = 0;
+
+                for (const [key, value] of Object.entries(lectureProgress)) {
+                    if (value === "learned") {
+                        learnedAmount += 1;
+                    }
+                }
+
+                setPercentage(
+                    Math.trunc(
+                        (learnedAmount / props.lecture.termList.length) * 100
+                    )
+                );
+            } else {
+                setPercentage(0);
+            }
         }
     }, [user]);
 

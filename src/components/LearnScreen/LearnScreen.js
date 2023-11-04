@@ -5,15 +5,28 @@ import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { lectures } from "../../data/lectures";
 
 const LearnScreen = () => {
-    const { dispatch, appState } = useContext(AppContext);
-    const [lecture, setLecture] = useState(() => {
-        return lectures.find(
-            (lecture) => lecture.lectureId === appState.currentLecture
-        );
-    });
+    const { dispatch, appState, user } = useContext(AppContext);
 
+    const currentLecture = lectures.find(
+        (lecture) => lecture.lectureId === appState.currentLecture
+    );
+
+    const [lecture, setLecture] = useState(currentLecture);
+    const [terms, setTerms] = useState(currentLecture.termList);
+    console.log("🚀 ~ file: LearnScreen.js:16 ~ LearnScreen ~ terms:", terms);
     const [index, setIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false);
+
+    console.log(
+        "🚀 ~ file: LearnScreen.js:9 ~ LearnScreen ~ user:",
+        user.currentProgress
+    );
+
+    {
+        //obtener id del current term
+        //dependiendo del boton, agregar o modificar el user.currentProgress
+        //con un valor de "learned" o 'learning'
+    }
 
     const goBack = () => {
         console.log("click back");
@@ -41,9 +54,67 @@ const LearnScreen = () => {
         setShowAnswer((prevState) => !prevState);
     };
 
+    const handleLearning = () => {
+        //obtener id del current term
+        const currentTermId = terms[index].id;
+
+        //dependiendo del boton, agregar o modificar el user.currentProgress
+        //con un valor de "learned" o 'learning'
+        dispatch({
+            type: "UPDATE_PROGRESS",
+            payload: {
+                currentProgress: {
+                    ...user.currentProgress,
+                    [lecture.lectureId]: {
+                        ...user.currentProgress[lecture.lectureId],
+                        [currentTermId]: "learning",
+                    },
+                },
+            },
+        });
+    };
+
+    const handleLearned = () => {
+        //obtener id del current term
+        const currentTermId = terms[index].id;
+
+        //dependiendo del boton, agregar o modificar el user.currentProgress
+        //con un valor de "learned" o 'learning'
+        dispatch({
+            type: "UPDATE_PROGRESS",
+            payload: {
+                currentProgress: {
+                    ...user.currentProgress,
+                    [lecture.lectureId]: {
+                        ...user.currentProgress[lecture.lectureId],
+                        [currentTermId]: "learned",
+                    },
+                },
+            },
+        });
+    };
+
+    const progressCells = terms.map((term) => {
+        // console.log(term.id);
+
+        const termState = user.currentProgress[lecture.lectureId][term.id];
+        console.log(
+            "🚀 ~ file: LearnScreen.js:101 ~ progressCells ~ termState:",
+            termState
+        );
+
+        if (termState) {
+            const className = `progressBarItem ${termState}`;
+            return <div key={term.id} className={className}></div>;
+        }
+
+        return <div key={term.id} className="progressBarItem"></div>;
+    });
+
     return (
         <div className="learnScreen">
             <h2>{lecture.name}</h2>
+            <div className="progressBar">{progressCells}</div>
             <div className="termCardSection">
                 <button onClick={goBack}>
                     <BiLeftArrow></BiLeftArrow>
@@ -59,23 +130,34 @@ const LearnScreen = () => {
                 </button>
             </div>
             <div className="learnButtons">
-                <button className="learningButton" onClick={handleLearning}>
+                <button
+                    // className="learningButton learning"
+                    className={
+                        user.currentProgress[lecture.lectureId][
+                            terms[index].id
+                        ] === "learning"
+                            ? "learningButton learning"
+                            : "learningButton"
+                    }
+                    onClick={handleLearning}
+                >
                     Learning
                 </button>
-                <button className="learnedButton" onClick={handleLearned}>
+                <button
+                    className={
+                        user.currentProgress[lecture.lectureId][
+                            terms[index].id
+                        ] === "learned"
+                            ? "learnedButton learned"
+                            : "learnedButton"
+                    }
+                    onClick={handleLearned}
+                >
                     Learned
                 </button>
             </div>
         </div>
     );
-};
-
-const handleLearning = () => {
-    console.log("handleLearning");
-};
-
-const handleLearned = () => {
-    console.log("handleLearned");
 };
 
 export default LearnScreen;
