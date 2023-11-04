@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
-import { connectCognito } from "../aws/aws";
+import { connectCognito, getUserProgress, quickScan } from "../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
 
 const LoginControls = () => {
@@ -34,17 +34,29 @@ const LoginControls = () => {
             }
 
             //si llego aca significa que tengo el payload
-            //TODO obtener progress de DB
 
             dispatch({ type: "SET_LOG_STATUS", payload: true });
+
             dispatch({
                 type: "SET_USER",
                 payload: {
                     userName: response.value.email,
-                    currentProgress: null,
                 },
             });
-            // setUserNAme(response.value.email);
+
+            //**obtener progreso desde db, usando el sub del token para filtrar**
+            const sub = response.value.sub;
+
+            const progress = await getUserProgress(sub);
+
+            if (progress) {
+                dispatch({
+                    type: "SET_USER",
+                    payload: {
+                        currentProgress: JSON.parse(progress),
+                    },
+                });
+            }
         };
 
         loginStatus();
