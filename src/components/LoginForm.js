@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
-import { aunthenticateUser, connectCognito } from "../aws/aws";
+import { aunthenticateUser, connectCognito, getUserProgress } from "../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
 
 function LoginForm() {
@@ -13,7 +13,6 @@ function LoginForm() {
     const [message, setMessage] = useState("");
     const [thinking, setThinking] = useState(false);
     const [login, setLogin] = useState(false);
-    console.log("🚀 ~ file: LoginForm.js:15 ~ LoginForm ~ login:", login);
 
     useEffect(() => {
         if (login) {
@@ -73,15 +72,27 @@ function LoginForm() {
             setLogin(true);
 
             //si llego aca significa que tengo el payload
-            //TODO obtener progress de DB
 
             dispatch({
                 type: "SET_USER",
                 payload: {
                     userName: response.value.email,
-                    currentProgress: null,
                 },
             });
+
+            //**obtener progreso desde db, usando el sub del token para filtrar**
+            const sub = response.value.sub;
+
+            const progress = await getUserProgress(sub);
+
+            if (progress) {
+                dispatch({
+                    type: "SET_USER",
+                    payload: {
+                        currentProgress: JSON.parse(progress),
+                    },
+                });
+            }
 
             // setThinking(false);
         } catch (error) {
