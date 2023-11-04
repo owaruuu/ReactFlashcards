@@ -5,15 +5,16 @@ export const AppReducer = (state, action) => {
         case "SET_INIT":
             return { ...state, init: action.payload };
         case "SET_COGNITO_ERROR":
-            // console.log("setting cognito error");
             return { ...state, cognitoError: action.payload };
         case "SET_LOADED":
-            //logica para cambiar el estado de loaded
             return { ...state, loaded: action.payload };
         case "SET_LOG_STATUS":
             return { ...state, loggedIn: action.payload };
         case "SET_USER":
-            return { ...state, user: action.payload };
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload },
+            };
         case "GREEN_TERM":
             //logica para cambiar un termino a 'learned'
             return null;
@@ -21,7 +22,6 @@ export const AppReducer = (state, action) => {
             //logica para cambiar un termino a 'learning'
             return null;
         case "CHANGE_SCREEN":
-            //logica para cambiar la pantalla
             return {
                 ...state,
                 appState: {
@@ -29,7 +29,8 @@ export const AppReducer = (state, action) => {
                     currentLecture: action.payload.newLecture,
                 },
             };
-
+        case "UPDATE_PROGRESS":
+            return { ...state, user: { ...state.user, ...action.payload } };
         default:
             throw "wrong action type: " + action.type;
     }
