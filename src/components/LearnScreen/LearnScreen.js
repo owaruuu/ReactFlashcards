@@ -94,21 +94,28 @@ const LearnScreen = () => {
         });
     };
 
-    const progressCells = terms.map((term) => {
+    const progressCells = terms.map((term, termIndex) => {
         // console.log(term.id);
 
-        const termState = user.currentProgress[lecture.lectureId][term.id];
+        let classNames = "progressBarItem";
+
+        const termState = user.currentProgress[lecture.lectureId]?.[term.id];
         console.log(
             "🚀 ~ file: LearnScreen.js:101 ~ progressCells ~ termState:",
             termState
         );
 
         if (termState) {
-            const className = `progressBarItem ${termState}`;
-            return <div key={term.id} className={className}></div>;
+            classNames += ` ${termState}`;
+            // const className = `progressBarItem ${termState}`;
+            return <div key={term.id} className={classNames}></div>;
         }
 
-        return <div key={term.id} className="progressBarItem"></div>;
+        if (termIndex == index) {
+            console.log("entre aqui");
+            classNames += " activeItem";
+        }
+        return <div key={term.id} className={classNames}></div>;
     });
 
     return (
@@ -133,7 +140,7 @@ const LearnScreen = () => {
                 <button
                     // className="learningButton learning"
                     className={
-                        user.currentProgress[lecture.lectureId][
+                        user.currentProgress[lecture.lectureId]?.[
                             terms[index].id
                         ] === "learning"
                             ? "learningButton learning"
@@ -145,7 +152,7 @@ const LearnScreen = () => {
                 </button>
                 <button
                     className={
-                        user.currentProgress[lecture.lectureId][
+                        user.currentProgress[lecture.lectureId]?.[
                             terms[index].id
                         ] === "learned"
                             ? "learnedButton learned"

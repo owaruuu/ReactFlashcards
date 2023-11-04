@@ -45,7 +45,7 @@ const initialState = {
     loggedIn: false, //true si ya confirme que tengo tokens validos
     user: {
         userName: "",
-        currentProgress: null,
+        currentProgress: {},
     },
     appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
 };
