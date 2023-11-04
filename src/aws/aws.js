@@ -37,3 +37,39 @@ export const aunthenticateUser = async (email, password) => {
         throw error;
     }
 };
+
+//gets the user progress from the db using his id
+//returns the progress string or
+export const getUserProgress = async (id) => {
+    console.log("🚀 ~ file: aws.js:42 ~ getUserProgress ~ id:", id);
+    try {
+        const response = await api.post("http://localhost:3003/progress", {
+            id,
+        });
+        console.log(
+            "🚀 ~ file: aws.js:47 ~ getUserProgress ~ response:",
+            response
+        );
+
+        if (response.data.value === -1) {
+            console.log("error trying to scan db");
+            return null;
+        }
+
+        return response.data.value.progress;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:51 ~ getUserProgress ~ error:", error);
+        return null;
+    }
+};
+
+export const quickScan = async () => {
+    try {
+        const response = await api.get("http://localhost:3003/scanTables");
+        console.log("🚀 ~ file: aws.js:61 ~ quickScan ~ response:", response);
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:64 ~ quickScan ~ error:", error);
+
+        return error;
+    }
+};
