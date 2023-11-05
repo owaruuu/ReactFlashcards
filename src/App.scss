@@ -11,6 +11,11 @@ hr {
     align-items: center;
     justify-content: space-between;
 
+    .infoHeader {
+        margin-right: auto;
+        margin-left: 20px;
+    }
+
     .save {
         padding-left: 5px;
         margin-right: auto;
@@ -126,6 +131,10 @@ hr {
                 border-top: #c9e4d0 solid;
                 border-bottom: #404040 solid;
                 border-width: 1px;
+            }
+
+            .activeItem {
+                border: #ffc107 2px inset;
             }
 
             .learning {
