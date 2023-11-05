@@ -107,8 +107,6 @@ const LearnScreen = () => {
 
         if (termState) {
             classNames += ` ${termState}`;
-            // const className = `progressBarItem ${termState}`;
-            return <div key={term.id} className={classNames}></div>;
         }
 
         if (termIndex == index) {
