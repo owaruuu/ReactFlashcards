@@ -9,6 +9,9 @@ export const connectCognito = async () => {
     try {
         const response = await api.get("http://localhost:3003/cognito");
 
+        if (response.data.value === -2) {
+            return { msg: "error with cognito server", value: -2 };
+        }
         return response.data;
     } catch (error) {
         // console.log("error with app server: ", error);
@@ -60,6 +63,48 @@ export const getUserProgress = async (id) => {
     } catch (error) {
         console.log("🚀 ~ file: aws.js:51 ~ getUserProgress ~ error:", error);
         return null;
+    }
+};
+
+export const saveUserProgress = async (currentProgress) => {
+    try {
+        //intento conectarme a mi servideor
+        const response = await api.post(
+            "http://localhost:3003/save",
+            currentProgress
+        );
+        console.log(
+            "🚀 ~ file: aws.js:47 ~ getUserProgress ~ response:",
+            response
+        );
+
+        //si el servidor esta vivo no tengo tokens
+        if (response.data.value === -2) {
+            console.log("error con mis tokens");
+            return {
+                msg: "error con mi refresh token, deberia relogear",
+                value: -2,
+            };
+        }
+
+        //si el servidor esta vivo pero la base de datos no lo esta
+        if (response.data.value === -1) {
+            console.log("error trying to scan db");
+            return {
+                msg: "Error trying to scan db, intentandolo mas tarde",
+                value: -1,
+            };
+        }
+
+        return response;
+    } catch (error) {
+        //si el servidor tiene un problema, necesito mandar una mensaje explicativo
+        //y resetiar el save flag
+        console.log("🚀 ~ file: aws.js:80 ~ saveUserProgress ~ error:", error);
+        return {
+            msg: "error en el servidor, intentandolo mas tarde.",
+            value: null,
+        };
     }
 };
 
