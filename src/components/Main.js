@@ -52,10 +52,9 @@ const setInitialState = async () => {
 };
 
 const Main = () => {
-    // const [progress, setProgress] = useState({});
     const [percentage, setPercentage] = useState(0);
-    // const [loaded, setLoaded] = useState(false);
     const { dispatch, appState } = useContext(AppContext);
+
     // const [appState, setAppState] = useState({ currentScreen: "lectures" });
 
     const calculatePercentage = () => {

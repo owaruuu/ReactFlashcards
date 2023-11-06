@@ -1,8 +1,21 @@
 const TermItem = (props) => {
+    const term = () => {
+        if (props.extra) {
+            return (
+                <div>
+                    {props.term} ({props.extra})
+                </div>
+            );
+        } else {
+            return <div>{props.term}</div>;
+        }
+    };
+
     return (
         <div className="termItem">
             <div>
-                {props.term} ({props.extra})
+                {term()}
+                {/* {props.term} ({props.extra}) */}
             </div>
             <div className="verticalRule"></div>
             <div className="answer">{props.answer}</div>

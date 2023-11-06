@@ -1,8 +1,25 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import BackButton from "./BackButton";
 
 const LectureScreenButtons = () => {
-    const { dispatch, appState } = useContext(AppContext);
+    const { dispatch, appState, dbError, user } = useContext(AppContext);
+
+    const learnButton = (
+        <button
+            onClick={() =>
+                dispatch({
+                    type: "CHANGE_SCREEN",
+                    payload: {
+                        currentScreen: "learn",
+                    },
+                })
+            }
+        >
+            Learn
+        </button>
+    );
+
     return (
         <div className="lectureScreenButtons">
             <button
@@ -10,38 +27,17 @@ const LectureScreenButtons = () => {
                     dispatch({
                         type: "CHANGE_SCREEN",
                         payload: {
-                            newScreen: "learn",
-                            newLecture: appState.currentLecture,
+                            currentScreen: "learn",
                         },
                     })
                 }
             >
                 Quick Watch
             </button>
-            <button
-                onClick={() =>
-                    dispatch({
-                        type: "CHANGE_SCREEN",
-                        payload: {
-                            newScreen: "learn",
-                            newLecture: appState.currentLecture,
-                        },
-                    })
-                }
-            >
-                Learn
-            </button>
-            <button
-                className="backButton"
-                onClick={() =>
-                    dispatch({
-                        type: "CHANGE_SCREEN",
-                        payload: { newScreen: "main", newLecture: null },
-                    })
-                }
-            >
-                go back
-            </button>
+            {user.currentProgress && learnButton}
+            <BackButton
+                options={{ currentScreen: "main", currentLecture: null }}
+            />
         </div>
     );
 };
