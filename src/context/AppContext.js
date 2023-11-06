@@ -6,6 +6,10 @@ export const AppReducer = (state, action) => {
             return { ...state, init: action.payload };
         case "SET_COGNITO_ERROR":
             return { ...state, cognitoError: action.payload };
+        case "SET_SERVER_ERROR":
+            return { ...state, serverError: action.payload };
+        case "SET_DB_ERROR":
+            return { ...state, dbError: action.payload };
         case "SET_LOADED":
             return { ...state, loaded: action.payload };
         case "SET_LOG_STATUS":
@@ -25,12 +29,18 @@ export const AppReducer = (state, action) => {
             return {
                 ...state,
                 appState: {
-                    currentScreen: action.payload.newScreen,
-                    currentLecture: action.payload.newLecture,
+                    ...state.appState,
+                    ...action.payload,
                 },
             };
         case "UPDATE_PROGRESS":
-            return { ...state, user: { ...state.user, ...action.payload } };
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload },
+                needToSave: true,
+            };
+        case "SET_SAVE_FLAG":
+            return { ...state, needToSave: action.payload };
         default:
             throw "wrong action type: " + action.type;
     }
@@ -39,15 +49,18 @@ export const AppReducer = (state, action) => {
 //Crear un initial state leyendo de la base de datos o localStorage
 const initialState = {
     init: false, //true despues de haber intentado conectarse a cognito
-    cognitoError: false,
+    cognitoError: false, //para fallas con el servicio de cognito
     cognito: false,
+    serverError: false, //para fallas con mi server de Render.com
     loaded: false,
     loggedIn: false, //true si ya confirme que tengo tokens validos
     user: {
         userName: "",
-        currentProgress: {},
+        currentProgress: null,
     },
     appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
+    needToSave: false,
+    dbError: false,
 };
 
 export const AppContext = createContext();
@@ -61,10 +74,13 @@ export const AppProvider = (props) => {
                 init: state.init,
                 cognitoError: state.cognitoError,
                 cognito: state.cognito,
+                serverError: state.serverError,
                 loaded: state.loaded,
                 loggedIn: state.loggedIn,
                 user: state.user,
                 appState: state.appState,
+                needToSave: state.needToSave,
+                dbError: state.dbError,
                 dispatch,
             }}
         >
