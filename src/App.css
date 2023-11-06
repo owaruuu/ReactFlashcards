@@ -1,29 +1,92 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Gidugu";
+  src: url("../assets/fonts/Gidugu/Gidugu-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noto_Serif";
+  src: url("../assets/fonts/Noto_Serif/NotoSerif-VariableFont_wdth,wght.ttf") format("truetype");
+}
 hr {
-  border-top: 1px solid red;
+  border-top: 4px solid #ab071d !important;
+  opacity: 1 !important;
+}
+
+h1 {
+  color: #f5fcff !important;
+}
+
+a {
+  color: #ff9b31 !important;
 }
 
 .App {
-  margin: 20px;
+  background-color: #032745;
+  font-family: メイリオ, Meiryo !important;
+}
+
+.divider {
+  margin-top: 50px;
+  height: 30px;
+  background-color: #ab071d;
+}
+.divider .logo {
+  width: 83px;
+  position: relative;
+  left: 50%;
+  top: -31px;
+  filter: invert(100%);
 }
 
 .header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color: #f5fcff;
+  padding-top: 20px;
+}
+.header .logo {
+  color: white;
+  width: 20px;
+}
+.header .pageTitle {
+  font-family: "Gidugu";
+  text-transform: uppercase;
+  font-size: clamp(4rem, 1rem + 6vw, 5rem);
 }
 .header .infoHeader {
-  margin-right: auto;
-  margin-left: 20px;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .header .infoHeader {
+    margin-right: auto;
+    margin-left: 20px;
+  }
 }
 .header .save {
   padding-left: 5px;
   margin-right: auto;
 }
+.header .loginControls {
+  padding: 0 10px;
+  text-align: center;
+}
 .header .not-logged {
   color: red;
 }
+.header p {
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    padding: 0 20px;
+  }
+}
 
 .main {
+  overflow: hidden;
   min-height: 70vh;
   display: flex;
   flex-direction: column;
@@ -44,21 +107,50 @@ hr {
 }
 .main .lectureButton {
   display: flex;
-  background-color: antiquewhite;
-  height: 50px;
-  width: 500px;
-  border: 1px solid black;
-  border-radius: 15px;
+  flex-direction: column;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  width: 76vw;
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
   margin: 10px 0;
+  padding: 10px 0;
   justify-content: space-around;
   align-items: center;
   cursor: pointer;
+}
+.main .lectureButton .set-buttons-helper {
+  font-size: clamp(0.4rem, 0.5rem + 1vw, 2rem);
+}
+.main .lectureButton span {
+  font-size: clamp(1rem, 1rem + 2vw, 2rem);
 }
 .main .lectureButton:hover {
   background-color: rgb(245, 215, 176);
 }
 .main .lectureButton:active {
   background-color: rgb(243, 187, 149);
+}
+.main .lectureButton:nth-of-type(odd) {
+  margin-left: 15px;
+}
+.main .lectureButton:nth-of-type(even) {
+  margin-right: 15px;
+}
+@media (min-width: 768px) {
+  .main .lectureButton {
+    flex-direction: row;
+  }
+  .main .lectureButton .set-buttons-helper {
+    font-size: clamp(1rem, 1rem + 2vw, 2rem);
+  }
+  .main .lectureButton:nth-of-type(odd) {
+    margin-left: 30px;
+  }
+  .main .lectureButton:nth-of-type(even) {
+    margin-right: 30px;
+  }
 }
 .main .lectureScreen .lectureTitle {
   text-align: center;
@@ -93,6 +185,9 @@ hr {
   flex-direction: column;
   align-items: center;
 }
+.main .learnScreen .backButton {
+  margin-left: auto;
+}
 .main .learnScreen .progressBar {
   display: flex;
   background-color: #70706f;
@@ -125,32 +220,83 @@ hr {
 .main .learnScreen .termCardSection button:hover {
   background-color: brown;
 }
-.main .learnScreen .termCard {
+.main .learnScreen .termCardDiv {
+  width: 70vw;
+  height: 50vh;
+  position: relative;
+}
+.main .learnScreen .termCardDiv .termCard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
-  height: 400px;
-  width: 700px;
   background-color: blanchedalmond;
   margin: 10px;
   border-radius: 15px;
   overflow: hidden;
 }
-.main .learnScreen .termCard div {
+.main .learnScreen .termCardDiv .termCard div {
   display: grid;
 }
-.main .learnScreen .termCard .term,
-.main .learnScreen .termCard .answerSection {
+.main .learnScreen .termCardDiv .termCard .term,
+.main .learnScreen .termCardDiv .termCard .answerSection {
   font-size: clamp(1rem, 1rem + 2vw, 2rem);
   flex: 1;
   text-align: center;
 }
-.main .learnScreen .termCard .term span,
-.main .learnScreen .termCard .answerSection span {
+.main .learnScreen .termCardDiv .termCard .term span,
+.main .learnScreen .termCardDiv .termCard .answerSection span {
   align-self: center;
 }
-.main .learnScreen .termCard .answerSection {
+.main .learnScreen .termCardDiv .termCard .answerSection {
   flex: 1;
-  background-color: bisque;
+}
+.main .learnScreen .termCardDiv .disappear-right {
+  animation-name: disappear-right;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes disappear-right {
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(400px) translateY(-40px) scale(1.02) rotateZ(5deg) rotateY(50deg) rotateX(20deg);
+    background-color: #d5af89;
+  }
+  100% {
+    transform: translateX(400px) translateY(-40px) scale(1.02);
+    opacity: 0;
+  }
+}
+.main .learnScreen .termCardDiv .disappear-left {
+  animation-name: disappear-left;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes disappear-left {
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(-400px) translateY(-40px) scale(1.02) rotateZ(-5deg) rotateY(50deg) rotateX(-20deg);
+    background-color: #d5af89;
+  }
+  100% {
+    transform: translateX(-400px) translateY(-40px) scale(1.02);
+    opacity: 0;
+  }
 }
 .main .learnScreen .learnButtons button {
   border: none;
@@ -182,4 +328,22 @@ hr {
   display: flex;
   justify-content: space-around;
   padding: 0 50px 50px 50px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #f5fcff;
+}
+@media (min-width: 768px) {
+  footer {
+    height: 100px;
+    flex-direction: row;
+    padding-right: 20px;
+    align-items: center;
+  }
+  footer :first-child {
+    margin-left: auto;
+  }
 }/*# sourceMappingURL=App.css.map */
