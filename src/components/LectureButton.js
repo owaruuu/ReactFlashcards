@@ -2,7 +2,15 @@ import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 
 const LectureButton = (props) => {
-    const { dispatch, loaded, loggedIn, user } = useContext(AppContext);
+    const {
+        dispatch,
+        loaded,
+        loggedIn,
+        user,
+        dbError,
+        serverError,
+        cognitoError,
+    } = useContext(AppContext);
     const [percentage, setPercentage] = useState(0);
 
     useEffect(() => {
@@ -29,6 +37,18 @@ const LectureButton = (props) => {
         }
     }, [user]);
 
+    const progressPercentage = () => {
+        if (serverError || cognitoError || !loggedIn || dbError) {
+            return "";
+        }
+
+        if (user.currentProgress) {
+            return <span>{percentage}% learned</span>;
+        } else {
+            return <span>loading...</span>;
+        }
+    };
+
     return (
         <div
             className="lectureButton"
@@ -36,23 +56,23 @@ const LectureButton = (props) => {
                 dispatch({
                     type: "CHANGE_SCREEN",
                     payload: {
-                        newScreen: "lecture",
-                        newLecture: props.id,
+                        currentScreen: "lecture",
+                        currentLecture: props.id,
                     },
                 })
             }
         >
-            <span>{props.amount} terms</span>
+            <span className="set-buttons-helper">{props.amount} terms</span>
 
-            {loggedIn ? (
-                user.currentProgress ? (
-                    <span>{percentage}% learned</span>
-                ) : (
-                    <span>loading...</span>
-                )
-            ) : (
+            {progressPercentage()}
+
+            {/* {dbError ? (
                 ""
-            )}
+            ) : user.currentProgress ? (
+                <span>{percentage}% learned</span>
+            ) : (
+                <span>loading...</span>
+            )} */}
 
             <span>{props.title}</span>
         </div>
