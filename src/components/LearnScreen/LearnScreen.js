@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import TermCard from "./TermCard";
 import DisappearingCard from "./DisappearingCard";
-import BackButton from "../BackButton";
+import LearnPanel from "./LearnPanel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { lectures } from "../../data/lectures";
 
@@ -21,25 +21,53 @@ const LearnScreen = () => {
     const [blocked, setBlocked] = useState(false);
 
     const removeDisappearingCard = (id) => {
-        setDisappearingCards((prevCards) =>
-            prevCards.filter((card) => {
-                console.log(card.key, id);
-                return Number(card.key) !== id;
-            })
+        console.log(
+            "🚀 ~ file: LearnScreen.js:24 ~ removeDisappearingCard ~ id:",
+            typeof id
         );
+        // console.log("im trying to remove a dead disappeared card");
+        const now = new Date().getTime();
+
+        setDisappearingCards((prevCards) => {
+            console.log(
+                "this is the state of disappearingCards now: ",
+                prevCards
+            );
+            return prevCards.filter((card) => {
+                console.log(
+                    "🚀 ~ file: LearnScreen.js:37 ~ returnprevCards.filter ~ card:",
+                    typeof card.props.id
+                );
+                // console.log(card.key, id);
+                return card.props.id !== id;
+            });
+
+            return prevCards.filter((card) => {
+                const diff = now - card.props.timeStamp;
+                return diff < 999;
+            });
+        });
     };
 
     const goBack = () => {
-        console.log("click back");
         setShowAnswer(false);
 
+        const now = new Date().getTime();
+        const uniqueKey = `${index}-${now}`;
+
+        console.log(
+            "🚀 ~ file: LearnScreen.js:38 ~ goBack ~ uniqueKey:",
+            uniqueKey
+        );
         setDisappearingCards([
             <DisappearingCard
-                key={index}
+                key={uniqueKey}
                 terms={lecture.termList}
                 index={index}
+                id={uniqueKey}
+                timeStamp={now}
                 showAnswer={showAnswer}
-                killFunc={() => removeDisappearingCard(index)}
+                killFunc={() => removeDisappearingCard(uniqueKey)}
                 direction={" disappear-right"}
             />,
             ...disappearingCards,
@@ -48,20 +76,26 @@ const LearnScreen = () => {
         if (index - 1 < 0) {
             setIndex(lecture.termList.length - 1);
         } else {
-            setIndex((prevIndex) => prevIndex - 1);
+            // setIndex((prevIndex) => prevIndex - 1);
+            setIndex(index - 1);
         }
     };
 
     const goForward = () => {
         setShowAnswer(false);
 
+        const now = new Date().getTime();
+        const uniqueKey = `${index}-${now}`;
+
         setDisappearingCards([
             <DisappearingCard
-                key={index}
+                key={uniqueKey}
                 terms={lecture.termList}
                 index={index}
+                id={uniqueKey}
+                timeStamp={now}
                 showAnswer={showAnswer}
-                killFunc={() => removeDisappearingCard(index)}
+                killFunc={() => removeDisappearingCard(uniqueKey)}
                 direction={" disappear-left"}
             />,
             ...disappearingCards,
@@ -70,7 +104,7 @@ const LearnScreen = () => {
         if (index + 1 > lecture.termList.length - 1) {
             setIndex(0);
         } else {
-            setIndex((prevIndex) => prevIndex + 1);
+            setIndex(index + 1);
         }
     };
 
@@ -144,13 +178,13 @@ const LearnScreen = () => {
 
     return (
         <div className="learnScreen">
-            <h2>{lecture.name}</h2>
-            <BackButton options={{ currentScreen: "lecture" }} />
+            <h2 className="learnScreenTitle">{lecture.name}</h2>
+            <LearnPanel terms={terms} index={index} />
             {user.currentProgress && (
                 <div className="progressBar">{progressCells}</div>
             )}
             <div className="termCardSection">
-                <button onClick={goBack}>
+                <button className="termCardButtonDesktop" onClick={goBack}>
                     <BiLeftArrow></BiLeftArrow>
                 </button>
                 <div className="termCardDiv">
@@ -162,8 +196,15 @@ const LearnScreen = () => {
                     />
                     {disappearingCards}
                 </div>
-
-                <button onClick={goForward}>
+                <button className="termCardButtonDesktop" onClick={goForward}>
+                    <BiRightArrow></BiRightArrow>
+                </button>
+            </div>
+            <div className="mobileTermButtons">
+                <button className="termCardButtonMobile" onClick={goBack}>
+                    <BiLeftArrow></BiLeftArrow>
+                </button>
+                <button className="termCardButtonMobile" onClick={goForward}>
                     <BiRightArrow></BiRightArrow>
                 </button>
             </div>
