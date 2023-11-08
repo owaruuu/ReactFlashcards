@@ -90,7 +90,7 @@ const LoginControls = () => {
 
     const loggedInControls = (
         <>
-            <button onClick={logout}>Logout</button>
+            {/* <button onClick={logout}>Logout</button> */}
             <div className="username">{user.userName}</div>
         </>
     );
@@ -111,12 +111,12 @@ const LoginControls = () => {
                 Register
             </button> */}
             <button
+                className="loginButton"
                 onClick={() =>
                     dispatch({
                         type: "CHANGE_SCREEN",
                         payload: {
-                            newScreen: "login",
-                            newLecture: null,
+                            currentScreen: "login",
                         },
                     })
                 }
