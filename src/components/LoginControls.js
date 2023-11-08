@@ -15,10 +15,7 @@ const LoginControls = () => {
         serverError,
     } = useContext(AppContext);
 
-    const [loggedin, setLoggedin] = useState(false);
-    const [userName, setUserNAme] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    // const [loaded, setUserNAme] = useState(false);
 
     //intento hacer login
     useEffect(() => {
@@ -85,9 +82,18 @@ const LoginControls = () => {
         loginStatus();
     }, []);
 
+    const logout = () => {
+        console.log("log out");
+    };
+
     const errorMsg = <p>{errorMessage}</p>;
 
-    const loggedInControls = <button>{user.userName}</button>;
+    const loggedInControls = (
+        <>
+            <button onClick={logout}>Logout</button>
+            <div className="username">{user.userName}</div>
+        </>
+    );
 
     const loggedOutControls = (
         <>
@@ -140,20 +146,7 @@ const LoginControls = () => {
         }
     };
 
-    return (
-        <>
-            {controls()}
-            {/* {!init ? (
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            ) : loggedIn ? (
-                loggedInControls
-            ) : (
-                loggedOutControls
-            )} */}
-        </>
-    );
+    return <>{controls()}</>;
 };
 
 export default LoginControls;

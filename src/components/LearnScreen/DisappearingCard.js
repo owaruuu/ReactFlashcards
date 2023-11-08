@@ -2,32 +2,49 @@ import { useEffect } from "react";
 
 const DisappearingCard = (props) => {
     useEffect(() => {
-        console.log(props);
         const timer = setTimeout(() => {
-            props.killFunc(props.id);
-        }, 1000);
+            props.killFunc();
+        }, 300);
         return () => clearTimeout(timer);
     }, []);
 
     let classNames = "termCard";
     classNames += props.direction;
 
-    return (
+    const termComp = (
+        <span>
+            {props.terms[props.index].term}
+            {props.terms[props.index].extra && " - "}
+            {props.terms[props.index].extra}
+        </span>
+    );
+
+    const answerComp = (
+        <div>
+            <span>{props.terms[props.index].answer}</span>
+        </div>
+    );
+
+    let termContent, answerContent;
+
+    const fillContent = () => {
+        if (props.flipped) {
+            termContent = answerComp;
+            answerContent = termComp;
+        } else {
+            termContent = termComp;
+            answerContent = answerComp;
+        }
+    };
+
+    fillContent();
+
+    const card = (
         <div className={classNames}>
-            <div className="term">
-                <span>
-                    {props.terms[props.index].term}
-                    {props.terms[props.index].extra && " - "}
-                    {props.terms[props.index].extra}
-                </span>
-            </div>
-            <hr></hr>
+            <div className="term">{termContent}</div>
+            <div className="divider"></div>
             <div className="answerSection">
-                {props.showAnswer && (
-                    <div>
-                        <span>{props.terms[props.index].answer}</span>
-                    </div>
-                )}
+                {props.showAnswer && answerContent}
 
                 {!props.showAnswer && (
                     <div>
@@ -37,6 +54,8 @@ const DisappearingCard = (props) => {
             </div>
         </div>
     );
+
+    return card;
 };
 
 export default DisappearingCard;

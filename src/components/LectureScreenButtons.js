@@ -5,6 +5,22 @@ import BackButton from "./BackButton";
 const LectureScreenButtons = () => {
     const { dispatch, appState, dbError, user } = useContext(AppContext);
 
+    const reviewButton = (
+        <button
+            className="reviewButton"
+            onClick={() =>
+                dispatch({
+                    type: "CHANGE_SCREEN",
+                    payload: {
+                        currentScreen: "review",
+                    },
+                })
+            }
+        >
+            Review
+        </button>
+    );
+
     const learnButton = (
         <button
             onClick={() =>
@@ -22,18 +38,7 @@ const LectureScreenButtons = () => {
 
     return (
         <div className="lectureScreenButtons">
-            <button
-                onClick={() =>
-                    dispatch({
-                        type: "CHANGE_SCREEN",
-                        payload: {
-                            currentScreen: "learn",
-                        },
-                    })
-                }
-            >
-                Quick Watch
-            </button>
+            {reviewButton}
             {user.currentProgress && learnButton}
             <BackButton
                 options={{ currentScreen: "main", currentLecture: null }}

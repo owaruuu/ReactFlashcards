@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
 import { lectures } from "../data/lectures";
+import svg from "../svg/cherry-blossom-petal.svg";
 
 const LectureScreen = () => {
     const { dispatch, appState } = useContext(AppContext);
@@ -14,9 +15,29 @@ const LectureScreen = () => {
 
     return (
         <div className="lectureScreen">
-            <h2 className="lectureTitle">{lecture.name}</h2>
+            <h2 id="title" className="lectureTitle" string={lecture.name}>
+                {lecture.name}
+            </h2>
             <LectureScreenButtons />
-            <TermList lecture={lecture}></TermList>
+            <div
+                className="divider"
+                style={{
+                    marginBottom: "25px",
+                }}
+            >
+                <img
+                    className="logo"
+                    src={svg}
+                    style={{
+                        width: "68px",
+                        top: "-26px",
+                        marginLeft: "calc(50% - 34px)",
+                    }}
+                ></img>
+            </div>
+            <div className="termListDiv">
+                <TermList lecture={lecture}></TermList>
+            </div>
         </div>
     );
 };
