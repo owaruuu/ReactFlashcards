@@ -62,19 +62,12 @@ const LectureButton = (props) => {
                 })
             }
         >
-            <span className="set-buttons-helper">{props.amount} terms</span>
+            <div className="set-buttons-helper">
+                <span>{props.amount} terms</span>
+                {progressPercentage()}
+            </div>
 
-            {progressPercentage()}
-
-            {/* {dbError ? (
-                ""
-            ) : user.currentProgress ? (
-                <span>{percentage}% learned</span>
-            ) : (
-                <span>loading...</span>
-            )} */}
-
-            <span>{props.title}</span>
+            <span className="lectureButtonTitle">{props.title}</span>
         </div>
     );
 };

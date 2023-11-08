@@ -78,6 +78,9 @@ const Main = () => {
                 <LectureScreen></LectureScreen>
             )}
             {appState.currentScreen === "learn" && <LearnScreen></LearnScreen>}
+            {appState.currentScreen === "review" && (
+                <LearnScreen isReview={true}></LearnScreen>
+            )}
             {appState.currentScreen === "login" && <LoginForm></LoginForm>}
             {appState.currentScreen === "register" && (
                 <RegisterForm></RegisterForm>

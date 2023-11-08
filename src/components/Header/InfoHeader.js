@@ -49,7 +49,7 @@ const InfoHeader = () => {
             if (response.value === -1) {
                 dispatch({ type: "SET_DB_ERROR", payload: true });
                 setInfo(
-                    "Hubo un error con la base de datos, intendolo denuevo mas tarde..."
+                    "Hubo un error con la base de datos, intentandolo denuevo mas tarde..."
                 );
                 dispatch({ type: "SET_SAVE_FLAG", payload: true });
                 return;
@@ -76,7 +76,7 @@ const InfoHeader = () => {
     const component = (
         <div className="infoHeader">
             <div>{info}</div>
-            <div>timer: {timeSinceLastSave}</div>
+            {/* <div>timer: {timeSinceLastSave}</div> */}
         </div>
     );
 

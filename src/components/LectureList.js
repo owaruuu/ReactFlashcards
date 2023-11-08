@@ -21,10 +21,11 @@ const LectureList = (props) => {
     });
 
     return (
-        <>
+        <div className="lectureList">
             {/* <div>{JSON.stringify(props.progress)}</div> */}
+            <h2 className="lectureListTitle">Set List</h2>
             <div>{lectureButtons}</div>
-        </>
+        </div>
     );
 };
 
