@@ -20,11 +20,18 @@ const InfoHeader = () => {
         serverError,
     } = useContext(AppContext);
     const [timeSinceLastSave, setTimeSinceLastSave] = useState(0);
+    const [saveError, setSaveError] = useState(false);
     const [info, setInfo] = useState("");
 
     const updateCounter = () => {
         setTimeSinceLastSave((lastTime) => lastTime + 1);
     };
+
+    useEffect(() => {
+        if (loggedIn) {
+            setInfo("");
+        }
+    }, [loggedIn]);
 
     //ocupo un effect porque el intervalo necesita clean up
     useEffect(() => {
@@ -54,18 +61,28 @@ const InfoHeader = () => {
                     "Server error, trying again in a few seconds, do NOT refresh the page..."
                 );
                 dispatch({ type: "SET_SAVE_FLAG", payload: true });
-                dispatch({ type: "SET_DB_ERROR", payload: true });
+                // dispatch({ type: "SET_DB_ERROR", payload: true });
+                setSaveError(true);
                 return;
             }
 
+            //necesito un caso para cuando no estoy logeado
+            // if (response.value === -3) {
+            //     dispatch({ type: "SET_LOG_STATUS", payload: false });
+            //     setInfo("Credentials invalid, please login again");
+            //     return;
+            // }
+
             if (response.value === -2) {
                 dispatch({ type: "SET_LOG_STATUS", payload: false });
-                setInfo("credentials invalid, please login again");
+                setInfo("Credentials invalid, please login again");
+                setSaveError(true);
                 return;
             }
 
             if (response.value === -1) {
-                dispatch({ type: "SET_DB_ERROR", payload: true });
+                // dispatch({ type: "SET_DB_ERROR", payload: true });
+                setSaveError(true);
                 setInfo(
                     "Database error, trying again in a few seconds, do NOT refresh the page..."
                 );
@@ -73,7 +90,8 @@ const InfoHeader = () => {
                 return;
             }
             //dependiendo de la respuesta puede que cambie el estado del save flag
-            dispatch({ type: "SET_DB_ERROR", payload: false });
+            // dispatch({ type: "SET_DB_ERROR", payload: false });
+            setSaveError(false);
             setInfo("Saved.");
         };
 
@@ -101,9 +119,9 @@ const InfoHeader = () => {
 
     return (
         <>
-            {loggedIn && component}
+            {component}
 
-            {dbError ? (
+            {saveError ? (
                 <>
                     <div
                         className="dbError"
