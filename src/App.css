@@ -20,6 +20,30 @@ a {
   color: #ff9b31 !important;
 }
 
+.modal-body {
+  padding-bottom: 30px !important;
+}
+
+.modal-header {
+  background-color: #ab071d;
+  color: white;
+  border-bottom: 4px solid #032745;
+}
+.modal-header button {
+  filter: invert(1);
+  opacity: 0.8;
+}
+.modal-header button:hover {
+  opacity: 1 !important;
+}
+
+.form-check .form-check-label {
+  font-weight: 500;
+}
+.form-check p {
+  padding-left: 10px;
+}
+
 .App {
   background-color: #032745;
   font-family: メイリオ, Meiryo !important;
@@ -31,9 +55,9 @@ a {
   background-color: #ab071d;
 }
 .divider .logo {
-  width: 83px;
+  width: 84px;
   position: relative;
-  left: 50%;
+  margin-left: calc(50% - 42px);
   top: -31px;
   filter: invert(100%);
 }
@@ -44,7 +68,6 @@ a {
   align-items: center;
   justify-content: space-between;
   color: #f5fcff;
-  padding-top: 20px;
 }
 .header .logo {
   color: white;
@@ -53,7 +76,9 @@ a {
 .header .pageTitle {
   font-family: "Gidugu";
   text-transform: uppercase;
-  font-size: clamp(4rem, 1rem + 6vw, 5rem);
+  font-size: clamp(3rem, 1rem + 6vw, 5rem);
+  text-align: center;
+  cursor: pointer;
 }
 .header .infoHeader {
   margin: 0;
@@ -69,8 +94,47 @@ a {
   margin-right: auto;
 }
 .header .loginControls {
+  display: flex;
+  flex-direction: column-reverse;
   padding: 0 10px;
   text-align: center;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .header .loginControls {
+    padding: 0;
+    flex-direction: row;
+  }
+  .header .loginControls button {
+    border: none;
+    background-color: #032745;
+    color: #f5fcff;
+    margin-right: 15px;
+  }
+  .header .loginControls button:hover {
+    color: #f5b64e;
+  }
+  .header .loginControls .username {
+    background: #ab071d;
+    color: white;
+    border-style: none;
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 20px;
+    align-self: center;
+  }
+  .header .loginControls .yellowBar {
+    position: relative;
+    left: 400px;
+    background-color: #f5b64e;
+    height: 3px;
+    width: 100%;
+    transition: 0.4s;
+    transition-timing-function: ease;
+  }
+  .header .loginControls:hover .yellowBar {
+    left: 0px;
+  }
 }
 .header .not-logged {
   color: red;
@@ -81,7 +145,7 @@ a {
 @media (min-width: 768px) {
   .header {
     flex-direction: row;
-    padding: 0 20px;
+    padding-left: 20px;
   }
 }
 
@@ -90,7 +154,6 @@ a {
   min-height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 .main .form {
@@ -102,29 +165,60 @@ a {
   display: flex;
   flex-direction: column;
 }
+.main .lectureList {
+  width: 100%;
+}
+.main .lectureList .lectureListTitle {
+  text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  font-size: 3rem;
+  margin-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .main .lectureList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .main .content {
   display: flex;
 }
 .main .lectureButton {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+  grid-template-areas: "info" "name" ".";
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
-  width: 76vw;
-  border: 3px solid #f5b64e;
-  border-radius: 100px;
-  margin: 10px 0;
+  width: 100%;
+  border-top: 3px solid #dbb01c;
+  border-bottom: 3px solid #dbb01c;
+  margin: 15px 0;
   padding: 10px 0;
   justify-content: space-around;
   align-items: center;
   cursor: pointer;
 }
 .main .lectureButton .set-buttons-helper {
-  font-size: clamp(0.4rem, 0.5rem + 1vw, 2rem);
+  display: flex;
+  justify-content: space-between;
+  grid-area: info;
+  font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
 }
-.main .lectureButton span {
-  font-size: clamp(1rem, 1rem + 2vw, 2rem);
+.main .lectureButton .lectureButtonTitle {
+  font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
+  grid-area: name;
+  margin-top: 4px;
+}
+@media (min-width: 768px) {
+  .main .lectureButton .lectureButtonTitle {
+    font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+  }
 }
 .main .lectureButton:hover {
   background-color: rgb(245, 215, 176);
@@ -132,18 +226,22 @@ a {
 .main .lectureButton:active {
   background-color: rgb(243, 187, 149);
 }
-.main .lectureButton:nth-of-type(odd) {
-  margin-left: 15px;
-}
-.main .lectureButton:nth-of-type(even) {
-  margin-right: 15px;
-}
 @media (min-width: 768px) {
   .main .lectureButton {
+    grid-template-rows: auto;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-areas: "info name .";
+    width: 76vw;
+    border: 3px solid #f5b64e;
+    border-radius: 100px;
     flex-direction: row;
   }
   .main .lectureButton .set-buttons-helper {
-    font-size: clamp(1rem, 1rem + 2vw, 2rem);
+    font-size: clamp(1rem, 1rem + 2vw, 1rem);
+    justify-content: space-evenly;
+  }
+  .main .lectureButton .lectureButtonTitle {
+    text-align: center;
   }
   .main .lectureButton:nth-of-type(odd) {
     margin-left: 30px;
@@ -154,45 +252,184 @@ a {
 }
 .main .lectureScreen .lectureTitle {
   text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  margin-top: 35px;
 }
 .main .lectureScreen .lectureScreenButtons {
   display: flex;
+  flex-direction: column;
+}
+.main .lectureScreen .lectureScreenButtons button {
+  font-weight: 400;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 10px 26px;
+  margin: 10px 0;
+}
+.main .lectureScreen .lectureScreenButtons button:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .reviewButton {
+    margin-right: 15px;
+  }
 }
 .main .lectureScreen .lectureScreenButtons .backButton {
   margin-left: auto;
 }
-.main .lectureScreen .termList .termItem {
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons {
+    padding: 0 10%;
+    margin: 30px 0;
+    flex-direction: row;
+  }
+}
+.main .lectureScreen .termListDiv {
   display: flex;
-  background-color: burlywood;
-  margin: 10px 0;
+  justify-content: center;
+  background-color: #20496b;
 }
-.main .lectureScreen .termList .termItem .verticalRule {
-  border-left: 1px solid black;
-  background-color: aqua;
-  height: 20px;
-  position: absolute;
-  left: 50%;
+.main .lectureScreen .termListDiv .termList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
 }
-.main .lectureScreen .termList .termItem .answer {
-  text-align: end;
+.main .lectureScreen .termListDiv .termList .termItem {
+  display: flex;
+  background-color: #001e37;
+  color: #f5fcff;
+  margin: 6px 0;
+  width: 100%;
+  padding: 14px 8px;
+  font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
 }
-.main .lectureScreen .termList .termItem div {
+.main .lectureScreen .termListDiv .termList .termItem .term {
   flex: 1;
+}
+.main .lectureScreen .termListDiv .termList .termItem .verticalRule {
+  background-color: #ab071d;
+  height: 20px;
+  width: 2px;
+}
+.main .lectureScreen .termListDiv .termList .termItem .answer {
+  text-align: end;
+  flex: 1;
+}
+.main .lectureScreen .termListDiv .termList .termItem div {
   align-self: center !important;
+}
+@media (min-width: 768px) {
+  .main .lectureScreen .termListDiv .termList {
+    max-width: 80%;
+  }
+  .main .lectureScreen .termListDiv .termList .termItem {
+    border-radius: 15px;
+    padding: 24px 15px;
+  }
 }
 .main .learnScreen {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 }
-.main .learnScreen .backButton {
-  margin-left: auto;
+.main .learnScreen .learnScreenTitle {
+  text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  margin-top: 0px;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .learnScreenTitle {
+    margin-top: 17px;
+  }
+}
+.main .learnScreen .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto;
+  width: 100%;
+  margin: 10px 0;
+}
+.main .learnScreen .panel button {
+  min-width: 85px;
+}
+.main .learnScreen .panel p {
+  align-self: center;
+  justify-self: center;
+  color: white;
+  margin: 0;
+  font-size: 2rem;
+  font-family: "Gidugu";
+}
+.main .learnScreen .panel .optionsButton {
+  font-weight: 400;
+  text-transform: capitalize;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  margin: 10px 20px 10px;
+  align-self: center;
+  justify-self: center;
+}
+.main .learnScreen .panel .optionsButton:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .panel .optionsButton {
+    font-size: 1.1rem;
+    padding: 10px 26px;
+  }
+}
+.main .learnScreen .panel .backButton {
+  font-weight: 400;
+  text-transform: capitalize;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  margin: 10px 20px 10px;
+  align-self: center;
+  justify-self: center;
+}
+.main .learnScreen .panel .backButton:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .panel .backButton {
+    font-size: 1.1rem;
+    padding: 10px 26px;
+  }
 }
 .main .learnScreen .progressBar {
   display: flex;
+  flex-direction: column;
   background-color: #70706f;
-  min-width: 80%;
-  height: 16px;
+  width: 90vw;
+  height: 32px;
+}
+.main .learnScreen .progressBar .progressHalf {
+  display: flex;
+  flex-grow: 1;
 }
 .main .learnScreen .progressBar .progressBarItem {
   flex-grow: 1;
@@ -211,8 +448,32 @@ a {
 .main .learnScreen .progressBar .learned {
   background-color: #287700;
 }
+@media (min-width: 768px) {
+  .main .learnScreen .progressBar {
+    flex-direction: row;
+    min-width: 80%;
+    height: 16px;
+    margin: 40px 0;
+  }
+}
 .main .learnScreen .termCardSection {
   display: flex;
+}
+.main .learnScreen .termCardSection .termCardButtonDesktop {
+  display: none;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .termCardSection .termCardButtonDesktop {
+    display: block;
+    border-style: none;
+    border-radius: 41px;
+    background-color: brown;
+    color: aliceblue;
+    width: 51px;
+  }
+  .main .learnScreen .termCardSection .termCardButtonDesktop:hover {
+    background-color: rgb(148, 24, 24);
+  }
 }
 .main .learnScreen .termCardSection button {
   margin: 40px 0;
@@ -221,9 +482,14 @@ a {
   background-color: brown;
 }
 .main .learnScreen .termCardDiv {
-  width: 70vw;
+  width: 90vw;
   height: 50vh;
   position: relative;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .termCardDiv {
+    width: 40vw;
+  }
 }
 .main .learnScreen .termCardDiv .termCard {
   position: absolute;
@@ -233,7 +499,8 @@ a {
   left: 0;
   display: flex;
   flex-direction: column;
-  background-color: blanchedalmond;
+  color: #8b4500;
+  background-color: #fdd2a6;
   margin: 10px;
   border-radius: 15px;
   overflow: hidden;
@@ -251,8 +518,18 @@ a {
 .main .learnScreen .termCardDiv .termCard .answerSection span {
   align-self: center;
 }
+.main .learnScreen .termCardDiv .termCard .term .clickReveal,
+.main .learnScreen .termCardDiv .termCard .answerSection .clickReveal {
+  cursor: pointer;
+}
 .main .learnScreen .termCardDiv .termCard .answerSection {
   flex: 1;
+}
+.main .learnScreen .termCardDiv .termCard .divider {
+  height: 1px;
+  background-color: #b33e09;
+  padding: 0 10px;
+  margin: 0 20px;
 }
 .main .learnScreen .termCardDiv .disappear-right {
   animation-name: disappear-right;
@@ -268,11 +545,11 @@ a {
     opacity: 0;
   }
   30% {
-    transform: translateX(400px) translateY(-40px) scale(1.02) rotateZ(5deg) rotateY(50deg) rotateX(20deg);
-    background-color: #d5af89;
+    transform: translateX(400px) translateY(-100px) scale(1.05) rotateZ(5deg) rotateY(50deg) rotateX(40deg);
+    background-color: rgb(177, 128, 78);
   }
   100% {
-    transform: translateX(400px) translateY(-40px) scale(1.02);
+    transform: translateX(400px) translateY(-100px) scale(1.02);
     opacity: 0;
   }
 }
@@ -290,38 +567,65 @@ a {
     opacity: 0;
   }
   30% {
-    transform: translateX(-400px) translateY(-40px) scale(1.02) rotateZ(-5deg) rotateY(50deg) rotateX(-20deg);
-    background-color: #d5af89;
+    transform: translateX(-400px) translateY(-100px) scale(1.05) rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
+    background-color: rgb(177, 128, 78);
   }
   100% {
-    transform: translateX(-400px) translateY(-40px) scale(1.02);
+    transform: translateX(-400px) translateY(-100px) scale(1.02);
     opacity: 0;
   }
+}
+.main .learnScreen .mobileTermButtons {
+  color: white;
+}
+.main .learnScreen .mobileTermButtons .termCardButtonMobile {
+  background-color: brown;
+  background-color: brown;
+  width: 100px;
+  color: aliceblue;
+  border-style: solid;
+  margin: 0px 22px;
+  margin-top: 20px;
+  gap: 10px;
+  padding: 12px 0px;
+  border-radius: 10px;
+  border-color: #4c0000;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .mobileTermButtons .termCardButtonMobile {
+    display: none;
+  }
+}
+.main .learnScreen .learnButtons {
+  display: flex;
+  width: 100%;
 }
 .main .learnScreen .learnButtons button {
   border: none;
   border-radius: 15px;
-  margin: 0 25px;
+  margin: 0 5px;
   height: 66px;
   width: 100px;
+  flex: 1;
 }
 .main .learnScreen .learnButtons .learningButton {
   background-color: rgb(225, 183, 167);
-}
-.main .learnScreen .learnButtons .learningButton:hover {
-  background-color: rgb(216, 142, 113);
+  color: #ab071d;
 }
 .main .learnScreen .learnButtons .learnedButton {
-  background-color: rgb(200, 233, 173);
-}
-.main .learnScreen .learnButtons .learnedButton:hover {
-  background-color: rgb(137, 199, 87);
+  background-color: rgb(235, 255, 218);
+  color: rgb(31, 59, 9);
 }
 .main .learnScreen .learnButtons .learning {
   border: 3px solid rgb(189, 42, 69);
 }
 .main .learnScreen .learnButtons .learned {
-  border: 3px solid #287700;
+  border: 3px solid #38a301;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .learnButtons {
+    width: 50%;
+  }
 }
 
 .forms {
@@ -333,7 +637,9 @@ a {
 footer {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   text-align: center;
+  height: 130px;
   color: #f5fcff;
 }
 @media (min-width: 768px) {

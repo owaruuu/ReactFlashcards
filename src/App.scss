@@ -48,6 +48,33 @@ a {
     color: $link-yellow !important;
 }
 
+.modal-body {
+    padding-bottom: 30px !important;
+}
+
+.modal-header {
+    background-color: $stripes-red;
+    color: white;
+    border-bottom: 4px solid #032745;
+
+    button {
+        filter: invert(1);
+        opacity: 0.8;
+
+        &:hover {
+            opacity: 1 !important;
+        }
+    }
+}
+.form-check {
+    .form-check-label {
+        font-weight: 500;
+    }
+    p {
+        padding-left: 10px;
+    }
+}
+
 .App {
     // margin: 20px;
     background-color: $background-blue;
@@ -60,9 +87,9 @@ a {
     background-color: $stripes-red;
 
     .logo {
-        width: 83px;
+        width: 84px;
         position: relative;
-        left: 50%;
+        margin-left: calc(50% - 42px);
         top: -31px;
         filter: invert(100%);
     }
@@ -74,7 +101,7 @@ a {
     align-items: center;
     justify-content: space-between;
     color: $cloud-white;
-    padding-top: 20px;
+    // padding-top: 20px;
 
     .logo {
         color: white;
@@ -85,7 +112,9 @@ a {
     .pageTitle {
         font-family: "Gidugu";
         text-transform: uppercase;
-        font-size: clamp(4rem, 1rem + 6vw, 5rem);
+        font-size: clamp(3rem, 1rem + 6vw, 5rem);
+        text-align: center;
+        cursor: pointer;
     }
     .infoHeader {
         margin: 0;
@@ -102,8 +131,53 @@ a {
     }
 
     .loginControls {
+        display: flex;
+        flex-direction: column-reverse;
         padding: 0 10px;
         text-align: center;
+        overflow: hidden;
+
+        @media (min-width: 768px) {
+            padding: 0;
+            flex-direction: row;
+
+            button {
+                border: none;
+                background-color: $background-blue;
+                color: $cloud-white;
+                margin-right: 15px;
+
+                &:hover {
+                    color: $border-yellow;
+                }
+            }
+
+            .username {
+                background: #ab071d;
+                color: white;
+                border-style: none;
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 20px;
+                align-self: center;
+            }
+
+            .yellowBar {
+                position: relative;
+                left: 400px;
+                background-color: $border-yellow;
+                height: 3px;
+                width: 100%;
+                transition: 0.4s;
+                transition-timing-function: ease;
+            }
+
+            &:hover {
+                .yellowBar {
+                    left: 0px;
+                }
+            }
+        }
     }
 
     .not-logged {
@@ -116,7 +190,7 @@ a {
 
     @media (min-width: 768px) {
         flex-direction: row;
-        padding: 0 20px;
+        padding-left: 20px;
     }
 }
 
@@ -125,8 +199,9 @@ a {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
+    // margin-top: 35px;
 
     .form {
         display: flex;
@@ -135,6 +210,26 @@ a {
         form {
             display: flex;
             flex-direction: column;
+        }
+    }
+
+    .lectureList {
+        width: 100%;
+        .lectureListTitle {
+            text-align: center;
+            color: #f5fcff;
+            font-family: "Noto Serif";
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+            font-size: 3rem;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
 
@@ -152,29 +247,53 @@ a {
     }
 
     .lectureButton {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: 33% 33% 33%;
+        grid-template-areas:
+            "info"
+            "name"
+            ".";
+
+        // flex-direction: column;
         background-color: $cloud-white;
         color: $inner-type-color;
         font-family: "Noto_Serif";
-        // height: 50px;
-        width: 76vw;
-        border: 3px solid $border-yellow;
-        border-radius: 100px;
-        margin: 10px 0;
+
+        width: 100%;
+        border-top: 3px solid #dbb01c;
+        border-bottom: 3px solid #dbb01c;
+
+        // width: 76vw;
+        // border: 3px solid $border-yellow;
+        // border-radius: 100px;
+
+        margin: 15px 0;
         padding: 10px 0;
         justify-content: space-around;
         align-items: center;
         cursor: pointer;
 
         .set-buttons-helper {
-            font-size: clamp(0.4rem, 0.5rem + 1vw, 2rem);
+            display: flex;
+            justify-content: space-between;
+            grid-area: info;
+            font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
             // display: grid;
         }
 
-        span {
-            font-size: clamp(1rem, 1rem + 2vw, 2rem);
+        .lectureButtonTitle {
+            font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
+            grid-area: name;
+            margin-top: 4px;
+
+            @media (min-width: 768px) {
+                font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+            }
         }
+
+        // span {
+        //     font-size: clamp(1rem, 1rem + 2vw, 2rem);
+        // }
         &:hover {
             background-color: rgb(245, 215, 176);
         }
@@ -183,17 +302,30 @@ a {
             background-color: rgb(243, 187, 149);
         }
 
-        &:nth-of-type(odd) {
-            margin-left: 15px;
-        }
-        &:nth-of-type(even) {
-            margin-right: 15px;
-        }
+        // &:nth-of-type(odd) {
+        //     margin-left: 15px;
+        // }
+        // &:nth-of-type(even) {
+        //     margin-right: 15px;
+        // }
 
         @media (min-width: 768px) {
+            grid-template-rows: auto;
+            grid-template-columns: 30% 40% 30%;
+            grid-template-areas: "info name .";
+
+            width: 76vw;
+            border: 3px solid $border-yellow;
+            border-radius: 100px;
+
             .set-buttons-helper {
-                font-size: clamp(1rem, 1rem + 2vw, 2rem);
+                font-size: clamp(1rem, 1rem + 2vw, 1rem);
+                justify-content: space-evenly;
                 // display: grid;
+            }
+
+            .lectureButtonTitle {
+                text-align: center;
             }
 
             flex-direction: row;
@@ -210,34 +342,110 @@ a {
     .lectureScreen {
         .lectureTitle {
             text-align: center;
+            color: $cloud-white;
+            font-family: "Noto Serif";
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+            margin-top: 35px;
+            // z-index: 0;
+
+            // &:before {
+            //     content: attr(string);
+            //     position: absolute;
+            //     -webkit-text-stroke: 0.2em $stripes-red;
+            //     z-index: -1;
+            // }
         }
+
         .lectureScreenButtons {
             display: flex;
+            flex-direction: column;
+
+            button {
+                font-weight: 400;
+                text-transform: capitalize;
+                font-size: 1.1rem;
+                background-color: #f5fcff;
+                color: #532f00;
+                font-family: "Noto_Serif";
+                border: 3px solid #f5b64e;
+                border-radius: 100px;
+                cursor: pointer;
+                padding: 10px 26px;
+                margin: 10px 0;
+
+                &:hover {
+                    border-color: $stripes-red;
+                }
+            }
+
+            .reviewButton {
+                @media (min-width: 768px) {
+                    margin-right: 15px;
+                }
+            }
 
             .backButton {
                 margin-left: auto;
             }
+
+            @media (min-width: 768px) {
+                padding: 0 10%;
+                margin: 30px 0;
+                flex-direction: row;
+            }
         }
-        .termList {
-            .termItem {
+
+        .termListDiv {
+            display: flex;
+            justify-content: center;
+            background-color: #20496b;
+
+            .termList {
                 display: flex;
-                background-color: burlywood;
-                margin: 10px 0;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
 
-                .verticalRule {
-                    border-left: 1px solid black;
-                    background-color: aqua;
-                    height: 20px;
-                    position: absolute;
-                    left: 50%;
+                .termItem {
+                    display: flex;
+                    background-color: #001e37;
+                    color: #f5fcff;
+                    margin: 6px 0;
+                    width: 100%;
+                    padding: 14px 8px;
+
+                    font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+
+                    .term {
+                        flex: 1;
+                    }
+
+                    .verticalRule {
+                        background-color: $stripes-red;
+                        height: 20px;
+                        width: 2px;
+                    }
+
+                    .answer {
+                        text-align: end;
+                        flex: 1;
+                    }
+
+                    div {
+                        align-self: center !important;
+                    }
                 }
 
-                .answer {
-                    text-align: end;
-                }
-                div {
-                    flex: 1;
-                    align-self: center !important;
+                @media (min-width: 768px) {
+                    max-width: 80%;
+                    // padding: 47px 198px;
+
+                    .termItem {
+                        border-radius: 15px;
+                        padding: 24px 15px;
+                    }
                 }
             }
         }
@@ -247,17 +455,108 @@ a {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 50px;
 
-        .backButton {
-            margin-left: auto;
-            //
+        .learnScreenTitle {
+            text-align: center;
+            color: #f5fcff;
+            font-family: "Noto Serif";
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+            margin-top: 0px;
+
+            @media (min-width: 768px) {
+                margin-top: 17px;
+            }
+        }
+
+        .panel {
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: auto;
+            // grid-template-areas: ". counter backButton";
+            width: 100%;
+            margin: 10px 0;
+
+            button {
+                min-width: 85px;
+            }
+
+            p {
+                // grid-area: counter;
+                align-self: center;
+                justify-self: center;
+                color: white;
+                margin: 0;
+                font-size: 2rem;
+                font-family: "Gidugu";
+            }
+
+            .optionsButton {
+                font-weight: 400;
+                text-transform: capitalize;
+
+                background-color: #f5fcff;
+                color: #532f00;
+                font-family: "Noto_Serif";
+                border: 3px solid #f5b64e;
+                border-radius: 100px;
+                cursor: pointer;
+
+                margin: 10px 20px 10px;
+                align-self: center;
+                justify-self: center;
+
+                &:hover {
+                    border-color: $stripes-red;
+                }
+
+                @media (min-width: 768px) {
+                    font-size: 1.1rem;
+                    padding: 10px 26px;
+                }
+            }
+
+            .backButton {
+                // grid-area: backButton;
+                font-weight: 400;
+                text-transform: capitalize;
+
+                background-color: #f5fcff;
+                color: #532f00;
+                font-family: "Noto_Serif";
+                border: 3px solid #f5b64e;
+                border-radius: 100px;
+                cursor: pointer;
+
+                margin: 10px 20px 10px;
+                align-self: center;
+                justify-self: center;
+
+                &:hover {
+                    border-color: $stripes-red;
+                }
+
+                @media (min-width: 768px) {
+                    font-size: 1.1rem;
+                    padding: 10px 26px;
+                }
+            }
         }
 
         .progressBar {
             display: flex;
+            flex-direction: column;
             background-color: #70706f;
-            min-width: 80%;
-            height: 16px;
+            // min-width: 100%;
+            width: 90vw;
+            height: 32px;
+
+            .progressHalf {
+                display: flex;
+                flex-grow: 1;
+            }
 
             .progressBarItem {
                 flex-grow: 1;
@@ -279,10 +578,35 @@ a {
             .learned {
                 background-color: #287700;
             }
+
+            @media (min-width: 768px) {
+                flex-direction: row;
+                min-width: 80%;
+                height: 16px;
+                margin: 40px 0;
+            }
         }
 
         .termCardSection {
             display: flex;
+
+            .termCardButtonDesktop {
+                display: none;
+
+                @media (min-width: 768px) {
+                    display: block;
+
+                    border-style: none;
+                    border-radius: 41px;
+                    background-color: brown;
+                    color: aliceblue;
+                    width: 51px;
+
+                    &:hover {
+                        background-color: rgb(148, 24, 24);
+                    }
+                }
+            }
 
             button {
                 margin: 40px 0;
@@ -292,11 +616,16 @@ a {
                 }
             }
         }
+
         .termCardDiv {
-            width: 70vw;
+            width: 90vw;
             height: 50vh;
             // min-height: 50vh;
             position: relative;
+
+            @media (min-width: 768px) {
+                width: 40vw;
+            }
 
             .termCard {
                 position: absolute;
@@ -310,7 +639,9 @@ a {
                 // height: 400px;
                 // width: 700px;
 
-                background-color: blanchedalmond;
+                color: #8b4500;
+                // background-color: blanchedalmond;
+                background-color: #fdd2a6;
                 margin: 10px;
                 border-radius: 15px;
                 overflow: hidden;
@@ -328,11 +659,22 @@ a {
                     span {
                         align-self: center;
                     }
+
+                    .clickReveal {
+                        cursor: pointer;
+                    }
                 }
 
                 .answerSection {
                     flex: 1;
                     // background-color: bisque;
+                }
+
+                .divider {
+                    height: 1px;
+                    background-color: #b33e09;
+                    padding: 0 10px;
+                    margin: 0 20px;
                 }
             }
 
@@ -351,12 +693,12 @@ a {
                     opacity: 0;
                 }
                 30% {
-                    transform: translateX(400px) translateY(-40px) scale(1.02)
-                        rotateZ(5deg) rotateY(50deg) rotateX(20deg);
-                    background-color: #d5af89;
+                    transform: translateX(400px) translateY(-100px) scale(1.05)
+                        rotateZ(5deg) rotateY(50deg) rotateX(40deg);
+                    background-color: rgb(177, 128, 78);
                 }
                 100% {
-                    transform: translateX(400px) translateY(-40px) scale(1.02);
+                    transform: translateX(400px) translateY(-100px) scale(1.02);
 
                     opacity: 0;
                 }
@@ -377,39 +719,65 @@ a {
                     opacity: 0;
                 }
                 30% {
-                    transform: translateX(-400px) translateY(-40px) scale(1.02)
-                        rotateZ(-5deg) rotateY(50deg) rotateX(-20deg);
-                    background-color: #d5af89;
+                    transform: translateX(-400px) translateY(-100px) scale(1.05)
+                        rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
+                    background-color: rgb(177, 128, 78);
                 }
                 100% {
-                    transform: translateX(-400px) translateY(-40px) scale(1.02);
+                    transform: translateX(-400px) translateY(-100px) scale(1.02);
 
                     opacity: 0;
                 }
             }
         }
 
+        .mobileTermButtons {
+            color: white;
+            // align-self: end;
+            // margin-right: 10px;
+            .termCardButtonMobile {
+                background-color: brown;
+                background-color: brown;
+                width: 100px;
+                color: aliceblue;
+                border-style: solid;
+                margin: 0px 22px;
+                margin-top: 20px;
+                gap: 10px;
+                padding: 12px 0px;
+                border-radius: 10px;
+                border-color: #4c0000;
+                @media (min-width: 768px) {
+                    display: none;
+                }
+            }
+        }
+
         .learnButtons {
+            display: flex;
+            width: 100%;
             button {
                 border: none;
                 border-radius: 15px;
-                margin: 0 25px;
+                margin: 0 5px;
                 height: 66px;
                 width: 100px;
+                flex: 1;
             }
             .learningButton {
                 background-color: rgb(225 183 167);
+                color: $stripes-red;
 
                 &:hover {
-                    background-color: rgb(216, 142, 113);
+                    // background-color: rgb(216, 142, 113);
                 }
             }
 
             .learnedButton {
-                background-color: rgb(200 233 173);
-
+                background-color: rgb(235 255 218);
+                color: rgb(31 59 9);
                 &:hover {
-                    background-color: rgb(137, 199, 87);
+                    // background-color: rgb(137, 199, 87);
                 }
             }
 
@@ -418,7 +786,11 @@ a {
             }
 
             .learned {
-                border: 3px solid #287700;
+                border: 3px solid #38a301;
+            }
+
+            @media (min-width: 768px) {
+                width: 50%;
             }
         }
     }
@@ -433,8 +805,9 @@ a {
 footer {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     text-align: center;
-
+    height: 130px;
     color: $cloud-white;
 
     @media (min-width: 768px) {
