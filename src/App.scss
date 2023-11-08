@@ -103,6 +103,29 @@ a {
     color: $cloud-white;
     // padding-top: 20px;
 
+    #db-error-tooltip {
+        z-index: 1;
+    }
+
+    .dbError {
+        display: flex;
+        position: fixed;
+        font-size: 2rem;
+        top: 40vh;
+        color: gold;
+        right: 20px;
+        z-index: 1;
+        background-color: #c10000;
+        border-radius: 39px;
+        /* width: 73px; */
+        padding: 6px;
+
+        @media (min-width: 768px) {
+            background-color: #001e3700;
+            font-size: 3rem;
+        }
+    }
+
     .logo {
         color: white;
 
@@ -383,6 +406,12 @@ a {
             .reviewButton {
                 @media (min-width: 768px) {
                     margin-right: 15px;
+                }
+            }
+
+            .learnButton {
+                @media (min-width: 768px) {
+                    padding: 0 60px;
                 }
             }
 

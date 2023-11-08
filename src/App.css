@@ -69,6 +69,28 @@ a {
   justify-content: space-between;
   color: #f5fcff;
 }
+.header #db-error-tooltip {
+  z-index: 1;
+}
+.header .dbError {
+  display: flex;
+  position: fixed;
+  font-size: 2rem;
+  top: 40vh;
+  color: gold;
+  right: 20px;
+  z-index: 1;
+  background-color: #c10000;
+  border-radius: 39px;
+  /* width: 73px; */
+  padding: 6px;
+}
+@media (min-width: 768px) {
+  .header .dbError {
+    background-color: rgba(0, 30, 55, 0);
+    font-size: 3rem;
+  }
+}
 .header .logo {
   color: white;
   width: 20px;
@@ -282,6 +304,11 @@ a {
 @media (min-width: 768px) {
   .main .lectureScreen .lectureScreenButtons .reviewButton {
     margin-right: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .learnButton {
+    padding: 0 60px;
   }
 }
 .main .lectureScreen .lectureScreenButtons .backButton {
