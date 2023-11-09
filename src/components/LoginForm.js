@@ -19,7 +19,7 @@ function LoginForm() {
             const delay = setTimeout(() => {
                 dispatch({
                     type: "CHANGE_SCREEN",
-                    payload: { newScreen: "main", newLecture: null },
+                    payload: { currentScreen: "main" },
                 });
                 dispatch({
                     type: "SET_LOG_STATUS",
@@ -92,6 +92,14 @@ function LoginForm() {
                         currentProgress: JSON.parse(progress),
                     },
                 });
+                dispatch({ type: "SET_SAVE_ERROR", payload: false });
+                dispatch({ type: "SET_SAVE_INFO_MSG", payload: "" });
+            } else {
+                dispatch({ type: "SET_DB_ERROR", payload: true });
+                dispatch({
+                    type: "SET_LOGIN_CONTROL_MSG",
+                    payload: "Database server error try refreshing the page.",
+                });
             }
 
             // setThinking(false);
@@ -112,7 +120,7 @@ function LoginForm() {
     );
 
     return (
-        <div className="form">
+        <div className="loginForm">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <label>Email</label>
@@ -133,7 +141,9 @@ function LoginForm() {
                     required
                     disabled={thinking}
                 ></input>
-                <button disabled={thinking}>Login</button>
+                <button className="submitButton" disabled={thinking}>
+                    Login
+                </button>
             </form>
             {message && <p>{message}</p>}
             {thinking && spinner}
