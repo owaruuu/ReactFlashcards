@@ -14,6 +14,8 @@ export const AppReducer = (state, action) => {
             return { ...state, loaded: action.payload };
         case "SET_LOG_STATUS":
             return { ...state, loggedIn: action.payload };
+        case "SET_LOGIN_CONTROL_MSG":
+            return { ...state, LoginControlErrorMessage: action.payload };
         case "SET_USER":
             return {
                 ...state,
@@ -41,6 +43,10 @@ export const AppReducer = (state, action) => {
             };
         case "SET_SAVE_FLAG":
             return { ...state, needToSave: action.payload };
+        case "SET_SAVE_ERROR":
+            return { ...state, saveError: action.payload };
+        case "SET_SAVE_INFO_MSG":
+            return { ...state, saveInfoMessage: action.payload };
         default:
             throw "wrong action type: " + action.type;
     }
@@ -54,12 +60,15 @@ const initialState = {
     serverError: false, //para fallas con mi server de Render.com
     loaded: false,
     loggedIn: false, //true si ya confirme que tengo tokens validos
+    loginControlErrorMessage: "",
     user: {
         userName: "",
         currentProgress: null,
     },
     appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
     needToSave: false,
+    saveError: false,
+    saveInfoMessage: "",
     dbError: false,
 };
 
@@ -77,9 +86,12 @@ export const AppProvider = (props) => {
                 serverError: state.serverError,
                 loaded: state.loaded,
                 loggedIn: state.loggedIn,
+                LoginControlErrorMessage: state.LoginControlErrorMessage,
                 user: state.user,
                 appState: state.appState,
                 needToSave: state.needToSave,
+                saveError: state.saveError,
+                saveInfoMessage: state.saveInfoMessage,
                 dbError: state.dbError,
                 dispatch,
             }}
