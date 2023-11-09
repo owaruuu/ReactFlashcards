@@ -15,7 +15,7 @@ const Header = () => {
             <h1 className="pageTitle" onClick={handleClick}>
                 React Flashcards
             </h1>
-            <InfoHeader />
+            {/* <InfoHeader /> */}
             <LoginHeader />
         </header>
     );

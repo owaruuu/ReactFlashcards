@@ -96,13 +96,13 @@ export const saveUserProgress = async (currentProgress) => {
             };
         }
 
-        return response;
+        return { msg: "exito", value: response.data };
     } catch (error) {
         //si el servidor tiene un problema, necesito mandar una mensaje explicativo
         //y resetiar el save flag
         console.log("🚀 ~ file: aws.js:80 ~ saveUserProgress ~ error:", error);
         return {
-            msg: "error en el servidor, intentandolo mas tarde.",
+            msg: "Error en el servidor, intentandolo mas tarde.",
             value: null,
         };
     }
