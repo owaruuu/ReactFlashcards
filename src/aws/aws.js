@@ -1,7 +1,6 @@
 import axios from "axios";
-import LOCALHOST from "../secret.js";
 
-const URL = LOCALHOST || "https://react-flashcards-server.onrender.com";
+const URL = "https://react-flashcards-server.onrender.com";
 
 console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
 
