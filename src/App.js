@@ -22,8 +22,7 @@ function App() {
                     <span>
                         Ve este projecto en{" "}
                         <a
-                            // href="https://github.com/owaruuu/FlashcardsPage"
-                            href=""
+                            href="https://github.com/owaruuu/ReactFlashcards"
                             target="_blank"
                         >
                             Github

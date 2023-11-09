@@ -103,10 +103,7 @@ const LearnScreen = (props) => {
 
     const findNextRed = () => {
         const currentLectureProgress = user.currentProgress[lecture.lectureId];
-        console.log(
-            "🚀 ~ file: LearnScreen.js:106 ~ findNextRed ~ currentLectureProgress:",
-            currentLectureProgress
-        );
+
         for (let i = index + 1; i < terms.length; i++) {
             if (currentLectureProgress[terms[i].id] == "learning") {
                 console.log(`encontre un red con el id ${i}`);
@@ -126,13 +123,9 @@ const LearnScreen = (props) => {
 
     const handleNextRedClick = () => {
         const nextIndex = findNextRed();
-        console.log(
-            "🚀 ~ file: LearnScreen.js:124 ~ handleNextRedClick ~ nextIndex:",
-            nextIndex
-        );
 
         if (nextIndex === -1) {
-            return alert("alsdjhgajshdak");
+            return alert("No red term found.");
         }
 
         setShowAnswer(false);
@@ -351,7 +344,11 @@ const LearnScreen = (props) => {
                     <BiRightArrow></BiRightArrow>
                 </button>
             </div>
-            <NextRedTermButton func={handleNextRedClick} />
+            {props.isReview ? (
+                ""
+            ) : (
+                <NextRedTermButton func={handleNextRedClick} />
+            )}
         </div>
     );
 };
