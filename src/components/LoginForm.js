@@ -56,6 +56,10 @@ function LoginForm() {
 
             //obtengo informacion del idToken
             const response = await connectCognito();
+            console.log(
+                "🚀 ~ file: LoginForm.js:59 ~ handleLogin ~ response:",
+                response
+            );
 
             //si la respuesta es -1 significa que hubo un problema con el server de cognito
             if (response.value === -1) {
