@@ -4,10 +4,7 @@ import { aunthenticateUser, connectCognito, getUserProgress } from "../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
 
 function LoginForm() {
-    const [formData, setFormData] = useState({
-        email: "owaruuu@gmail.com",
-        password: "pas$W0rd",
-    });
+    const [formData, setFormData] = useState({});
 
     const { dispatch } = useContext(AppContext);
     const [message, setMessage] = useState("");
