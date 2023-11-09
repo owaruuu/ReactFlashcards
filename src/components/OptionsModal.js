@@ -10,14 +10,14 @@ const OptionsModal = (props) => {
             <Modal.Body>
                 <div class="form-check form-switch">
                     <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         id="flipTermsSwitch"
                         checked={props.flip}
                         onChange={props.handleFlip}
                     />
-                    <label class="form-check-label" for="flipTermsSwitch">
+                    <label class="form-check-label" forhtml="flipTermsSwitch">
                         Switch Terms and Answers
                     </label>
                     <p class="form-check-p">
@@ -27,14 +27,14 @@ const OptionsModal = (props) => {
                 </div>
                 <div class="form-check form-switch">
                     <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         role="switch"
                         id="randomSwitch"
                         checked={props.random}
                         onChange={props.handleRandom}
                     />
-                    <label class="form-check-label" for="randomSwitch">
+                    <label class="form-check-label" forhtml="randomSwitch">
                         Random order
                     </label>
                     <p class="form-check-p">
