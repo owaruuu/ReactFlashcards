@@ -105,6 +105,9 @@ a {
 
     #db-error-tooltip {
         z-index: 1;
+        width: 200px;
+        overflow-wrap: break-word;
+        display: block;
     }
 
     .dbError {
@@ -139,12 +142,16 @@ a {
         text-align: center;
         cursor: pointer;
     }
+
     .infoHeader {
-        margin: 0;
+        // margin: 0;
+        // margin-bottom: 20px;
 
         @media (min-width: 768px) {
-            margin-right: auto;
-            margin-left: 20px;
+            text-align: start;
+            margin-left: 10px;
+            // margin-right: auto;
+            // margin-left: 20px;
         }
     }
 
@@ -160,9 +167,35 @@ a {
         text-align: center;
         overflow: hidden;
 
+        .username {
+            background: #ab071d;
+            color: white;
+            border-style: none;
+            width: 100%;
+            padding-right: 50px;
+            padding-left: 50px;
+            align-self: center;
+        }
+
+        .loginButton {
+            background-color: $stripes-red;
+            padding: 0 40px;
+            color: white;
+            border: none;
+
+            &:hover {
+                color: $border-yellow;
+            }
+            @media (min-width: 768px) {
+                background-color: $stripes-red;
+                padding: 0 40px;
+            }
+        }
+
         @media (min-width: 768px) {
             padding: 0;
             flex-direction: row;
+            flex-grow: 1;
 
             button {
                 border: none;
@@ -175,7 +208,12 @@ a {
                 }
             }
 
+            .infoHeader {
+                flex: 2;
+            }
+
             .username {
+                flex: 1;
                 background: #ab071d;
                 color: white;
                 border-style: none;
@@ -226,13 +264,32 @@ a {
     align-items: center;
     // margin-top: 35px;
 
-    .form {
+    .loginForm {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: white;
         form {
             display: flex;
             flex-direction: column;
+
+            input {
+                margin-bottom: 20px;
+            }
+
+            .submitButton {
+                border: 2px solid white;
+                border-radius: 15px;
+                transition: 0.15s;
+
+                &:hover {
+                    background-color: $stripes-red;
+                    border-color: $stripes-red;
+                    color: white;
+                }
+            }
         }
     }
 
@@ -363,6 +420,7 @@ a {
     }
 
     .lectureScreen {
+        width: 100%;
         .lectureTitle {
             text-align: center;
             color: $cloud-white;
@@ -483,8 +541,13 @@ a {
     .learnScreen {
         display: flex;
         flex-direction: column;
+        width: 100%;
         align-items: center;
         margin-bottom: 50px;
+
+        @media (min-width: 768px) {
+            width: 80%;
+        }
 
         .learnScreenTitle {
             text-align: center;
@@ -653,7 +716,7 @@ a {
             position: relative;
 
             @media (min-width: 768px) {
-                width: 40vw;
+                width: 70vw;
             }
 
             .termCard {
@@ -681,7 +744,7 @@ a {
 
                 .term,
                 .answerSection {
-                    font-size: clamp(1rem, 1rem + 2vw, 2rem);
+                    font-size: clamp(1rem, 1rem + 2vw, 1rem);
                     flex: 1;
                     text-align: center;
 
@@ -691,6 +754,10 @@ a {
 
                     .clickReveal {
                         cursor: pointer;
+                    }
+
+                    @media (min-width: 768px) {
+                        font-size: clamp(1rem, 1rem + 2vw, 2rem);
                     }
                 }
 
@@ -820,6 +887,24 @@ a {
 
             @media (min-width: 768px) {
                 width: 50%;
+            }
+        }
+
+        .nextRedButton {
+            background-color: #ab071d;
+            border-radius: 10px;
+            border-style: none;
+            text-align: end;
+            font-weight: 900;
+            color: white;
+            margin-top: 15px;
+            padding: 18px;
+            align-self: end;
+
+            @media (min-width: 768px) {
+                width: 700px;
+                margin: 10px;
+                padding: 20px;
             }
         }
     }

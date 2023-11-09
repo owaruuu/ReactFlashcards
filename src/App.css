@@ -71,6 +71,9 @@ a {
 }
 .header #db-error-tooltip {
   z-index: 1;
+  width: 200px;
+  overflow-wrap: break-word;
+  display: block;
 }
 .header .dbError {
   display: flex;
@@ -102,13 +105,10 @@ a {
   text-align: center;
   cursor: pointer;
 }
-.header .infoHeader {
-  margin: 0;
-}
 @media (min-width: 768px) {
   .header .infoHeader {
-    margin-right: auto;
-    margin-left: 20px;
+    text-align: start;
+    margin-left: 10px;
   }
 }
 .header .save {
@@ -122,10 +122,35 @@ a {
   text-align: center;
   overflow: hidden;
 }
+.header .loginControls .username {
+  background: #ab071d;
+  color: white;
+  border-style: none;
+  width: 100%;
+  padding-right: 50px;
+  padding-left: 50px;
+  align-self: center;
+}
+.header .loginControls .loginButton {
+  background-color: #ab071d;
+  padding: 0 40px;
+  color: white;
+  border: none;
+}
+.header .loginControls .loginButton:hover {
+  color: #f5b64e;
+}
+@media (min-width: 768px) {
+  .header .loginControls .loginButton {
+    background-color: #ab071d;
+    padding: 0 40px;
+  }
+}
 @media (min-width: 768px) {
   .header .loginControls {
     padding: 0;
     flex-direction: row;
+    flex-grow: 1;
   }
   .header .loginControls button {
     border: none;
@@ -136,7 +161,11 @@ a {
   .header .loginControls button:hover {
     color: #f5b64e;
   }
+  .header .loginControls .infoHeader {
+    flex: 2;
+  }
   .header .loginControls .username {
+    flex: 1;
     background: #ab071d;
     color: white;
     border-style: none;
@@ -178,14 +207,30 @@ a {
   flex-direction: column;
   align-items: center;
 }
-.main .form {
+.main .loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: white;
 }
-.main .form form {
+.main .loginForm form {
   display: flex;
   flex-direction: column;
+}
+.main .loginForm form input {
+  margin-bottom: 20px;
+}
+.main .loginForm form .submitButton {
+  border: 2px solid white;
+  border-radius: 15px;
+  transition: 0.15s;
+}
+.main .loginForm form .submitButton:hover {
+  background-color: #ab071d;
+  border-color: #ab071d;
+  color: white;
 }
 .main .lectureList {
   width: 100%;
@@ -271,6 +316,9 @@ a {
   .main .lectureButton:nth-of-type(even) {
     margin-right: 30px;
   }
+}
+.main .lectureScreen {
+  width: 100%;
 }
 .main .lectureScreen .lectureTitle {
   text-align: center;
@@ -368,8 +416,14 @@ a {
 .main .learnScreen {
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
   margin-bottom: 50px;
+}
+@media (min-width: 768px) {
+  .main .learnScreen {
+    width: 80%;
+  }
 }
 .main .learnScreen .learnScreenTitle {
   text-align: center;
@@ -515,7 +569,7 @@ a {
 }
 @media (min-width: 768px) {
   .main .learnScreen .termCardDiv {
-    width: 40vw;
+    width: 70vw;
   }
 }
 .main .learnScreen .termCardDiv .termCard {
@@ -537,7 +591,7 @@ a {
 }
 .main .learnScreen .termCardDiv .termCard .term,
 .main .learnScreen .termCardDiv .termCard .answerSection {
-  font-size: clamp(1rem, 1rem + 2vw, 2rem);
+  font-size: clamp(1rem, 1rem + 2vw, 1rem);
   flex: 1;
   text-align: center;
 }
@@ -548,6 +602,12 @@ a {
 .main .learnScreen .termCardDiv .termCard .term .clickReveal,
 .main .learnScreen .termCardDiv .termCard .answerSection .clickReveal {
   cursor: pointer;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .termCardDiv .termCard .term,
+  .main .learnScreen .termCardDiv .termCard .answerSection {
+    font-size: clamp(1rem, 1rem + 2vw, 2rem);
+  }
 }
 .main .learnScreen .termCardDiv .termCard .answerSection {
   flex: 1;
@@ -652,6 +712,24 @@ a {
 @media (min-width: 768px) {
   .main .learnScreen .learnButtons {
     width: 50%;
+  }
+}
+.main .learnScreen .nextRedButton {
+  background-color: #ab071d;
+  border-radius: 10px;
+  border-style: none;
+  text-align: end;
+  font-weight: 900;
+  color: white;
+  margin-top: 15px;
+  padding: 18px;
+  align-self: end;
+}
+@media (min-width: 768px) {
+  .main .learnScreen .nextRedButton {
+    width: 700px;
+    margin: 10px;
+    padding: 20px;
   }
 }
 
