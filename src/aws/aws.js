@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const RenderURL = "https://react-flashcards-server.onrender.com";
+
+const URL = RenderURL || "http://localhost:3003";
+
+console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
+
 const api = axios.create({
     withCredentials: true, // Include credentials (cookies) in the request
 });
@@ -7,7 +13,7 @@ const api = axios.create({
 //intenta revisar si estoy logeado o no
 export const connectCognito = async () => {
     try {
-        const response = await api.get("http://localhost:3003/cognito");
+        const response = await api.get(`${URL}/cognito`);
 
         if (response.data.value === -2) {
             return { msg: "error with cognito server", value: -2 };
@@ -22,7 +28,7 @@ export const connectCognito = async () => {
 //revisa si el usuario existe en el userpool de cognito
 export const aunthenticateUser = async (email, password) => {
     try {
-        const response = await api.post("http://localhost:3003/login", {
+        const response = await api.post(`${URL}/login`, {
             email,
             password,
         });
@@ -46,7 +52,7 @@ export const aunthenticateUser = async (email, password) => {
 export const getUserProgress = async (id) => {
     console.log("🚀 ~ file: aws.js:42 ~ getUserProgress ~ id:", id);
     try {
-        const response = await api.post("http://localhost:3003/progress", {
+        const response = await api.post(`${URL}/progress`, {
             id,
         });
         console.log(
@@ -69,10 +75,7 @@ export const getUserProgress = async (id) => {
 export const saveUserProgress = async (currentProgress) => {
     try {
         //intento conectarme a mi servideor
-        const response = await api.post(
-            "http://localhost:3003/save",
-            currentProgress
-        );
+        const response = await api.post(`${URL}/save`, currentProgress);
         console.log(
             "🚀 ~ file: aws.js:47 ~ getUserProgress ~ response:",
             response
@@ -110,7 +113,7 @@ export const saveUserProgress = async (currentProgress) => {
 
 export const quickScan = async () => {
     try {
-        const response = await api.get("http://localhost:3003/scanTables");
+        const response = await api.get(`${URL}/scanTables`);
         console.log("🚀 ~ file: aws.js:61 ~ quickScan ~ response:", response);
     } catch (error) {
         console.log("🚀 ~ file: aws.js:64 ~ quickScan ~ error:", error);
