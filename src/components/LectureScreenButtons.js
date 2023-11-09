@@ -23,6 +23,7 @@ const LectureScreenButtons = () => {
 
     const learnButton = (
         <button
+            className="learnButton"
             onClick={() =>
                 dispatch({
                     type: "CHANGE_SCREEN",
