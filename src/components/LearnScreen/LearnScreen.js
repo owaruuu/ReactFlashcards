@@ -7,6 +7,7 @@ import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { lectures } from "../../data/lectures";
 import { shuffleArray } from "../../utils/utils";
 import OptionsModal from "../OptionsModal";
+import NextRedTermButton from "./NextRedTermButton";
 
 const LearnScreen = (props) => {
     const { dispatch, appState, user } = useContext(AppContext);
@@ -39,6 +40,7 @@ const LearnScreen = (props) => {
 
     const goBack = () => {
         setShowAnswer(false);
+        setBlocked(false);
 
         const now = new Date().getTime();
         const uniqueKey = `${index}-${now}`;
@@ -72,6 +74,7 @@ const LearnScreen = (props) => {
 
     const goForward = () => {
         setShowAnswer(false);
+        setBlocked(false);
 
         const now = new Date().getTime();
         const uniqueKey = `${index}-${now}`;
@@ -96,6 +99,64 @@ const LearnScreen = (props) => {
         } else {
             setIndex(index + 1);
         }
+    };
+
+    const findNextRed = () => {
+        const currentLectureProgress = user.currentProgress[lecture.lectureId];
+        console.log(
+            "🚀 ~ file: LearnScreen.js:106 ~ findNextRed ~ currentLectureProgress:",
+            currentLectureProgress
+        );
+        for (let i = index + 1; i < terms.length; i++) {
+            if (currentLectureProgress[terms[i].id] == "learning") {
+                console.log(`encontre un red con el id ${i}`);
+                return i;
+            }
+        }
+
+        for (let i = 0; i < index; i++) {
+            if (currentLectureProgress[terms[i].id] == "learning") {
+                console.log(`encontre un red con el id ${i}`);
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
+    const handleNextRedClick = () => {
+        const nextIndex = findNextRed();
+        console.log(
+            "🚀 ~ file: LearnScreen.js:124 ~ handleNextRedClick ~ nextIndex:",
+            nextIndex
+        );
+
+        if (nextIndex === -1) {
+            return alert("alsdjhgajshdak");
+        }
+
+        setShowAnswer(false);
+        setBlocked(false);
+
+        const now = new Date().getTime();
+        const uniqueKey = `${index}-${now}`;
+
+        setDisappearingCards([
+            <DisappearingCard
+                key={uniqueKey}
+                terms={terms}
+                index={index}
+                id={uniqueKey}
+                timeStamp={now}
+                showAnswer={showAnswer}
+                killFunc={() => removeDisappearingCard()}
+                direction={" disappear-left"}
+                flipped={flip}
+            />,
+            ...disappearingCards,
+        ]);
+
+        setIndex(nextIndex);
     };
 
     const handleClick = () => {
@@ -141,8 +202,12 @@ const LearnScreen = (props) => {
     useEffect(() => {
         if (blocked) {
             const timer = setTimeout(() => {
+                console.log("timer ?");
+                // if (blocked) {
+                //solo si sigo bloqueado despues del timer
                 goForward();
                 setBlocked(false);
+                // }
             }, 1000);
             return () => clearTimeout(timer);
         }
@@ -261,8 +326,9 @@ const LearnScreen = (props) => {
                 {props.isReview
                     ? ""
                     : user.currentProgress &&
-                      learnButtons.map((button) => (
+                      learnButtons.map((button, id) => (
                           <button
+                              key={id}
                               className={
                                   user.currentProgress[lecture.lectureId]?.[
                                       terms[index].id
@@ -285,6 +351,7 @@ const LearnScreen = (props) => {
                     <BiRightArrow></BiRightArrow>
                 </button>
             </div>
+            <NextRedTermButton func={handleNextRedClick} />
         </div>
     );
 };
