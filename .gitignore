@@ -6,6 +6,7 @@
 .pnp.js
 .dio
 .drawio
+secret.js
 
 # testing
 /coverage
