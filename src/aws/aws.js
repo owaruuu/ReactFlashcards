@@ -24,6 +24,37 @@ export const connectCognito = async () => {
     }
 };
 
+export const confirmUser = async (email, code) => {
+    try {
+        const response = await api.post(`${URL}/confirmUser`, { email, code });
+
+        console.log("🚀 ~ file: aws.js:31 ~ confirmUser ~ response:", response);
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:36 ~ confirmUser ~ error:", error);
+        return error;
+    }
+};
+
+export const registerUser = async (email, password) => {
+    try {
+        const response = await api.post(`${URL}/register`, {
+            email,
+            password,
+        });
+
+        console.log(
+            "🚀 ~ file: aws.js:31 ~ registerUser ~ response:",
+            response
+        );
+
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:41 ~ registerUser ~ error:", error);
+        return error;
+    }
+};
+
 //revisa si el usuario existe en el userpool de cognito
 export const aunthenticateUser = async (email, password) => {
     try {
@@ -31,6 +62,7 @@ export const aunthenticateUser = async (email, password) => {
             email,
             password,
         });
+
         console.log(
             "🚀 ~ file: aws.js:26 ~ aunthenticateUser ~ response:",
             response
