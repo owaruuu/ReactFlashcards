@@ -28,19 +28,19 @@ const LoginControls = (props) => {
 
     const loggedOutControls = (
         <>
-            {/* <button
+            <button
+                className="registerButton"
                 onClick={() =>
                     dispatch({
                         type: "CHANGE_SCREEN",
                         payload: {
-                            newScreen: "register",
-                            newLecture: null,
+                            currentScreen: "register",
                         },
                     })
                 }
             >
                 Register
-            </button> */}
+            </button>
             <button
                 className="loginButton"
                 onClick={() =>

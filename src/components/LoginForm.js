@@ -11,6 +11,15 @@ function LoginForm() {
     const [thinking, setThinking] = useState(false);
     const [login, setLogin] = useState(false);
 
+    function handleChange(event) {
+        setFormData((prevFormData) => {
+            return {
+                ...prevFormData,
+                [event.target.name]: event.target.value,
+            };
+        });
+    }
+
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
@@ -27,15 +36,6 @@ function LoginForm() {
             return () => clearTimeout(delay);
         }
     }, [login]);
-
-    function handleChange(event) {
-        setFormData((prevFormData) => {
-            return {
-                ...prevFormData,
-                [event.target.name]: event.target.value,
-            };
-        });
-    }
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -121,7 +121,7 @@ function LoginForm() {
     );
 
     return (
-        <div className="loginForm">
+        <div className="form">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <label>Email</label>
