@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const URL = "https://react-flashcards-server.onrender.com";
-const URL = "https://owaruuu.xyz";
+const URL = "https://api.owaruuu.xyz";
 
 console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
 
