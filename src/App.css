@@ -118,6 +118,7 @@ a {
 .header .loginControls {
   display: flex;
   flex-direction: column-reverse;
+  gap: 10px;
   padding: 0 10px;
   text-align: center;
   overflow: hidden;
@@ -145,6 +146,11 @@ a {
     background-color: #ab071d;
     padding: 0 40px;
   }
+}
+.header .loginControls .registerButton {
+  border: none;
+  background-color: #032745;
+  color: #f5fcff;
 }
 @media (min-width: 768px) {
   .header .loginControls {
@@ -207,30 +213,59 @@ a {
   flex-direction: column;
   align-items: center;
 }
-.main .loginForm {
+.main .form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 90%;
   margin-top: auto;
   margin-bottom: auto;
   color: white;
 }
-.main .loginForm form {
+.main .form form {
   display: flex;
   flex-direction: column;
 }
-.main .loginForm form input {
+.main .form form input {
   margin-bottom: 20px;
 }
-.main .loginForm form .submitButton {
+.main .form form .submitButton {
   border: 2px solid white;
   border-radius: 15px;
   transition: 0.15s;
 }
-.main .loginForm form .submitButton:hover {
+.main .form form .submitButton:hover {
   background-color: #ab071d;
   border-color: #ab071d;
   color: white;
+}
+.main .form form .passwordInfo {
+  display: flex;
+  flex-direction: column;
+}
+.main .form form .passwordInfoDesktop {
+  display: none;
+  color: rgba(255, 255, 255, 0.5607843137);
+  font-size: 0.8rem;
+}
+@media (min-width: 768px) {
+  .main .form form .passwordInfoDesktop {
+    display: block;
+  }
+}
+.main .form form .passwordInfoMobile {
+  color: rgba(255, 255, 255, 0.5607843137);
+  font-size: 0.8rem;
+}
+@media (min-width: 768px) {
+  .main .form form .passwordInfoMobile {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .main .form {
+    max-width: 25%;
+  }
 }
 .main .lectureList {
   width: 100%;
@@ -251,6 +286,53 @@ a {
     flex-direction: column;
     align-items: center;
   }
+}
+.main .confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90%;
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main .confirmation form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 0;
+}
+.main .confirmation form button {
+  margin-top: 20px;
+}
+.main .confirmation form button:disabled {
+  color: #adadad;
+}
+.main .confirmation form input:disabled {
+  color: #adadad;
+}
+.main .confirmation h2 {
+  text-align: center;
+}
+.main .registerHelp {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 15px;
+}
+.main .registerHelp .helpMessage {
+  color: white;
+  margin: 0;
+  text-align: center;
+}
+.main .registerHelp .needConfirmationButton {
+  border: none;
+  color: white;
+  background-color: #03213b;
+  text-decoration: underline;
+}
+.main .registerHelp .needConfirmationButton:hover {
+  color: gold;
+  background-color: #032745;
 }
 .main .content {
   display: flex;

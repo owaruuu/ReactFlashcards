@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // const URL = "https://react-flashcards-server.onrender.com";
-const URL = "https://owaruuu.xyz";
+// const URL = "https://api.owaruuu.xyz";
+const URL = "http://localhost:3003";
 
 console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
 
@@ -24,6 +25,37 @@ export const connectCognito = async () => {
     }
 };
 
+export const confirmUser = async (email, code) => {
+    try {
+        const response = await api.post(`${URL}/confirmUser`, { email, code });
+
+        console.log("🚀 ~ file: aws.js:31 ~ confirmUser ~ response:", response);
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:36 ~ confirmUser ~ error:", error);
+        return error;
+    }
+};
+
+export const registerUser = async (email, password) => {
+    try {
+        const response = await api.post(`${URL}/register`, {
+            email,
+            password,
+        });
+
+        console.log(
+            "🚀 ~ file: aws.js:31 ~ registerUser ~ response:",
+            response
+        );
+
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:41 ~ registerUser ~ error:", error);
+        return error;
+    }
+};
+
 //revisa si el usuario existe en el userpool de cognito
 export const aunthenticateUser = async (email, password) => {
     try {
@@ -31,6 +63,7 @@ export const aunthenticateUser = async (email, password) => {
             email,
             password,
         });
+
         console.log(
             "🚀 ~ file: aws.js:26 ~ aunthenticateUser ~ response:",
             response
@@ -42,6 +75,17 @@ export const aunthenticateUser = async (email, password) => {
 
         //errores pueden incluir que el server este caido o algun error en las credenciales
 
+        throw error;
+    }
+};
+
+export const logoutUser = async () => {
+    try {
+        const response = await api.get(`${URL}/logout`);
+        console.log("🚀 ~ file: aws.js:86 ~ logoutUser ~ response:", response);
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:87 ~ logoutUser ~ error:", error);
         throw error;
     }
 };
