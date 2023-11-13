@@ -26,7 +26,7 @@ This is a remake of my Simple Flashcards Page [link](https://github.com/owaruuu/
 
 ### Screenshot
 
-![](./assets/screenshots/siteref3.jpg)
+![](./assets/screenshots/app_screenshot.png)
 
 ### Links
 
