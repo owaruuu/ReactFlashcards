@@ -163,6 +163,7 @@ a {
     .loginControls {
         display: flex;
         flex-direction: column-reverse;
+        gap: 10px;
         padding: 0 10px;
         text-align: center;
         overflow: hidden;
@@ -192,26 +193,12 @@ a {
             }
         }
 
-<<<<<<< Updated upstream
-=======
         .registerButton {
             border: none;
             background-color: $background-blue;
             color: $cloud-white;
         }
 
-        .logoutButton {
-            border: none;
-            background-color: $background-blue;
-            color: $cloud-white;
-            flex-grow: 1;
-
-            &:active {
-                background-color: #0f3b5f;
-            }
-        }
-
->>>>>>> Stashed changes
         @media (min-width: 768px) {
             padding: 0;
             flex-direction: row;
@@ -284,10 +271,11 @@ a {
     align-items: center;
     // margin-top: 35px;
 
-    .loginForm {
+    .form {
         display: flex;
         flex-direction: column;
         align-items: center;
+        max-width: 90%;
         margin-top: auto;
         margin-bottom: auto;
         color: white;
@@ -310,6 +298,33 @@ a {
                     color: white;
                 }
             }
+
+            .passwordInfo {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .passwordInfoDesktop {
+                display: none;
+                color: #ffffff8f;
+                font-size: 0.8rem;
+
+                @media (min-width: 768px) {
+                    display: block;
+                }
+            }
+
+            .passwordInfoMobile {
+                color: #ffffff8f;
+                font-size: 0.8rem;
+                @media (min-width: 768px) {
+                    display: none;
+                }
+            }
+        }
+
+        @media (min-width: 768px) {
+            max-width: 25%;
         }
     }
 
@@ -330,6 +345,64 @@ a {
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+    }
+
+    .confirmation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 90%;
+        color: white;
+
+        margin-top: auto;
+        margin-bottom: auto;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 0;
+
+            button {
+                margin-top: 20px;
+                &:disabled {
+                    color: #adadad;
+                }
+            }
+
+            input {
+                &:disabled {
+                    color: #adadad;
+                }
+            }
+        }
+
+        h2 {
+            text-align: center;
+        }
+    }
+
+    .registerHelp {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 15px;
+        .helpMessage {
+            color: white;
+            margin: 0;
+            text-align: center;
+        }
+
+        .needConfirmationButton {
+            border: none;
+            color: white;
+            &:hover {
+                color: gold;
+                background-color: $background-blue;
+            }
+
+            background-color: #03213b;
+            text-decoration: underline;
         }
     }
 

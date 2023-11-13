@@ -4,9 +4,11 @@ import LectureList from "./LectureList.js";
 import LectureScreen from "./LectureScreen.js";
 import LearnScreen from "./LearnScreen/LearnScreen.js";
 import LoginForm from "./LoginForm.js";
-import RegisterForm from "./RegisterForm.js";
+import RegisterForm from "./Forms/RegisterForm.js";
 import { readFromLocal } from "../utils/utils";
 import axios from "axios";
+import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.js";
+import ConfirmationCode from "./AccountCreation/ConfirmationCode.js";
 
 const api = axios.create({
     withCredentials: true, // Include credentials (cookies) in the request
@@ -84,6 +86,19 @@ const Main = () => {
             {appState.currentScreen === "login" && <LoginForm></LoginForm>}
             {appState.currentScreen === "register" && (
                 <RegisterForm></RegisterForm>
+            )}
+            {appState.currentScreen === "confirmation" && (
+                <ConfirmationCodeSpecial
+                    title={"Check your email for a confirmation code."}
+                    blocked={true}
+                />
+            )}
+            {appState.currentScreen === "codeHelp" && (
+                <ConfirmationCodeSpecial
+                    title={
+                        " Enter your email and confirmation code to complete registration."
+                    }
+                />
             )}
         </main>
     );
