@@ -192,6 +192,26 @@ a {
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        .registerButton {
+            border: none;
+            background-color: $background-blue;
+            color: $cloud-white;
+        }
+
+        .logoutButton {
+            border: none;
+            background-color: $background-blue;
+            color: $cloud-white;
+            flex-grow: 1;
+
+            &:active {
+                background-color: #0f3b5f;
+            }
+        }
+
+>>>>>>> Stashed changes
         @media (min-width: 768px) {
             padding: 0;
             flex-direction: row;

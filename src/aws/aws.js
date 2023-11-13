@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // const URL = "https://react-flashcards-server.onrender.com";
-const URL = "https://api.owaruuu.xyz";
+// const URL = "https://api.owaruuu.xyz";
+const URL = "http://localhost:3003";
 
 console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
 
@@ -42,6 +43,17 @@ export const aunthenticateUser = async (email, password) => {
 
         //errores pueden incluir que el server este caido o algun error en las credenciales
 
+        throw error;
+    }
+};
+
+export const logoutUser = async () => {
+    try {
+        const response = await api.get(`${URL}/logout`);
+        console.log("🚀 ~ file: aws.js:86 ~ logoutUser ~ response:", response);
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:87 ~ logoutUser ~ error:", error);
         throw error;
     }
 };

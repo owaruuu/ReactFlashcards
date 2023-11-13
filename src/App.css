@@ -146,6 +146,23 @@ a {
     padding: 0 40px;
   }
 }
+<<<<<<< Updated upstream
+=======
+.header .loginControls .registerButton {
+  border: none;
+  background-color: #032745;
+  color: #f5fcff;
+}
+.header .loginControls .logoutButton {
+  border: none;
+  background-color: #032745;
+  color: #f5fcff;
+  flex-grow: 1;
+}
+.header .loginControls .logoutButton:active {
+  background-color: #0f3b5f;
+}
+>>>>>>> Stashed changes
 @media (min-width: 768px) {
   .header .loginControls {
     padding: 0;
