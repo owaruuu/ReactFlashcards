@@ -1,10 +1,7 @@
 import axios from "axios";
 
-// const URL = "https://react-flashcards-server.onrender.com";
-const URL = "https://api.owaruuu.xyz";
-// const URL = "http://localhost:3003";
-
-console.log("🚀 ~ file: aws.js:4 ~ URL:", URL);
+// const URL = "https://api.owaruuu.xyz";
+const URL = "http://localhost:3003";
 
 const api = axios.create({
     withCredentials: true, // Include credentials (cookies) in the request
@@ -20,7 +17,6 @@ export const connectCognito = async () => {
         }
         return response.data;
     } catch (error) {
-        // console.log("error with app server: ", error);
         return { msg: "error with app server", value: -1 };
     }
 };
@@ -29,10 +25,8 @@ export const confirmUser = async (email, code) => {
     try {
         const response = await api.post(`${URL}/confirmUser`, { email, code });
 
-        console.log("🚀 ~ file: aws.js:31 ~ confirmUser ~ response:", response);
         return response;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:36 ~ confirmUser ~ error:", error);
         return error;
     }
 };
@@ -44,14 +38,8 @@ export const registerUser = async (email, password) => {
             password,
         });
 
-        console.log(
-            "🚀 ~ file: aws.js:31 ~ registerUser ~ response:",
-            response
-        );
-
         return response;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:41 ~ registerUser ~ error:", error);
         return error;
     }
 };
@@ -64,28 +52,18 @@ export const aunthenticateUser = async (email, password) => {
             password,
         });
 
-        console.log(
-            "🚀 ~ file: aws.js:26 ~ aunthenticateUser ~ response:",
-            response
-        );
-
         return response;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:29 ~ aunthenticateUser ~ error:", error);
-
-        //errores pueden incluir que el server este caido o algun error en las credenciales
-
         throw error;
     }
 };
 
+//intento borrar las cookies del usuario, si el servidor no esta online le aviso al usuario
 export const logoutUser = async () => {
     try {
         const response = await api.get(`${URL}/logout`);
-        console.log("🚀 ~ file: aws.js:86 ~ logoutUser ~ response:", response);
         return response;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:87 ~ logoutUser ~ error:", error);
         throw error;
     }
 };
@@ -98,19 +76,13 @@ export const getUserProgress = async (id) => {
         const response = await api.post(`${URL}/progress`, {
             id,
         });
-        console.log(
-            "🚀 ~ file: aws.js:47 ~ getUserProgress ~ response:",
-            response
-        );
 
         if (response.data.value === -1) {
-            console.log("error trying to scan db");
             return null;
         }
 
         return response.data.value.progress;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:51 ~ getUserProgress ~ error:", error);
         return null;
     }
 };
@@ -119,14 +91,9 @@ export const saveUserProgress = async (currentProgress) => {
     try {
         //intento conectarme a mi servideor
         const response = await api.post(`${URL}/save`, currentProgress);
-        console.log(
-            "🚀 ~ file: aws.js:47 ~ getUserProgress ~ response:",
-            response
-        );
 
         //si el servidor esta vivo no tengo tokens
         if (response.data.value === -2) {
-            console.log("error con mis tokens");
             return {
                 msg: "error con mi refresh token, deberia relogear",
                 value: -2,
@@ -135,7 +102,6 @@ export const saveUserProgress = async (currentProgress) => {
 
         //si el servidor esta vivo pero la base de datos no lo esta
         if (response.data.value === -1) {
-            console.log("error trying to scan db");
             return {
                 msg: "Error trying to scan db, intentandolo mas tarde",
                 value: -1,
@@ -144,9 +110,6 @@ export const saveUserProgress = async (currentProgress) => {
 
         return { msg: "exito", value: response.data };
     } catch (error) {
-        //si el servidor tiene un problema, necesito mandar una mensaje explicativo
-        //y resetiar el save flag
-        console.log("🚀 ~ file: aws.js:80 ~ saveUserProgress ~ error:", error);
         return {
             msg: "Error en el servidor, intentandolo mas tarde.",
             value: null,
@@ -156,11 +119,8 @@ export const saveUserProgress = async (currentProgress) => {
 
 export const quickScan = async () => {
     try {
-        const response = await api.get(`${URL}/scanTables`);
-        console.log("🚀 ~ file: aws.js:61 ~ quickScan ~ response:", response);
+        await api.get(`${URL}/scanTables`);
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:64 ~ quickScan ~ error:", error);
-
         return error;
     }
 };
