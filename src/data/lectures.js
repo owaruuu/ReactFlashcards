@@ -98,8 +98,8 @@ const lectures = [
             },
             {
                 id: 17,
-                term: "四字熟語",
-                extra: "よじじゅくご",
+                term: "よじじゅくご",
+                extra: "四字熟語",
                 answer: "Compuestos idiomáticos de cuatro letras",
             },
             {
