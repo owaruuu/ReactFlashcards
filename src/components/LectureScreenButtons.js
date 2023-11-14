@@ -39,8 +39,11 @@ const LectureScreenButtons = () => {
 
     return (
         <div className="lectureScreenButtons">
-            {reviewButton}
-            {user.currentProgress && learnButton}
+            <div className="learningButtons">
+                {reviewButton}
+                {user.currentProgress && learnButton}
+            </div>
+
             <BackButton
                 options={{ currentScreen: "main", currentLecture: null }}
             />

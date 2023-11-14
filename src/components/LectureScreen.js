@@ -20,13 +20,13 @@ const LectureScreen = () => {
             </h2>
             <LectureScreenButtons />
             <div
-                className="divider"
+                className="upperDivider"
                 style={{
                     marginBottom: "25px",
                 }}
             >
                 <img
-                    className="logo"
+                    className="upperLogo"
                     src={svg}
                     style={{
                         width: "68px",
