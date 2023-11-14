@@ -18,7 +18,7 @@ const LoginControls = (props) => {
     const logout = async () => {
         console.log("log out");
         try {
-            const response = await logoutUser();
+            await logoutUser();
             dispatch({
                 type: "CHANGE_SCREEN",
                 payload: { currentScreen: "main" },
