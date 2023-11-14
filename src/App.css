@@ -85,7 +85,6 @@ a {
   z-index: 1;
   background-color: #c10000;
   border-radius: 39px;
-  /* width: 73px; */
   padding: 6px;
 }
 @media (min-width: 768px) {
