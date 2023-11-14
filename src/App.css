@@ -54,6 +54,11 @@ a {
   height: 4px;
   background-color: #ab071d;
 }
+@media (min-width: 768px) {
+  .upperDivider {
+    height: 30px;
+  }
+}
 .upperDivider .upperLogo {
   display: none;
 }

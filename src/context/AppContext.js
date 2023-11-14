@@ -21,12 +21,6 @@ export const AppReducer = (state, action) => {
                 ...state,
                 user: { ...state.user, ...action.payload },
             };
-        case "GREEN_TERM":
-            //logica para cambiar un termino a 'learned'
-            return null;
-        case "RED_TERM":
-            //logica para cambiar un termino a 'learning'
-            return null;
         case "CHANGE_SCREEN":
             return {
                 ...state,

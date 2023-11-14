@@ -27,7 +27,7 @@ export const confirmUser = async (email, code) => {
 
         return response;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 

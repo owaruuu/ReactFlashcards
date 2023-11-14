@@ -1,11 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
-import {
-    connectCognito,
-    getUserProgress,
-    quickScan,
-    saveUserProgress,
-} from "../aws/aws";
+import { connectCognito, getUserProgress, saveUserProgress } from "../aws/aws";
 import LoginControls from "./LoginControls";
 import InfoHeader from "./Header/InfoHeader";
 import { RiSignalWifiErrorLine } from "react-icons/ri";
@@ -22,9 +17,7 @@ const LoginHeader = () => {
         loginControlErrorMessage,
         saveInfoMessage,
     } = useContext(AppContext);
-    // const [errorMessage, setErrorMessage] = useState("errorMessage");
-    // const [saveError, setSaveError] = useState(false);
-    const [info, setInfo] = useState("");
+
     const [timeSinceLastSave, setTimeSinceLastSave] = useState(0);
 
     //actualizo el timer

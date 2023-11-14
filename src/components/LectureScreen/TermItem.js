@@ -13,10 +13,7 @@ const TermItem = (props) => {
 
     return (
         <div className="termItem">
-            <div className="term">
-                {term()}
-                {/* {props.term} ({props.extra}) */}
-            </div>
+            <div className="term">{term()}</div>
             <div className="verticalRule"></div>
             <div className="answer">{props.answer}</div>
         </div>

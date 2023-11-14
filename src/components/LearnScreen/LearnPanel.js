@@ -1,4 +1,4 @@
-import OptionsButton from "../OptionsButton";
+import OptionsButton from "./OptionsButton";
 import BackButton from "../BackButton";
 
 const LearnPanel = (props) => {

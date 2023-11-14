@@ -50,10 +50,6 @@ const ConfirmationCodeSpecial = (props) => {
 
         try {
             const response = await confirmUser(email, code);
-            console.log(
-                "🚀 ~ file: ConfirmationCodeSpecial.js:37 ~ handleConfirmation ~ response:",
-                response
-            );
 
             //error check
             if (response.code === "ERR_BAD_RESPONSE") {
@@ -66,10 +62,8 @@ const ConfirmationCodeSpecial = (props) => {
             setMessage(response.data + ". You can now log in.");
             setConfirmed(true);
         } catch (error) {
-            console.log(
-                "🚀 ~ file: ConfirmationCodeSpecial.js:39 ~ handleConfirmation ~ error:",
-                error
-            );
+            setThinking(false);
+            alert("El server no esta respondiendo, intentalo mas tarde.");
         }
     };
 

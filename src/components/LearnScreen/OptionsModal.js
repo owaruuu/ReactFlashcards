@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 const OptionsModal = (props) => {
@@ -8,7 +7,7 @@ const OptionsModal = (props) => {
                 <Modal.Title>Options</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div class="form-check form-switch">
+                <div className="form-check form-switch">
                     <input
                         className="form-check-input"
                         type="checkbox"
@@ -17,15 +16,18 @@ const OptionsModal = (props) => {
                         checked={props.flip}
                         onChange={props.handleFlip}
                     />
-                    <label class="form-check-label" forhtml="flipTermsSwitch">
+                    <label
+                        className="form-check-label"
+                        forhtml="flipTermsSwitch"
+                    >
                         Switch Terms and Answers
                     </label>
-                    <p class="form-check-p">
+                    <p className="form-check-p">
                         Use this option to see if you can recall the term from
                         the other side.
                     </p>
                 </div>
-                <div class="form-check form-switch">
+                <div className="form-check form-switch">
                     <input
                         className="form-check-input"
                         type="checkbox"
@@ -34,10 +36,10 @@ const OptionsModal = (props) => {
                         checked={props.random}
                         onChange={props.handleRandom}
                     />
-                    <label class="form-check-label" forhtml="randomSwitch">
+                    <label className="form-check-label" forhtml="randomSwitch">
                         Random order
                     </label>
-                    <p class="form-check-p">
+                    <p className="form-check-p">
                         Sort the cards randomly for better a study experience.
                     </p>
                 </div>

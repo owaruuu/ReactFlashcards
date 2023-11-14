@@ -1,12 +1,12 @@
 import TermList from "./TermList";
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
-import { lectures } from "../data/lectures";
-import svg from "../svg/cherry-blossom-petal.svg";
+import { lectures } from "../../data/lectures";
+import svg from "../../svg/cherry-blossom-petal.svg";
 
 const LectureScreen = () => {
-    const { dispatch, appState } = useContext(AppContext);
+    const { appState } = useContext(AppContext);
 
     const lectureId = appState.currentLecture;
     const lecture = lectures.find((lecture) => {

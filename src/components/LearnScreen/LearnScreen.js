@@ -6,7 +6,7 @@ import LearnPanel from "./LearnPanel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { lectures } from "../../data/lectures";
 import { shuffleArray } from "../../utils/utils";
-import OptionsModal from "../OptionsModal";
+import OptionsModal from "./OptionsModal";
 import NextRedTermButton from "./NextRedTermButton";
 
 const LearnScreen = (props) => {
@@ -45,10 +45,6 @@ const LearnScreen = (props) => {
         const now = new Date().getTime();
         const uniqueKey = `${index}-${now}`;
 
-        console.log(
-            "🚀 ~ file: LearnScreen.js:38 ~ goBack ~ uniqueKey:",
-            uniqueKey
-        );
         setDisappearingCards([
             <DisappearingCard
                 key={uniqueKey}
@@ -67,7 +63,6 @@ const LearnScreen = (props) => {
         if (index - 1 < 0) {
             setIndex(lecture.termList.length - 1);
         } else {
-            // setIndex((prevIndex) => prevIndex - 1);
             setIndex(index - 1);
         }
     };
@@ -195,9 +190,6 @@ const LearnScreen = (props) => {
     useEffect(() => {
         if (blocked) {
             const timer = setTimeout(() => {
-                console.log("timer ?");
-                // if (blocked) {
-                //solo si sigo bloqueado despues del timer
                 goForward();
                 setBlocked(false);
                 // }
@@ -238,7 +230,6 @@ const LearnScreen = (props) => {
             }
 
             if (termIndex == index) {
-                // console.log("entre aqui");
                 classNames += " activeItem";
             }
 
@@ -251,8 +242,6 @@ const LearnScreen = (props) => {
                     <div key={term.id} className={classNames}></div>
                 );
             }
-
-            // return <div key={term.id} className={classNames}></div>;
         });
 
         return [firstHalf, secondHalf];

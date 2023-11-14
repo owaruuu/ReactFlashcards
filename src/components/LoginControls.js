@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import Spinner from "react-bootstrap/Spinner";
 import { logoutUser } from "../aws/aws";
@@ -84,7 +84,6 @@ const LoginControls = (props) => {
         }
 
         if (serverError || dbError) {
-            // console.log("sdasdasdasdas");
             return <p>{LoginControlErrorMessage}</p>;
         }
 

@@ -39,7 +39,6 @@ function RegisterForm(props) {
 
     const handleRegister = async (event) => {
         event.preventDefault();
-        console.log("register");
         setMessage("");
         setThinking(true);
 
@@ -52,8 +51,6 @@ function RegisterForm(props) {
             setMessage("Passwords do not match");
             return;
         }
-
-        console.log("passwords ok");
 
         const response = await registerUser(email, password);
 
@@ -68,11 +65,6 @@ function RegisterForm(props) {
             setThinking(false);
             return;
         }
-
-        // const response = await axios.post("http://localhost:3003/register", {
-        //     email,
-        //     password,
-        // });
 
         dispatch({ type: "SET_USER", payload: { userName: email } });
         setMessage(response.data);

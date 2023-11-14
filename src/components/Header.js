@@ -1,5 +1,4 @@
 import LoginHeader from "./LoginHeader";
-import InfoHeader from "./Header/InfoHeader";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
@@ -15,7 +14,6 @@ const Header = () => {
             <h1 className="pageTitle" onClick={handleClick}>
                 React Flashcards
             </h1>
-            {/* <InfoHeader /> */}
             <LoginHeader />
         </header>
     );

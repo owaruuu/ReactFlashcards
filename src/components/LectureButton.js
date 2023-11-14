@@ -26,11 +26,7 @@ const LectureButton = (props) => {
                     }
                 }
 
-                setPercentage(
-                    Math.trunc(
-                        (learnedAmount / props.lecture.termList.length) * 100
-                    )
-                );
+                setPercentage(Math.trunc((learnedAmount / props.amount) * 100));
             } else {
                 setPercentage(0);
             }

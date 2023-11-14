@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
-import BackButton from "./BackButton";
+import { AppContext } from "../../context/AppContext";
+import BackButton from "../BackButton";
 
 const LectureScreenButtons = () => {
-    const { dispatch, appState, dbError, user } = useContext(AppContext);
+    const { dispatch, user } = useContext(AppContext);
 
     const reviewButton = (
         <button

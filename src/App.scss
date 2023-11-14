@@ -66,6 +66,10 @@ a {
     height: 4px;
     background-color: $stripes-red;
 
+    @media (min-width: 768px) {
+        height: 30px;
+    }
+
     .upperLogo {
         display: none;
 

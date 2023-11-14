@@ -1,10 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
 import TermItem from "./TermItem";
 
 const TermList = (props) => {
-    const { appState } = useContext(AppContext);
-
     const termItems = props.lecture.termList.map((term) => {
         return (
             <TermItem

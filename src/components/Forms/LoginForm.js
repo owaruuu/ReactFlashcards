@@ -1,11 +1,14 @@
 import { useState, useContext, useEffect } from "react";
-import { AppContext } from "../context/AppContext";
-import { aunthenticateUser, connectCognito, getUserProgress } from "../aws/aws";
+import { AppContext } from "../../context/AppContext";
+import {
+    aunthenticateUser,
+    connectCognito,
+    getUserProgress,
+} from "../../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
 
 function LoginForm() {
     const [formData, setFormData] = useState({});
-
     const { dispatch } = useContext(AppContext);
     const [message, setMessage] = useState("");
     const [thinking, setThinking] = useState(false);
@@ -81,7 +84,6 @@ function LoginForm() {
                 },
             });
 
-            //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
 
             const progress = await getUserProgress(sub);
