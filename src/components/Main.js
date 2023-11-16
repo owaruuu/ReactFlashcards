@@ -3,6 +3,7 @@ import { AppContext } from "../context/AppContext.js";
 import LectureList from "./LectureList.js";
 import LectureScreen from "./LectureScreen/LectureScreen.js";
 import LearnScreen from "./LearnScreen/LearnScreen.js";
+import TestScreen from "./TestScreen/TestScreen.js";
 import LoginForm from "./Forms/LoginForm.js";
 import RegisterForm from "./Forms/RegisterForm.js";
 
@@ -21,6 +22,7 @@ const Main = () => {
             {appState.currentScreen === "review" && (
                 <LearnScreen isReview={true}></LearnScreen>
             )}
+            {appState.currentScreen === "test" && <TestScreen />}
             {appState.currentScreen === "login" && <LoginForm></LoginForm>}
             {appState.currentScreen === "register" && (
                 <RegisterForm></RegisterForm>
