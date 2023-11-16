@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
+import { backToTop } from "../utils/utils";
 
 const LectureButton = (props) => {
     const {
@@ -48,15 +49,16 @@ const LectureButton = (props) => {
     return (
         <div
             className="lectureButton"
-            onClick={() =>
+            onClick={() => {
+                backToTop();
                 dispatch({
                     type: "CHANGE_SCREEN",
                     payload: {
                         currentScreen: "lecture",
                         currentLecture: props.id,
                     },
-                })
-            }
+                });
+            }}
         >
             <div className="set-buttons-helper">
                 <span>{props.amount} terms</span>
