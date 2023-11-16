@@ -34,3 +34,7 @@ export const shuffleArray = (array) => {
 
     return array;
 };
+
+export const backToTop = () => {
+    window.scrollTo(0, 0);
+};
