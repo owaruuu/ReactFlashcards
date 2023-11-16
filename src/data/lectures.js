@@ -414,6 +414,7 @@ export const lectures = [
     {
         lectureId: "3",
         name: "Leccion 1 Minna",
+        testId: "3",
         termList: [
             { id: 0, term: "わたし watashi", extra: "私", answer: "Yo" },
             {
