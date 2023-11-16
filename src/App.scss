@@ -59,6 +59,22 @@ a {
 .App {
     background-color: $background-blue;
     font-family: メイリオ, Meiryo !important;
+
+    .backToTopButton {
+        color: $cloud-white;
+        background-color: #20496b00;
+        border: none;
+        padding-bottom: 20px;
+        margin-left: auto;
+
+        &:hover {
+            color: #c3c3c3;
+        }
+
+        @media (min-width: 768px) {
+            padding-right: 10%;
+        }
+    }
 }
 
 .upperDivider {
@@ -543,7 +559,8 @@ a {
 
         .termListDiv {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             background-color: #20496b;
 
             .termList {
@@ -944,6 +961,35 @@ a {
                 width: 700px;
                 margin: 10px;
                 padding: 20px;
+            }
+        }
+    }
+
+    .testScreen {
+        display: flex;
+        flex-direction: column;
+        min-height: 60vw;
+        align-items: center;
+
+        color: $cloud-white;
+
+        .testContent {
+            margin-top: auto;
+            margin-bottom: auto;
+
+            .testPhrase {
+                text-align: center;
+            }
+            .testDivider {
+                background-color: $cloud-white;
+                height: 1px;
+                width: 95%;
+                margin: 15px 0;
+            }
+
+            .mondaiOptions {
+                display: flex;
+                flex-direction: column;
             }
         }
     }
