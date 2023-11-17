@@ -863,9 +863,26 @@ a {
 .main .testScreen {
   display: flex;
   flex-direction: column;
-  min-height: 60vw;
+  min-height: 60vh;
   align-items: center;
   color: #f5fcff;
+}
+.main .testScreen .feedbackText {
+  font-size: 2rem;
+  font-family: "Gidugu";
+}
+.main .testScreen .feedbackText.correct {
+  color: #30a929;
+}
+.main .testScreen .feedbackText.incorrect {
+  color: #e31720;
+}
+.main .testScreen .feedbackSection {
+  visibility: hidden;
+  background-color: #20496b;
+}
+.main .testScreen .feedbackSection.show {
+  visibility: visible;
 }
 .main .testScreen .testContent {
   margin-top: auto;
@@ -878,11 +895,32 @@ a {
   background-color: #f5fcff;
   height: 1px;
   width: 95%;
-  margin: 15px 0;
+  margin: 15px auto;
 }
 .main .testScreen .testContent .mondaiOptions {
   display: flex;
   flex-direction: column;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton {
+  color: #f5fcff;
+  background-color: #001e37;
+  border: none;
+  margin: 3px 0;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton:hover {
+  background-color: #20496b;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton:disabled {
+  color: #858585;
+  background-color: #4f4f4f;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton.correct {
+  color: #f5fcff;
+  background-color: #30a929;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
+  color: #f5fcff;
+  background-color: #e31720;
 }
 
 .forms {
