@@ -38,3 +38,6 @@ export const shuffleArray = (array) => {
 export const backToTop = () => {
     window.scrollTo(0, 0);
 };
+export const randomInt = (lower = 0, upper) => {
+    return Math.floor(Math.random() * (upper - lower + 1)) + lower;
+};
