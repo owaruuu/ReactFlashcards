@@ -18,13 +18,6 @@ const TestScreen = () => {
     //en que problema vamos, 1/5
     const [problem, setProblem] = useState(0);
 
-    //cual de las tres frases en japones eligo
-    const [phraseIndex, setPhrase] = useState(randomInt(0, 2));
-    console.log(
-        "🚀 ~ file: TestScreen.js:19 ~ TestScreen ~ phraseIndex:",
-        phraseIndex
-    );
-
     //el objeto lecture con el cual entre, esto es setiado globalmente al entrar a una leccion
     const [lecture] = useState(() => {
         const lectureId = appState.currentLecture;
@@ -41,7 +34,7 @@ const TestScreen = () => {
 
     const [stage, setStage] = useState("mondai");
 
-    const currentPhrase = test.mondai[problem][0][phraseIndex];
+    const currentPhrase = test.mondai[problem][0];
 
     //el array de opciones revueltas
     const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
@@ -56,51 +49,22 @@ const TestScreen = () => {
     const [feedback, setFeedback] = useState("feed");
     const [thinking, setThinking] = useState(false);
 
-    // useEffect(() => {
-    //     const elems = test.mondai[problem][1].map((option, index) => {
-    //         let className = "testOptionButton";
-    //         // if (correct === index) className += " correct";
-    //         return (
-    //             <button
-    //                 className={className}
-    //                 key={index}
-    //                 onClick={(event) => handleOptionClick(event, index)}
-    //                 disabled={thinking}
-    //             >
-    //                 {option}
-    //             </button>
-    //         );
-    //     });
-
-    //     setCurrentOptionsElem(shuffleArray(elems));
-    // }, [problem]);
-
     const handleOptionClick = (event, index) => {
         console.log(
             "🚀 ~ file: TestScreen.js:25 ~ handleOptionClick ~ event:",
             event.target
         );
-        if (index === phraseIndex) {
+        if (index === 0) {
             console.log("Correct");
             setCorrect(index);
             setFeedback("Correct!");
             setThinking(true);
+            setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
             setIncorrect(index);
             setFeedback("Incorrect!");
             setThinking(true);
-        }
-    };
-
-    const answerProblem = (index) => {
-        if (index === phraseIndex) {
-            console.log("Correct");
-            setCorrect(index);
-            setFeedback("Correct!");
-            setThinking(true);
-        } else {
-            console.log("Wrong");
         }
     };
 
@@ -121,13 +85,24 @@ const TestScreen = () => {
         );
     });
 
-    // const randomizedOptionsElements = shuffleArray(optionsElements);
-
-    const changeProblem = () => {
+    //necesito cambiar esto a un boton que cambie de stage tambien
+    const handleNext = () => {
         const index = problem + 1;
 
-        if (index > test.mondai.length - 1) {
+        if (index > test[stage].length - 1) {
             console.log("this is the last problem");
+            switch (stage) {
+                case "mondai":
+                    setStage("dragDrop");
+                    break;
+                case "dragDrop":
+                    setStage("manga");
+                    break;
+                case "manga":
+                    setStage("results");
+                    break;
+            }
+            setIn;
             //en este caso pasar a drag and drop
             //o terminar la prueba
         } else {
@@ -141,7 +116,9 @@ const TestScreen = () => {
 
     return (
         <div className="testScreen">
-            <h2>Test - {lecture.name}</h2>
+            <h2>
+                Test - {lecture.name} - {score} pts.
+            </h2>
             <h3>Select the correct translation</h3>
             <div>
                 <ProblemCounter
@@ -150,23 +127,18 @@ const TestScreen = () => {
                 />
             </div>
             <div className="testContent">
-                <div className="testPhrase">{currentPhrase}</div>
+                <div className="testPhrase">
+                    <p>{currentPhrase}</p>
+                </div>
                 <TestDivider />
                 <div className="mondaiOptions">{optionsElements}</div>
-                {/* <TestOptionsButtons
-                    test={test}
-                    problem={problem}
-                    phraseIndex={phraseIndex}
-                    correct={correct}
-                    answerProblem={answerProblem}
-                /> */}
             </div>
+
             <FeedbackText
                 content={feedback}
                 show={thinking}
-                nextMondai={changeProblem}
+                nextButton={handleNext}
             />
-            {/* {feedback && <FeedbackText content={feedback} />} */}
         </div>
     );
 };

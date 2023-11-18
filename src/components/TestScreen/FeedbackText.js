@@ -7,16 +7,16 @@ const FeedbackText = (props) => {
 
     let textClassNames = "feedbackText";
 
-    if(props.content === "Correct!"){
+    if (props.content === "Correct!") {
         textClassNames += " correct";
-    }else{
+    } else {
         textClassNames += " incorrect";
     }
 
     return (
         <div className={divClassNames}>
             <span className={textClassNames}>{props.content}</span>
-            <button className="feedbackButton" onClick={props.nextMondai}>
+            <button className="feedbackButton" onClick={props.nextButton}>
                 Next
             </button>
         </div>

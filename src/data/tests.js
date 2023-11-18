@@ -4,54 +4,103 @@ export const tests = {
             //5 problemas por set
             //primer problema de multiple eleccion
             [
-                //set de frases en japones
-                {
-                    0: "わたしは　マイク・ミラーです。",
-                    1: "サントスさんは　学生じゃありません。",
-                    2: "ミラーさんは　会社員ですか。",
-                },
+                //frase en japones
+                "わたしは、チリじんです。",
                 //set de traducciones
                 [
                     {
                         id: 0,
-                        phrase: "Yo soy Mike Miller.",
+                        phrase: "Yo soy chileno.",
                     },
                     {
                         id: 1,
-                        phrase: "El Sr. Santos no es estudiante.",
+                        phrase: "Yo soy americano.",
                     },
                     {
                         id: 2,
-                        phrase: "Es el Sr. Miller empleado de una empresa ?",
+                        phrase: "Yo soy japones.",
                     },
                 ],
             ],
             //segundo problema...
             [
-                //set de frases en japones
-                {
-                    0: "サントスさんも　会社員です。",
-                    1: "ミラーさんは　学生ですか。",
-                    2: "あの　方は　どなたですか。",
-                },
+                //frase en japones
+                "わたしは、エンジニアです。",
                 //set de traducciones
                 [
                     {
                         id: 0,
-                        phrase: "El Sr. Santos tambien es un empleado de una empresa.",
+                        phrase: "Yo soy ingeniero.",
                     },
                     {
                         id: 1,
-                        phrase: "Es el Sr. Miller estudiante ?",
+                        phrase: "Yo soy profesor.",
                     },
                     {
                         id: 2,
-                        phrase: "Quien es aquella persona ?",
+                        phrase: "Yo soy estudiante.",
+                    },
+                ],
+            ],
+            [
+                //frase en japones
+                "わたしは、おとなです。",
+                //set de traducciones
+                [
+                    {
+                        id: 0,
+                        phrase: "Yo soy adulto.",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Yo soy niño.",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Yo soy hombre.",
+                    },
+                ],
+            ],
+            [
+                //frase en japones
+                "じぶんは、がくせいじゃありません。",
+                //set de traducciones
+                [
+                    {
+                        id: 0,
+                        phrase: "Yo no soy estudiante.",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Yo no soy profesor.",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Yo no soy trabajador.",
+                    },
+                ],
+            ],
+            [
+                //frase en japones
+                "あなたは、ねこではありません。",
+                //set de traducciones
+                [
+                    {
+                        id: 0,
+                        phrase: "Usted no es gato.",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Usted no es perro.",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Usted no es animal.",
                     },
                 ],
             ],
         ],
-        dragDrop: [],
+        dragDrop: ["Yo no soy japones.", []],
         manga: {},
     },
 };

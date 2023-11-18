@@ -863,32 +863,62 @@ a {
 .main .testScreen {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 60vh;
   align-items: center;
   color: #f5fcff;
 }
-.main .testScreen .feedbackText {
-  font-size: 2rem;
-  font-family: "Gidugu";
-}
-.main .testScreen .feedbackText.correct {
-  color: #30a929;
-}
-.main .testScreen .feedbackText.incorrect {
-  color: #e31720;
-}
 .main .testScreen .feedbackSection {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: ". feedback nextButton";
+  width: 100%;
+  margin: 30px 0;
   visibility: hidden;
   background-color: #20496b;
+}
+@media (min-width: 768px) {
+  .main .testScreen .feedbackSection {
+    width: 60%;
+  }
 }
 .main .testScreen .feedbackSection.show {
   visibility: visible;
 }
+.main .testScreen .feedbackSection .feedbackText {
+  grid-area: feedback;
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Gidugu";
+}
+.main .testScreen .feedbackSection .feedbackText.correct {
+  color: #30a929;
+}
+.main .testScreen .feedbackSection .feedbackText.incorrect {
+  color: #e31720;
+}
+.main .testScreen .feedbackSection .feedbackButton {
+  grid-area: nextButton;
+}
 .main .testScreen .testContent {
+  width: 100%;
   margin-top: auto;
   margin-bottom: auto;
 }
+@media (min-width: 768px) {
+  .main .testScreen .testContent {
+    width: 60%;
+  }
+}
 .main .testScreen .testContent .testPhrase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32vh;
+}
+.main .testScreen .testContent .testPhrase p {
+  padding: 50px 0;
+  font-size: clamp(1rem, 0rem + 5vw, 4rem);
   text-align: center;
 }
 .main .testScreen .testContent .testDivider {
