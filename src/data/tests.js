@@ -23,84 +23,99 @@ export const tests = {
                 ],
             ],
             //segundo problema...
-            [
-                //frase en japones
-                "わたしは、エンジニアです。",
-                //set de traducciones
-                [
-                    {
-                        id: 0,
-                        phrase: "Yo soy ingeniero.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Yo soy profesor.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Yo soy estudiante.",
-                    },
-                ],
-            ],
-            [
-                //frase en japones
-                "わたしは、おとなです。",
-                //set de traducciones
-                [
-                    {
-                        id: 0,
-                        phrase: "Yo soy adulto.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Yo soy niño.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Yo soy hombre.",
-                    },
-                ],
-            ],
-            [
-                //frase en japones
-                "じぶんは、がくせいじゃありません。",
-                //set de traducciones
-                [
-                    {
-                        id: 0,
-                        phrase: "Yo no soy estudiante.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Yo no soy profesor.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Yo no soy trabajador.",
-                    },
-                ],
-            ],
-            [
-                //frase en japones
-                "あなたは、ねこではありません。",
-                //set de traducciones
-                [
-                    {
-                        id: 0,
-                        phrase: "Usted no es gato.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Usted no es perro.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Usted no es animal.",
-                    },
-                ],
-            ],
+            // [
+            //     //frase en japones
+            //     "わたしは、エンジニアです。",
+            //     //set de traducciones
+            //     [
+            //         {
+            //             id: 0,
+            //             phrase: "Yo soy ingeniero.",
+            //         },
+            //         {
+            //             id: 1,
+            //             phrase: "Yo soy profesor.",
+            //         },
+            //         {
+            //             id: 2,
+            //             phrase: "Yo soy estudiante.",
+            //         },
+            //     ],
+            // ],
+            // [
+            //     //frase en japones
+            //     "わたしは、おとなです。",
+            //     //set de traducciones
+            //     [
+            //         {
+            //             id: 0,
+            //             phrase: "Yo soy adulto.",
+            //         },
+            //         {
+            //             id: 1,
+            //             phrase: "Yo soy niño.",
+            //         },
+            //         {
+            //             id: 2,
+            //             phrase: "Yo soy hombre.",
+            //         },
+            //     ],
+            // ],
+            // [
+            //     //frase en japones
+            //     "じぶんは、がくせいじゃありません。",
+            //     //set de traducciones
+            //     [
+            //         {
+            //             id: 0,
+            //             phrase: "Yo no soy estudiante.",
+            //         },
+            //         {
+            //             id: 1,
+            //             phrase: "Yo no soy profesor.",
+            //         },
+            //         {
+            //             id: 2,
+            //             phrase: "Yo no soy trabajador.",
+            //         },
+            //     ],
+            // ],
+            // [
+            //     //frase en japones
+            //     "あなたは、ねこではありません。",
+            //     //set de traducciones
+            //     [
+            //         {
+            //             id: 0,
+            //             phrase: "Usted no es gato.",
+            //         },
+            //         {
+            //             id: 1,
+            //             phrase: "Usted no es perro.",
+            //         },
+            //         {
+            //             id: 2,
+            //             phrase: "Usted no es animal.",
+            //         },
+            //     ],
+            // ],
         ],
-        dragDrop: ["Yo no soy japones.", []],
+        dragDrop: [
+            //primer set
+            [
+                "Yo no soy japones.",
+                "うちはにほんじんじゃありません",
+                [
+                    { id: 0, drag: "うち" },
+                    { id: 1, drag: "は" },
+                    { id: 2, drag: "にほん" },
+                    { id: 3, drag: "じん" },
+                    { id: 4, drag: "じゃありません" },
+                ],
+            ],
+            //segundo set
+            [],
+        ],
         manga: {},
     },
 };
