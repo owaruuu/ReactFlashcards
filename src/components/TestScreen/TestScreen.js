@@ -11,6 +11,8 @@ import Mondai from "./Mondai";
 import DragDrop from "./DragDrop";
 import Manga from "./Manga";
 
+import { MultipleContainers } from "./DndTest";
+
 const TestScreen = () => {
     const { appState } = useContext(AppContext);
 
@@ -35,7 +37,6 @@ const TestScreen = () => {
     });
 
     const [stage, setStage] = useState("mondai");
-    console.log("🚀 ~ file: TestScreen.js:35 ~ TestScreen ~ stage:", stage);
 
     const [correct, setCorrect] = useState(-1);
     const [incorrect, setIncorrect] = useState(-1);
@@ -126,7 +127,8 @@ const TestScreen = () => {
                     handleClick={handleOptionClick}
                 />
             )}
-            {stage === "dragDrop" && (
+            {stage === "dragDrop" && <MultipleContainers />}
+            {/* {stage === "dragDrop" && (
                 <DragDrop
                     test={test}
                     problem={problem}
@@ -135,9 +137,8 @@ const TestScreen = () => {
                     thinking={thinking}
                     handleClick={handleOptionClick}
                 />
-            )}
+            )} */}
             {stage === "manga" && <Manga />}
-
             <FeedbackText
                 content={feedback}
                 show={thinking}

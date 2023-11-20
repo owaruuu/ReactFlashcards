@@ -1,9 +1,24 @@
 import { useEffect, useState } from "react";
-import { DndContext } from "@dnd-kit/core";
+import {
+    DndContext,
+    DragOverlay,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from "@dnd-kit/core";
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import AnswersBox from "./AnswersBox";
 import Draggable from "./Draggable";
 import TestDivider from "../Misc/TestDivider";
 import { shuffleArray } from "../../utils/utils";
+import { Item } from "./Item";
 
 const DragDrop = (props) => {
     const { test, problem, correct, incorrect, thinking, handleClick } = props;
@@ -29,11 +44,41 @@ const DragDrop = (props) => {
         );
     });
 
-    function handleDragEnd(event) {
-        if (event.over && event.over.id === "answersBox") {
-            setIsDropped(true);
-        }
+    // function handleDragEnd(event) {
+    //     if (event.over && event.over.id === "answersBox") {
+    //         setIsDropped(true);
+    //     }
+    // }
+
+    const [items, setItems] = useState(["1", "2", "3"]);
+    const [items2] = useState(["a", "b", "c"]);
+    const [activeId, setActiveId] = useState(null);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
+    function handleDragStart(event) {
+        const { active } = event;
+
+        setActiveId(active.id);
     }
+
+    const handleDragEnd = (event) => {
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.indexOf(active.id);
+                const newIndex = items.indexOf(over.id);
+
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    };
 
     return (
         <div className="testContent">
@@ -41,11 +86,29 @@ const DragDrop = (props) => {
                 <p>{currentPhrase}</p>
             </div>
             <TestDivider />
-            <DndContext onDragEnd={handleDragEnd}>
-                <AnswersBox />
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={items}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {items.map((id) => (
+                        <Draggable key={id} id={id}>
+                            <p>{id}</p>
+                        </Draggable>
+                    ))}
+                </SortableContext>
+                <DragOverlay>
+                    {activeId ? <Item id={activeId} /> : null}
+                </DragOverlay>
+
                 <div>
                     caja opciones
-                    {optionsElements}
+                    {/* {optionsElements} */}
                 </div>
             </DndContext>
         </div>

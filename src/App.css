@@ -868,6 +868,20 @@ a {
   align-items: center;
   color: #f5fcff;
 }
+.main .testScreen .dropContainer {
+  background-color: #184367;
+  border: 1px black solid;
+  border-radius: 15px;
+  margin: 15px;
+  padding: 20px;
+  cursor: pointer;
+}
+.main .testScreen .optionsParent {
+  background-color: green;
+}
+.main .testScreen .dragOption {
+  background-color: red;
+}
 .main .testScreen .feedbackSection {
   display: grid;
   grid-template-columns: 33% 33% 33%;
@@ -951,6 +965,13 @@ a {
 .main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
   color: #f5fcff;
   background-color: #e31720;
+}
+.main .testScreen .testContent .answersBox {
+  height: 200px;
+  background-color: #20496b;
+}
+.main .testScreen .testContent .draggable {
+  height: 100px;
 }
 
 .forms {

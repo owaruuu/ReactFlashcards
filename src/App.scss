@@ -976,6 +976,22 @@ a {
 
         color: $cloud-white;
 
+        .dropContainer {
+            background-color: #184367;
+            border: 1px black solid;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .optionsParent {
+            background-color: green;
+        }
+        .dragOption {
+            background-color: red;
+        }
+
         .feedbackSection {
             display: grid;
             grid-template-columns: 33% 33% 33%;
@@ -1070,6 +1086,15 @@ a {
                         background-color: $loser-red;
                     }
                 }
+            }
+
+            .answersBox {
+                height: 200px;
+                background-color: #20496b;
+            }
+
+            .draggable {
+                height: 100px;
             }
         }
     }
