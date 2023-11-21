@@ -43,10 +43,10 @@ export const Item = React.memo(
                 <div
                     className={classNames(
                         "dragOption",
-                        styles.Wrapper
-                        // fadeIn && styles.fadeIn,
-                        // sorting && styles.sorting,
-                        // dragOverlay && styles.dragOverlay
+                        styles.Wrapper,
+                        fadeIn && styles.fadeIn,
+                        sorting && styles.sorting,
+                        dragOverlay && styles.dragOverlay
                     )}
                     style={{
                         ...wrapperStyle,
@@ -59,12 +59,12 @@ export const Item = React.memo(
                         "--translate-y": transform
                             ? `${Math.round(transform.y)}px`
                             : undefined,
-                        "--scale-x": transform?.scaleX
-                            ? `${transform.scaleX}`
-                            : undefined,
-                        "--scale-y": transform?.scaleY
-                            ? `${transform.scaleY}`
-                            : undefined,
+                        // "--scale-x": transform?.scaleX
+                        //     ? `${transform.scaleX}`
+                        //     : undefined,
+                        // "--scale-y": transform?.scaleY
+                        //     ? `${transform.scaleY}`
+                        //     : undefined,
                         "--index": index,
                         "--color": color,
                     }}

@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import classNames from "classnames";
-// import styles from "./Container.module.css";
+import styles from "./Container.module.css";
 
 export const Container = forwardRef(
     (
@@ -33,24 +33,20 @@ export const Container = forwardRef(
                     "--columns": columns,
                 }}
                 className={classNames(
-                    "dropContainer"
-                    // styles.Container,
-                    // unstyled && styles.unstyled,
-                    // horizontal && styles.horizontal,
-                    // hover && styles.hover,
-                    // placeholder && styles.placeholder,
-                    // scrollable && styles.scrollable,
-                    // shadow && styles.shadow
+                    "dropContainer",
+                    styles.Container,
+                    unstyled && styles.unstyled,
+                    horizontal && styles.horizontal,
+                    hover && styles.hover,
+                    placeholder && styles.placeholder,
+                    scrollable && styles.scrollable,
+                    shadow && styles.shadow
                 )}
                 onClick={onClick}
                 tabIndex={onClick ? 0 : undefined}
             >
                 {label ? <div>{label}</div> : null}
-                {placeholder ? (
-                    children
-                ) : (
-                    <div className="optionsParent">{children}</div>
-                )}
+                {<div className="optionsParent">{children}</div>}
             </Component>
         );
     }

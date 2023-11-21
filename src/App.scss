@@ -976,20 +976,37 @@ a {
 
         color: $cloud-white;
 
+        .dragAndDrop {
+            width: 100vw;
+        }
+
         .dropContainer {
-            background-color: #184367;
-            border: 1px black solid;
-            border-radius: 15px;
-            margin: 15px;
-            padding: 20px;
-            cursor: pointer;
         }
 
         .optionsParent {
-            background-color: green;
+            --col-count: 4;
+            // margin: 5px;
+            padding: 5px;
+            min-height: 30px;
+            min-width: 100%;
+            background-color: #6b6b6b5c;
+            border-bottom: 1px solid white;
+
+            // display: grid;
+            // grid-template-columns: repeat(var(--col-count), 1fr);
+            // grid-template-columns: repeat(auto-fit, minmax(186px, 1fr));
+
+            display: flex;
+            // flex-direction: column;
+
+            @media (min-width: 768px) {
+                grid-template-columns: repeat(calc(var(--col-count) + 6), 1fr);
+            }
         }
         .dragOption {
             background-color: red;
+            // margin-left: auto;
+            // width: 300px;
         }
 
         .feedbackSection {

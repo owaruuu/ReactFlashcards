@@ -868,16 +868,22 @@ a {
   align-items: center;
   color: #f5fcff;
 }
-.main .testScreen .dropContainer {
-  background-color: #184367;
-  border: 1px black solid;
-  border-radius: 15px;
-  margin: 15px;
-  padding: 20px;
-  cursor: pointer;
+.main .testScreen .dragAndDrop {
+  width: 100vw;
 }
 .main .testScreen .optionsParent {
-  background-color: green;
+  --col-count: 4;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 100%;
+  background-color: rgba(107, 107, 107, 0.3607843137);
+  border-bottom: 1px solid white;
+  display: flex;
+}
+@media (min-width: 768px) {
+  .main .testScreen .optionsParent {
+    grid-template-columns: repeat(calc(var(--col-count) + 6), 1fr);
+  }
 }
 .main .testScreen .dragOption {
   background-color: red;
