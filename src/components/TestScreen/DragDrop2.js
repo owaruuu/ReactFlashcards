@@ -19,7 +19,6 @@ import Draggable from "./Draggable";
 import TestDivider from "../Misc/TestDivider";
 import { shuffleArray } from "../../utils/utils";
 import { Item } from "./Item";
-import { MultipleContainers } from "./DndTest";
 
 const DragDrop2 = (props) => {
     const { test, problem, correct, incorrect, thinking, handleClick } = props;
@@ -87,7 +86,31 @@ const DragDrop2 = (props) => {
                 <p>{currentPhrase}</p>
             </div>
             <TestDivider />
-            <MultipleContainers />
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={items}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {items.map((id) => (
+                        <Draggable key={id} id={id}>
+                            <p>{id}</p>
+                        </Draggable>
+                    ))}
+                </SortableContext>
+                <DragOverlay>
+                    {activeId ? <Item id={activeId} /> : null}
+                </DragOverlay>
+
+                <div>
+                    caja opciones
+                    {/* {optionsElements} */}
+                </div>
+            </DndContext>
         </div>
     );
 };

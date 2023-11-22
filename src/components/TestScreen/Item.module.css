@@ -10,6 +10,9 @@ $focused-outline-color: #4c9ffe; */
 $box-shadow: $box-shadow-border, $box-shadow-common; */
 
 .Wrapper {
+    background-color: #e5ff008f !important;
+    margin: 0 3px;
+
     display: flex;
     box-sizing: border-box;
     transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0)
@@ -37,7 +40,7 @@ $box-shadow: $box-shadow-border, $box-shadow-common; */
     flex-grow: 1;
     align-items: center;
     padding: 0 10px;
-    background-color: #fff;
+    /* background-color: #ffffff; */
     /* box-shadow: $box-shadow; */
     outline: none;
     border-radius: calc(4px / var(--scale-x, 1));

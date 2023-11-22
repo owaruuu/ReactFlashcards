@@ -868,9 +868,6 @@ a {
   align-items: center;
   color: #f5fcff;
 }
-.main .testScreen .dragAndDrop {
-  width: 100vw;
-}
 .main .testScreen .optionsParent {
   --col-count: 4;
   padding: 5px;

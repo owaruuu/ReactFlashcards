@@ -6,9 +6,9 @@
     box-sizing: border-box;
     appearance: none;
     outline: none;
-    margin: 10px;
-    border-radius: 5px;
-    min-height: 200px;
+    /* margin: 10px; */
+    /* border-radius: 5px; */
+    /* min-height: 200px; */
     transition: background-color 350ms ease;
     font-size: 1em;
     background-color: #184367;
@@ -39,7 +39,7 @@
     }
 
     &.hover {
-        background-color: rgb(235, 235, 235, 1);
+        /* background-color: rgb(235, 235, 235, 1); */
     }
 
     &.unstyled {
