@@ -76,8 +76,8 @@ export const lectures = [
             },
             {
                 id: 15,
-                term: "持ち",
-                extra: "",
+                term: "もち",
+                extra: "持ち",
                 answer: "Cuando la calidad y la mano de obra permanecen inalteradas durante mucho tiempo",
             },
             {
