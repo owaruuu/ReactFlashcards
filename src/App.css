@@ -866,24 +866,49 @@ a {
   width: 100%;
   min-height: 60vh;
   align-items: center;
+  text-align: center;
   color: #f5fcff;
 }
+.main .testScreen .problemCounter {
+  font-size: 0.8rem;
+}
+.main .testScreen .upArrow {
+  font-size: 1.5rem;
+  color: #20496b;
+}
+.main .testScreen .testTitle {
+  font-size: 1rem;
+}
+.main .testScreen .dragAndDrop p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+.main .testScreen .dragAndDrop .dragAnswer {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0 10px;
+  min-height: 72px;
+}
+.main .testScreen .answerDropContainers {
+  margin: 0 5px;
+  margin-bottom: 15px;
+}
+.main .testScreen .answerDropContainers .optionsParent {
+  border-bottom: 1px solid white;
+}
+.main .testScreen .optionsDropContainers {
+  background-color: #20496b;
+  margin: 15px 5px 0 5px;
+  border-radius: 15px;
+  padding: 2px 5px;
+}
 .main .testScreen .optionsParent {
-  --col-count: 4;
-  padding: 5px;
+  padding: 6px 0;
+  box-sizing: content-box;
   min-height: 30px;
   min-width: 100%;
-  background-color: rgba(107, 107, 107, 0.3607843137);
-  border-bottom: 1px solid white;
   display: flex;
-}
-@media (min-width: 768px) {
-  .main .testScreen .optionsParent {
-    grid-template-columns: repeat(calc(var(--col-count) + 6), 1fr);
-  }
-}
-.main .testScreen .dragOption {
-  background-color: red;
 }
 .main .testScreen .feedbackSection {
   display: grid;
@@ -931,12 +956,15 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32vh;
+  margin-left: auto;
+  margin-right: auto;
+  height: 17vh;
+  max-width: 70vw;
 }
 .main .testScreen .testContent .testPhrase p {
-  padding: 50px 0;
-  font-size: clamp(1rem, 0rem + 5vw, 4rem);
+  font-size: clamp(1rem, 0rem + 6vw, 4rem);
   text-align: center;
+  margin: 0;
 }
 .main .testScreen .testContent .testDivider {
   background-color: #f5fcff;

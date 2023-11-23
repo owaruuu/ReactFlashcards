@@ -6,23 +6,15 @@
     box-sizing: border-box;
     appearance: none;
     outline: none;
-    /* margin: 10px; */
-    /* border-radius: 5px; */
-    /* min-height: 200px; */
     transition: background-color 350ms ease;
     font-size: 1em;
-    background-color: #184367;
-        border: 1px black solid;
-        /* border-radius: 15px; */
-        /* margin: 15px; */
-        /* padding: 20px; */
-        cursor: pointer;
+    cursor: pointer;
 
     &.scrollable {
         ul {
             overflow-y: auto;
         }
-    }
+    }    
 
     &.placeholder {
         justify-content: center;
@@ -39,7 +31,8 @@
     }
 
     &.hover {
-        /* background-color: rgb(235, 235, 235, 1); */
+        background-color: rgba(235, 235, 235, 0.089);
+        
     }
 
     &.unstyled {
@@ -68,7 +61,6 @@
 
 .Header {
     display: flex;
-    padding: 5px 20px;
     padding-right: 8px;
     align-items: center;
     justify-content: space-between;

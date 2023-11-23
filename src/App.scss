@@ -973,40 +973,62 @@ a {
         width: 100%;
         min-height: 60vh;
         align-items: center;
+        text-align: center;
 
         color: $cloud-white;
 
+        .problemCounter {
+            font-size: 0.8rem;
+        }
+
+        .upArrow {
+            font-size: 1.5rem;
+            color: #20496b;
+        }
+
+        .testTitle {
+            font-size: 1rem;
+        }
+
         .dragAndDrop {
             // width: 100vw;
+            p {
+                font-size: 0.8rem;
+                margin: 0;
+            }
+            .dragAnswer {
+                text-align: center;
+                font-size: 1.5rem;
+                font-weight: 600;
+                padding: 0 10px;
+                min-height: 72px;
+            }
         }
 
         .dropContainer {
         }
 
-        .optionsParent {
-            --col-count: 4;
-            // margin: 5px;
-            padding: 5px;
-            min-height: 30px;
-            min-width: 100%;
-            background-color: #6b6b6b5c;
-            border-bottom: 1px solid white;
-
-            // display: grid;
-            // grid-template-columns: repeat(var(--col-count), 1fr);
-            // grid-template-columns: repeat(auto-fit, minmax(186px, 1fr));
-
-            display: flex;
-            // flex-direction: column;
-
-            @media (min-width: 768px) {
-                grid-template-columns: repeat(calc(var(--col-count) + 6), 1fr);
+        .answerDropContainers {
+            margin: 0 5px;
+            margin-bottom: 15px;
+            .optionsParent {
+                border-bottom: 1px solid white;
             }
         }
-        .dragOption {
-            background-color: red;
-            // margin-left: auto;
-            // width: 300px;
+
+        .optionsDropContainers {
+            background-color: #20496b;
+            margin: 15px 5px 0 5px;
+            border-radius: 15px;
+            padding: 2px 5px;
+        }
+
+        .optionsParent {
+            padding: 6px 0;
+            box-sizing: content-box;
+            min-height: 30px;
+            min-width: 100%;
+            display: flex;
         }
 
         .feedbackSection {
@@ -1059,11 +1081,14 @@ a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 32vh;
+                margin-left: auto;
+                margin-right: auto;
+                height: 17vh;
+                max-width: 70vw;
                 p {
-                    padding: 50px 0;
-                    font-size: clamp(1rem, 0rem + 5vw, 4rem);
+                    font-size: clamp(1rem, 0rem + 6vw, 4rem);
                     text-align: center;
+                    margin: 0;
                 }
             }
 
