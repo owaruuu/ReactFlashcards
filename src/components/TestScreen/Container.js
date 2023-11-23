@@ -45,7 +45,7 @@ export const Container = forwardRef(
                 onClick={onClick}
                 tabIndex={onClick ? 0 : undefined}
             >
-                {label ? <div>{label}</div> : null}
+                {/* {label ? <div>{label}</div> : null} */}
                 {<div className="optionsParent">{children}</div>}
             </Component>
         );

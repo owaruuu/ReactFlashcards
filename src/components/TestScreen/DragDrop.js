@@ -21,75 +21,26 @@ import { shuffleArray } from "../../utils/utils";
 import { Item } from "./Item";
 import { MultipleContainers } from "./DndTest";
 
-const DragDrop2 = (props) => {
+const DragDrop = (props) => {
     const { test, problem, correct, incorrect, thinking, handleClick } = props;
-    //el array de opciones revueltas
-    const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
-    console.log(
-        "🚀 ~ file: DragDrop.js:9 ~ DragDrop ~ currentOptionsElem:",
-        currentOptionsElem
-    );
+
     const currentPhrase = test.dragDrop[problem][0];
-
-    useEffect(() => {
-        setCurrentOptionsElem(shuffleArray(test.dragDrop[problem][2]));
-        // setCurrentOptionsElem("shuffleArray(test.mondai[problem][0])");
-    }, [problem]);
-    //recorro el array revuelto de opciones para crear los botones
-    const optionsElements = currentOptionsElem.map((option) => {
-        let className = "dragOption";
-        return (
-            <Draggable className={className} key={option.id} id={option.id}>
-                {option.drag}
-            </Draggable>
-        );
-    });
-
-    // function handleDragEnd(event) {
-    //     if (event.over && event.over.id === "answersBox") {
-    //         setIsDropped(true);
-    //     }
-    // }
-
-    const [items, setItems] = useState(["1", "2", "3"]);
-    const [items2] = useState(["a", "b", "c"]);
-    const [activeId, setActiveId] = useState(null);
-
-    const sensors = useSensors(
-        useSensor(PointerSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
-
-    function handleDragStart(event) {
-        const { active } = event;
-
-        setActiveId(active.id);
-    }
-
-    const handleDragEnd = (event) => {
-        const { active, over } = event;
-
-        if (active.id !== over.id) {
-            setItems((items) => {
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
-
-                return arrayMove(items, oldIndex, newIndex);
-            });
-        }
-    };
+    const currentCorrectAnswer = test.dragDrop[problem][1];
+    const currentOptions = [
+        ...test.dragDrop[problem][2],
+        ...test.dragDrop[problem][3],
+    ];
 
     return (
         <div className="testContent">
             <div className="testPhrase">
-                <p>{currentPhrase}</p>
+                <p>"{currentPhrase}"</p>
             </div>
-            <TestDivider />
+            {/* <TestDivider /> */}
             <MultipleContainers />
+            <button onClick={handleClick}>Answer</button>
         </div>
     );
 };
 
-export default DragDrop2;
+export default DragDrop;
