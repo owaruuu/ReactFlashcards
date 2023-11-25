@@ -106,6 +106,10 @@ const LoginHeader = () => {
     //esto se activa cada vez que cambio el timer
     useEffect(() => {
         const tryToSave = async () => {
+            console.log(
+                "🚀 ~ file: LoginHeader.js:20 ~ LoginHeader ~ user:",
+                user.currentProgress
+            );
             const response = await saveUserProgress(user.currentProgress);
 
             if (!response.value) {
