@@ -90,6 +90,16 @@
         cursor: grab;
     }
 
+    &.disabled {
+        color: #999;
+        background-color: #cbcbcb;
+        cursor: inherit;
+
+        &:focus {
+            box-shadow: 0 0px 4px 1px rgba(0, 0, 0, 0.836), var(--box-shadow);
+        }
+    }
+
     /* &.dragging:not(.dragOverlay) {
         opacity: var(--dragging-opacity, 0.5);
         z-index: 0;

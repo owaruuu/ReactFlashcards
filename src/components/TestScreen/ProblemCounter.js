@@ -7,12 +7,8 @@ const ProblemCounter = (props) => {
                         {props.problem.current + 1}/{props.problem.max}
                     </div>
                 );
-            // case "dragDrop":
-            //     return (
-            //         <div className={props.className}>
-            //             {props.problem.current + 1}/{props.problem.max}
-            //         </div>
-            //     );
+            case "results":
+                return null;
         }
     };
 

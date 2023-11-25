@@ -1,21 +1,6 @@
 const DragAnswerContent = (props) => {
-    console.log(
-        "🚀 ~ file: DragAnswerContent.js:2 ~ DragAnswerContent ~ props:",
-        props
-    );
-    const content = (
-        <span>
-            {props.first}
-            {props.second}
-        </span>
-    );
-    return (
-        <>
-            {props.first.length > 0 || props.second.length > 0
-                ? content
-                : "..."}
-        </>
-    );
+    const content = <span>{props.phrase}</span>;
+    return <>{props.phrase !== "" ? content : "..."}</>;
 };
 
 export default DragAnswerContent;
