@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import _ from "lodash";
-import DragAnswerContent from "./DragDropComponents/DragAnswerContent";
 import { LuArrowDownUp } from "react-icons/lu";
 import { createPortal } from "react-dom";
 import {
@@ -99,40 +98,54 @@ const dropAnimationConfig = {
     }),
 };
 
-export function MultipleContainers({
-    adjustScale = true,
-    itemCount = 3,
-    cancelDrop,
-    columns,
-    handle = false,
-    items: initialItems,
-    containerStyle,
-    dropAnimation = dropAnimationConfig,
-    getItemStyles = () => ({}),
-    wrapperStyle = () => ({}),
-    minimal = false,
-    modifiers,
-    renderItem,
-    strategy = () => ({}),
-    trashable = false,
-    vertical = false,
-    scrollable,
-}) {
-    const [items, setItems] = useState({
-        FirstRowAnswer: [],
-        SecondRowAnswer: [],
-        FirstOptions: [`うち`, `は`, `にほん`, `じん`],
-        SecondOptions: [`じゃ`, "ありません"],
-    });
+export function MultipleContainers(
+    props,
+    {
+        adjustScale = true,
+        itemCount = 3,
+        cancelDrop,
+        columns,
+        handle = false,
+        items: initialItems,
+        containerStyle,
+        dropAnimation = dropAnimationConfig,
+        getItemStyles = () => ({}),
+        wrapperStyle = () => ({}),
+        minimal = false,
+        modifiers,
+        renderItem,
+        strategy = () => ({}),
+        trashable = false,
+        vertical = false,
+        scrollable,
+    }
+) {
+    const populateItems = (options) => {
+        let items = {
+            FirstRowAnswer: [],
+            SecondRowAnswer: [],
+            FirstOptions: [],
+            SecondOptions: [],
+        };
+        const half = options.length / 2;
+        let firstHalf = options.slice(0, half);
+        let secondHalf = options.slice(half);
+        items["FirstOptions"] = firstHalf.map((word) => word.drag);
+        items["SecondOptions"] = secondHalf.map((word) => word.drag);
+
+        return items;
+    };
+
+    const [items, setItems] = useState(() => populateItems(props.options));
+    useEffect(() => {
+        console.log("useEffect ");
+        setItems(populateItems(props.options));
+    }, [props.options]);
 
     const [answersContainers, setAnswersContainers] = useState([
         "FirstRowAnswer",
         "SecondRowAnswer",
     ]);
-    console.log(
-        "🚀 ~ file: DndTest.js:140 ~ answersContainers:",
-        answersContainers
-    );
     const [optionsContainers, setOptionsContainers] = useState([
         "FirstOptions",
         "SecondOptions",
@@ -142,8 +155,6 @@ export function MultipleContainers({
     const recentlyMovedToNewContainer = useRef(false);
     const containerWidth = useRef(null);
     const [width, setWidth] = useState(0);
-    // const isSortingContainer = activeId ? containers.includes(activeId) : false;
-
     const paddingSize = 20;
     const letterSize = 16;
     const minWidthOption = 55;
@@ -271,6 +282,7 @@ export function MultipleContainers({
     }, []);
 
     useEffect(() => {
+        props.updateAnswer(items);
         requestAnimationFrame(() => {
             recentlyMovedToNewContainer.current = false;
         });
@@ -280,7 +292,6 @@ export function MultipleContainers({
         <DndContext
             sensors={sensors}
             collisionDetection={collisionDetectionStrategy}
-            // collisionDetection={closestCorners}
             measuring={{
                 droppable: {
                     strategy: MeasuringStrategy.Always,
@@ -291,15 +302,12 @@ export function MultipleContainers({
                 setClonedItems(items);
             }}
             onDragOver={({ active, over }) => {
-                console.log("on drag over");
                 const overId = over?.id;
-                console.log("🚀 ~ file: DndTest.js:283 ~ overId:", overId);
 
                 const overContainer = findContainer(overId);
                 const activeContainer = findContainer(active.id);
 
                 if (activeContainer !== overContainer) {
-                    console.log("on drag over coming from different container");
                     let copy = _.cloneDeep(items[overContainer]);
                     copy.push(active.id);
 
@@ -314,11 +322,6 @@ export function MultipleContainers({
                             pixelLenght += optionLength;
                         }
                     });
-                    console.log("🚀 ~ file: DndTest.js:328 ~ width:", width);
-                    console.log(
-                        "🚀 ~ file: DndTest.js:329 ~ pixelLenght:",
-                        pixelLenght
-                    );
 
                     if (pixelLenght > width - 20) {
                         console.log("too long");
@@ -326,23 +329,13 @@ export function MultipleContainers({
                     }
 
                     setItems((items) => {
-                        console.log(
-                            "🚀 ~ file: DndTest.js:306 ~ previous items inside setItems:",
-                            items
-                        );
                         //items del container de donde vengo
                         const activeItems = items[activeContainer];
                         //items del container al que me estoy moviendo
                         const overItems = items[overContainer];
-
                         const overIndex = overItems.indexOf(overId);
-                        console.log(
-                            "🚀 ~ file: DndTest.js:316 ~ setItems ~ overIndex:",
-                            overIndex
-                        );
                         const activeIndex = activeItems.indexOf(active.id);
 
-                        //
                         let newIndex;
 
                         if (overId in items) {
@@ -385,42 +378,18 @@ export function MultipleContainers({
                         };
                     });
                 } else {
-                    console.log("on drag over within same container");
-                    const activeId = active?.id;
-                    console.log(
-                        "🚀 ~ file: DndTest.js:367 ~ activeId:",
-                        activeId
-                    );
                     const overId = over?.id;
-                    console.log("🚀 ~ file: DndTest.js:369 ~ overId:", overId);
-
-                    // if (activeId === overId) {
-                    //     console.log("did nothing");
-                    // }
 
                     const overContainer = findContainer(overId);
-                    console.log(
-                        "🚀 ~ file: DndTest.js:378 ~ overContainer:",
-                        overContainer
-                    );
 
                     if (overContainer) {
                         const activeIndex = items[activeContainer].indexOf(
                             active.id
                         );
-                        console.log(
-                            "🚀 ~ file: DndTest.js:379 ~ activeIndex:",
-                            activeIndex
-                        );
+
                         const overIndex = items[overContainer].indexOf(overId);
-                        console.log(
-                            "🚀 ~ file: DndTest.js:381 ~ overIndex:",
-                            overIndex
-                        );
 
                         if (activeIndex !== overIndex) {
-                            console.warn("reordering within same container");
-
                             setItems((items) => ({
                                 ...items,
                                 [overContainer]: arrayMove(
@@ -441,16 +410,6 @@ export function MultipleContainers({
             modifiers={modifiers}
         >
             <div ref={containerWidth} className="dragAndDrop">
-                {/* <h2>Width: {width}</h2> */}
-                <p>Your answer: </p>
-
-                <div className="dragAnswer">
-                    <DragAnswerContent
-                        first={items["FirstRowAnswer"]}
-                        second={items["SecondRowAnswer"]}
-                    />
-                </div>
-
                 <div className="answerDropContainers">
                     {answersContainers.map((containerId) => (
                         <DroppableContainer
@@ -470,6 +429,7 @@ export function MultipleContainers({
                                 {items[containerId].map((value, index) => {
                                     return (
                                         <SortableItem
+                                            disabled={props.disabled}
                                             key={value}
                                             id={value}
                                             index={index}
@@ -506,6 +466,7 @@ export function MultipleContainers({
                                 {items[containerId].map((value, index) => {
                                     return (
                                         <SortableItem
+                                            disabled={props.disabled}
                                             key={value}
                                             id={value}
                                             index={index}
@@ -556,52 +517,6 @@ export function MultipleContainers({
             />
         );
     }
-
-    function renderContainerDragOverlay(containerId) {
-        return (
-            <Container
-                label={`Column ${containerId}`}
-                columns={columns}
-                style={{
-                    height: "100%",
-                }}
-                shadow
-                unstyled={false}
-            >
-                {items[containerId].map((item, index) => (
-                    <Item
-                        key={item}
-                        value={item}
-                        handle={handle}
-                        style={getItemStyles({
-                            containerId,
-                            overIndex: -1,
-                            index: getIndex(item),
-                            value: item,
-                            isDragging: false,
-                            isSorting: false,
-                            isDragOverlay: false,
-                        })}
-                        wrapperStyle={wrapperStyle({ index })}
-                        renderItem={renderItem}
-                    />
-                ))}
-            </Container>
-        );
-    }
-
-    // function handleRemove(containerID) {
-    //     setContainers((containers) =>
-    //         containers.filter((id) => id !== containerID)
-    //     );
-    // }
-
-    function getNextContainerId() {
-        const containerIds = Object.keys(items);
-        const lastContainerId = containerIds[containerIds.length - 1];
-
-        return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
-    }
 }
 
 function SortableItem({
@@ -634,6 +549,7 @@ function SortableItem({
     return (
         <Item
             ref={disabled ? undefined : setNodeRef}
+            disabled={disabled}
             value={id}
             dragging={isDragging}
             sorting={isSorting}
@@ -668,42 +584,4 @@ function useMountStatus() {
     }, []);
 
     return isMounted;
-}
-
-////////////////////////////////////////////////////////////////
-
-function Trash({ id }) {
-    const { setNodeRef, isOver } = useDroppable({
-        id,
-    });
-
-    return (
-        <div
-            ref={setNodeRef}
-            style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "fixed",
-                left: "50%",
-                marginLeft: -150,
-                bottom: 20,
-                width: 300,
-                height: 60,
-                borderRadius: 5,
-                border: "1px solid",
-                borderColor: isOver ? "red" : "#DDD",
-            }}
-        >
-            Drop here to delete
-        </div>
-    );
-}
-
-function getLength(array) {
-    let count = 0;
-    array.forEach((element) => {
-        count += element.length;
-    });
-    return count;
 }
