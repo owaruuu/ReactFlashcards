@@ -2,20 +2,17 @@ import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import { lectures } from "../../data/lectures";
 import { tests } from "../../data/tests";
-import TestDivider from "../Misc/TestDivider";
 import FeedbackText from "./FeedbackText";
-import TestOptionsButtons from "./TestOptionsButtons";
 import ProblemCounter from "./ProblemCounter";
-import { randomInt, shuffleArray } from "../../utils/utils";
 import Mondai from "./Mondai";
 import DragDrop from "./DragDrop";
 import Manga from "./Manga";
+import ResultStage from "./ResultStage/ResultStage";
 
 const TestScreen = () => {
-    const { appState } = useContext(AppContext);
+    const { appState, dispatch, user, dbError } = useContext(AppContext);
 
-    const [score, setScore] = useState(0);
-    const [maxScore, setMaxScore] = useState(100);
+    const [newRecord, setNewRecord] = useState(false);
 
     //en que problema vamos, ej. 1/5
     const [problem, setProblem] = useState(0);
@@ -34,10 +31,39 @@ const TestScreen = () => {
         return tests[lecture.testId];
     });
 
+    const [score, setScore] = useState(0);
+    const [maxScore, setMaxScore] = useState(() => {
+        let max = 0;
+        max += test.mondai.length;
+        max += test.dragDrop.length;
+        max += test.manga.length ?? 0;
+
+        return max;
+    });
+
+    const [testVersion] = useState(test.version);
+
+    const [previousHighScore, setPreviousHighScore] = useState(() => {
+        if (dbError) {
+            return 0;
+        }
+
+        const testScore =
+            user.currentProgress[lecture.lectureId]?.["testScore"];
+
+        if (testScore) {
+            return testScore[testVersion];
+        } else {
+            return 0;
+        }
+    });
+
     const [stage, setStage] = useState("mondai");
 
+    //for multiple choice buttons
     const [correct, setCorrect] = useState(-1);
     const [incorrect, setIncorrect] = useState(-1);
+
     const [feedback, setFeedback] = useState("feed");
     const [thinking, setThinking] = useState(false);
 
@@ -56,6 +82,19 @@ const TestScreen = () => {
         }
     };
 
+    const handleDragAnswer = (info) => {
+        if (info === 0) {
+            console.log("Correct");
+            setFeedback("Correct!");
+            setThinking(true);
+            setScore((prevScore) => prevScore + 1);
+        } else {
+            console.log("Wrong");
+            setFeedback("Incorrect!");
+            setThinking(true);
+        }
+    };
+
     //necesito cambiar esto a un boton que cambie de stage tambien
     const handleNext = () => {
         const index = problem + 1;
@@ -67,7 +106,9 @@ const TestScreen = () => {
                     setStage("dragDrop");
                     break;
                 case "dragDrop":
-                    setStage("manga");
+                    // setStage("manga");
+                    setStage("results");
+                    handleSaveTestScore();
                     break;
                 case "manga":
                     setStage("results");
@@ -75,9 +116,6 @@ const TestScreen = () => {
             }
 
             setProblem(0);
-
-            //en este caso pasar a drag and drop
-            //o terminar la prueba
         } else {
             setProblem(index);
 
@@ -87,6 +125,52 @@ const TestScreen = () => {
         setCorrect(-1);
         setIncorrect(-1);
         setThinking(false);
+    };
+
+    useEffect(() => {
+        if (newRecord) {
+            const testScore = {
+                [test.version]: score,
+            };
+
+            dispatch({
+                type: "UPDATE_PROGRESS",
+                payload: {
+                    currentProgress: {
+                        ...user.currentProgress,
+                        [lecture.lectureId]: {
+                            ...user.currentProgress[lecture.lectureId],
+                            testScore: testScore,
+                        },
+                    },
+                },
+            });
+        }
+    }, [newRecord]);
+
+    const handleSaveTestScore = () => {
+        if (dbError) {
+            console.log(
+                "no tengo acceso a la db entonces no puedo salvar el testScore"
+            );
+            return;
+        }
+
+        //aqui deberia comparar primero los scores
+        if (score > previousHighScore) {
+            setNewRecord(true);
+        }
+    };
+
+    const handleBackButton = () => {
+        console.log("back button desde test screen");
+
+        dispatch({
+            type: "CHANGE_SCREEN",
+            payload: {
+                currentScreen: "lecture",
+            },
+        });
     };
 
     const currentMax =
@@ -101,16 +185,19 @@ const TestScreen = () => {
             ? "Select the correct translation."
             : stage === "dragDrop"
             ? "Drag and Drop to translate."
-            : "Read and respond accordingly.";
+            : stage === "manga"
+            ? "Follow the conversation"
+            : "Your Results:";
 
     return (
         <div className="testScreen">
-            <h2>
+            <h2 className="testTitle">
                 Test - {lecture.name} - {score} pts.
             </h2>
             <h3>{title}</h3>
             <div>
                 <ProblemCounter
+                    className="problemCounter"
                     stage={stage}
                     problem={{ current: problem, max: currentMax }}
                 />
@@ -133,15 +220,26 @@ const TestScreen = () => {
                     correct={correct}
                     incorrect={incorrect}
                     thinking={thinking}
-                    handleClick={handleOptionClick}
+                    handleClick={handleDragAnswer}
                 />
             )}
             {stage === "manga" && <Manga />}
-            <FeedbackText
-                content={feedback}
-                show={thinking}
-                nextButton={handleNext}
-            />
+            {stage === "results" && (
+                <ResultStage
+                    score={score}
+                    maxScore={maxScore}
+                    newRecord={newRecord}
+                    previousRecord={previousHighScore}
+                    onClick={handleBackButton}
+                />
+            )}
+            {stage !== "results" && (
+                <FeedbackText
+                    content={feedback}
+                    show={thinking}
+                    nextButton={handleNext}
+                />
+            )}
         </div>
     );
 };
