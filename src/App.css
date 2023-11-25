@@ -869,6 +869,25 @@ a {
   text-align: center;
   color: #f5fcff;
 }
+.main .testScreen .resultContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 50vh;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main .testScreen .resultBackButton {
+  background-color: #404040;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  padding: 6px 15px;
+}
+.main .testScreen h2,
+.main .testScreen h3 {
+  margin: 0;
+}
 .main .testScreen .problemCounter {
   font-size: 0.8rem;
 }
@@ -883,28 +902,21 @@ a {
   font-size: 0.8rem;
   margin: 0;
 }
-.main .testScreen .dragAndDrop .dragAnswer {
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 0 10px;
-  min-height: 72px;
-}
 .main .testScreen .answerDropContainers {
   margin: 0 5px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .main .testScreen .answerDropContainers .optionsParent {
   border-bottom: 1px solid white;
 }
 .main .testScreen .optionsDropContainers {
   background-color: #20496b;
-  margin: 15px 5px 0 5px;
+  margin: 10px 5px 0 5px;
   border-radius: 15px;
   padding: 2px 5px;
 }
 .main .testScreen .optionsParent {
-  padding: 6px 0;
+  padding: 4px 0;
   box-sizing: content-box;
   min-height: 30px;
   min-width: 100%;
@@ -917,7 +929,6 @@ a {
   width: 100%;
   margin: 30px 0;
   visibility: hidden;
-  background-color: #20496b;
 }
 @media (min-width: 768px) {
   .main .testScreen .feedbackSection {
@@ -941,11 +952,29 @@ a {
 }
 .main .testScreen .feedbackSection .feedbackButton {
   grid-area: nextButton;
+  border-radius: 34px;
+  background-color: #164b78;
+  color: white;
+  border: none;
 }
 .main .testScreen .testContent {
   width: 100%;
   margin-top: auto;
   margin-bottom: auto;
+}
+.main .testScreen .testContent .dragAnswerButton {
+  background-color: #287700;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 32px;
+  width: 70%;
+}
+.main .testScreen .testContent p {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #496673;
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent {
@@ -962,9 +991,10 @@ a {
   max-width: 70vw;
 }
 .main .testScreen .testContent .testPhrase p {
-  font-size: clamp(1rem, 0rem + 6vw, 4rem);
+  font-size: clamp(1rem, 1rem + 1vw, 3rem);
   text-align: center;
   margin: 0;
+  color: white;
 }
 .main .testScreen .testContent .testDivider {
   background-color: #f5fcff;
@@ -996,6 +1026,13 @@ a {
 .main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
   color: #f5fcff;
   background-color: #e31720;
+}
+.main .testScreen .testContent .dragAnswer {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0 10px;
+  min-height: 60px;
 }
 .main .testScreen .testContent .answersBox {
   height: 200px;

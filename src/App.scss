@@ -977,6 +977,28 @@ a {
 
         color: $cloud-white;
 
+        .resultContent {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            min-height: 50vh;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .resultBackButton {
+            background-color: #404040;
+            color: white;
+            border-radius: 15px;
+            border: none;
+            padding: 6px 15px;
+        }
+
+        h2,
+        h3 {
+            margin: 0;
+        }
+
         .problemCounter {
             font-size: 0.8rem;
         }
@@ -996,13 +1018,6 @@ a {
                 font-size: 0.8rem;
                 margin: 0;
             }
-            .dragAnswer {
-                text-align: center;
-                font-size: 1.5rem;
-                font-weight: 600;
-                padding: 0 10px;
-                min-height: 72px;
-            }
         }
 
         .dropContainer {
@@ -1010,7 +1025,7 @@ a {
 
         .answerDropContainers {
             margin: 0 5px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             .optionsParent {
                 border-bottom: 1px solid white;
             }
@@ -1018,13 +1033,13 @@ a {
 
         .optionsDropContainers {
             background-color: #20496b;
-            margin: 15px 5px 0 5px;
+            margin: 10px 5px 0 5px;
             border-radius: 15px;
             padding: 2px 5px;
         }
 
         .optionsParent {
-            padding: 6px 0;
+            padding: 4px 0;
             box-sizing: content-box;
             min-height: 30px;
             min-width: 100%;
@@ -1038,7 +1053,7 @@ a {
             width: 100%;
             margin: 30px 0;
             visibility: hidden;
-            background-color: #20496b;
+            // background-color: #20496b;
 
             @media (min-width: 768px) {
                 width: 60%;
@@ -1065,6 +1080,10 @@ a {
 
             .feedbackButton {
                 grid-area: nextButton;
+                border-radius: 34px;
+                background-color: #164b78;
+                color: white;
+                border: none;
             }
         }
 
@@ -1072,6 +1091,22 @@ a {
             width: 100%;
             margin-top: auto;
             margin-bottom: auto;
+
+            .dragAnswerButton {
+                background-color: #287700;
+                border-radius: 10px;
+                border: none;
+                color: white;
+                text-transform: uppercase;
+                margin-top: 32px;
+                width: 70%;
+            }
+
+            p {
+                margin: 0;
+                font-size: 0.7rem;
+                color: #496673;
+            }
 
             @media (min-width: 768px) {
                 width: 60%;
@@ -1086,9 +1121,10 @@ a {
                 height: 17vh;
                 max-width: 70vw;
                 p {
-                    font-size: clamp(1rem, 0rem + 6vw, 4rem);
+                    font-size: clamp(1rem, 1rem + 1vw, 3rem);
                     text-align: center;
                     margin: 0;
+                    color: white;
                 }
             }
 
@@ -1128,6 +1164,14 @@ a {
                         background-color: $loser-red;
                     }
                 }
+            }
+
+            .dragAnswer {
+                text-align: center;
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding: 0 10px;
+                min-height: 60px;
             }
 
             .answersBox {
