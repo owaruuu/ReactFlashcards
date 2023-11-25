@@ -1,5 +1,6 @@
 export const tests = {
     3: {
+        version: "24112023",
         mondai: [
             //5 problemas por set
             //primer problema de multiple eleccion
@@ -22,7 +23,7 @@ export const tests = {
                     },
                 ],
             ],
-            //segundo problema...
+            // segundo problema...
             // [
             //     //frase en japones
             //     "わたしは、エンジニアです。",
@@ -110,11 +111,33 @@ export const tests = {
                     { id: 1, drag: "は" },
                     { id: 2, drag: "にほん" },
                     { id: 3, drag: "じん" },
-                    { id: 4, drag: "じゃありません" },
+                    { id: 4, drag: "じゃ" },
+                    { id: 5, drag: "ありません" },
+                ],
+                [
+                    { id: 6, drag: "あなた" },
+                    { id: 7, drag: "を" },
+                    { id: 8, drag: "くん" },
                 ],
             ],
-            //segundo set
-            [],
+            // //segundo set
+            // [
+            //     "Usted es chileno?",
+            //     "あなたは、チリじんですか",
+            //     [
+            //         { id: 0, drag: "あなた" },
+            //         { id: 1, drag: "は、" },
+            //         { id: 2, drag: "チリ" },
+            //         { id: 3, drag: "じん" },
+            //         { id: 4, drag: "です" },
+            //         { id: 5, drag: "か" },
+            //     ],
+            //     [
+            //         { id: 6, drag: "わたし" },
+            //         { id: 7, drag: "が" },
+            //         { id: 8, drag: "さん" },
+            //     ],
+            // ],
         ],
         manga: {},
     },
