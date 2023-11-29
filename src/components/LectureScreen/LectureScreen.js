@@ -7,7 +7,7 @@ import { lectures } from "../../data/lectures";
 import svg from "../../svg/cherry-blossom-petal.svg";
 
 const LectureScreen = () => {
-    const { appState } = useContext(AppContext);
+    const { appState, dbError, loggedIn, user } = useContext(AppContext);
 
     const lectureId = appState.currentLecture;
     const lecture = lectures.find((lecture) => {
@@ -15,13 +15,14 @@ const LectureScreen = () => {
     });
 
     const hasTest = lecture.testId !== undefined ? true : false;
+    const showTestButton = hasTest && user.currentProgress ? true : false;
 
     return (
         <div className="lectureScreen">
             <h2 id="title" className="lectureTitle" string={lecture.name}>
                 {lecture.name}
             </h2>
-            <LectureScreenButtons test={hasTest} />
+            <LectureScreenButtons test={showTestButton} />
             <div
                 className="upperDivider"
                 style={{
