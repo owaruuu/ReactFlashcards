@@ -2,6 +2,12 @@ import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import { lectures } from "../../data/lectures";
 import { tests } from "../../data/tests";
+import {
+    chooseFiveMondai,
+    getFiveRandomNumbers,
+    chooseThreeDrag,
+    getThreeRandomNumbers,
+} from "../../utils/utils";
 import FeedbackText from "./FeedbackText";
 import ProblemCounter from "./ProblemCounter";
 import Mondai from "./Mondai";
@@ -10,7 +16,8 @@ import Manga from "./Manga";
 import ResultStage from "./ResultStage/ResultStage";
 
 const TestScreen = () => {
-    const { appState, dispatch, user, dbError } = useContext(AppContext);
+    const { appState, dispatch, user, dbError, loggedIn } =
+        useContext(AppContext);
 
     const [newRecord, setNewRecord] = useState(false);
 
@@ -31,12 +38,28 @@ const TestScreen = () => {
         return tests[lecture.testId];
     });
 
+    const randomMon = getFiveRandomNumbers();
+    const randomDrag = getThreeRandomNumbers();
+
+    const [fiveMondai] = useState(() => chooseFiveMondai(test, randomMon));
+
+    //chooseThreeDrag
+    const [threeDrag] = useState(() => chooseThreeDrag(test, randomDrag));
+
+    //Make currentTest
+    const [currentTest] = useState({
+        version: test.version,
+        mondai: fiveMondai,
+        dragDrop: threeDrag,
+        manga: [],
+    });
+
     const [score, setScore] = useState(0);
     const [maxScore, setMaxScore] = useState(() => {
         let max = 0;
-        max += test.mondai.length;
-        max += test.dragDrop.length;
-        max += test.manga.length ?? 0;
+        max += currentTest.mondai.length;
+        max += currentTest.dragDrop.length;
+        max += currentTest.manga.length ?? 0;
 
         return max;
     });
@@ -44,7 +67,7 @@ const TestScreen = () => {
     const [testVersion] = useState(test.version);
 
     const [previousHighScore, setPreviousHighScore] = useState(() => {
-        if (dbError) {
+        if (dbError || !loggedIn) {
             return 0;
         }
 
@@ -99,7 +122,7 @@ const TestScreen = () => {
     const handleNext = () => {
         const index = problem + 1;
 
-        if (index > test[stage].length - 1) {
+        if (index > currentTest[stage].length - 1) {
             console.log("this is the last problem");
             switch (stage) {
                 case "mondai":
@@ -149,12 +172,15 @@ const TestScreen = () => {
     }, [newRecord]);
 
     const handleSaveTestScore = () => {
-        if (dbError) {
+        if (dbError || !loggedIn) {
             console.log(
                 "no tengo acceso a la db entonces no puedo salvar el testScore"
             );
             return;
         }
+
+        console.log("setie new record");
+        return setNewRecord(true);
 
         //aqui deberia comparar primero los scores
         if (score > previousHighScore) {
@@ -175,10 +201,10 @@ const TestScreen = () => {
 
     const currentMax =
         stage === "mondai"
-            ? test.mondai.length
+            ? currentTest.mondai.length
             : stage === "dragDrop"
-            ? test.dragDrop.length
-            : test.manga.length;
+            ? currentTest.dragDrop.length
+            : currentTest.manga.length;
 
     const title =
         stage === "mondai"
@@ -204,7 +230,7 @@ const TestScreen = () => {
             </div>
             {stage === "mondai" && (
                 <Mondai
-                    test={test}
+                    mondai={fiveMondai}
                     problem={problem}
                     correct={correct}
                     incorrect={incorrect}
@@ -215,7 +241,7 @@ const TestScreen = () => {
             {/* {stage === "dragDrop" && <MultipleContainers />} */}
             {stage === "dragDrop" && (
                 <DragDrop
-                    test={test}
+                    drag={threeDrag}
                     problem={problem}
                     correct={correct}
                     incorrect={incorrect}
