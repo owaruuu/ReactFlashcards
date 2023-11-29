@@ -45,8 +45,14 @@ export const Container = forwardRef(
                 onClick={onClick}
                 tabIndex={onClick ? 0 : undefined}
             >
-                {/* {label ? <div>{label}</div> : null} */}
-                {<div className="optionsParent">{children}</div>}
+                <div className="optionsParent">
+                    {props.isFirst && props.showTip ? (
+                        <div className="dragHereText">Drag Here To Start</div>
+                    ) : (
+                        ""
+                    )}
+                    {children}
+                </div>
             </Component>
         );
     }
