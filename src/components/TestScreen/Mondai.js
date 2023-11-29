@@ -3,14 +3,15 @@ import TestDivider from "../Misc/TestDivider";
 import { shuffleArray } from "../../utils/utils";
 
 const Mondai = (props) => {
-    const { test, problem, correct, incorrect, thinking, handleClick } = props;
+    const { mondai, problem, correct, incorrect, thinking, handleClick } =
+        props;
     //el array de opciones revueltas
     const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
-    const currentPhrase = test.mondai[problem][0];
+    const currentPhrase = mondai[problem][0];
 
+    //al principio y cada vez que cambio de problema
     useEffect(() => {
-        setCurrentOptionsElem(shuffleArray(test.mondai[problem][1]));
-        // setCurrentOptionsElem("shuffleArray(test.mondai[problem][0])");
+        setCurrentOptionsElem(shuffleArray(mondai[problem][1]));
     }, [problem]);
 
     //recorro el array revuelto de opciones para crear los botones

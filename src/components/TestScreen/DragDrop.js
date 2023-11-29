@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { shuffleArray } from "../../utils/utils";
-import { MultipleContainers } from "./DndTest";
+import { MultipleContainers } from "./DragDropComponents/DndTest";
 import DragAnswerContent from "./DragDropComponents/DragAnswerContent";
 
 const DragDrop = (props) => {
-    const { test, problem, correct, incorrect, thinking, handleClick } = props;
+    const { drag, problem, correct, incorrect, thinking, handleClick } = props;
+    const [changed, setChanged] = useState(false);
     const [currentAnswer, setCurrentAnswer] = useState("");
     const [currentOptions, setCurrentOptions] = useState(() =>
         shuffleArray([
-            ...test.dragDrop[problem][2],
-            ...test.dragDrop[problem][3],
+            ...drag[problem][2],
+            // ...test.dragDrop[problem][3],
         ])
     );
-    const currentPhrase = test.dragDrop[problem][0];
-    const currentCorrectAnswer = test.dragDrop[problem][1];
+    const currentPhrase = drag[problem][0];
+    const currentCorrectAnswer = drag[problem][1];
 
     const handleAnswerChange = (items) => {
+        setChanged(true);
         setCurrentAnswer(
             `${items["FirstRowAnswer"].join("")}${items["SecondRowAnswer"].join(
                 ""
@@ -24,9 +26,21 @@ const DragDrop = (props) => {
     };
 
     useEffect(() => {
+        if (changed) {
+            const timeout = setTimeout(() => {
+                setChanged(false);
+            }, 250);
+
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
+    }, [changed]);
+
+    useEffect(() => {
         const optionsArray = shuffleArray([
-            ...test.dragDrop[problem][2],
-            ...test.dragDrop[problem][3],
+            ...drag[problem][2],
+            // ...drag[problem][3],
         ]);
         setCurrentOptions(optionsArray);
     }, [problem]);
@@ -46,7 +60,7 @@ const DragDrop = (props) => {
             </div>
             <p>Your answer: </p>
             <div className="dragAnswer">
-                <DragAnswerContent phrase={currentAnswer} />
+                <DragAnswerContent phrase={currentAnswer} changed={changed} />
             </div>
             <MultipleContainers
                 updateAnswer={handleAnswerChange}
@@ -57,6 +71,7 @@ const DragDrop = (props) => {
                 <button
                     className="dragAnswerButton"
                     onClick={handleAnswerButton}
+                    disabled={currentAnswer === ""}
                 >
                     Answer
                 </button>
