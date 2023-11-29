@@ -41,3 +41,73 @@ export const backToTop = () => {
 export const randomInt = (lower = 0, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
+
+export const getFiveRandomNumbers = () => {
+    let randomNumbersArray = [];
+
+    while (randomNumbersArray.length <= 1) {
+        let number = randomInt(0, 4);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
+
+    while (randomNumbersArray.length <= 3) {
+        let number = randomInt(5, 9);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
+
+    let number = randomInt(10, 14);
+    randomNumbersArray.push(number);
+
+    randomNumbersArray.sort((a, b) => a - b);
+
+    return randomNumbersArray;
+};
+
+export const chooseFiveMondai = (test, randomNumberArray) => {
+    let mondaiArray = [];
+
+    mondaiArray = randomNumberArray.map((index) => {
+        return test.mondai[index];
+    });
+
+    return mondaiArray;
+};
+
+export const getThreeRandomNumbers = () => {
+    let randomNumbersArray = [];
+
+    while (randomNumbersArray.length <= 2) {
+        let number = randomInt(0, 10);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
+
+    randomNumbersArray.sort((a, b) => a - b);
+    console.log(
+        "🚀 ~ file: utils.js:97 ~ getThreeRandomNumbers ~ randomNumbersArray:",
+        randomNumbersArray
+    );
+
+    return randomNumbersArray;
+};
+
+export const chooseThreeDrag = (test, randomNumberArray) => {
+    let dragArray = [];
+
+    dragArray = randomNumberArray.map((index) => {
+        return test.dragDrop[index];
+    });
+
+    return dragArray;
+};
