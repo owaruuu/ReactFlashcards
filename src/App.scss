@@ -1021,6 +1021,14 @@ a {
         }
 
         .dropContainer {
+            .dragHereText {
+                position: absolute;
+                color: #255277;
+                text-transform: uppercase;
+                padding-left: 10px;
+                font-size: 0.9rem;
+                padding-top: 6px;
+            }
         }
 
         .answerDropContainers {
@@ -1100,11 +1108,16 @@ a {
                 text-transform: uppercase;
                 margin-top: 32px;
                 width: 70%;
+
+                &:disabled {
+                    background-color: #8a8a8a;
+                    text-decoration: line-through;
+                }
             }
 
             p {
                 margin: 0;
-                font-size: 0.7rem;
+                font-size: 0.85rem;
                 color: #496673;
             }
 
@@ -1164,14 +1177,6 @@ a {
                         background-color: $loser-red;
                     }
                 }
-            }
-
-            .dragAnswer {
-                text-align: center;
-                font-size: 1.2rem;
-                font-weight: 600;
-                padding: 0 10px;
-                min-height: 60px;
             }
 
             .answersBox {

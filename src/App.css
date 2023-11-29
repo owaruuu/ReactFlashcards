@@ -902,6 +902,14 @@ a {
   font-size: 0.8rem;
   margin: 0;
 }
+.main .testScreen .dropContainer .dragHereText {
+  position: absolute;
+  color: #255277;
+  text-transform: uppercase;
+  padding-left: 10px;
+  font-size: 0.9rem;
+  padding-top: 6px;
+}
 .main .testScreen .answerDropContainers {
   margin: 0 5px;
   margin-bottom: 10px;
@@ -971,9 +979,13 @@ a {
   margin-top: 32px;
   width: 70%;
 }
+.main .testScreen .testContent .dragAnswerButton:disabled {
+  background-color: #8a8a8a;
+  text-decoration: line-through;
+}
 .main .testScreen .testContent p {
   margin: 0;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: #496673;
 }
 @media (min-width: 768px) {
@@ -1026,13 +1038,6 @@ a {
 .main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
   color: #f5fcff;
   background-color: #e31720;
-}
-.main .testScreen .testContent .dragAnswer {
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding: 0 10px;
-  min-height: 60px;
 }
 .main .testScreen .testContent .answersBox {
   height: 200px;
