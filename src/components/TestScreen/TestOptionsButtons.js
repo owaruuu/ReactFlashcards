@@ -7,7 +7,6 @@ import FeedbackText from "./FeedbackText";
 import { randomInt, shuffleArray } from "../../utils/utils";
 
 const TestOptionsButtons = (props) => {
-    console.log("running options buttons ");
     const [optionsArray] = useState(
         shuffleArray(props.test.mondai[props.problem][1])
     );
@@ -30,4 +29,4 @@ const TestOptionsButtons = (props) => {
     return <div className="mondaiOptions">{optionsElements}</div>;
 };
 
-export default TestOptionsButtons;
+// export default TestOptionsButtons;
