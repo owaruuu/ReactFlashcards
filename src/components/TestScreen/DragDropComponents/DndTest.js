@@ -129,16 +129,41 @@ export function MultipleContainers(
         const half = options.length / 2;
         let firstHalf = options.slice(0, half);
         let secondHalf = options.slice(half);
-        items["FirstOptions"] = firstHalf.map((word) => word.drag);
-        items["SecondOptions"] = secondHalf.map((word) => word.drag);
+        items["FirstOptions"] = firstHalf.map((word) => {
+            return { id: word.id + 1, drag: word.drag };
+            //si no le sumo +1, el item con id 0 no se mueve.
+        });
+        items["SecondOptions"] = secondHalf.map((word) => {
+            return { id: word.id + 1, drag: word.drag };
+        });
 
         return items;
     };
 
+    // [
+    //     {
+    //         FirstRowAnswer: [],
+    //         SecondRowAnswer: [],
+    //         FirstOptions: [`うち`, `は`, `にほん`, `じん`],
+    //         SecondOptions: [`じゃ`, "ありません"],
+    //     },
+    // ][
+    //     {
+    //         FirstRowAnswer: [],
+    //         SecondRowAnswer: [],
+    //         FirstOptions: [
+    //             { id: 1, drag: `うち` },
+    //             { id: 1, drag: `は` },
+    //             { id: 1, drag: `にほん` },
+    //             { id: 1, drag: `じん` },
+    //         ],
+    //         SecondOptions: [`じゃ`, "ありません"],
+    //     }
+    // ];
+
     const [items, setItems] = useState(() => populateItems(props.options));
     console.log("🚀 ~ file: DndTest.js:139 ~ items:", items);
     useEffect(() => {
-        console.log("useEffect ");
         setItems(populateItems(props.options));
     }, [props.options]);
 
@@ -182,25 +207,77 @@ export function MultipleContainers(
                     ? // If there are droppables intersecting with the pointer, return those
                       pointerIntersections
                     : rectIntersection(args);
+            // console.log(
+            //     "🚀 ~ file: DndTest.js:205 ~ intersections:",
+            //     intersections
+            // );
             let overId = getFirstCollision(intersections, "id");
             // console.log("🚀 ~ file: DndTest.js:176 ~ overId:", overId);
 
             if (overId != null) {
+                // console.log("entre a overId != null");
                 if (overId in items) {
+                    // console.log("entre a overId in items");
                     const containerItems = items[overId];
 
                     // If a container is matched and it contains items (columns 'A', 'B', 'C')
                     if (containerItems.length > 0) {
                         // Return the closest droppable within that container
-                        // console.log("estoy ocupando el closescenter");
+                        // console.log(args);
+                        // console.log(
+                        //     "after filter: ",
+                        //     args.droppableContainers.filter((container) => {
+                        //         const isDifferent = container.id !== overId;
+                        //         let includes = false;
+                        //         containerItems.forEach((element) => {
+                        //             if (element.id === container.id) {
+                        //                 includes = true;
+                        //             }
+                        //         });
+
+                        //         return isDifferent && includes;
+                        //     })
+                        // );
+                        // console.log(
+                        //     "estoy ocupando el closescenter ",
+                        //     closestCenter({
+                        //         ...args,
+                        //         droppableContainers:
+                        //             args.droppableContainers.filter(
+                        //                 (container) => {
+                        //                     const isDifferent =
+                        //                         container.id !== overId;
+                        //                     let includes = false;
+                        //                     containerItems.forEach(
+                        //                         (element) => {
+                        //                             if (
+                        //                                 element.id ===
+                        //                                 container.id
+                        //                             ) {
+                        //                                 includes = true;
+                        //                             }
+                        //                         }
+                        //                     );
+
+                        //                     return isDifferent && includes;
+                        //                 }
+                        //             ),
+                        //     })
+                        // );
                         overId = closestCenter({
                             ...args,
                             droppableContainers:
-                                args.droppableContainers.filter(
-                                    (container) =>
-                                        container.id !== overId &&
-                                        containerItems.includes(container.id)
-                                ),
+                                args.droppableContainers.filter((container) => {
+                                    const isDifferent = container.id !== overId;
+                                    let includes = false;
+                                    containerItems.forEach((element) => {
+                                        if (element.id === container.id) {
+                                            includes = true;
+                                        }
+                                    });
+
+                                    return isDifferent && includes;
+                                }),
                         })[0]?.id;
 
                         // overId = closestCorners({
@@ -213,11 +290,9 @@ export function MultipleContainers(
                         //         ),
                         // })[0]?.id;
                     }
+                    // console.log("🚀 ~ file: DndTest.js:227 ~ overId:", overId);
                 }
-                // console.log(
-                //     "🚀 ~ file: DndTest.js:176 ~ overId after closest to center:",
-                //     overId
-                // );
+
                 lastOverId.current = overId;
                 return [{ id: overId }];
             }
@@ -242,7 +317,28 @@ export function MultipleContainers(
             return id;
         }
 
-        return Object.keys(items).find((key) => items[key].includes(id));
+        // return Object.keys(items).find((key) => items[key].includes(id));
+        return Object.keys(items).find((key) => {
+            let includes = false;
+            items[key].forEach((element) => {
+                if (element.id === id) {
+                    includes = true;
+                }
+            });
+
+            return includes;
+        });
+    };
+
+    const getDrag = (container, id) => {
+        let value = "";
+        items[container].forEach((element) => {
+            if (element.id === id) {
+                value = element.drag;
+            }
+        });
+
+        return value;
     };
 
     const getIndex = (id) => {
@@ -301,17 +397,20 @@ export function MultipleContainers(
             }}
             onDragStart={({ active }) => {
                 setActiveId(active.id);
-                setActiveValue(active.value);
+                const activeContainer = findContainer(active.id);
+                const dragValue = getDrag(activeContainer, active.id);
+                setActiveValue(dragValue);
                 setClonedItems(items);
             }}
             onDragOver={({ active, over }) => {
-                console.log("🚀 ~ file: DndTest.js:307 ~ active:", active);
                 const overId = over?.id;
+                console.log("🚀 ~ file: DndTest.js:356 ~ overId:", overId);
 
                 const overContainer = findContainer(overId);
                 const activeContainer = findContainer(active.id);
 
                 if (activeContainer !== overContainer) {
+                    console.log("entre a activeContainer !== overContainer");
                     let copy = _.cloneDeep(items[overContainer]);
                     copy.push(active.id);
 
@@ -387,11 +486,34 @@ export function MultipleContainers(
                     const overContainer = findContainer(overId);
 
                     if (overContainer) {
-                        const activeIndex = items[activeContainer].indexOf(
-                            active.id
+                        let indexOf = -1;
+                        items[activeContainer].forEach((element, index) => {
+                            if (element.id === active.id) {
+                                indexOf = index;
+                            }
+                        });
+
+                        const activeIndex = indexOf;
+
+                        indexOf = -1;
+                        // const activeIndex = items[activeContainer].indexOf(
+                        //     active.id
+                        // );
+                        console.log(
+                            "🚀 ~ file: DndTest.js:492 ~ activeIndex:",
+                            activeIndex
                         );
 
-                        const overIndex = items[overContainer].indexOf(overId);
+                        items[overContainer].forEach((element, index) => {
+                            if (element.id === overId) {
+                                indexOf = index;
+                            }
+                        });
+                        const overIndex = indexOf;
+                        console.log(
+                            "🚀 ~ file: DndTest.js:495 ~ overIndex:",
+                            overIndex
+                        );
 
                         if (activeIndex !== overIndex) {
                             setItems((items) => ({
@@ -414,10 +536,70 @@ export function MultipleContainers(
             onDragCancel={onDragCancel}
             modifiers={modifiers}
         >
-            <div ref={containerWidth} className="dragAndDrop">
-                <div className="answerDropContainers">
-                    {answersContainers.map((containerId, index) => {
-                        return (
+            <SortableContext
+                items={[
+                    [...answersContainers, ...optionsContainers],
+                    "idyalaweasd",
+                ]}
+                // strategy={
+                //     vertical
+                //         ? verticalListSortingStrategy
+                //         : horizontalListSortingStrategy
+                // }
+            >
+                <div ref={containerWidth} className="dragAndDrop">
+                    <div className="answerDropContainers">
+                        {answersContainers.map((containerId, index) => {
+                            return (
+                                <DroppableContainer
+                                    key={containerId}
+                                    id={containerId}
+                                    label={`Column ${containerId}`}
+                                    columns={columns}
+                                    items={items[containerId]}
+                                    scrollable={scrollable}
+                                    style={containerStyle}
+                                    unstyled={minimal}
+                                    isFirst={index === 0}
+                                    showTip={items["FirstRowAnswer"].length < 1}
+                                >
+                                    <SortableContext
+                                        items={items[containerId]}
+                                        strategy={strategy}
+                                    >
+                                        {items[containerId].map(
+                                            (value, index) => {
+                                                return (
+                                                    <SortableItem
+                                                        disabled={
+                                                            props.disabled
+                                                        }
+                                                        key={index}
+                                                        id={value.id}
+                                                        value={value.drag}
+                                                        index={value}
+                                                        handle={handle}
+                                                        style={getItemStyles}
+                                                        wrapperStyle={
+                                                            wrapperStyle
+                                                        }
+                                                        renderItem={renderItem}
+                                                        containerId={
+                                                            containerId
+                                                        }
+                                                        getIndex={getIndex}
+                                                    />
+                                                );
+                                            }
+                                        )}
+                                    </SortableContext>
+                                </DroppableContainer>
+                            );
+                        })}
+                    </div>
+                    <LuArrowDownUp className="upArrow" />
+                    <div className="optionsDropContainers">
+                        {optionsContainers.map((containerId) => (
                             <DroppableContainer
                                 key={containerId}
                                 id={containerId}
@@ -427,8 +609,6 @@ export function MultipleContainers(
                                 scrollable={scrollable}
                                 style={containerStyle}
                                 unstyled={minimal}
-                                isFirst={index === 0}
-                                showTip={items["FirstRowAnswer"].length < 1}
                             >
                                 <SortableContext
                                     items={items[containerId]}
@@ -438,8 +618,9 @@ export function MultipleContainers(
                                         return (
                                             <SortableItem
                                                 disabled={props.disabled}
-                                                key={value + index}
-                                                id={value + index}
+                                                key={index}
+                                                id={value.id}
+                                                value={value.drag}
                                                 index={index}
                                                 handle={handle}
                                                 style={getItemStyles}
@@ -452,55 +633,17 @@ export function MultipleContainers(
                                     })}
                                 </SortableContext>
                             </DroppableContainer>
-                        );
-                    })}
+                        ))}
+                    </div>
                 </div>
-                <LuArrowDownUp className="upArrow" />
-                <div className="optionsDropContainers">
-                    {optionsContainers.map((containerId) => (
-                        <DroppableContainer
-                            key={containerId}
-                            id={containerId}
-                            label={`Column ${containerId}`}
-                            columns={columns}
-                            items={items[containerId]}
-                            scrollable={scrollable}
-                            style={containerStyle}
-                            unstyled={minimal}
-                        >
-                            <SortableContext
-                                items={items[containerId]}
-                                strategy={strategy}
-                            >
-                                {items[containerId].map((value, index) => {
-                                    return (
-                                        <SortableItem
-                                            disabled={props.disabled}
-                                            key={value + index}
-                                            id={value + index}
-                                            value={value + index}
-                                            index={index}
-                                            handle={handle}
-                                            style={getItemStyles}
-                                            wrapperStyle={wrapperStyle}
-                                            renderItem={renderItem}
-                                            containerId={containerId}
-                                            getIndex={getIndex}
-                                        />
-                                    );
-                                })}
-                            </SortableContext>
-                        </DroppableContainer>
-                    ))}
-                </div>
-            </div>
+            </SortableContext>
             {createPortal(
                 <DragOverlay
                     // className="optionsParent"
                     // adjustScale={adjustScale}
                     dropAnimation={dropAnimation}
                 >
-                    {renderSortableItemDragOverlay(activeId, activeId)}
+                    {renderSortableItemDragOverlay(activeId, activeValue)}
                 </DragOverlay>,
                 document.body
             )}
