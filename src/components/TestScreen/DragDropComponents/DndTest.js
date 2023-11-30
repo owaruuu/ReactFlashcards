@@ -536,107 +536,85 @@ export function MultipleContainers(
             onDragCancel={onDragCancel}
             modifiers={modifiers}
         >
-            <SortableContext
-                items={[
-                    [...answersContainers, ...optionsContainers],
-                    "idyalaweasd",
-                ]}
-                // strategy={
-                //     vertical
-                //         ? verticalListSortingStrategy
-                //         : horizontalListSortingStrategy
-                // }
-            >
-                <div ref={containerWidth} className="dragAndDrop">
-                    <div className="answerDropContainers">
-                        {answersContainers.map((containerId, index) => {
-                            return (
-                                <DroppableContainer
-                                    key={containerId}
-                                    id={containerId}
-                                    label={`Column ${containerId}`}
-                                    columns={columns}
-                                    items={items[containerId]}
-                                    scrollable={scrollable}
-                                    style={containerStyle}
-                                    unstyled={minimal}
-                                    isFirst={index === 0}
-                                    showTip={items["FirstRowAnswer"].length < 1}
-                                >
-                                    <SortableContext
-                                        items={items[containerId]}
-                                        strategy={strategy}
-                                    >
-                                        {items[containerId].map(
-                                            (value, index) => {
-                                                return (
-                                                    <SortableItem
-                                                        disabled={
-                                                            props.disabled
-                                                        }
-                                                        key={index}
-                                                        id={value.id}
-                                                        value={value.drag}
-                                                        index={value}
-                                                        handle={handle}
-                                                        style={getItemStyles}
-                                                        wrapperStyle={
-                                                            wrapperStyle
-                                                        }
-                                                        renderItem={renderItem}
-                                                        containerId={
-                                                            containerId
-                                                        }
-                                                        getIndex={getIndex}
-                                                    />
-                                                );
-                                            }
-                                        )}
-                                    </SortableContext>
-                                </DroppableContainer>
-                            );
-                        })}
-                    </div>
-                    <LuArrowDownUp className="upArrow" />
-                    <div className="optionsDropContainers">
-                        {optionsContainers.map((containerId) => (
-                            <DroppableContainer
-                                key={containerId}
-                                id={containerId}
-                                label={`Column ${containerId}`}
-                                columns={columns}
+            <div ref={containerWidth} className="dragAndDrop">
+                <div className="answerDropContainers">
+                    {answersContainers.map((containerId, index) => (
+                        <DroppableContainer
+                            key={containerId}
+                            id={containerId}
+                            label={`Column ${containerId}`}
+                            columns={columns}
+                            items={items[containerId]}
+                            scrollable={scrollable}
+                            style={containerStyle}
+                            unstyled={minimal}
+                            isFirst={index === 0}
+                            showTip={items["FirstRowAnswer"].length < 1}
+                        >
+                            <SortableContext
                                 items={items[containerId]}
-                                scrollable={scrollable}
-                                style={containerStyle}
-                                unstyled={minimal}
+                                strategy={strategy}
                             >
-                                <SortableContext
-                                    items={items[containerId]}
-                                    strategy={strategy}
-                                >
-                                    {items[containerId].map((value, index) => {
-                                        return (
-                                            <SortableItem
-                                                disabled={props.disabled}
-                                                key={index}
-                                                id={value.id}
-                                                value={value.drag}
-                                                index={index}
-                                                handle={handle}
-                                                style={getItemStyles}
-                                                wrapperStyle={wrapperStyle}
-                                                renderItem={renderItem}
-                                                containerId={containerId}
-                                                getIndex={getIndex}
-                                            />
-                                        );
-                                    })}
-                                </SortableContext>
-                            </DroppableContainer>
-                        ))}
-                    </div>
+                                {items[containerId].map((value, index) => {
+                                    return (
+                                        <SortableItem
+                                            disabled={props.disabled}
+                                            key={value.id}
+                                            id={value.id}
+                                            value={value.drag}
+                                            index={value}
+                                            handle={handle}
+                                            style={getItemStyles}
+                                            wrapperStyle={wrapperStyle}
+                                            renderItem={renderItem}
+                                            containerId={containerId}
+                                            getIndex={getIndex}
+                                        />
+                                    );
+                                })}
+                            </SortableContext>
+                        </DroppableContainer>
+                    ))}
                 </div>
-            </SortableContext>
+                <LuArrowDownUp className="upArrow" />
+                <div className="optionsDropContainers">
+                    {optionsContainers.map((containerId) => (
+                        <DroppableContainer
+                            key={containerId}
+                            id={containerId}
+                            label={`Column ${containerId}`}
+                            columns={columns}
+                            items={items[containerId]}
+                            scrollable={scrollable}
+                            style={containerStyle}
+                            unstyled={minimal}
+                        >
+                            <SortableContext
+                                items={items[containerId]}
+                                strategy={strategy}
+                            >
+                                {items[containerId].map((value, index) => {
+                                    return (
+                                        <SortableItem
+                                            disabled={props.disabled}
+                                            key={value.id}
+                                            id={value.id}
+                                            value={value.drag}
+                                            index={index}
+                                            handle={handle}
+                                            style={getItemStyles}
+                                            wrapperStyle={wrapperStyle}
+                                            renderItem={renderItem}
+                                            containerId={containerId}
+                                            getIndex={getIndex}
+                                        />
+                                    );
+                                })}
+                            </SortableContext>
+                        </DroppableContainer>
+                    ))}
+                </div>
+            </div>
             {createPortal(
                 <DragOverlay
                     // className="optionsParent"
