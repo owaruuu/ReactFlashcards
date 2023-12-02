@@ -18,11 +18,15 @@ const DragDrop = (props) => {
 
     const handleAnswerChange = (items) => {
         setChanged(true);
-        setCurrentAnswer(
-            `${items["FirstRowAnswer"].join("")}${items["SecondRowAnswer"].join(
-                ""
-            )}`
-        );
+        setCurrentAnswer(() => {
+            const firstRow = items["FirstRowAnswer"];
+            const firstRowValues = firstRow.map((elem) => elem.drag);
+
+            const secondRow = items["SecondRowAnswer"];
+            const secondRowValues = secondRow.map((elem) => elem.drag);
+
+            return `${firstRowValues.join("")}${secondRowValues.join("")}`;
+        });
     };
 
     useEffect(() => {
