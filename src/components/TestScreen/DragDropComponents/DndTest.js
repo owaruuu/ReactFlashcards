@@ -84,7 +84,7 @@ function DroppableContainer({
             {...props}
         >
             {children}
-            {props.isFirst}
+            {/* {props.isFirst} */}
         </Container>
     );
 }
@@ -161,7 +161,7 @@ export function MultipleContainers(
     const containerWidth = useRef(null);
     const [width, setWidth] = useState(0);
     const paddingSize = 20;
-    const letterSize = 16;
+    const letterSize = width === 769 ? 18 : 12;
     const minWidthOption = 55;
 
     /**
@@ -256,6 +256,17 @@ export function MultipleContainers(
         return value;
     };
 
+    const getIndexOf = (items, id) => {
+        let indexOf = -1;
+        items.forEach((element, index) => {
+            if (element.id === id) {
+                indexOf = index;
+            }
+        });
+
+        return indexOf;
+    };
+
     const getIndex = (id) => {
         const container = findContainer(id);
 
@@ -324,39 +335,63 @@ export function MultipleContainers(
                 const activeContainer = findContainer(active.id);
 
                 if (activeContainer !== overContainer) {
+                    console.log("entre a activeContainer !== overContainer ");
                     let copy = _.cloneDeep(items[overContainer]);
-                    copy.push(active.id);
 
-                    let pixelLenght = 0;
+                    const activeIndex = getIndexOf(
+                        items[activeContainer],
+                        active.id
+                    );
+                    copy.push(items[activeContainer][activeIndex]);
+                    console.log("🚀 ~ file: DndTest.js:329 ~ copy:", copy);
+
+                    let pixelLength = 0;
 
                     copy.forEach((element) => {
                         let optionLength =
-                            paddingSize + letterSize * element.length;
+                            paddingSize + letterSize * element.drag.length;
                         if (optionLength < minWidthOption) {
-                            pixelLenght += minWidthOption;
+                            pixelLength += minWidthOption;
                         } else {
-                            pixelLenght += optionLength;
+                            pixelLength += optionLength;
                         }
                     });
 
-                    if (pixelLenght > width - 20) {
+                    console.log(
+                        "🚀 ~ file: DndTest.js:345 ~ chetumare:",
+                        pixelLength
+                    );
+
+                    if (pixelLength > width + 15) {
                         console.log("too long");
                         return;
                     }
 
                     setItems((items) => {
+                        console.log("entre a setItems((items) => {");
                         //items del container de donde vengo
                         const activeItems = items[activeContainer];
                         //items del container al que me estoy moviendo
                         const overItems = items[overContainer];
-                        const overIndex = overItems.indexOf(overId);
-                        const activeIndex = activeItems.indexOf(active.id);
+
+                        const overIndex = getIndexOf(overItems, overId);
+                        console.log(
+                            "🚀 ~ file: DndTest.js:356 ~ console.log ~ overIndex:",
+                            overIndex
+                        );
+                        const activeIndex = getIndexOf(activeItems, active.id);
+                        console.log(
+                            "🚀 ~ file: DndTest.js:358 ~ console.log ~ activeIndex:",
+                            activeIndex
+                        );
 
                         let newIndex;
 
                         if (overId in items) {
+                            //si el overId es un container
                             newIndex = overItems.length + 1;
                         } else {
+                            //calculo en que posicion meter el nuevo item
                             const activeHalf =
                                 active.rect.current.translated.width / 2;
                             const overHalf = over.rect.width / 2;
@@ -381,7 +416,7 @@ export function MultipleContainers(
                         return {
                             ...items,
                             [activeContainer]: items[activeContainer].filter(
-                                (item) => item !== active.id
+                                (item) => item.id !== active.id
                             ),
                             [overContainer]: [
                                 ...items[overContainer].slice(0, newIndex),
@@ -439,6 +474,7 @@ export function MultipleContainers(
             modifiers={modifiers}
         >
             <div ref={containerWidth} className="dragAndDrop">
+                {/* {width} */}
                 <div className="answerDropContainers">
                     {answersContainers.map((containerId, index) => (
                         <DroppableContainer
