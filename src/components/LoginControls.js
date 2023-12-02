@@ -35,12 +35,12 @@ const LoginControls = (props) => {
     };
 
     const loggedInControls = (
-        <>
+        <div className="accountButtons">
             <button className="logoutButton" onClick={logout}>
                 Logout
             </button>
             <div className="username">{props.userName}</div>
-        </>
+        </div>
     );
 
     const loggedOutControls = (

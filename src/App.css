@@ -10,6 +10,12 @@
 hr {
   border-top: 4px solid #ab071d !important;
   opacity: 1 !important;
+  margin: 5px 0;
+}
+@media (min-width: 768px) {
+  hr {
+    margin: 0;
+  }
 }
 
 h1 {
@@ -47,6 +53,10 @@ a {
 .App {
   background-color: #032745;
   font-family: メイリオ, Meiryo !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .App .backToTopButton {
   color: #f5fcff;
@@ -139,10 +149,13 @@ a {
 .header .pageTitle {
   font-family: "Gidugu";
   text-transform: uppercase;
-  font-size: clamp(3rem, 1rem + 6vw, 5rem);
+  font-size: clamp(2rem, 1rem + 5vw, 3rem);
   text-align: center;
   margin: 0;
   cursor: pointer;
+}
+.header .infoHeader {
+  font-size: 12px;
 }
 @media (min-width: 768px) {
   .header .infoHeader {
@@ -161,13 +174,28 @@ a {
   text-align: center;
   overflow: hidden;
 }
+.header .loginControls .accountButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0 5px;
+}
+.header .loginControls .accountButtons .logoutButton {
+  background-color: rgba(0, 30, 55, 0);
+  border: none;
+  color: #f5fcff;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .header .loginControls .accountButtons {
+    flex-direction: row;
+    padding: 0;
+  }
+}
 .header .loginControls .username {
   background: #ab071d;
   color: white;
   border-style: none;
-  width: 100%;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding: 0 10px;
   align-self: center;
 }
 .header .loginControls .loginButton {
@@ -250,6 +278,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 .main .form {
   display: flex;
@@ -317,6 +346,11 @@ a {
   text-decoration-color: #dbb01c;
   font-size: 3rem;
   margin-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .main .lectureList .lectureListTitle {
+    margin-top: 32px;
+  }
 }
 @media (min-width: 768px) {
   .main .lectureList {
@@ -865,6 +899,7 @@ a {
   flex-direction: column;
   width: 100%;
   min-height: 60vh;
+  max-width: 962px;
   align-items: center;
   text-align: center;
   color: #f5fcff;
@@ -877,6 +912,29 @@ a {
   margin-top: auto;
   margin-bottom: auto;
 }
+.main .testScreen .resultContent .score,
+.main .testScreen .resultContent .maxScore {
+  font-size: 4rem;
+  font-family: "Gidugu";
+}
+.main .testScreen .resultContent .waviy {
+  font-size: 37px;
+}
+.main .testScreen .resultContent .waviy span {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  animation: waviy 1s infinite;
+  animation-delay: calc(0.08s * var(--i));
+}
+@keyframes waviy {
+  0%, 40%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+}
 .main .testScreen .resultBackButton {
   background-color: #404040;
   color: white;
@@ -888,15 +946,25 @@ a {
 .main .testScreen h3 {
   margin: 0;
 }
+@media (min-width: 768px) {
+  .main .testScreen h3 {
+    margin: 15px 0;
+  }
+}
 .main .testScreen .problemCounter {
   font-size: 0.8rem;
 }
 .main .testScreen .upArrow {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #20496b;
 }
 .main .testScreen .testTitle {
-  font-size: 1rem;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testTitle {
+    font-size: 24px;
+  }
 }
 .main .testScreen .dragAndDrop p {
   font-size: 0.8rem;
@@ -912,16 +980,19 @@ a {
 }
 .main .testScreen .answerDropContainers {
   margin: 0 5px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 .main .testScreen .answerDropContainers .optionsParent {
   border-bottom: 1px solid white;
 }
 .main .testScreen .optionsDropContainers {
   background-color: #20496b;
-  margin: 10px 5px 0 5px;
+  margin: 7px 0;
   border-radius: 15px;
-  padding: 2px 5px;
+  padding: 10px 0;
+}
+.main .testScreen .optionsDropContainers .optionsParent {
+  justify-content: center;
 }
 .main .testScreen .optionsParent {
   padding: 4px 0;
@@ -970,13 +1041,22 @@ a {
   margin-top: auto;
   margin-bottom: auto;
 }
+.main .testScreen .testContent .dragAnswer {
+  min-height: 60px;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testContent .dragAnswer {
+    min-height: 96px;
+  }
+}
 .main .testScreen .testContent .dragAnswerButton {
   background-color: #287700;
   border-radius: 10px;
   border: none;
   color: white;
   text-transform: uppercase;
-  margin-top: 32px;
+  margin-top: 20px;
+  padding: 15px 0;
   width: 70%;
 }
 .main .testScreen .testContent .dragAnswerButton:disabled {
@@ -990,23 +1070,29 @@ a {
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent {
-    width: 60%;
+    width: 769px;
   }
 }
 .main .testScreen .testContent .testPhrase {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
   height: 17vh;
-  max-width: 70vw;
+  background-color: #7d0707;
+  margin: 3px auto;
 }
 .main .testScreen .testContent .testPhrase p {
   font-size: clamp(1rem, 1rem + 1vw, 3rem);
   text-align: center;
   margin: 0;
   color: white;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testContent .testPhrase {
+    height: 30vh;
+    background-color: #4a7da8;
+    border-radius: 23px;
+  }
 }
 .main .testScreen .testContent .testDivider {
   background-color: #f5fcff;

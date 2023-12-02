@@ -30,10 +30,9 @@
         }
     }
 
-    &.hover {
-        background-color: rgba(235, 235, 235, 0.089);
-        
-    }
+    /* &.hover {
+        background-color: green;
+    } */
 
     &.unstyled {
         overflow: visible;

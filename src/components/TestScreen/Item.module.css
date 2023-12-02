@@ -74,7 +74,7 @@
 
     color:#ffffff;
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 12px;
     white-space: nowrap;
     border-radius: 20px;
 
@@ -132,4 +132,10 @@
         border-bottom-left-radius: 3px;
         background-color: var(--color);
     } */
+}
+
+@media (min-width: 768px) {
+    .Item {
+        font-size: 18px;
+    }
 }
