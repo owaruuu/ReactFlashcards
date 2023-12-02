@@ -12,7 +12,7 @@ const Header = () => {
     return (
         <header className="header">
             <h1 className="pageTitle" onClick={handleClick}>
-                React Flashcards
+                -React Flashcards-
             </h1>
             <LoginHeader />
         </header>
