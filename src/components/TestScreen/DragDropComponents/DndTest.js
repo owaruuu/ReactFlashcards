@@ -141,7 +141,6 @@ export function MultipleContainers(
     };
 
     const [items, setItems] = useState(() => populateItems(props.options));
-    console.log("🚀 ~ file: DndTest.js:139 ~ items:", items);
     useEffect(() => {
         setItems(populateItems(props.options));
     }, [props.options]);
@@ -217,9 +216,9 @@ export function MultipleContainers(
             // and the `overId` may become `null`. We manually set the cached `lastOverId`
             // to the id of the draggable item that was moved to the new container, otherwise
             // the previous `overId` will be returned which can cause items to incorrectly shift positions
-            // if (recentlyMovedToNewContainer.current) {
-            //     lastOverId.current = activeId;
-            // }
+            if (recentlyMovedToNewContainer.current) {
+                lastOverId.current = activeId;
+            }
 
             // If no droppable is matched, return the last match
             return lastOverId.current ? [{ id: lastOverId.current }] : [];
@@ -284,6 +283,9 @@ export function MultipleContainers(
             // Reset items to their original state in case items have been
             // Dragged across containers
             setItems(clonedItems);
+            console.log(
+                "cancele el drag y devolvi los items al estado anterior"
+            );
         }
 
         setActiveId(null);
@@ -310,6 +312,7 @@ export function MultipleContainers(
         requestAnimationFrame(() => {
             recentlyMovedToNewContainer.current = false;
         });
+        console.warn("items a sido modificado");
     }, [items]);
 
     return (
@@ -335,7 +338,8 @@ export function MultipleContainers(
                 const activeContainer = findContainer(active.id);
 
                 if (activeContainer !== overContainer) {
-                    console.log("entre a activeContainer !== overContainer ");
+                    console.log("Mi active container es: ", activeContainer);
+                    console.log("Mi over container es: ", overContainer);
                     let copy = _.cloneDeep(items[overContainer]);
 
                     const activeIndex = getIndexOf(
@@ -343,7 +347,6 @@ export function MultipleContainers(
                         active.id
                     );
                     copy.push(items[activeContainer][activeIndex]);
-                    console.log("🚀 ~ file: DndTest.js:329 ~ copy:", copy);
 
                     let pixelLength = 0;
 
@@ -357,78 +360,70 @@ export function MultipleContainers(
                         }
                     });
 
-                    console.log(
-                        "🚀 ~ file: DndTest.js:345 ~ chetumare:",
-                        pixelLength
-                    );
-
                     if (pixelLength > width + 15) {
                         console.log("too long");
                         return;
                     }
 
-                    setItems((items) => {
-                        console.log("entre a setItems((items) => {");
-                        //items del container de donde vengo
-                        const activeItems = items[activeContainer];
-                        //items del container al que me estoy moviendo
-                        const overItems = items[overContainer];
+                    //Esto controla un error causado por el estado actual de Active en dispositivos lentos
+                    if (!active.rect.current.translated) {
+                        console.error("ERROR, cancelare el movimiento");
+                        return;
+                    }
 
-                        const overIndex = getIndexOf(overItems, overId);
-                        console.log(
-                            "🚀 ~ file: DndTest.js:356 ~ console.log ~ overIndex:",
-                            overIndex
-                        );
-                        const activeIndex = getIndexOf(activeItems, active.id);
-                        console.log(
-                            "🚀 ~ file: DndTest.js:358 ~ console.log ~ activeIndex:",
-                            activeIndex
-                        );
+                    console.log("entre a setItems((items) => {");
+                    //items del container de donde vengo
+                    const activeItems = items[activeContainer];
+                    //items del container al que me estoy moviendo
+                    const overItems = items[overContainer];
 
-                        let newIndex;
+                    const overIndex = getIndexOf(overItems, overId);
 
-                        if (overId in items) {
-                            //si el overId es un container
-                            newIndex = overItems.length + 1;
-                        } else {
-                            //calculo en que posicion meter el nuevo item
-                            const activeHalf =
-                                active.rect.current.translated.width / 2;
-                            const overHalf = over.rect.width / 2;
+                    let newIndex;
 
-                            const isAfterOverItem =
-                                over &&
-                                active.rect.current.translated &&
-                                active.rect.current.translated.left +
-                                    activeHalf >
-                                    over.rect.left + overHalf;
+                    if (overId in items) {
+                        //si el overId es un container
+                        newIndex = overItems.length + 1;
+                    } else {
+                        //calculo en que posicion meter el nuevo item
+                        const activeHalf =
+                            active.rect.current.translated.width / 2;
+                        const overHalf = over.rect.width / 2;
 
-                            const modifier = isAfterOverItem ? 1 : 0;
+                        const isAfterOverItem =
+                            over &&
+                            active.rect.current.translated &&
+                            active.rect.current.translated.left + activeHalf >
+                                over.rect.left + overHalf;
 
-                            newIndex =
-                                overIndex >= 0
-                                    ? overIndex + modifier
-                                    : overItems.length;
-                        }
+                        const modifier = isAfterOverItem ? 1 : 0;
 
-                        recentlyMovedToNewContainer.current = true;
+                        newIndex =
+                            overIndex >= 0
+                                ? overIndex + modifier
+                                : overItems.length;
+                    }
 
-                        return {
-                            ...items,
-                            [activeContainer]: items[activeContainer].filter(
-                                (item) => item.id !== active.id
+                    recentlyMovedToNewContainer.current = true;
+
+                    const newItems = {
+                        ...items,
+                        [activeContainer]: items[activeContainer].filter(
+                            (item) => item.id !== active.id
+                        ),
+                        [overContainer]: [
+                            ...items[overContainer].slice(0, newIndex),
+                            items[activeContainer][activeIndex],
+                            ...items[overContainer].slice(
+                                newIndex,
+                                items[overContainer].length
                             ),
-                            [overContainer]: [
-                                ...items[overContainer].slice(0, newIndex),
-                                items[activeContainer][activeIndex],
-                                ...items[overContainer].slice(
-                                    newIndex,
-                                    items[overContainer].length
-                                ),
-                            ],
-                        };
-                    });
+                        ],
+                    };
+
+                    setItems(newItems);
                 } else {
+                    console.log("On Drag Over same container");
                     const overId = over?.id;
 
                     const overContainer = findContainer(overId);
