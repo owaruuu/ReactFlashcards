@@ -51,7 +51,12 @@
             -1px 0 15px 0 rgba(34, 33, 81, 0.01),
                 0px 15px 15px 0 rgba(34, 33, 81, 0.25);
         z-index: 999;
-        background-color: #429ace !important;
+        background-color: #be7d3cdc !important;
+        transition: 0.5s;
+    }
+
+    &.dragging{
+        background-color: #576ab0 !important;
     }
 
 }

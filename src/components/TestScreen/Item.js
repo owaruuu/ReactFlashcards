@@ -46,7 +46,9 @@ export const Item = React.memo(
                         styles.Wrapper,
                         fadeIn && styles.fadeIn,
                         sorting && styles.sorting,
-                        dragOverlay && styles.dragOverlay
+                        dragOverlay && styles.dragOverlay,
+                        dragging && styles.dragging
+                        // sorting && styles.sorting
                     )}
                     style={{
                         ...wrapperStyle,
