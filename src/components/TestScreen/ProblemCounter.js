@@ -1,13 +1,15 @@
 const ProblemCounter = (props) => {
     const setCounter = () => {
         switch (props.stage) {
-            default:
+            case "mondai":
+            case "dragDrop":
+            case "manga":
                 return (
                     <div className={props.className}>
                         {props.problem.current + 1}/{props.problem.max}
                     </div>
                 );
-            case "results":
+            default:
                 return null;
         }
     };

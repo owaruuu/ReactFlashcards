@@ -51,9 +51,17 @@ const DragDrop = (props) => {
 
     const handleAnswerButton = () => {
         if (currentAnswer === currentCorrectAnswer) {
-            handleClick(0);
+            handleClick({
+                correct: true,
+                question: currentCorrectAnswer,
+                answer: currentAnswer,
+            });
         } else {
-            handleClick(-1);
+            handleClick({
+                correct: false,
+                question: currentCorrectAnswer,
+                answer: currentAnswer,
+            });
         }
     };
 

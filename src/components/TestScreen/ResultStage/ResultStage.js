@@ -14,42 +14,23 @@ const ResultStage = (props) => {
 
     return (
         <div className="resultContent">
-            <p>
+            <div className="scoreParent">
                 <span className="score">{props.score}</span> out of{" "}
-                <span className="maxScore">{props.maxScore}</span> pts!
-            </p>
-            {props.newRecord ? (
-                <div className="waviy">
-                    <span style={{ "--i": 1 }}>N</span>
-                    <span style={{ "--i": 2 }}>e</span>
-                    <span style={{ "--i": 3 }}>w</span>
-                    <span style={{ "--i": 4 }}> </span>
-                    <span style={{ "--i": 5 }}>R</span>
-                    <span style={{ "--i": 6 }}>e</span>
-                    <span style={{ "--i": 7 }}>c</span>
-                    <span style={{ "--i": 8 }}>o</span>
-                    <span style={{ "--i": 9 }}>r</span>
-                    <span style={{ "--i": 10 }}>d</span>
-                    <span style={{ "--i": 11 }}>!</span>
-                    <span style={{ "--i": 12 }}>!</span>
-                    {/* <span style="--i:2">e</span>
-                    <span style="--i:3">w</span>
-                    <span> </span>
-                    <span style="--i:5">R</span>
-                    <span style="--i:6">e</span>
-                    <span style="--i:7">c</span>
-                    <span style="--i:8">o</span>
-                    <span style="--i:9">r</span>
-                    <span style="--i:10">d</span> */}
-                </div>
-            ) : (
-                ""
-            )}
+                <span className="maxScore">{props.maxScore}</span> pts{" "}
+                {props.newRecord ? (
+                    <span className="newRecord">New Record!</span>
+                ) : (
+                    ""
+                )}
+            </div>
+            <div></div>
+
             {props.previousRecord > 0 ? (
                 <p>Your HighScore: {props.previousRecord} pts.</p>
             ) : (
                 ""
             )}
+
             {congrats}
             <button className="resultBackButton" onClick={props.onClick}>
                 <TiArrowBack /> Back to Lecture
