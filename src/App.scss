@@ -1002,6 +1002,26 @@ a {
         }
     }
 
+    .beginTestScreen {
+        // background-color: #255277;
+
+        .beginTestButton {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #92b9da;
+            color: #224a6b;
+            width: 100%;
+            &:hover {
+                background-color: #b9d8f1;
+            }
+        }
+
+        .info {
+            padding: 15px 0;
+        }
+    }
+
     .testScreen {
         display: flex;
         flex-direction: column;
@@ -1013,6 +1033,69 @@ a {
 
         color: $cloud-white;
 
+        hr {
+            border-top: 1px white solid !important;
+            width: 45%;
+        }
+
+        .lastTestResume {
+            .panel {
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+                align-items: center;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            .backButton {
+                border: none;
+                border-radius: 15px;
+                max-width: 140px;
+            }
+        }
+
+        .testResume {
+            div {
+                &:nth-child(odd) {
+                    background-color: #164b78;
+                }
+            }
+            .testAnswerComponent {
+                margin: 15px 0;
+                padding: 10px;
+            }
+        }
+
+        .savedResultsButtons {
+            margin-top: 35%;
+            margin-bottom: 27px;
+
+            button {
+                border: none;
+                border-radius: 15px;
+                color: white;
+                padding: 5px 10px;
+                margin: 10px;
+
+                &:first-child {
+                    background-color: #164b78;
+
+                    &:hover {
+                        background-color: #2d628f;
+                    }
+                }
+
+                &:last-child {
+                    background-color: #386921;
+                    &:hover {
+                        background-color: #598b41;
+                    }
+                }
+            }
+        }
+
         .resultContent {
             display: flex;
             flex-direction: column;
@@ -1021,10 +1104,38 @@ a {
             margin-top: auto;
             margin-bottom: auto;
 
-            .score,
-            .maxScore {
-                font-size: 4rem;
-                font-family: "Gidugu";
+            .scoreParent {
+                position: relative;
+
+                .score,
+                .maxScore {
+                    font-size: 4rem;
+                    font-family: "Gidugu";
+
+                    @media (min-width: 768px) {
+                        font-size: 7rem;
+                    }
+                }
+
+                .newRecord {
+                    margin: 0;
+                    font-size: 12px;
+                    color: goldenrod;
+                    position: absolute;
+                    padding-left: 5px;
+                    /* right: 0; */
+                    bottom: 53%;
+                    /* left: 235px; */
+                    width: 100px;
+                    text-align: start;
+                    /* padding-top: 50%; */
+                    /* padding-bottom: 50%; */
+
+                    @media (min-width: 768px) {
+                        font-size: 16px;
+                        width: 110px;
+                    }
+                }
             }
 
             .waviy {
@@ -1081,10 +1192,29 @@ a {
         }
 
         .testTitle {
+            display: grid;
+            grid-template-columns: 30% 3% 30% 3% 30%;
+            justify-content: center;
+            // grid-template-areas: ". feedback nextButton";
             font-size: 12px;
+            width: 90vw;
+
+            p {
+                &:first-child {
+                    text-align: end;
+                }
+
+                &:last-child {
+                    text-align: start;
+                }
+            }
+
+            &:nth-child(1) {
+            }
 
             @media (min-width: 768px) {
                 font-size: 24px;
+                width: 40vw;
             }
         }
 

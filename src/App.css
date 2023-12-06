@@ -894,6 +894,20 @@ a {
     padding: 20px;
   }
 }
+.main .beginTestScreen .beginTestButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #92b9da;
+  color: #224a6b;
+  width: 100%;
+}
+.main .beginTestScreen .beginTestButton:hover {
+  background-color: #b9d8f1;
+}
+.main .beginTestScreen .info {
+  padding: 15px 0;
+}
 .main .testScreen {
   display: flex;
   flex-direction: column;
@@ -904,6 +918,53 @@ a {
   text-align: center;
   color: #f5fcff;
 }
+.main .testScreen hr {
+  border-top: 1px white solid !important;
+  width: 45%;
+}
+.main .testScreen .lastTestResume .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  align-items: center;
+}
+.main .testScreen .lastTestResume .panel p {
+  margin: 0;
+}
+.main .testScreen .lastTestResume .backButton {
+  border: none;
+  border-radius: 15px;
+  max-width: 140px;
+}
+.main .testScreen .testResume div:nth-child(odd) {
+  background-color: #164b78;
+}
+.main .testScreen .testResume .testAnswerComponent {
+  margin: 15px 0;
+  padding: 10px;
+}
+.main .testScreen .savedResultsButtons {
+  margin-top: 35%;
+  margin-bottom: 27px;
+}
+.main .testScreen .savedResultsButtons button {
+  border: none;
+  border-radius: 15px;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+}
+.main .testScreen .savedResultsButtons button:first-child {
+  background-color: #164b78;
+}
+.main .testScreen .savedResultsButtons button:first-child:hover {
+  background-color: #2d628f;
+}
+.main .testScreen .savedResultsButtons button:last-child {
+  background-color: #386921;
+}
+.main .testScreen .savedResultsButtons button:last-child:hover {
+  background-color: #598b41;
+}
 .main .testScreen .resultContent {
   display: flex;
   flex-direction: column;
@@ -912,10 +973,39 @@ a {
   margin-top: auto;
   margin-bottom: auto;
 }
-.main .testScreen .resultContent .score,
-.main .testScreen .resultContent .maxScore {
+.main .testScreen .resultContent .scoreParent {
+  position: relative;
+}
+.main .testScreen .resultContent .scoreParent .score,
+.main .testScreen .resultContent .scoreParent .maxScore {
   font-size: 4rem;
   font-family: "Gidugu";
+}
+@media (min-width: 768px) {
+  .main .testScreen .resultContent .scoreParent .score,
+  .main .testScreen .resultContent .scoreParent .maxScore {
+    font-size: 7rem;
+  }
+}
+.main .testScreen .resultContent .scoreParent .newRecord {
+  margin: 0;
+  font-size: 12px;
+  color: goldenrod;
+  position: absolute;
+  padding-left: 5px;
+  /* right: 0; */
+  bottom: 53%;
+  /* left: 235px; */
+  width: 100px;
+  text-align: start;
+  /* padding-top: 50%; */
+  /* padding-bottom: 50%; */
+}
+@media (min-width: 768px) {
+  .main .testScreen .resultContent .scoreParent .newRecord {
+    font-size: 16px;
+    width: 110px;
+  }
 }
 .main .testScreen .resultContent .waviy {
   font-size: 37px;
@@ -959,11 +1049,22 @@ a {
   color: #20496b;
 }
 .main .testScreen .testTitle {
+  display: grid;
+  grid-template-columns: 30% 3% 30% 3% 30%;
+  justify-content: center;
   font-size: 12px;
+  width: 90vw;
+}
+.main .testScreen .testTitle p:first-child {
+  text-align: end;
+}
+.main .testScreen .testTitle p:last-child {
+  text-align: start;
 }
 @media (min-width: 768px) {
   .main .testScreen .testTitle {
     font-size: 24px;
+    width: 40vw;
   }
 }
 .main .testScreen .dragAndDrop p {
