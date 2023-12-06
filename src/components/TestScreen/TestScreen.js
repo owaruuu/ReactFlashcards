@@ -10,6 +10,8 @@ import {
 } from "../../utils/utils";
 import FeedbackText from "./FeedbackText";
 import ProblemCounter from "./ProblemCounter";
+import BeginStage from "./BeginStage/BeginStage";
+import LastResultsStage from "./BeginStage/LastResultsStage";
 import Mondai from "./Mondai";
 import DragDrop from "./DragDrop";
 import Manga from "./Manga";
@@ -81,7 +83,15 @@ const TestScreen = () => {
         }
     });
 
-    const [stage, setStage] = useState("mondai");
+    const [stage, setStage] = useState("begin");
+    const [answers, setAnswers] = useState({
+        score: score,
+        date: new Date(),
+        multiple: [],
+        drag: [],
+    });
+    const [save, setSave] = useState(false);
+    console.log("🚀 ~ file: TestScreen.js:92 ~ TestScreen ~ answers:", answers);
 
     //for multiple choice buttons
     const [correct, setCorrect] = useState(-1);
@@ -106,16 +116,32 @@ const TestScreen = () => {
     };
 
     const handleDragAnswer = (info) => {
-        if (info === 0) {
+        if (info.correct) {
             console.log("Correct");
+            writeAnswer("drag", info);
             setFeedback("Correct!");
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
+            writeAnswer("drag", info);
             setFeedback("Incorrect!");
             setThinking(true);
         }
+    };
+
+    const writeAnswer = (type, info) => {
+        setAnswers({
+            ...answers,
+            [type]: [
+                ...answers[type],
+                {
+                    question: info.question,
+                    answer: info.answer,
+                    correct: info.correct,
+                },
+            ],
+        });
     };
 
     //necesito cambiar esto a un boton que cambie de stage tambien
@@ -150,26 +176,60 @@ const TestScreen = () => {
         setThinking(false);
     };
 
-    useEffect(() => {
-        if (newRecord) {
-            const testScore = {
-                [test.version]: score,
-            };
+    const handleStart = () => {
+        setStage("dragDrop");
+    };
 
-            dispatch({
-                type: "UPDATE_PROGRESS",
-                payload: {
-                    currentProgress: {
-                        ...user.currentProgress,
-                        [lecture.lectureId]: {
-                            ...user.currentProgress[lecture.lectureId],
-                            testScore: testScore,
+    const handleBeginButtonClick = (stage) => {
+        setStage(stage);
+    };
+
+    // useEffect(() => {}, [newRecord]);
+
+    useEffect(() => {
+        if (save) {
+            //check for new record
+            if (newRecord) {
+                dispatch({
+                    type: "UPDATE_PROGRESS",
+                    payload: {
+                        currentProgress: {
+                            ...user.currentProgress,
+                            [lecture.lectureId]: {
+                                ...user.currentProgress[lecture.lectureId],
+                                highScore: {
+                                    ...answers,
+                                    score: { [test.version]: score },
+                                },
+                                lastTest: {
+                                    ...answers,
+                                    score: { [test.version]: score },
+                                },
+                            },
                         },
                     },
-                },
-            });
+                });
+            } else {
+                dispatch({
+                    type: "UPDATE_PROGRESS",
+                    payload: {
+                        currentProgress: {
+                            ...user.currentProgress,
+                            [lecture.lectureId]: {
+                                ...user.currentProgress[lecture.lectureId],
+                                lastTest: {
+                                    ...answers,
+                                    score: { [test.version]: score },
+                                },
+                            },
+                        },
+                    },
+                });
+            }
+
+            setSave(false);
         }
-    }, [newRecord]);
+    }, [save]);
 
     const handleSaveTestScore = () => {
         if (dbError || !loggedIn) {
@@ -180,7 +240,9 @@ const TestScreen = () => {
         }
 
         console.log("setie new record");
-        return setNewRecord(true);
+        setNewRecord(true);
+        setSave(true);
+        return;
 
         //aqui deberia comparar primero los scores
         if (score > previousHighScore) {
@@ -207,7 +269,13 @@ const TestScreen = () => {
             : currentTest.manga.length;
 
     const title =
-        stage === "mondai"
+        stage === "begin"
+            ? "Prueba Corta"
+            : stage === "last"
+            ? "Last Try:"
+            : stage === "high"
+            ? "Your HighScore"
+            : stage === "mondai"
             ? "Select the correct translation."
             : stage === "dragDrop"
             ? "Drag and Drop to translate."
@@ -215,11 +283,19 @@ const TestScreen = () => {
             ? "Follow the conversation"
             : "Your Results:";
 
+    const showFeedBackSection =
+        stage === "mondai" || "dragDrop" || "manga" ? true : false;
+
     return (
         <div className="testScreen">
             <h2 className="testTitle">
-                Test - {lecture.name} - {score} pts.
+                <p>Test</p>
+                <p>-</p>
+                <p>{lecture.name}</p>
+                <p>-</p>
+                <p>{score} pts.</p>
             </h2>
+            <hr></hr>
             <h3>{title}</h3>
             <div>
                 <ProblemCounter
@@ -228,6 +304,25 @@ const TestScreen = () => {
                     problem={{ current: problem, max: currentMax }}
                 />
             </div>
+            {stage === "begin" && (
+                <BeginStage
+                    clickStart={() => handleBeginButtonClick("dragDrop")}
+                    clickLast={() => handleBeginButtonClick("last")}
+                    clickHigh={() => handleBeginButtonClick("high")}
+                ></BeginStage>
+            )}
+            {stage === "last" && (
+                <LastResultsStage
+                    progress={user.currentProgress}
+                    lectureId={lecture.lectureId}
+                    version={test.version}
+                    back={() => handleBeginButtonClick("begin")}
+                ></LastResultsStage>
+            )}
+            {/* {stage === "high" && (
+                <BeginStage onClick={handleStart}></BeginStage>
+            )} */}
+
             {stage === "mondai" && (
                 <Mondai
                     mondai={fiveMondai}
@@ -259,7 +354,8 @@ const TestScreen = () => {
                     onClick={handleBackButton}
                 />
             )}
-            {stage !== "results" && (
+            {}
+            {showFeedBackSection && (
                 <FeedbackText
                     content={feedback}
                     show={thinking}

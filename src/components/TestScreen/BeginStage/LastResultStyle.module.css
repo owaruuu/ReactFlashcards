@@ -1,0 +1,17 @@
+/* .correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+} */
+
+.circle{
+    color: #01c901;
+    font-size: 22px;
+}
+
+.x {
+    color: red;
+    font-size: 25px;
+}
