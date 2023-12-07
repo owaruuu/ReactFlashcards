@@ -1,3 +1,5 @@
+import BackButton from "../Util/BackButton";
+
 const BeginStage = (props) => {
     return (
         <div className="beginTestScreen">
@@ -16,6 +18,11 @@ const BeginStage = (props) => {
             <button className="beginTestButton" onClick={props.clickStart}>
                 Start
             </button>
+
+            <BackButton
+                text={"Volver a la Leccion"}
+                stage={"begin"}
+            ></BackButton>
         </div>
     );
 };
