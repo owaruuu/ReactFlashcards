@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const readFromLocal = (key) => {
     const local = localStorage.getItem(key);
     if (local == null) return {};
@@ -16,7 +18,8 @@ export const fakeBusy = (length = 5000) => {
 };
 
 export const shuffleArray = (array) => {
-    let currentIndex = array.length;
+    const newArray = _.cloneDeep(array);
+    let currentIndex = newArray.length;
     let randomIndex;
 
     // While there remain elements to shuffle.
@@ -26,13 +29,13 @@ export const shuffleArray = (array) => {
         currentIndex--;
 
         // And swap it with the current element.
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex],
-            array[currentIndex],
+        [newArray[currentIndex], newArray[randomIndex]] = [
+            newArray[randomIndex],
+            newArray[currentIndex],
         ];
     }
 
-    return array;
+    return newArray;
 };
 
 export const backToTop = () => {
