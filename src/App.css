@@ -901,6 +901,7 @@ a {
   background-color: #92b9da;
   color: #224a6b;
   width: 100%;
+  margin-bottom: 20px;
 }
 .main .beginTestScreen .beginTestButton:hover {
   background-color: #b9d8f1;
@@ -921,6 +922,31 @@ a {
 .main .testScreen hr {
   border-top: 1px white solid !important;
   width: 45%;
+  align-self: center;
+}
+.main .testScreen .pointsCounter {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  background-color: #880000;
+  border-radius: 100px;
+  height: 40px;
+  width: 40px;
+}
+.main .testScreen .pointsCounter p {
+  font-size: 10px;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .main .testScreen .pointsCounter {
+    right: 20%;
+    height: 60px;
+    width: 60px;
+  }
+  .main .testScreen .pointsCounter p {
+    font-size: 15px;
+    margin: auto;
+  }
 }
 .main .testScreen .lastTestResume .panel {
   display: grid;
@@ -935,12 +961,20 @@ a {
   border-radius: 15px;
   max-width: 140px;
 }
+.main .testScreen .testResume {
+  display: flex;
+  flex-direction: column;
+}
+.main .testScreen .testResume h1 {
+  margin-top: 20px;
+}
 .main .testScreen .testResume div:nth-child(odd) {
   background-color: #164b78;
 }
 .main .testScreen .testResume .testAnswerComponent {
   margin: 15px 0;
   padding: 10px;
+  width: 100%;
 }
 .main .testScreen .savedResultsButtons {
   margin-top: 35%;
@@ -969,6 +1003,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
   min-height: 50vh;
   margin-top: auto;
   margin-bottom: auto;
@@ -1025,12 +1060,13 @@ a {
     transform: translateY(-10px);
   }
 }
-.main .testScreen .resultBackButton {
+.main .testScreen .testBackButton {
   background-color: #404040;
   color: white;
   border-radius: 15px;
   border: none;
   padding: 6px 15px;
+  max-width: 200px;
 }
 .main .testScreen h2,
 .main .testScreen h3 {
@@ -1049,17 +1085,13 @@ a {
   color: #20496b;
 }
 .main .testScreen .testTitle {
-  display: grid;
-  grid-template-columns: 30% 3% 30% 3% 30%;
   justify-content: center;
+  align-items: center;
   font-size: 12px;
   width: 90vw;
 }
-.main .testScreen .testTitle p:first-child {
-  text-align: end;
-}
-.main .testScreen .testTitle p:last-child {
-  text-align: start;
+.main .testScreen .testTitle p {
+  margin: 0;
 }
 @media (min-width: 768px) {
   .main .testScreen .testTitle {

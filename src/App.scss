@@ -1012,6 +1012,7 @@ a {
             background-color: #92b9da;
             color: #224a6b;
             width: 100%;
+            margin-bottom: 20px;
             &:hover {
                 background-color: #b9d8f1;
             }
@@ -1036,6 +1037,33 @@ a {
         hr {
             border-top: 1px white solid !important;
             width: 45%;
+            align-self: center;
+        }
+
+        .pointsCounter {
+            display: flex;
+            position: absolute;
+            right: 10px;
+            background-color: #880000;
+            border-radius: 100px;
+            height: 40px;
+            width: 40px;
+
+            p {
+                font-size: 10px;
+                margin: auto;
+            }
+
+            @media (min-width: 768px) {
+                right: 20%;
+                height: 60px;
+                width: 60px;
+
+                p {
+                    font-size: 15px;
+                    margin: auto;
+                }
+            }
         }
 
         .lastTestResume {
@@ -1057,6 +1085,13 @@ a {
         }
 
         .testResume {
+            display: flex;
+            flex-direction: column;
+
+            h1 {
+                margin-top: 20px;
+            }
+
             div {
                 &:nth-child(odd) {
                     background-color: #164b78;
@@ -1065,6 +1100,7 @@ a {
             .testAnswerComponent {
                 margin: 15px 0;
                 padding: 10px;
+                width: 100%;
             }
         }
 
@@ -1100,6 +1136,7 @@ a {
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
+            align-items: center;
             min-height: 50vh;
             margin-top: auto;
             margin-bottom: auto;
@@ -1163,12 +1200,13 @@ a {
             }
         }
 
-        .resultBackButton {
+        .testBackButton {
             background-color: #404040;
             color: white;
             border-radius: 15px;
             border: none;
             padding: 6px 15px;
+            max-width: 200px;
         }
 
         h2,
@@ -1192,22 +1230,27 @@ a {
         }
 
         .testTitle {
-            display: grid;
-            grid-template-columns: 30% 3% 30% 3% 30%;
+            // display: grid;
+            // grid-template-columns: 20% 5% 50% 5% 25%;
             justify-content: center;
+            align-items: center;
             // grid-template-areas: ". feedback nextButton";
             font-size: 12px;
             width: 90vw;
 
             p {
-                &:first-child {
-                    text-align: end;
-                }
-
-                &:last-child {
-                    text-align: start;
-                }
+                margin: 0;
             }
+
+            // p {
+            //     &:first-child {
+            //         text-align: end;
+            //     }
+
+            //     &:last-child {
+            //         text-align: start;
+            //     }
+            // }
 
             &:nth-child(1) {
             }
