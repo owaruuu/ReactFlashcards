@@ -31,15 +31,16 @@
                     date: "2015-20-10",
                     multiple: [
                         {
-                            question: "What do you want to",
+                            prompt: "What do you want to",
                             answer: "asdasdasd",
                             correct: false,
                         },
                     ],
                     drag: [
                         {
-                            question: "What do you want to",
-                            answer: "asdasdasd",
+                            prompt: "frase en espaniol",
+                            expected: "frase traducida al japones",
+                            answer: "mi respuesta",
                             correct: false,
                         },
                     ],
@@ -58,8 +59,9 @@
                     ],
                     drag: [
                         {
-                            question: "What do you want to",
-                            answer: "asdasdasd",
+                            prompt: "frase en espaniol",
+                            expected: "frase traducida al japones",
+                            answer: "mi respuesta",
                             correct: false,
                         },
                     ],
