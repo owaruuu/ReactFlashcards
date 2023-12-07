@@ -100,16 +100,18 @@ const TestScreen = () => {
     const [feedback, setFeedback] = useState("feed");
     const [thinking, setThinking] = useState(false);
 
-    const handleOptionClick = (event, index) => {
-        if (index === 0) {
+    const handleOptionClick = (info) => {
+        if (info.correct) {
             console.log("Correct");
-            setCorrect(index);
+            writeAnswer("multiple", info);
+            setCorrect(info.index);
             setFeedback("Correct!");
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
-            setIncorrect(index);
+            writeAnswer("multiple", info);
+            setIncorrect(info.index);
             setFeedback("Incorrect!");
             setThinking(true);
         }
@@ -136,7 +138,8 @@ const TestScreen = () => {
             [type]: [
                 ...answers[type],
                 {
-                    question: info.question,
+                    prompt: info.prompt,
+                    expected: info.expected,
                     answer: info.answer,
                     correct: info.correct,
                 },
@@ -156,8 +159,8 @@ const TestScreen = () => {
                     break;
                 case "dragDrop":
                     // setStage("manga");
-                    setStage("results");
                     handleSaveTestScore();
+                    setStage("results");
                     break;
                 case "manga":
                     setStage("results");
@@ -176,15 +179,9 @@ const TestScreen = () => {
         setThinking(false);
     };
 
-    const handleStart = () => {
-        setStage("dragDrop");
-    };
-
     const handleBeginButtonClick = (stage) => {
         setStage(stage);
     };
-
-    // useEffect(() => {}, [newRecord]);
 
     useEffect(() => {
         if (save) {
@@ -250,16 +247,7 @@ const TestScreen = () => {
         }
     };
 
-    const handleBackButton = () => {
-        console.log("back button desde test screen");
-
-        dispatch({
-            type: "CHANGE_SCREEN",
-            payload: {
-                currentScreen: "lecture",
-            },
-        });
-    };
+    const handleBackButton = () => {};
 
     const currentMax =
         stage === "mondai"
@@ -284,16 +272,26 @@ const TestScreen = () => {
             : "Your Results:";
 
     const showFeedBackSection =
-        stage === "mondai" || "dragDrop" || "manga" ? true : false;
+        stage === "mondai" || stage === "dragDrop" || stage === "manga"
+            ? true
+            : false;
+
+    const showPoints =
+        stage === "mondai" || stage === "dragDrop" || stage === "manga"
+            ? true
+            : false;
+
+    const pointsCounter = (
+        <div className="pointsCounter">
+            <p>{score}pts.</p>
+        </div>
+    );
 
     return (
         <div className="testScreen">
+            {showPoints && pointsCounter}
             <h2 className="testTitle">
-                <p>Test</p>
-                <p>-</p>
-                <p>{lecture.name}</p>
-                <p>-</p>
-                <p>{score} pts.</p>
+                <p>Prueba - {lecture.name}</p>
             </h2>
             <hr></hr>
             <h3>{title}</h3>
@@ -306,7 +304,7 @@ const TestScreen = () => {
             </div>
             {stage === "begin" && (
                 <BeginStage
-                    clickStart={() => handleBeginButtonClick("dragDrop")}
+                    clickStart={() => handleBeginButtonClick("mondai")}
                     clickLast={() => handleBeginButtonClick("last")}
                     clickHigh={() => handleBeginButtonClick("high")}
                 ></BeginStage>
@@ -333,7 +331,6 @@ const TestScreen = () => {
                     handleClick={handleOptionClick}
                 />
             )}
-            {/* {stage === "dragDrop" && <MultipleContainers />} */}
             {stage === "dragDrop" && (
                 <DragDrop
                     drag={threeDrag}
@@ -351,7 +348,7 @@ const TestScreen = () => {
                     maxScore={maxScore}
                     newRecord={newRecord}
                     previousRecord={previousHighScore}
-                    onClick={handleBackButton}
+                    results={answers}
                 />
             )}
             {}
