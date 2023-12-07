@@ -23,7 +23,15 @@ const Mondai = (props) => {
             <button
                 className={className}
                 key={option.id}
-                onClick={(event) => handleClick(event, option.id)}
+                onClick={() =>
+                    handleClick({
+                        index: option.id,
+                        prompt: currentPhrase,
+                        expected: mondai[problem][1][0].phrase,
+                        answer: option.phrase,
+                        correct: option.id === 0 ? true : false,
+                    })
+                }
                 disabled={thinking}
             >
                 {option.phrase}
