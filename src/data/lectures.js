@@ -28,7 +28,7 @@ export const lectures = [
                 id: 4,
                 term: "のこす",
                 extra: "残す",
-                answer: "Dejar (atras), Dejar (a alguien al morir)",
+                answer: "Dejar (atras), Dejar algo (a alguien al morir)",
             },
             { id: 5, term: "いじめ", extra: "虐め", answer: "Bullying" },
             { id: 6, term: "く", extra: "苦", answer: "Dolor, Sufrimiento" },
@@ -107,7 +107,12 @@ export const lectures = [
                 answer: "Comportarse como..., ",
             },
             { id: 21, term: "こたえる", extra: "答える", answer: "Responder" },
-            { id: 22, term: "のろま", extra: "鈍間", answer: "Idiota, Lento" },
+            {
+                id: 22,
+                term: "のろま /　ノロマ",
+                extra: "鈍間",
+                answer: "Idiota, Lento",
+            },
             {
                 id: 23,
                 term: "オドオド",
