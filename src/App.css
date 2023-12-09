@@ -708,19 +708,23 @@ a {
     display: block;
     border-style: none;
     border-radius: 41px;
-    background-color: brown;
+    background-color: #656565;
     color: aliceblue;
     width: 51px;
+    transition: 0.3s;
   }
   .main .learnScreen .termCardSection .termCardButtonDesktop:hover {
-    background-color: rgb(148, 24, 24);
+    background-color: #474747;
+  }
+  .main .learnScreen .termCardSection .termCardButtonDesktop:active {
+    background-color: #818181;
   }
 }
 .main .learnScreen .termCardSection button {
   margin: 40px 0;
 }
-.main .learnScreen .termCardSection button:hover {
-  background-color: brown;
+.main .learnScreen .termCardSection button:active {
+  margin: 35px 0;
 }
 .main .learnScreen .termCardDiv {
   max-width: 935px;
@@ -827,8 +831,7 @@ a {
   color: white;
 }
 .main .learnScreen .mobileTermButtons .termCardButtonMobile {
-  background-color: brown;
-  background-color: brown;
+  background-color: #656565;
   width: 100px;
   color: aliceblue;
   border-style: solid;
@@ -837,12 +840,16 @@ a {
   gap: 10px;
   padding: 12px 0px;
   border-radius: 10px;
-  border-color: #4c0000;
+  border-color: #868686;
 }
 @media (min-width: 768px) {
   .main .learnScreen .mobileTermButtons .termCardButtonMobile {
     display: none;
   }
+}
+.main .learnScreen .mobileTermButtons .termCardButtonMobile:active {
+  background-color: #5c5c5c;
+  border-color: #3d3d3d;
 }
 .main .learnScreen .learnButtons {
   display: flex;
@@ -898,13 +905,13 @@ a {
   padding: 5px 10px;
   border: none;
   border-radius: 10px;
-  background-color: #92b9da;
-  color: #224a6b;
-  width: 100%;
+  background-color: #137508;
+  color: #e8ebed;
+  width: 75%;
   margin-bottom: 20px;
 }
 .main .beginTestScreen .beginTestButton:hover {
-  background-color: #b9d8f1;
+  background-color: #269719;
 }
 .main .beginTestScreen .info {
   padding: 15px 0;
@@ -984,7 +991,7 @@ a {
   border: none;
   border-radius: 15px;
   color: white;
-  padding: 5px 10px;
+  padding: 10px 10px;
   margin: 10px;
 }
 .main .testScreen .savedResultsButtons button:first-child {
@@ -994,10 +1001,10 @@ a {
   background-color: #2d628f;
 }
 .main .testScreen .savedResultsButtons button:last-child {
-  background-color: #386921;
+  background-color: #997800;
 }
 .main .testScreen .savedResultsButtons button:last-child:hover {
-  background-color: #598b41;
+  background-color: #856800;
 }
 .main .testScreen .resultContent {
   display: flex;
@@ -1105,11 +1112,23 @@ a {
 }
 .main .testScreen .dropContainer .dragHereText {
   position: absolute;
-  color: #255277;
+  color: #31628a;
   text-transform: uppercase;
   padding-left: 10px;
   font-size: 0.9rem;
   padding-top: 6px;
+  animation-name: shine;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes shine {
+  10%, 60%, 100% {
+    color: #31628a;
+  }
+  80% {
+    color: #79a6ca;
+  }
 }
 .main .testScreen .answerDropContainers {
   margin: 0 5px;

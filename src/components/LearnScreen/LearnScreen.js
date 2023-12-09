@@ -4,6 +4,8 @@ import TermCard from "./TermCard";
 import DisappearingCard from "./DisappearingCard";
 import LearnPanel from "./LearnPanel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
+import { BiSolidLeftArrow } from "react-icons/bi";
+import { BiSolidRightArrow } from "react-icons/bi";
 import { lectures } from "../../data/lectures";
 import { shuffleArray } from "../../utils/utils";
 import OptionsModal from "./OptionsModal";
@@ -288,7 +290,7 @@ const LearnScreen = (props) => {
                   )}
             <div className="termCardSection">
                 <button className="termCardButtonDesktop" onClick={goBack}>
-                    <BiLeftArrow></BiLeftArrow>
+                    <BiSolidLeftArrow></BiSolidLeftArrow>
                 </button>
                 <div className="termCardDiv">
                     <TermCard
@@ -301,7 +303,7 @@ const LearnScreen = (props) => {
                     {disappearingCards}
                 </div>
                 <button className="termCardButtonDesktop" onClick={goForward}>
-                    <BiRightArrow></BiRightArrow>
+                    <BiSolidRightArrow></BiSolidRightArrow>
                 </button>
             </div>
             <div className="learnButtons">
@@ -327,10 +329,10 @@ const LearnScreen = (props) => {
             </div>
             <div className="mobileTermButtons">
                 <button className="termCardButtonMobile" onClick={goBack}>
-                    <BiLeftArrow></BiLeftArrow>
+                    <BiSolidLeftArrow></BiSolidLeftArrow>
                 </button>
                 <button className="termCardButtonMobile" onClick={goForward}>
-                    <BiRightArrow></BiRightArrow>
+                    <BiSolidRightArrow></BiSolidRightArrow>
                 </button>
             </div>
             {props.isReview ? (

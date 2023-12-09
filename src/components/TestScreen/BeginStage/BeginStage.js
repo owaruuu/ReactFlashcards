@@ -12,11 +12,11 @@ const BeginStage = (props) => {
 
             <div className="savedResultsButtons">
                 <button onClick={props.clickLast}>Ultimo intento</button>
-                <button>Resultados</button>
+                <button>Mejor Puntacion</button>
             </div>
 
             <button className="beginTestButton" onClick={props.clickStart}>
-                Start
+                Comenzar
             </button>
 
             <BackButton
