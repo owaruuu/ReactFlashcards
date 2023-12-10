@@ -2,7 +2,7 @@
 //last Id : 31
 export const lectures = [
     {
-        id: "31",
+        lectureId: "31",
         name: "Set 1 Mondai No Nai",
         termList: [
             {
@@ -178,7 +178,7 @@ export const lectures = [
         ],
     },
     {
-        id: "30",
+        lectureId: "30",
         name: "Set 1 Dr Stone ",
         termList: [
             { id: 0, term: "かがく", extra: "科学", answer: "Ciencia" },
@@ -312,7 +312,7 @@ export const lectures = [
         ],
     },
     {
-        id: "29",
+        lectureId: "29",
         name: "Voc 29 Nov 2023",
         termList: [
             {
@@ -455,7 +455,7 @@ export const lectures = [
         ],
     },
     {
-        id: "28",
+        lectureId: "28",
         name: "Voc 22 Nov 2023",
         termList: [
             { id: 0, term: "じょうきょう", extra: "状況", answer: "Situación" },
