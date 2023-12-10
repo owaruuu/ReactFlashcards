@@ -179,7 +179,7 @@ export const lectures = [
     },
     {
         id: "30",
-        name: "Set 1 Dr Stone",
+        name: "Set 1 Dr Stone ",
         termList: [
             { id: 0, term: "かがく", extra: "科学", answer: "Ciencia" },
             { id: 1, term: "かがく", extra: "化学", answer: "Quimica" },
@@ -231,7 +231,7 @@ export const lectures = [
                 id: 11,
                 term: "そうりょく",
                 extra: "総力",
-                answer: "Todo el esfuerzo, Energia total",
+                answer: "Todo el esfuerzo o Energia total (de un grupo, nacion, etc)",
             },
             {
                 id: 12,
@@ -243,7 +243,7 @@ export const lectures = [
                 id: 13,
                 term: "しりょく",
                 extra: "視力",
-                answer: "Vista, Vision",
+                answer: "Vista, Vision, Agudeza visual",
             },
             { id: 14, term: "みょうじ", extra: "苗字", answer: "Apellido" },
             { id: 15, term: "ぼち", extra: "墓地", answer: "Cementerio" },
@@ -258,12 +258,7 @@ export const lectures = [
                 extra: "毒科学",
                 answer: "Toxicologia",
             },
-            {
-                id: 22,
-                term: "どくかガス",
-                extra: "毒かガス",
-                answer: "Gas toxico",
-            },
+            { id: 22, term: "どくガス", extra: "毒ガス", answer: "Gas toxico" },
             { id: 23, term: "ていこく", extra: "帝国", answer: "Imperio" },
             {
                 id: 24,
@@ -296,7 +291,7 @@ export const lectures = [
                 extra: "唆る",
                 answer: "Excitar, Estimular",
             },
-            { id: 30, term: "どう", extra: "銅", answer: "Bronce" },
+            { id: 30, term: "どう", extra: "銅", answer: "Cobre" },
             {
                 id: 31,
                 term: "ぎん",
@@ -304,10 +299,16 @@ export const lectures = [
                 answer: "Plata (el elemento)",
             },
             { id: 32, term: "きん", extra: "金", answer: "Oro" },
-            { id: 33, term: "ほうせき", extra: "宝石", answer: "Gema" },
-            { id: 34, term: "つるはし", extra: "鶴橋", answer: "Pica" },
-            { id: 35, term: "どうくつ", extra: "洞窟", answer: "Caverna" },
-            { id: 36, term: "しんねん", extra: "新年", answer: "Año nuevo" },
+            {
+                id: 33,
+                term: "どうメダル",
+                extra: "銅メダル",
+                answer: "Medalla de bronce",
+            },
+            { id: 34, term: "ほうせき", extra: "宝石", answer: "Gema" },
+            { id: 35, term: "つるはし", extra: "鶴橋", answer: "Pica" },
+            { id: 36, term: "どうくつ", extra: "洞窟", answer: "Caverna" },
+            { id: 37, term: "しんねん", extra: "新年", answer: "Año nuevo" },
         ],
     },
     {
