@@ -50,6 +50,10 @@ a {
   padding-left: 10px;
 }
 
+.goldAccent {
+  color: goldenrod;
+}
+
 .App {
   background-color: #032745;
   font-family: メイリオ, Meiryo !important;
@@ -1015,6 +1019,45 @@ a {
   margin-top: auto;
   margin-bottom: auto;
 }
+.main .testScreen .resultContent .stickerDiv #sticker-info-tooltip {
+  width: 200px;
+  overflow-wrap: break-word;
+  background-color: white;
+  color: #022e52;
+  border-radius: 23px;
+}
+.main .testScreen .resultContent .stickerDiv .stickerTooltip {
+  background-color: #3a5c77;
+  width: 150px;
+  height: 150px;
+  border-radius: 15px;
+  border-style: dashed;
+  border-color: #9cb0c0;
+}
+.main .testScreen .resultContent .stickerDiv .stickerTooltip img {
+  opacity: 0;
+  width: 100%;
+  animation: winSticker 1s;
+  animation-delay: 2s;
+  animation-timing-function: cubic-bezier(0.07, 0.76, 0.4, 1);
+  animation-fill-mode: forwards;
+}
+@keyframes winSticker {
+  0% {
+    transform: translateY(-120px) rotateZ(-20deg) translateX(-80px) scale(250%);
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+.main .testScreen .resultContent .stickerDiv .stickerContainer {
+  background-color: #20496b;
+  padding: 20px;
+}
 .main .testScreen .resultContent .scoreParent {
   position: relative;
 }
@@ -1073,6 +1116,7 @@ a {
   border-radius: 15px;
   border: none;
   padding: 6px 15px;
+  margin-top: 20px;
   max-width: 200px;
 }
 .main .testScreen h2,
@@ -1196,6 +1240,10 @@ a {
 .main .testScreen .testContent .dragAnswer {
   min-height: 60px;
 }
+.main .testScreen .testContent .dragAnswer svg {
+  color: red;
+  font-size: 48px;
+}
 @media (min-width: 768px) {
   .main .testScreen .testContent .dragAnswer {
     min-height: 96px;
@@ -1218,7 +1266,7 @@ a {
 .main .testScreen .testContent p {
   margin: 0;
   font-size: 0.85rem;
-  color: #496673;
+  color: #b5b5b5;
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent {

@@ -105,14 +105,14 @@ const TestScreen = () => {
             console.log("Correct");
             writeAnswer("multiple", info);
             setCorrect(info.index);
-            setFeedback("Correct!");
+            setFeedback("Correcto!");
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
             writeAnswer("multiple", info);
             setIncorrect(info.index);
-            setFeedback("Incorrect!");
+            setFeedback("Incorrecto!");
             setThinking(true);
         }
     };
@@ -121,13 +121,13 @@ const TestScreen = () => {
         if (info.correct) {
             console.log("Correct");
             writeAnswer("drag", info);
-            setFeedback("Correct!");
+            setFeedback("Correcto!");
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
             writeAnswer("drag", info);
-            setFeedback("Incorrect!");
+            setFeedback("Incorrecto!");
             setThinking(true);
         }
     };
@@ -260,16 +260,16 @@ const TestScreen = () => {
         stage === "begin"
             ? "Prueba Corta"
             : stage === "last"
-            ? "Last Try:"
+            ? "Ultimo intento:"
             : stage === "high"
-            ? "Your HighScore"
+            ? "Tu record"
             : stage === "mondai"
-            ? "Select the correct translation."
+            ? "Selecciona la traduccion correcta"
             : stage === "dragDrop"
-            ? "Drag and Drop to translate."
+            ? "Arrastra y Ordena la frase"
             : stage === "manga"
             ? "Follow the conversation"
-            : "Your Results:";
+            : "Tus resultados:";
 
     const showFeedBackSection =
         stage === "mondai" || stage === "dragDrop" || stage === "manga"

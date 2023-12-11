@@ -7,7 +7,7 @@ const FeedbackText = (props) => {
 
     let textClassNames = "feedbackText";
 
-    if (props.content === "Correct!") {
+    if (props.content === "Correcto!") {
         textClassNames += " correct";
     } else {
         textClassNames += " incorrect";

@@ -74,7 +74,11 @@ const DragDrop = (props) => {
             </div>
             <p>Your answer: </p>
             <div className="dragAnswer">
-                <DragAnswerContent phrase={currentAnswer} changed={changed} />
+                <DragAnswerContent
+                    phrase={currentAnswer}
+                    changed={changed}
+                    incorrect={incorrect}
+                />
             </div>
             <MultipleContainers
                 updateAnswer={handleAnswerChange}

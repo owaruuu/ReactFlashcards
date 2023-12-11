@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styles from "./styles/DragAnswer.module.css";
+import { FaXmark } from "react-icons/fa6";
 
 const DragAnswerContent = (props) => {
     const content = (
@@ -12,7 +13,12 @@ const DragAnswerContent = (props) => {
             {props.phrase}
         </span>
     );
-    return <>{props.phrase !== "" ? content : "..."}</>;
+    return (
+        <>
+            {props.phrase !== "" ? content : "..."}{" "}
+            {props.incorrect && <FaXmark />}{" "}
+        </>
+    );
 };
 
 export default DragAnswerContent;

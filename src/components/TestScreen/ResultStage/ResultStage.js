@@ -1,5 +1,6 @@
 import BackButton from "../Util/BackButton";
 import TestAnswersSummary from "../TestAnswersSummary";
+import TestResultSticker from "./TestResultSticker";
 
 const ResultStage = (props) => {
     const percent = (props.score * 100) / props.maxScore;
@@ -33,6 +34,7 @@ const ResultStage = (props) => {
             )}
 
             {congrats}
+            <TestResultSticker />
             <BackButton
                 text={"Volver a Leccion"}
                 stage={"results"}
