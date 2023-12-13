@@ -6,13 +6,25 @@ const BeginStage = (props) => {
             <div className="info">
                 <p>Tiempo estimado: 10 min.</p>
                 <p>5 preguntas de opcion multiple</p>
-                <p>5 preguntas de traduccion</p>
-                <p>5 preguntas de particulas</p>
+                <p>3 preguntas de traducir y ordenar</p>
+                {/* <p>5 preguntas de particulas</p> */}
             </div>
 
             <div className="savedResultsButtons">
-                <button onClick={props.clickLast}>Ultimo intento</button>
-                <button>Mejor Puntacion</button>
+                <button
+                    className={props.hasLast ? "" : "deactivated"}
+                    disabled={!props.hasLast}
+                    onClick={props.clickLast}
+                >
+                    Ultimo intento
+                </button>
+                <button
+                    className={props.hasLast ? "" : "deactivated"}
+                    disabled={!props.hasLast}
+                    onClick={props.clickHigh}
+                >
+                    Mejor Puntacion
+                </button>
             </div>
 
             <button className="beginTestButton" onClick={props.clickStart}>
