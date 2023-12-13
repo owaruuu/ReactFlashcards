@@ -12,6 +12,7 @@ import FeedbackText from "./FeedbackText";
 import ProblemCounter from "./ProblemCounter";
 import BeginStage from "./BeginStage/BeginStage";
 import LastResultsStage from "./BeginStage/LastResultsStage";
+import HighscoreStage from "./BeginStage/HighscoreStage";
 import Mondai from "./Mondai";
 import DragDrop from "./DragDrop";
 import Manga from "./Manga";
@@ -67,6 +68,24 @@ const TestScreen = () => {
     });
 
     const [testVersion] = useState(test.version);
+    const [hasLastTest, setHasLastTest] = useState(() => {
+        const lastTest = user.currentProgress[lecture.lectureId]?.["lastTest"];
+
+        if (lastTest) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+    const [hasHighScore, setHasHighScore] = useState(() => {
+        const highScore =
+            user.currentProgress[lecture.lectureId]?.["highScore"];
+        if (highScore) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 
     const [previousHighScore, setPreviousHighScore] = useState(() => {
         if (dbError || !loggedIn) {
@@ -74,10 +93,38 @@ const TestScreen = () => {
         }
 
         const testScore =
-            user.currentProgress[lecture.lectureId]?.["testScore"];
+            user.currentProgress[lecture.lectureId]?.["highScore"];
 
+        console.log(
+            "🚀 ~ file: TestScreen.js:77 ~ const[previousHighScore,setPreviousHighScore]=useState ~ testScore:",
+            testScore
+        );
         if (testScore) {
-            return testScore[testVersion];
+            return testScore.score[testVersion];
+        } else {
+            return 0;
+        }
+    });
+    console.log(
+        "🚀 ~ file: TestScreen.js:85 ~ const[previousHighScore,setPreviousHighScore]=useState ~ previousHighScore:",
+        previousHighScore
+    );
+
+    //-1: dont have access to dv, 0: false, 1: true
+    const [hasWonMedal, setHasWonMedal] = useState(() => {
+        if (dbError || !loggedIn) {
+            return -1;
+        }
+
+        const highScore =
+            user.currentProgress[lecture.lectureId]?.["highScore"];
+
+        if (highScore) {
+            if (highScore.score[testVersion] === maxScore) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             return 0;
         }
@@ -96,6 +143,9 @@ const TestScreen = () => {
     //for multiple choice buttons
     const [correct, setCorrect] = useState(-1);
     const [incorrect, setIncorrect] = useState(-1);
+
+    //for drag and drop
+    const [incorrectDrag, setIncorrectDrag] = useState(false);
 
     const [feedback, setFeedback] = useState("feed");
     const [thinking, setThinking] = useState(false);
@@ -128,6 +178,7 @@ const TestScreen = () => {
             console.log("Wrong");
             writeAnswer("drag", info);
             setFeedback("Incorrecto!");
+            setIncorrectDrag(true);
             setThinking(true);
         }
     };
@@ -176,10 +227,14 @@ const TestScreen = () => {
 
         setCorrect(-1);
         setIncorrect(-1);
+        setIncorrectDrag(false);
         setThinking(false);
     };
 
     const handleBeginButtonClick = (stage) => {
+        if (stage === "mondai") {
+            setNewRecord(false);
+        }
         setStage(stage);
     };
 
@@ -236,14 +291,17 @@ const TestScreen = () => {
             return;
         }
 
-        console.log("setie new record");
-        setNewRecord(true);
-        setSave(true);
-        return;
+        // console.log("setie new record");
+        // setNewRecord(true);
+
+        // return;
 
         //aqui deberia comparar primero los scores
         if (score > previousHighScore) {
             setNewRecord(true);
+            setSave(true);
+        } else {
+            setSave(true);
         }
     };
 
@@ -256,20 +314,27 @@ const TestScreen = () => {
             ? currentTest.dragDrop.length
             : currentTest.manga.length;
 
+    const goldAccent = <span className="goldAccent">:</span>;
+
     const title =
-        stage === "begin"
-            ? "Prueba Corta"
-            : stage === "last"
-            ? "Ultimo intento:"
-            : stage === "high"
-            ? "Tu record"
-            : stage === "mondai"
-            ? "Selecciona la traduccion correcta"
-            : stage === "dragDrop"
-            ? "Arrastra y Ordena la frase"
-            : stage === "manga"
-            ? "Follow the conversation"
-            : "Tus resultados:";
+        stage === "begin" ? (
+            <h3>Prueba Corta</h3>
+        ) : stage === "last" ? (
+            <h3>Ultimo intento</h3>
+        ) : stage === "high" ? (
+            <h3>Tu record{goldAccent}</h3>
+        ) : stage === "mondai" ? (
+            <h3>Selecciona la traduccion correcta</h3>
+        ) : stage === "dragDrop" ? (
+            <h3>Arrastra y ordena la frase</h3>
+        ) : stage === "manga" ? (
+            <h3>Sigue la conversacion</h3>
+        ) : (
+            <h3>
+                Tus resultados
+                {goldAccent}
+            </h3>
+        );
 
     const showFeedBackSection =
         stage === "mondai" || stage === "dragDrop" || stage === "manga"
@@ -294,7 +359,7 @@ const TestScreen = () => {
                 <p>Prueba - {lecture.name}</p>
             </h2>
             <hr></hr>
-            <h3>{title}</h3>
+            {title}
             <div>
                 <ProblemCounter
                     className="problemCounter"
@@ -307,6 +372,8 @@ const TestScreen = () => {
                     clickStart={() => handleBeginButtonClick("mondai")}
                     clickLast={() => handleBeginButtonClick("last")}
                     clickHigh={() => handleBeginButtonClick("high")}
+                    hasLast={hasLastTest}
+                    hasHighScore={hasHighScore}
                 ></BeginStage>
             )}
             {stage === "last" && (
@@ -317,9 +384,16 @@ const TestScreen = () => {
                     back={() => handleBeginButtonClick("begin")}
                 ></LastResultsStage>
             )}
-            {/* {stage === "high" && (
-                <BeginStage onClick={handleStart}></BeginStage>
-            )} */}
+            {stage === "high" && (
+                <HighscoreStage
+                    progress={user.currentProgress}
+                    lectureId={lecture.lectureId}
+                    lectureName={lecture.name}
+                    version={test.version}
+                    back={() => handleBeginButtonClick("begin")}
+                    hasWonMedal={hasWonMedal}
+                ></HighscoreStage>
+            )}
 
             {stage === "mondai" && (
                 <Mondai
@@ -336,7 +410,7 @@ const TestScreen = () => {
                     drag={threeDrag}
                     problem={problem}
                     correct={correct}
-                    incorrect={incorrect}
+                    incorrect={incorrectDrag}
                     thinking={thinking}
                     handleClick={handleDragAnswer}
                 />
@@ -348,7 +422,10 @@ const TestScreen = () => {
                     maxScore={maxScore}
                     newRecord={newRecord}
                     previousRecord={previousHighScore}
+                    hasWonMedal={hasWonMedal}
                     results={answers}
+                    lectureId={lecture.lectureId}
+                    lectureName={lecture.name}
                 />
             )}
             {}
