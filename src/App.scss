@@ -677,7 +677,7 @@ a {
             }
         }
 
-        .panel {
+        .learnScreenPanel {
             display: grid;
             grid-template-columns: 33% 33% 33%;
             grid-template-rows: auto;
@@ -1083,10 +1083,42 @@ a {
             }
         }
 
+        .highScoreResume,
+        .lastTestResume {
+            .testBackButton {
+                margin-top: 0px;
+            }
+        }
+
+        .highScoreResume {
+            .panel {
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+                grid-template-areas: "date . backButton";
+                align-items: center;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            .backButton {
+                border: none;
+                border-radius: 15px;
+                max-width: 140px;
+            }
+
+            hr {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         .lastTestResume {
             .panel {
                 display: grid;
                 grid-template-columns: 33% 33% 33%;
+                grid-template-areas: "date points backButton";
                 align-items: center;
 
                 p {
@@ -1147,6 +1179,167 @@ a {
                     }
                 }
             }
+            .deactivated {
+                text-decoration: line-through;
+                background-color: gray !important;
+            }
+        }
+
+        .stickerDiv {
+            // height: 150px;
+
+            .spinnerContainer {
+                display: flex;
+                justify-content: center;
+                height: 150px;
+                div {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+            }
+
+            #sticker-info-tooltip {
+                width: 200px;
+                overflow-wrap: break-word;
+                background-color: white;
+                color: #022e52;
+                border-radius: 23px;
+            }
+
+            .stickerTooltip {
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 20px;
+                background-color: #3a5c77;
+                width: 150px;
+                height: 150px;
+                border-radius: 15px;
+                border-style: dashed;
+                border-color: #9cb0c0;
+                box-sizing: content-box;
+
+                .winSticker {
+                    position: relative;
+                    top: -150px;
+                    opacity: 0;
+                    width: 100%;
+                    animation: winSticker 1s;
+                    animation-delay: 2s;
+                    animation-timing-function: cubic-bezier(0.07, 0.76, 0.4, 1);
+                    animation-fill-mode: forwards;
+                }
+
+                .showSticker {
+                    opacity: 1;
+                    width: 100%;
+                    animation: showSticker 4s infinite;
+                    animation-fill-mode: forwards;
+                }
+
+                .showOutline {
+                    opacity: 1;
+                    width: 100%;
+                }
+
+                @keyframes winSticker {
+                    0% {
+                        transform: translateY(-120px) rotateZ(-20deg)
+                            translateX(-80px) scale(250%);
+                        opacity: 0;
+                    }
+                    60% {
+                        opacity: 1;
+                    }
+
+                    100% {
+                        transform: translate(0);
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes borderGold {
+                    50% {
+                        border-style: dashed;
+                        border-color: #9cb0c0;
+                    }
+                    100% {
+                        border-color: #f5b64e;
+                        border-style: inset;
+                    }
+                }
+
+                @keyframes showSticker {
+                    0% {
+                        transform: rotateZ(0);
+                    }
+                    5% {
+                        transform: rotateZ(-5deg);
+                    }
+                    10% {
+                        transform: rotateZ(5deg);
+                    }
+
+                    15% {
+                        transform: rotateZ(-5deg);
+                    }
+
+                    20% {
+                        transform: rotateZ(5deg);
+                    }
+
+                    25% {
+                        transform: rotateZ(0);
+                    }
+
+                    100% {
+                        transform: translate(0);
+                    }
+                }
+            }
+
+            .win {
+                border-color: #f5b64e;
+                border-style: inset;
+            }
+
+            .stickerContainer {
+                background-color: #20496b;
+                padding: 20px;
+            }
+        }
+
+        .scoreParent {
+            position: relative;
+
+            .score,
+            .maxScore {
+                font-size: 4rem;
+                font-family: "Gidugu";
+
+                @media (min-width: 768px) {
+                    font-size: 7rem;
+                }
+            }
+
+            .newRecord {
+                margin: 0;
+                font-size: 12px;
+                color: goldenrod;
+                position: absolute;
+                padding-left: 5px;
+                /* right: 0; */
+                bottom: 53%;
+                /* left: 235px; */
+                width: 100px;
+                text-align: start;
+                /* padding-top: 50%; */
+                /* padding-bottom: 50%; */
+
+                @media (min-width: 768px) {
+                    font-size: 16px;
+                    width: 110px;
+                }
+            }
         }
 
         .resultContent {
@@ -1157,95 +1350,6 @@ a {
             min-height: 50vh;
             margin-top: auto;
             margin-bottom: auto;
-
-            .stickerDiv {
-                // height: 150px;
-
-                #sticker-info-tooltip {
-                    width: 200px;
-                    overflow-wrap: break-word;
-                    background-color: white;
-                    color: #022e52;
-                    border-radius: 23px;
-                }
-
-                .stickerTooltip {
-                    background-color: #3a5c77;
-                    width: 150px;
-                    height: 150px;
-                    border-radius: 15px;
-                    border-style: dashed;
-                    border-color: #9cb0c0;
-
-                    img {
-                        opacity: 0;
-                        width: 100%;
-                        animation: winSticker 1s;
-                        animation-delay: 2s;
-                        animation-timing-function: cubic-bezier(
-                            0.07,
-                            0.76,
-                            0.4,
-                            1
-                        );
-                        animation-fill-mode: forwards;
-                    }
-
-                    @keyframes winSticker {
-                        0% {
-                            transform: translateY(-120px) rotateZ(-20deg)
-                                translateX(-80px) scale(250%);
-                        }
-                        1% {
-                            opacity: 1;
-                        }
-
-                        100% {
-                            transform: translate(0);
-                            opacity: 1;
-                        }
-                    }
-                }
-
-                .stickerContainer {
-                    background-color: #20496b;
-                    padding: 20px;
-                }
-            }
-
-            .scoreParent {
-                position: relative;
-
-                .score,
-                .maxScore {
-                    font-size: 4rem;
-                    font-family: "Gidugu";
-
-                    @media (min-width: 768px) {
-                        font-size: 7rem;
-                    }
-                }
-
-                .newRecord {
-                    margin: 0;
-                    font-size: 12px;
-                    color: goldenrod;
-                    position: absolute;
-                    padding-left: 5px;
-                    /* right: 0; */
-                    bottom: 53%;
-                    /* left: 235px; */
-                    width: 100px;
-                    text-align: start;
-                    /* padding-top: 50%; */
-                    /* padding-bottom: 50%; */
-
-                    @media (min-width: 768px) {
-                        font-size: 16px;
-                        width: 110px;
-                    }
-                }
-            }
 
             .waviy {
                 font-size: 37px;

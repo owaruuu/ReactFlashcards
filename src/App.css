@@ -603,17 +603,17 @@ a {
     margin-top: 17px;
   }
 }
-.main .learnScreen .panel {
+.main .learnScreen .learnScreenPanel {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: auto;
   width: 100%;
   margin: 2px 0;
 }
-.main .learnScreen .panel button {
+.main .learnScreen .learnScreenPanel button {
   min-width: 85px;
 }
-.main .learnScreen .panel p {
+.main .learnScreen .learnScreenPanel p {
   align-self: center;
   justify-self: center;
   color: white;
@@ -621,7 +621,7 @@ a {
   font-size: 2rem;
   font-family: "Gidugu";
 }
-.main .learnScreen .panel .optionsButton {
+.main .learnScreen .learnScreenPanel .optionsButton {
   font-weight: 400;
   text-transform: capitalize;
   background-color: #f5fcff;
@@ -634,16 +634,16 @@ a {
   align-self: center;
   justify-self: center;
 }
-.main .learnScreen .panel .optionsButton:hover {
+.main .learnScreen .learnScreenPanel .optionsButton:hover {
   border-color: #ab071d;
 }
 @media (min-width: 768px) {
-  .main .learnScreen .panel .optionsButton {
+  .main .learnScreen .learnScreenPanel .optionsButton {
     font-size: 1.1rem;
     padding: 10px 26px;
   }
 }
-.main .learnScreen .panel .backButton {
+.main .learnScreen .learnScreenPanel .backButton {
   font-weight: 400;
   text-transform: capitalize;
   background-color: #f5fcff;
@@ -656,11 +656,11 @@ a {
   align-self: center;
   justify-self: center;
 }
-.main .learnScreen .panel .backButton:hover {
+.main .learnScreen .learnScreenPanel .backButton:hover {
   border-color: #ab071d;
 }
 @media (min-width: 768px) {
-  .main .learnScreen .panel .backButton {
+  .main .learnScreen .learnScreenPanel .backButton {
     font-size: 1.1rem;
     padding: 10px 26px;
   }
@@ -959,9 +959,32 @@ a {
     margin: auto;
   }
 }
+.main .testScreen .highScoreResume .testBackButton,
+.main .testScreen .lastTestResume .testBackButton {
+  margin-top: 0px;
+}
+.main .testScreen .highScoreResume .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: "date . backButton";
+  align-items: center;
+}
+.main .testScreen .highScoreResume .panel p {
+  margin: 0;
+}
+.main .testScreen .highScoreResume .backButton {
+  border: none;
+  border-radius: 15px;
+  max-width: 140px;
+}
+.main .testScreen .highScoreResume hr {
+  margin-left: auto;
+  margin-right: auto;
+}
 .main .testScreen .lastTestResume .panel {
   display: grid;
   grid-template-columns: 33% 33% 33%;
+  grid-template-areas: "date points backButton";
   align-items: center;
 }
 .main .testScreen .lastTestResume .panel p {
@@ -1010,31 +1033,41 @@ a {
 .main .testScreen .savedResultsButtons button:last-child:hover {
   background-color: #856800;
 }
-.main .testScreen .resultContent {
+.main .testScreen .savedResultsButtons .deactivated {
+  text-decoration: line-through;
+  background-color: gray !important;
+}
+.main .testScreen .stickerDiv .spinnerContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  min-height: 50vh;
+  justify-content: center;
+  height: 150px;
+}
+.main .testScreen .stickerDiv .spinnerContainer div {
   margin-top: auto;
   margin-bottom: auto;
 }
-.main .testScreen .resultContent .stickerDiv #sticker-info-tooltip {
+.main .testScreen .stickerDiv #sticker-info-tooltip {
   width: 200px;
   overflow-wrap: break-word;
   background-color: white;
   color: #022e52;
   border-radius: 23px;
 }
-.main .testScreen .resultContent .stickerDiv .stickerTooltip {
+.main .testScreen .stickerDiv .stickerTooltip {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
   background-color: #3a5c77;
   width: 150px;
   height: 150px;
   border-radius: 15px;
   border-style: dashed;
   border-color: #9cb0c0;
+  box-sizing: content-box;
 }
-.main .testScreen .resultContent .stickerDiv .stickerTooltip img {
+.main .testScreen .stickerDiv .stickerTooltip .winSticker {
+  position: relative;
+  top: -150px;
   opacity: 0;
   width: 100%;
   animation: winSticker 1s;
@@ -1042,11 +1075,22 @@ a {
   animation-timing-function: cubic-bezier(0.07, 0.76, 0.4, 1);
   animation-fill-mode: forwards;
 }
+.main .testScreen .stickerDiv .stickerTooltip .showSticker {
+  opacity: 1;
+  width: 100%;
+  animation: showSticker 4s infinite;
+  animation-fill-mode: forwards;
+}
+.main .testScreen .stickerDiv .stickerTooltip .showOutline {
+  opacity: 1;
+  width: 100%;
+}
 @keyframes winSticker {
   0% {
     transform: translateY(-120px) rotateZ(-20deg) translateX(-80px) scale(250%);
+    opacity: 0;
   }
-  1% {
+  60% {
     opacity: 1;
   }
   100% {
@@ -1054,25 +1098,62 @@ a {
     opacity: 1;
   }
 }
-.main .testScreen .resultContent .stickerDiv .stickerContainer {
+@keyframes borderGold {
+  50% {
+    border-style: dashed;
+    border-color: #9cb0c0;
+  }
+  100% {
+    border-color: #f5b64e;
+    border-style: inset;
+  }
+}
+@keyframes showSticker {
+  0% {
+    transform: rotateZ(0);
+  }
+  5% {
+    transform: rotateZ(-5deg);
+  }
+  10% {
+    transform: rotateZ(5deg);
+  }
+  15% {
+    transform: rotateZ(-5deg);
+  }
+  20% {
+    transform: rotateZ(5deg);
+  }
+  25% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+.main .testScreen .stickerDiv .win {
+  border-color: #f5b64e;
+  border-style: inset;
+}
+.main .testScreen .stickerDiv .stickerContainer {
   background-color: #20496b;
   padding: 20px;
 }
-.main .testScreen .resultContent .scoreParent {
+.main .testScreen .scoreParent {
   position: relative;
 }
-.main .testScreen .resultContent .scoreParent .score,
-.main .testScreen .resultContent .scoreParent .maxScore {
+.main .testScreen .scoreParent .score,
+.main .testScreen .scoreParent .maxScore {
   font-size: 4rem;
   font-family: "Gidugu";
 }
 @media (min-width: 768px) {
-  .main .testScreen .resultContent .scoreParent .score,
-  .main .testScreen .resultContent .scoreParent .maxScore {
+  .main .testScreen .scoreParent .score,
+  .main .testScreen .scoreParent .maxScore {
     font-size: 7rem;
   }
 }
-.main .testScreen .resultContent .scoreParent .newRecord {
+.main .testScreen .scoreParent .newRecord {
   margin: 0;
   font-size: 12px;
   color: goldenrod;
@@ -1087,10 +1168,19 @@ a {
   /* padding-bottom: 50%; */
 }
 @media (min-width: 768px) {
-  .main .testScreen .resultContent .scoreParent .newRecord {
+  .main .testScreen .scoreParent .newRecord {
     font-size: 16px;
     width: 110px;
   }
+}
+.main .testScreen .resultContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 50vh;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .main .testScreen .resultContent .waviy {
   font-size: 37px;
