@@ -19,8 +19,8 @@ const BeginStage = (props) => {
                     Ultimo intento
                 </button>
                 <button
-                    className={props.hasLast ? "" : "deactivated"}
-                    disabled={!props.hasLast}
+                    className={props.hasHighScore ? "" : "deactivated"}
+                    disabled={!props.hasHighScore}
                     onClick={props.clickHigh}
                 >
                     Mejor Puntacion
