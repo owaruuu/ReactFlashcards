@@ -160,7 +160,7 @@ export function MultipleContainers(
     const containerWidth = useRef(null);
     const [width, setWidth] = useState(0);
     const paddingSize = 20;
-    const letterSize = width === 769 ? 18 : 12;
+    const letterSize = width === 769 ? 15 : 12;
     const minWidthOption = 55;
 
     /**

@@ -906,9 +906,13 @@ a {
   }
 }
 .main .beginTestScreen .beginTestButton {
-  padding: 5px 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 27px;
+  /* border: #98da98 6px solid; */
+  padding: 10px 10px;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   background-color: #137508;
   color: #e8ebed;
   width: 75%;
@@ -931,6 +935,7 @@ a {
   color: #f5fcff;
 }
 .main .testScreen hr {
+  margin: 0;
   border-top: 1px white solid !important;
   width: 45%;
   align-self: center;
@@ -1002,13 +1007,34 @@ a {
 .main .testScreen .testResume h1 {
   margin-top: 20px;
 }
-.main .testScreen .testResume div:nth-child(odd) {
-  background-color: #164b78;
-}
 .main .testScreen .testResume .testAnswerComponent {
   margin: 15px 0;
   padding: 10px;
   width: 100%;
+}
+.main .testScreen .testResume .testAnswerComponent:nth-child(odd) {
+  background-color: #164b78;
+}
+.main .testScreen .testResume .testAnswerComponent p {
+  margin: 0;
+}
+@media (min-width: 600px) {
+  .main .testScreen .testResume .testAnswerComponent p {
+    margin-bottom: 1rem;
+  }
+}
+.main .testScreen .testResume .testAnswerComponent div {
+  margin-bottom: 10px;
+}
+@media (min-width: 600px) {
+  .main .testScreen .testResume .testAnswerComponent div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.main .testScreen .testResume .testAnswerComponent .staticText {
+  text-align: start;
 }
 .main .testScreen .savedResultsButtons {
   margin-top: 35%;
@@ -1213,11 +1239,6 @@ a {
 .main .testScreen h3 {
   margin: 0;
 }
-@media (min-width: 768px) {
-  .main .testScreen h3 {
-    margin: 15px 0;
-  }
-}
 .main .testScreen .problemCounter {
   font-size: 0.8rem;
 }
@@ -1275,7 +1296,7 @@ a {
   background-color: #20496b;
   margin: 7px 0;
   border-radius: 15px;
-  padding: 10px 0;
+  padding: 5px 0;
 }
 .main .testScreen .optionsDropContainers .optionsParent {
   justify-content: center;
@@ -1336,7 +1357,7 @@ a {
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent .dragAnswer {
-    min-height: 96px;
+    min-height: 90px;
   }
 }
 .main .testScreen .testContent .dragAnswerButton {
@@ -1372,14 +1393,14 @@ a {
   margin: 3px auto;
 }
 .main .testScreen .testContent .testPhrase p {
-  font-size: clamp(1rem, 1rem + 1vw, 3rem);
+  font-size: clamp(1rem, 1rem + 0.8vw, 2rem);
   text-align: center;
   margin: 0;
   color: white;
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent .testPhrase {
-    height: 30vh;
+    height: 20vh;
     background-color: #4a7da8;
     border-radius: 23px;
   }

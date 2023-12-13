@@ -1023,9 +1023,13 @@ a {
         // background-color: #255277;
 
         .beginTestButton {
-            padding: 5px 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 27px;
+            /* border: #98da98 6px solid; */
+            padding: 10px 10px;
             border: none;
-            border-radius: 10px;
+            border-radius: 6px;
             background-color: #137508;
             color: #e8ebed;
             width: 75%;
@@ -1052,6 +1056,7 @@ a {
         color: $cloud-white;
 
         hr {
+            margin: 0;
             border-top: 1px white solid !important;
             width: 45%;
             align-self: center;
@@ -1142,14 +1147,36 @@ a {
             }
 
             div {
+            }
+            .testAnswerComponent {
                 &:nth-child(odd) {
                     background-color: #164b78;
                 }
-            }
-            .testAnswerComponent {
+
                 margin: 15px 0;
                 padding: 10px;
                 width: 100%;
+
+                p {
+                    margin: 0;
+                    @media (min-width: 600px) {
+                        margin-bottom: 1rem;
+                    }
+                }
+
+                div {
+                    margin-bottom: 10px;
+
+                    @media (min-width: 600px) {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+                }
+
+                .staticText {
+                    text-align: start;
+                }
             }
         }
 
@@ -1392,9 +1419,9 @@ a {
         }
 
         h3 {
-            @media (min-width: 768px) {
-                margin: 15px 0;
-            }
+            // @media (min-width: 768px) {
+            //     margin: 10px 0;
+            // }
         }
 
         .problemCounter {
@@ -1487,7 +1514,7 @@ a {
             background-color: #20496b;
             margin: 7px 0;
             border-radius: 15px;
-            padding: 10px 0;
+            padding: 5px 0;
 
             .optionsParent {
                 justify-content: center;
@@ -1557,7 +1584,7 @@ a {
                 }
 
                 @media (min-width: 768px) {
-                    min-height: 96px;
+                    min-height: 90px;
                 }
             }
 
@@ -1598,14 +1625,14 @@ a {
                 background-color: #7d0707;
                 margin: 3px auto;
                 p {
-                    font-size: clamp(1rem, 1rem + 1vw, 3rem);
+                    font-size: clamp(1rem, 1rem + 0.8vw, 2rem);
                     text-align: center;
                     margin: 0;
                     color: white;
                 }
 
                 @media (min-width: 768px) {
-                    height: 30vh;
+                    height: 20vh;
                     background-color: #4a7da8;
                     border-radius: 23px;
                 }
