@@ -1,9 +1,27 @@
 import BackButton from "../Util/BackButton";
 import TestAnswersSummary from "../TestAnswersSummary";
 import TestResultSticker from "./TestResultSticker";
+import { useState } from "react";
 
 const ResultStage = (props) => {
     const percent = (props.score * 100) / props.maxScore;
+    const perfectScore = props.score === props.maxScore;
+    // const perfectScore = true;
+
+    const [showWonMedal] = useState(() => {
+        if (props.hasWonMedal) {
+            console.log("mostrar medalla ganada");
+            return 1;
+        }
+
+        if (perfectScore) {
+            console.log("mostrar medalla por primera vez");
+            return 0;
+        } else {
+            console.log("no tengo medalla y no la gane ahora");
+            return -1;
+        }
+    });
 
     const getMessage = () => {
         if (percent === 100) return "Perfect !!";
@@ -28,19 +46,29 @@ const ResultStage = (props) => {
             <div></div>
 
             {props.previousRecord > 0 ? (
-                <p>Your HighScore: {props.previousRecord} pts.</p>
+                <p>
+                    Tu mayor puntaje anterior
+                    <span className="goldAccent">:</span> {props.previousRecord}{" "}
+                    pts.
+                </p>
             ) : (
                 ""
             )}
 
             {congrats}
-            <TestResultSticker />
+            <TestResultSticker
+                show={showWonMedal}
+                lectureId={props.lectureId}
+                lectureName={props.lectureName}
+            />
             <BackButton
                 text={"Volver a Leccion"}
                 stage={"results"}
             ></BackButton>
             <hr></hr>
-            <p>Tus respuestas:</p>
+            <p>
+                Tus respuestas<span className="goldAccent">:</span>
+            </p>
             <TestAnswersSummary results={props.results}></TestAnswersSummary>
         </div>
     );
