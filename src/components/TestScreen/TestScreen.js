@@ -18,6 +18,8 @@ import DragDrop from "./DragDrop";
 import Manga from "./Manga";
 import ResultStage from "./ResultStage/ResultStage";
 
+import TestTimer from "../Timer/TestTimer";
+
 const TestScreen = () => {
     const { appState, dispatch, user, dbError, loggedIn } =
         useContext(AppContext);
@@ -130,6 +132,7 @@ const TestScreen = () => {
         }
     });
 
+    const [stopTimer, setStopTimer] = useState(false);
     const [stage, setStage] = useState("begin");
     const [answers, setAnswers] = useState({
         score: score,
@@ -180,6 +183,14 @@ const TestScreen = () => {
             setFeedback("Incorrecto!");
             setIncorrectDrag(true);
             setThinking(true);
+        }
+
+        //si es la ultima pregunta, detener el timer
+        const index = problem + 1;
+
+        if (index > currentTest["dragDrop"].length - 1) {
+            console.log("this is the last problem");
+            setStopTimer(true);
         }
     };
 
@@ -346,6 +357,14 @@ const TestScreen = () => {
             ? true
             : false;
 
+    const showTimer =
+        stage === "mondai" ||
+        stage === "dragDrop" ||
+        stage === "manga" ||
+        stage === "results"
+            ? true
+            : false;
+
     const pointsCounter = (
         <div className="pointsCounter">
             <p>{score}pts.</p>
@@ -354,12 +373,18 @@ const TestScreen = () => {
 
     return (
         <div className="testScreen">
-            {showPoints && pointsCounter}
             <h2 className="testTitle">
-                <p>Prueba - {lecture.name}</p>
+                <p>
+                    Prueba - {lecture.name}{" "}
+                    {showTimer && <TestTimer stopTimer={stopTimer}></TestTimer>}
+                </p>
             </h2>
             <hr></hr>
-            {title}
+            <div className="titleAndPoints">
+                <div></div>
+                {title}
+                {showPoints && pointsCounter}
+            </div>
             <div>
                 <ProblemCounter
                     className="problemCounter"

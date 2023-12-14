@@ -47,7 +47,9 @@ export const Container = forwardRef(
             >
                 <div className="optionsParent">
                     {props.isFirst && props.showTip ? (
-                        <div className="dragHereText">Drag Here To Start</div>
+                        <div className="dragHereText">
+                            Arrastra aqui para empezar
+                        </div>
                     ) : (
                         ""
                     )}

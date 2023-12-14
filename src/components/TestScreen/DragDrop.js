@@ -72,7 +72,7 @@ const DragDrop = (props) => {
             <div className="testPhrase">
                 <p>"{currentPhrase}"</p>
             </div>
-            <p>Your answer: </p>
+            <p>Tu respuesta: </p>
             <div className="dragAnswer">
                 <DragAnswerContent
                     phrase={currentAnswer}
@@ -91,7 +91,7 @@ const DragDrop = (props) => {
                     onClick={handleAnswerButton}
                     disabled={currentAnswer === ""}
                 >
-                    Answer
+                    Responder
                 </button>
             )}
         </div>

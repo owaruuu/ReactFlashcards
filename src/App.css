@@ -940,26 +940,32 @@ a {
   width: 45%;
   align-self: center;
 }
-.main .testScreen .pointsCounter {
+.main .testScreen .titleAndPoints {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-areas: ". title points";
+}
+.main .testScreen .titleAndPoints .pointsCounter {
   display: flex;
-  position: absolute;
   right: 10px;
   background-color: #880000;
   border-radius: 100px;
   height: 40px;
   width: 40px;
 }
-.main .testScreen .pointsCounter p {
+.main .testScreen .titleAndPoints .pointsCounter p {
   font-size: 10px;
   margin: auto;
 }
 @media (min-width: 768px) {
-  .main .testScreen .pointsCounter {
+  .main .testScreen .titleAndPoints .pointsCounter {
     right: 20%;
     height: 60px;
     width: 60px;
   }
-  .main .testScreen .pointsCounter p {
+  .main .testScreen .titleAndPoints .pointsCounter p {
     font-size: 15px;
     margin: auto;
   }
@@ -1258,7 +1264,7 @@ a {
 @media (min-width: 768px) {
   .main .testScreen .testTitle {
     font-size: 24px;
-    width: 40vw;
+    width: 70vw;
   }
 }
 .main .testScreen .dragAndDrop p {
