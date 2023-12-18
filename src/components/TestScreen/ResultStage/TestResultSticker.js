@@ -2,6 +2,7 @@ import { Tooltip } from "react-tooltip";
 import { getName } from "../../../utils/StickersUtils";
 import { useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import { FaCircleInfo } from "react-icons/fa6";
 
 const TestResultSticker = (props) => {
     /* 
@@ -110,7 +111,10 @@ const TestResultSticker = (props) => {
             {props.show === 0 ? <p>Obtuviste un nuevo sticker!</p> : ""}
             {props.show === 1 ? <p></p> : ""}
             {props.show === -1 ? (
-                <p>Obten un puntaje perfecto para ganar este sticker.</p>
+                <p>
+                    <FaCircleInfo /> Obten un puntaje perfecto para ganar este
+                    sticker.
+                </p>
             ) : (
                 ""
             )}

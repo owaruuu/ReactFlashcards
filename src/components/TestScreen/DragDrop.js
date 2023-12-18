@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { shuffleArray } from "../../utils/utils";
 import { MultipleContainers } from "./DragDropComponents/DndTest";
 import DragAnswerContent from "./DragDropComponents/DragAnswerContent";
+import DragAnswerButton from "./Util/DragAnswerButton";
 
 const DragDrop = (props) => {
     const { drag, problem, correct, incorrect, thinking, handleClick } = props;
@@ -15,6 +16,8 @@ const DragDrop = (props) => {
     );
     const currentPhrase = drag[problem][0];
     const currentCorrectAnswer = drag[problem][1];
+
+    const [confirm, setConfirm] = useState(false);
 
     const handleAnswerChange = (items) => {
         setChanged(true);
@@ -67,6 +70,15 @@ const DragDrop = (props) => {
         }
     };
 
+    const handleConfirm = () => {
+        if (confirm) {
+            setConfirm(false);
+            handleAnswerButton();
+        } else {
+            setConfirm(true);
+        }
+    };
+
     return (
         <div className="testContent">
             <div className="testPhrase">
@@ -86,13 +98,11 @@ const DragDrop = (props) => {
                 disabled={thinking}
             />
             {!thinking && (
-                <button
-                    className="dragAnswerButton"
-                    onClick={handleAnswerButton}
+                <DragAnswerButton
+                    confirm={confirm}
+                    onClick={handleConfirm}
                     disabled={currentAnswer === ""}
-                >
-                    Responder
-                </button>
+                ></DragAnswerButton>
             )}
         </div>
     );

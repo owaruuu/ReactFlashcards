@@ -1,0 +1,40 @@
+.base:before {
+    content: "";
+    position: absolute;
+    background-color: #00970b;
+    
+    bottom: 0;
+    left: 0;
+    right: 100%;
+    /* top: 100%; */
+    top:0;
+    z-index: -1;
+    -webkit-transition:right  0.2s ease-in;
+    color: white;
+}
+
+/* .fill:hover:before {
+    top: 0;
+} */
+
+.confirm:before {
+    right: 0;    
+}
+
+
+
+/* .base:before {
+    content: "";
+    position: absolute;
+    background: #383736;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+    -webkit-transition: top 0.09s ease-in;
+}
+
+.base:hover:before {
+    top: 0;
+} */

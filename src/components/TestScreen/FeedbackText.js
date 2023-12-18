@@ -7,7 +7,7 @@ const FeedbackText = (props) => {
 
     let textClassNames = "feedbackText";
 
-    if (props.content === "Correcto!") {
+    if (props.feedbackArea.feedback === "Correcto!") {
         textClassNames += " correct";
     } else {
         textClassNames += " incorrect";
@@ -15,9 +15,11 @@ const FeedbackText = (props) => {
 
     return (
         <div className={divClassNames}>
-            <span className={textClassNames}>{props.content}</span>
+            <span className={textClassNames}>
+                {props.feedbackArea.feedback}
+            </span>
             <button className="feedbackButton" onClick={props.nextButton}>
-                Next
+                {props.feedbackArea.nextButtonText}
             </button>
         </div>
     );

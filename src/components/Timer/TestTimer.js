@@ -26,6 +26,12 @@ const TestTimer = (props) => {
 
     useEffect(() => {
         if (props.stopTimer) {
+            props.updateTime({
+                totalSeconds,
+                seconds,
+                minutes,
+                hours,
+            });
             pause();
         }
     }, [props.stopTimer]);

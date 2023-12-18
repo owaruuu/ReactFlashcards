@@ -1085,7 +1085,7 @@ a {
 
                 @media (min-width: 768px) {
                     right: 20%;
-                    height: 60px;
+                    // height: 60px;
                     width: 60px;
 
                     p {
@@ -1597,18 +1597,35 @@ a {
             }
 
             .dragAnswerButton {
-                background-color: #287700;
+                position: relative;
+                border-radius: 4px;
+                text-transform: uppercase;
+                outline: 0;
+                overflow: hidden;
+                background: none;
+                background-color: #6c7a93;
+                color: #ffffff;
+                z-index: 1;
+                cursor: pointer;
+                transition: 0.08s ease-in;
+                -o-transition: 0.08s ease-in;
+                -ms-transition: 0.08s ease-in;
+                -moz-transition: 0.08s ease-in;
+                -webkit-transition: 0.08s ease-in;
+
+                // background-color: #287700;
                 border-radius: 10px;
                 border: none;
-                color: white;
+                // color: white;
                 text-transform: uppercase;
                 margin-top: 20px;
                 padding: 15px 0;
                 width: 70%;
 
                 &:disabled {
-                    background-color: #8a8a8a;
+                    background-color: #444444;
                     text-decoration: line-through;
+                    width: 40%;
                 }
             }
 
@@ -1628,7 +1645,7 @@ a {
                 justify-content: center;
                 // margin-left: auto;
                 // margin-right: auto;
-                height: 17vh;
+                height: 15vh;
                 // max-width: 70vw;
                 background-color: #7d0707;
                 margin: 3px auto;
@@ -1640,7 +1657,7 @@ a {
                 }
 
                 @media (min-width: 768px) {
-                    height: 20vh;
+                    // height: 20vh;
                     background-color: #4a7da8;
                     border-radius: 23px;
                 }
@@ -1656,12 +1673,14 @@ a {
             .mondaiOptions {
                 display: flex;
                 flex-direction: column;
+                gap: 10px;
 
                 .testOptionButton {
                     color: $cloud-white;
                     background-color: #001e37;
                     border: none;
                     margin: 3px 0;
+                    padding: 12px 0;
 
                     &:hover {
                         background-color: #20496b;

@@ -132,6 +132,12 @@ const TestScreen = () => {
         }
     });
 
+    const [timerInfo, setTimerInfo] = useState({
+        totalSeconds: 0,
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+    });
     const [stopTimer, setStopTimer] = useState(false);
     const [stage, setStage] = useState("begin");
     const [answers, setAnswers] = useState({
@@ -150,22 +156,33 @@ const TestScreen = () => {
     //for drag and drop
     const [incorrectDrag, setIncorrectDrag] = useState(false);
 
-    const [feedback, setFeedback] = useState("feed");
+    const [feedback, setFeedback] = useState({
+        feedback: "feedback",
+        nextButtonText: "Next",
+    });
     const [thinking, setThinking] = useState(false);
+
+    const updateTestTime = (info) => {
+        setTimerInfo(info);
+    };
 
     const handleOptionClick = (info) => {
         if (info.correct) {
             console.log("Correct");
             writeAnswer("multiple", info);
             setCorrect(info.index);
-            setFeedback("Correcto!");
+            setFeedback((prev) => {
+                return { ...prev, feedback: "Correcto!" };
+            });
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
             writeAnswer("multiple", info);
             setIncorrect(info.index);
-            setFeedback("Incorrecto!");
+            setFeedback((prev) => {
+                return { ...prev, feedback: "Incorrecto!" };
+            });
             setThinking(true);
         }
     };
@@ -174,13 +191,17 @@ const TestScreen = () => {
         if (info.correct) {
             console.log("Correct");
             writeAnswer("drag", info);
-            setFeedback("Correcto!");
+            setFeedback((prev) => {
+                return { ...prev, feedback: "Correcto!" };
+            });
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
             console.log("Wrong");
             writeAnswer("drag", info);
-            setFeedback("Incorrecto!");
+            setFeedback((prev) => {
+                return { ...prev, feedback: "Incorrecto!" };
+            });
             setIncorrectDrag(true);
             setThinking(true);
         }
@@ -191,6 +212,9 @@ const TestScreen = () => {
         if (index > currentTest["dragDrop"].length - 1) {
             console.log("this is the last problem");
             setStopTimer(true);
+            setFeedback((prev) => {
+                return { ...prev, nextButtonText: "Guardar Resutados" };
+            });
         }
     };
 
@@ -263,10 +287,12 @@ const TestScreen = () => {
                                 highScore: {
                                     ...answers,
                                     score: { [test.version]: score },
+                                    timer: timerInfo,
                                 },
                                 lastTest: {
                                     ...answers,
                                     score: { [test.version]: score },
+                                    timer: timerInfo,
                                 },
                             },
                         },
@@ -283,6 +309,7 @@ const TestScreen = () => {
                                 lastTest: {
                                     ...answers,
                                     score: { [test.version]: score },
+                                    timer: timerInfo,
                                 },
                             },
                         },
@@ -376,7 +403,12 @@ const TestScreen = () => {
             <h2 className="testTitle">
                 <p>
                     Prueba - {lecture.name}{" "}
-                    {showTimer && <TestTimer stopTimer={stopTimer}></TestTimer>}
+                    {showTimer && (
+                        <TestTimer
+                            stopTimer={stopTimer}
+                            updateTime={updateTestTime}
+                        ></TestTimer>
+                    )}
                 </p>
             </h2>
             <hr></hr>
@@ -456,7 +488,7 @@ const TestScreen = () => {
             {}
             {showFeedBackSection && (
                 <FeedbackText
-                    content={feedback}
+                    feedbackArea={feedback}
                     show={thinking}
                     nextButton={handleNext}
                 />

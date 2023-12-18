@@ -26,6 +26,16 @@ a {
   color: #ff9b31 !important;
 }
 
+.dragModal .modal-dialog {
+  position: absolute;
+  top: 300px;
+}
+@media (min-width: 768px) {
+  .dragModal .modal-dialog {
+    top: 400px;
+  }
+}
+
 .modal-body {
   padding-bottom: 30px !important;
 }
@@ -962,7 +972,6 @@ a {
 @media (min-width: 768px) {
   .main .testScreen .titleAndPoints .pointsCounter {
     right: 20%;
-    height: 60px;
     width: 60px;
   }
   .main .testScreen .titleAndPoints .pointsCounter p {
@@ -1367,18 +1376,32 @@ a {
   }
 }
 .main .testScreen .testContent .dragAnswerButton {
-  background-color: #287700;
+  position: relative;
+  border-radius: 4px;
+  text-transform: uppercase;
+  outline: 0;
+  overflow: hidden;
+  background: none;
+  background-color: #6c7a93;
+  color: #ffffff;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.08s ease-in;
+  -o-transition: 0.08s ease-in;
+  -ms-transition: 0.08s ease-in;
+  -moz-transition: 0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
   border-radius: 10px;
   border: none;
-  color: white;
   text-transform: uppercase;
   margin-top: 20px;
   padding: 15px 0;
   width: 70%;
 }
 .main .testScreen .testContent .dragAnswerButton:disabled {
-  background-color: #8a8a8a;
+  background-color: #444444;
   text-decoration: line-through;
+  width: 40%;
 }
 .main .testScreen .testContent p {
   margin: 0;
@@ -1394,7 +1417,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 17vh;
+  height: 15vh;
   background-color: #7d0707;
   margin: 3px auto;
 }
@@ -1406,7 +1429,6 @@ a {
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent .testPhrase {
-    height: 20vh;
     background-color: #4a7da8;
     border-radius: 23px;
   }
@@ -1420,12 +1442,14 @@ a {
 .main .testScreen .testContent .mondaiOptions {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 .main .testScreen .testContent .mondaiOptions .testOptionButton {
   color: #f5fcff;
   background-color: #001e37;
   border: none;
   margin: 3px 0;
+  padding: 12px 0;
 }
 .main .testScreen .testContent .mondaiOptions .testOptionButton:hover {
   background-color: #20496b;
