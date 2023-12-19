@@ -37,6 +37,8 @@ export const AppReducer = (state, action) => {
             };
         case "SET_SAVE_FLAG":
             return { ...state, needToSave: action.payload };
+        case "SET_SAVE_TEST":
+            return { ...state, savedTest: action.payload };
         case "SET_SAVE_ERROR":
             return { ...state, saveError: action.payload };
         case "SET_SAVE_INFO_MSG":
@@ -61,6 +63,7 @@ const initialState = {
     },
     appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
     needToSave: false,
+    savedTest: false,
     saveError: false,
     saveInfoMessage: "",
     dbError: false,
@@ -84,6 +87,7 @@ export const AppProvider = (props) => {
                 user: state.user,
                 appState: state.appState,
                 needToSave: state.needToSave,
+                savedTest: state.savedTest,
                 saveError: state.saveError,
                 saveInfoMessage: state.saveInfoMessage,
                 dbError: state.dbError,

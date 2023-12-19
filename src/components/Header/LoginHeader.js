@@ -1,12 +1,16 @@
 import { useEffect, useContext, useState } from "react";
-import { AppContext } from "../context/AppContext";
-import { connectCognito, getUserProgress, saveUserProgress } from "../aws/aws";
+import { AppContext } from "../../context/AppContext";
+import {
+    connectCognito,
+    getUserProgress,
+    saveUserProgress,
+} from "../../aws/aws";
 import LoginControls from "./LoginControls";
-import InfoHeader from "./Header/InfoHeader";
+import InfoHeader from "./InfoHeader";
 import { RiSignalWifiErrorLine } from "react-icons/ri";
 import { Tooltip } from "react-tooltip";
 
-const LoginHeader = () => {
+const LoginHeader = (props) => {
     const saveDelay = 5;
 
     const {
@@ -156,6 +160,7 @@ const LoginHeader = () => {
                 type: "SET_SAVE_INFO_MSG",
                 payload: "Saved",
             });
+            dispatch({ type: "SET_SAVE_TEST", payload: true });
         };
 
         //need to save es cambiado por los botones de learn

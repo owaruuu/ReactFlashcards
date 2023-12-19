@@ -6,6 +6,7 @@ import LearnScreen from "./LearnScreen/LearnScreen.js";
 import TestScreen from "./TestScreen/TestScreen.js";
 import LoginForm from "./Forms/LoginForm.js";
 import RegisterForm from "./Forms/RegisterForm.js";
+import UserPanelScreen from "./UserPanel/UserPanelScreen.js";
 
 import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.js";
 
@@ -23,6 +24,9 @@ const Main = () => {
                 <LearnScreen isReview={true}></LearnScreen>
             )}
             {appState.currentScreen === "test" && <TestScreen />}
+            {appState.currentScreen === "userPanel" && (
+                <UserPanelScreen></UserPanelScreen>
+            )}
             {appState.currentScreen === "login" && <LoginForm></LoginForm>}
             {appState.currentScreen === "register" && (
                 <RegisterForm></RegisterForm>

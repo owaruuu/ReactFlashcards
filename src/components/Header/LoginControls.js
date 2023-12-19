@@ -1,7 +1,8 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
+import { logoutUser } from "../../aws/aws";
 import Spinner from "react-bootstrap/Spinner";
-import { logoutUser } from "../aws/aws";
+import LogoutModal from "./LogoutModal";
 
 const LoginControls = (props) => {
     const {
@@ -14,6 +15,18 @@ const LoginControls = (props) => {
         LoginControlErrorMessage,
         serverError,
     } = useContext(AppContext);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleUserClick = () => {
+        dispatch({
+            type: "CHANGE_SCREEN",
+            payload: { currentScreen: "userPanel" },
+        });
+    };
+
+    const handleLogoutClick = (state) => {
+        setShowModal(state);
+    };
 
     const logout = async () => {
         console.log("log out");
@@ -36,10 +49,20 @@ const LoginControls = (props) => {
 
     const loggedInControls = (
         <div className="accountButtons">
-            <button className="logoutButton" onClick={logout}>
+            <button
+                className="logoutButton"
+                onClick={() => handleLogoutClick(true)}
+            >
                 Logout
             </button>
-            <div className="username">{props.userName}</div>
+            <div className="username" onClick={handleUserClick}>
+                {props.userName}
+            </div>
+            <LogoutModal
+                visible={showModal}
+                hideFunc={() => handleLogoutClick(false)}
+                logoutFunc={logout}
+            />
         </div>
     );
 

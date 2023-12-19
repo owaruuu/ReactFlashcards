@@ -21,7 +21,7 @@ import ResultStage from "./ResultStage/ResultStage";
 import TestTimer from "../Timer/TestTimer";
 
 const TestScreen = () => {
-    const { appState, dispatch, user, dbError, loggedIn } =
+    const { appState, dispatch, user, dbError, loggedIn, savedTest } =
         useContext(AppContext);
 
     const [newRecord, setNewRecord] = useState(false);
@@ -97,20 +97,12 @@ const TestScreen = () => {
         const testScore =
             user.currentProgress[lecture.lectureId]?.["highScore"];
 
-        console.log(
-            "🚀 ~ file: TestScreen.js:77 ~ const[previousHighScore,setPreviousHighScore]=useState ~ testScore:",
-            testScore
-        );
         if (testScore) {
             return testScore.score[testVersion];
         } else {
             return 0;
         }
     });
-    console.log(
-        "🚀 ~ file: TestScreen.js:85 ~ const[previousHighScore,setPreviousHighScore]=useState ~ previousHighScore:",
-        previousHighScore
-    );
 
     //-1: dont have access to dv, 0: false, 1: true
     const [hasWonMedal, setHasWonMedal] = useState(() => {
@@ -147,7 +139,6 @@ const TestScreen = () => {
         drag: [],
     });
     const [save, setSave] = useState(false);
-    console.log("🚀 ~ file: TestScreen.js:92 ~ TestScreen ~ answers:", answers);
 
     //for multiple choice buttons
     const [correct, setCorrect] = useState(-1);
@@ -158,9 +149,10 @@ const TestScreen = () => {
 
     const [feedback, setFeedback] = useState({
         feedback: "feedback",
-        nextButtonText: "Next",
+        nextButtonText: "Siguiente",
     });
     const [thinking, setThinking] = useState(false);
+    const [startTest, setStartTest] = useState(false);
 
     const updateTestTime = (info) => {
         setTimerInfo(info);
@@ -238,7 +230,6 @@ const TestScreen = () => {
         const index = problem + 1;
 
         if (index > currentTest[stage].length - 1) {
-            console.log("this is the last problem");
             switch (stage) {
                 case "mondai":
                     setStage("dragDrop");
@@ -269,6 +260,7 @@ const TestScreen = () => {
     const handleBeginButtonClick = (stage) => {
         if (stage === "mondai") {
             setNewRecord(false);
+            setStartTest(true);
         }
         setStage(stage);
     };
@@ -320,6 +312,32 @@ const TestScreen = () => {
             setSave(false);
         }
     }, [save]);
+
+    useEffect(() => {
+        dispatch({ type: "SET_SAVE_TEST", payload: false });
+    }, []);
+
+    //handle user existing test without saving
+    //es tonto porque updateo el event listener para nunca ocuparlo despues
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            // console.log("savedTest inside event listener: ", saved);
+            // Perform actions before the component unloads
+            if (!savedTest && startTest) {
+                event.preventDefault(); //esto previene salir/recargar la pagina
+                event.returnValue = ""; //esto es necesario al parecer
+                console.log("before unload activated");
+            } else {
+                console.log("no preveni nada porque ya salve");
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [savedTest, startTest]);
 
     const handleSaveTestScore = () => {
         if (dbError || !loggedIn) {
@@ -402,7 +420,8 @@ const TestScreen = () => {
         <div className="testScreen">
             <h2 className="testTitle">
                 <p>
-                    Prueba - {lecture.name}{" "}
+                    {startTest.toString()} - {savedTest.toString()} - Prueba -{" "}
+                    {lecture.name}{" "}
                     {showTimer && (
                         <TestTimer
                             stopTimer={stopTimer}
