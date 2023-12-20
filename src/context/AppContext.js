@@ -27,6 +27,7 @@ export const AppReducer = (state, action) => {
                 appState: {
                     ...state.appState,
                     ...action.payload,
+                    lastScreen: state.appState.currentScreen,
                 },
             };
         case "UPDATE_PROGRESS":
@@ -61,7 +62,7 @@ const initialState = {
         userName: "",
         currentProgress: null,
     },
-    appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
+    appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
     needToSave: false,
     savedTest: false,
     saveError: false,
