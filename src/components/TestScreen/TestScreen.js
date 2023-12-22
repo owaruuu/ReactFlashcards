@@ -110,15 +110,10 @@ const TestScreen = () => {
             return -1;
         }
 
-        const highScore =
-            user.currentProgress[lecture.lectureId]?.["highScore"];
+        const hasMedal = user.currentProgress.stickers?.[lecture.lectureId];
 
-        if (highScore) {
-            if (highScore.score[testVersion] === maxScore) {
-                return 1;
-            } else {
-                return 0;
-            }
+        if (hasMedal) {
+            return 1;
         } else {
             return 0;
         }
@@ -261,51 +256,53 @@ const TestScreen = () => {
         if (stage === "mondai") {
             setNewRecord(false);
             setStartTest(true);
+            dispatch({ type: "SET_IS_TAKING_TEST", payload: true });
         }
         setStage(stage);
     };
 
     useEffect(() => {
+        //necesito calcular si gane el sticker esta vez
+        const needToUpdateSticker =
+            hasWonMedal === 1 ? false : score === maxScore ? true : false;
+
+        const payloadObject = {
+            currentProgress: {
+                ...user.currentProgress,
+                [lecture.lectureId]: {
+                    ...user.currentProgress[lecture.lectureId],
+                    lastTest: {
+                        ...answers,
+                        score: { [test.version]: score },
+                        timer: timerInfo,
+                    },
+                },
+            },
+        };
+
+        if (needToUpdateSticker) {
+            payloadObject.currentProgress.stickers = {
+                ...user.currentProgress.stickers,
+                [lecture.lectureId]: true,
+            };
+        }
+
         if (save) {
             //check for new record
             if (newRecord) {
+                payloadObject.currentProgress[lecture.lectureId].highScore = {
+                    ...answers,
+                    score: { [test.version]: score },
+                    timer: timerInfo,
+                };
                 dispatch({
                     type: "UPDATE_PROGRESS",
-                    payload: {
-                        currentProgress: {
-                            ...user.currentProgress,
-                            [lecture.lectureId]: {
-                                ...user.currentProgress[lecture.lectureId],
-                                highScore: {
-                                    ...answers,
-                                    score: { [test.version]: score },
-                                    timer: timerInfo,
-                                },
-                                lastTest: {
-                                    ...answers,
-                                    score: { [test.version]: score },
-                                    timer: timerInfo,
-                                },
-                            },
-                        },
-                    },
+                    payload: payloadObject,
                 });
             } else {
                 dispatch({
                     type: "UPDATE_PROGRESS",
-                    payload: {
-                        currentProgress: {
-                            ...user.currentProgress,
-                            [lecture.lectureId]: {
-                                ...user.currentProgress[lecture.lectureId],
-                                lastTest: {
-                                    ...answers,
-                                    score: { [test.version]: score },
-                                    timer: timerInfo,
-                                },
-                            },
-                        },
-                    },
+                    payload: payloadObject,
                 });
             }
 
