@@ -7,6 +7,7 @@ import LogoutModal from "./LogoutModal";
 const LoginControls = (props) => {
     const {
         dispatch,
+        isTakingTest,
         cognito,
         cognitoError,
         dbError,
@@ -16,15 +17,30 @@ const LoginControls = (props) => {
         serverError,
     } = useContext(AppContext);
     const [showModal, setShowModal] = useState(false);
+    const [button, setButton] = useState(null);
 
-    const handleUserClick = () => {
+    const handleUserPanelClick = () => {
+        if (isTakingTest) {
+            setButton("userPanel");
+            setShowModal(true);
+        } else {
+            changeToUserPanel();
+        }
+    };
+
+    const changeToUserPanel = () => {
         dispatch({
             type: "CHANGE_SCREEN",
             payload: { currentScreen: "userPanel" },
         });
+        dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
     };
 
     const handleLogoutClick = (state) => {
+        if (state) {
+            setButton("logout");
+        }
+
         setShowModal(state);
     };
 
@@ -38,6 +54,7 @@ const LoginControls = (props) => {
             });
             dispatch({ type: "SET_LOG_STATUS", payload: false });
             dispatch({ type: "SET_USER", payload: { currentProgress: null } });
+            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         } catch (error) {
             console.log(
                 "🚀 ~ file: LoginControls.js:23 ~ logout ~ error:",
@@ -55,13 +72,15 @@ const LoginControls = (props) => {
             >
                 Logout
             </button>
-            <div className="username" onClick={handleUserClick}>
+            <div className="username" onClick={handleUserPanelClick}>
                 {props.userName}
             </div>
             <LogoutModal
                 visible={showModal}
                 hideFunc={() => handleLogoutClick(false)}
                 logoutFunc={logout}
+                userPanelFunc={changeToUserPanel}
+                buttonClicked={button}
             />
         </div>
     );

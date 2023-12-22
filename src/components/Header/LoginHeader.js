@@ -42,9 +42,6 @@ const LoginHeader = (props) => {
         const loginStatus = async () => {
             const response = await connectCognito();
 
-            //independiente de la respuesta, cambiar el estado de Init
-            dispatch({ type: "SET_INIT", payload: true });
-
             //si la respuesta es -1 significa que hubo un problema con el server
             if (response.value === -1) {
                 // dispatch({ type: "SET_COGNITO_ERROR", payload: true });
@@ -53,6 +50,7 @@ const LoginHeader = (props) => {
                     type: "SET_LOGIN_CONTROL_MSG",
                     payload: "Server error, try refreshing the page.",
                 });
+                dispatch({ type: "SET_INIT", payload: true });
                 return;
             }
 
@@ -62,12 +60,14 @@ const LoginHeader = (props) => {
                     type: "SET_LOGIN_CONTROL_MSG",
                     payload: "Cognito server error, try again later.",
                 });
+                dispatch({ type: "SET_INIT", payload: true });
                 return;
             }
 
             //esto significa que no estoy logeado y no debo hacer nada
             if (response.value === 0) {
                 console.log("no estoy logeado");
+                dispatch({ type: "SET_INIT", payload: true });
                 return;
             }
 
@@ -102,6 +102,9 @@ const LoginHeader = (props) => {
                     payload: "Database server error try refreshing the page.",
                 });
             }
+
+            //una vez haya terminado de hacer todo saco el spinner
+            dispatch({ type: "SET_INIT", payload: true });
         };
 
         loginStatus();
@@ -172,8 +175,9 @@ const LoginHeader = (props) => {
 
             //reset timer
             setTimeSinceLastSave(0);
-            //reset needToSave
+            //reset needToSave y isTakingTest
             dispatch({ type: "SET_SAVE_FLAG", payload: false });
+            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
 
             //hacer put en db
             tryToSave();
