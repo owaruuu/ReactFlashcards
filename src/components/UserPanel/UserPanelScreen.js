@@ -1,12 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { stickerNames } from "../../utils/StickersUtils";
+import { getArray, getDescription } from "../../utils/StickersUtils";
+import { tests } from "../../data/tests";
 
-const stickersArray = Object.values(stickerNames).map((id) => id);
+const stickersArray = getArray();
 console.log("🚀 ~ file: UserPanelScreen.js:6 ~ stickersArray:", stickersArray);
 
+const gold = <span className="goldAccent">:</span>;
+
 const UserPanelScreen = () => {
-    const { dispatch, appState } = useContext(AppContext);
+    const { dispatch, appState, user } = useContext(AppContext);
+    const [currentSticker, setCurrentSticker] = useState(-1);
 
     const handleBackButton = () => {
         dispatch({
@@ -15,12 +19,27 @@ const UserPanelScreen = () => {
         });
     };
 
-    // const Stickers =
+    const handleStickerClick = (id) => {
+        setCurrentSticker(id);
+    };
 
     const Stickers = stickersArray.map((sticker) => {
+        //por cada sticker revisar el currentPRogress para ver si tengo esa sticker
+
+        const hasSticker = user.currentProgress.stickers[sticker.id];
+
+        const stickerSuffix = hasSticker ? "-with-shadow.png" : "-outline.png";
+
         return (
-            <div className="sticker">
-                <img src={`../img/${sticker}-outline.png`}></img>
+            <div
+                className={
+                    currentSticker === sticker.id
+                        ? "sticker selected"
+                        : "sticker"
+                }
+                onClick={() => handleStickerClick(sticker.id)}
+            >
+                <img src={`../img/${sticker.name}${stickerSuffix}`}></img>
             </div>
         );
     });
@@ -37,7 +56,16 @@ const UserPanelScreen = () => {
                 <div className="infoDiv">
                     <p>Informacion</p>
                     <div className="infoText">
-                        Selecciona un sticker para saber mas.
+                        {currentSticker === -1 ? (
+                            "Selecciona un sticker para saber mas."
+                        ) : (
+                            <>
+                                <span className="title">
+                                    {getDescription(currentSticker).title}
+                                </span>
+                                {gold} {getDescription(currentSticker).content}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
