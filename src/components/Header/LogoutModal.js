@@ -5,7 +5,11 @@ const LogoutModal = (props) => {
     return (
         <Modal show={props.visible} onHide={props.hideFunc}>
             <Modal.Header>
-                <Modal.Title>Quieres cerrar sesion ?</Modal.Title>
+                <Modal.Title>
+                    {props.buttonClicked === "userPanel"
+                        ? "Quieres ver tu perfil ?"
+                        : "Quieres cerrar sesion ?"}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>
@@ -17,11 +21,17 @@ const LogoutModal = (props) => {
                 <button onClick={props.hideFunc}>Volver</button>
                 <button
                     onClick={() => {
-                        props.logoutFunc();
+                        if (props.buttonClicked === "userPanel") {
+                            props.userPanelFunc();
+                        } else {
+                            props.logoutFunc();
+                        }
                         props.hideFunc();
                     }}
                 >
-                    Cerrar sesion
+                    {props.buttonClicked === "userPanel"
+                        ? "Cancelar prueba"
+                        : "Cerrar sesion"}
                 </button>
             </Modal.Body>
         </Modal>
