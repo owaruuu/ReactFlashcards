@@ -27,7 +27,11 @@ export const AppReducer = (state, action) => {
                 appState: {
                     ...state.appState,
                     ...action.payload,
-                    lastScreen: state.appState.currentScreen,
+                    lastScreen:
+                        state.appState.currentScreen ===
+                        action.payload.currentScreen
+                            ? state.appState.lastScreen
+                            : state.appState.currentScreen,
                 },
             };
         case "UPDATE_PROGRESS":
@@ -38,6 +42,8 @@ export const AppReducer = (state, action) => {
             };
         case "SET_SAVE_FLAG":
             return { ...state, needToSave: action.payload };
+        case "SET_IS_TAKING_TEST":
+            return { ...state, isTakingTest: action.payload };
         case "SET_SAVE_TEST":
             return { ...state, savedTest: action.payload };
         case "SET_SAVE_ERROR":
@@ -64,6 +70,7 @@ const initialState = {
     },
     appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
     needToSave: false,
+    isTakingTest: false,
     savedTest: false,
     saveError: false,
     saveInfoMessage: "",
@@ -88,6 +95,7 @@ export const AppProvider = (props) => {
                 user: state.user,
                 appState: state.appState,
                 needToSave: state.needToSave,
+                isTakingTest: state.isTakingTest,
                 savedTest: state.savedTest,
                 saveError: state.saveError,
                 saveInfoMessage: state.saveInfoMessage,
