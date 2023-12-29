@@ -124,3 +124,15 @@ export const quickScan = async () => {
         return error;
     }
 };
+
+export const getExtraLessons = async () => {
+    //esta funcion se encarga de traer las lecciones en la base de datos
+
+    try {
+        const response = await api.post(`${URL}/getLessons`, { keys: [26] });
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
