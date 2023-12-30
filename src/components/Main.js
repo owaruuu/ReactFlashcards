@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext.js";
-import LectureList from "./LectureList.js";
+import LectureList from "./LectureList/LectureList.js";
 import LectureScreen from "./LectureScreen/LectureScreen.js";
 import LearnScreen from "./LearnScreen/LearnScreen.js";
 import TestScreen from "./TestScreen/TestScreen.js";

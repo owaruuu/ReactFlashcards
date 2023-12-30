@@ -6,13 +6,13 @@ import LearnPanel from "./LearnPanel";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { BiSolidRightArrow } from "react-icons/bi";
-import { lectures } from "../../data/lectures";
+// import { lectures } from "../../data/lectures";
 import { shuffleArray } from "../../utils/utils";
 import OptionsModal from "./OptionsModal";
 import NextRedTermButton from "./NextRedTermButton";
 
 const LearnScreen = (props) => {
-    const { dispatch, appState, user } = useContext(AppContext);
+    const { dispatch, appState, user, lectures } = useContext(AppContext);
 
     const currentLecture = lectures.find(
         (lecture) => lecture.lectureId === appState.currentLecture

@@ -3,11 +3,12 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
-import { lectures } from "../../data/lectures";
+// import { lectures } from "../../data/lectures";
 import svg from "../../svg/cherry-blossom-petal.svg";
 
 const LectureScreen = () => {
-    const { appState, dbError, loggedIn, user } = useContext(AppContext);
+    const { appState, dbError, loggedIn, user, lectures } =
+        useContext(AppContext);
 
     const lectureId = appState.currentLecture;
     const lecture = lectures.find((lecture) => {
