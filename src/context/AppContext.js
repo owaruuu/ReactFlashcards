@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { lectures } from "../data/lectures";
 
 export const AppReducer = (state, action) => {
     switch (action.type) {
@@ -16,6 +17,10 @@ export const AppReducer = (state, action) => {
             return { ...state, loggedIn: action.payload };
         case "SET_LOGIN_CONTROL_MSG":
             return { ...state, LoginControlErrorMessage: action.payload };
+        case "SET_LECTURES":
+            return { ...state, lectures: action.payload };
+        case "SET_LECTURES_FLAG":
+            return { ...state, gotLectures: action.payload };
         case "SET_USER":
             return {
                 ...state,
@@ -64,6 +69,8 @@ const initialState = {
     loaded: false,
     loggedIn: false, //true si ya confirme que tengo tokens validos
     loginControlErrorMessage: "",
+    lectures: lectures,
+    gotLectures: false,
     user: {
         userName: "",
         currentProgress: null,
@@ -92,6 +99,8 @@ export const AppProvider = (props) => {
                 loaded: state.loaded,
                 loggedIn: state.loggedIn,
                 LoginControlErrorMessage: state.LoginControlErrorMessage,
+                lectures: state.lectures,
+                gotLectures: state.gotLectures,
                 user: state.user,
                 appState: state.appState,
                 needToSave: state.needToSave,
