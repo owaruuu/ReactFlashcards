@@ -378,6 +378,11 @@ a {
 
     .lectureList {
         width: 100%;
+
+        p {
+            color: white;
+            text-align: center;
+        }
         .lectureListTitle {
             text-align: center;
             color: #f5fcff;
@@ -390,6 +395,16 @@ a {
 
             @media (min-width: 768px) {
                 margin-top: 32px;
+            }
+        }
+
+        .lectureButtons {
+            display: flex;
+            flex-direction: column;
+
+            .spinner {
+                color: white;
+                margin: auto;
             }
         }
 

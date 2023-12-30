@@ -342,6 +342,10 @@ a {
 .main .lectureList {
   width: 100%;
 }
+.main .lectureList p {
+  color: white;
+  text-align: center;
+}
 .main .lectureList .lectureListTitle {
   text-align: center;
   color: #f5fcff;
@@ -356,6 +360,14 @@ a {
   .main .lectureList .lectureListTitle {
     margin-top: 32px;
   }
+}
+.main .lectureList .lectureButtons {
+  display: flex;
+  flex-direction: column;
+}
+.main .lectureList .lectureButtons .spinner {
+  color: white;
+  margin: auto;
 }
 @media (min-width: 768px) {
   .main .lectureList {
