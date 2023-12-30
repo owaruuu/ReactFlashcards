@@ -125,14 +125,14 @@ export const quickScan = async () => {
     }
 };
 
-export const getExtraLessons = async () => {
+export const getExtraLessons = async (keys) => {
     //esta funcion se encarga de traer las lecciones en la base de datos
 
     try {
-        const response = await api.post(`${URL}/getLessons`, { keys: [26] });
+        const response = await api.post(`${URL}/getLessons`, { keys });
+
         return response;
     } catch (error) {
-        console.log(error);
-        throw error;
+        return error;
     }
 };
