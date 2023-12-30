@@ -37,7 +37,7 @@ const LoginHeader = (props) => {
         };
     }, []);
 
-    //reviso mi estado de login al cargar
+    //Reviso mi estado de login al cargar
     useEffect(() => {
         const loginStatus = async () => {
             const response = await connectCognito();
@@ -64,15 +64,14 @@ const LoginHeader = (props) => {
                 return;
             }
 
-            //esto significa que no estoy logeado y no debo hacer nada
+            //esto significa que no estoy logeado y no debo hacer nada mas
             if (response.value === 0) {
-                console.log("no estoy logeado");
+                //console.log("no estoy logeado");
                 dispatch({ type: "SET_INIT", payload: true });
                 return;
             }
 
             //si llego aca significa que tengo el payload
-
             dispatch({ type: "SET_LOG_STATUS", payload: true });
 
             dispatch({
@@ -95,7 +94,7 @@ const LoginHeader = (props) => {
                     },
                 });
             } else {
-                console.log("no hay db y deberia desactivar cosas");
+                //console.log("no hay db y deberia desactivar cosas");
                 dispatch({ type: "SET_DB_ERROR", payload: true });
                 dispatch({
                     type: "SET_LOGIN_CONTROL_MSG",
