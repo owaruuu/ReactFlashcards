@@ -72,14 +72,14 @@ const LoginHeader = (props) => {
             }
 
             //si llego aca significa que tengo el payload
-            dispatch({ type: "SET_LOG_STATUS", payload: true });
-
             dispatch({
                 type: "SET_USER",
                 payload: {
                     userName: response.value.email,
                 },
             });
+
+            dispatch({ type: "SET_LOG_STATUS", payload: true });
 
             //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
