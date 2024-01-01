@@ -521,7 +521,7 @@ export const lectures = [
                 id: 9,
                 term: "しょくどう shokudou",
                 extra: "",
-                answer: "Comeder",
+                answer: "Comedor",
             },
             { id: 10, term: "じむしょ jimusho", extra: "", answer: "Oficina" },
             {
