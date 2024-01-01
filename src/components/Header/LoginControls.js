@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { logoutUser } from "../../aws/aws";
+import { lectures } from "../../data/lectures";
 import Spinner from "react-bootstrap/Spinner";
 import LogoutModal from "./LogoutModal";
 
@@ -55,6 +56,8 @@ const LoginControls = (props) => {
             dispatch({ type: "SET_LOG_STATUS", payload: false });
             dispatch({ type: "SET_USER", payload: { currentProgress: null } });
             dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+            dispatch({ type: "SET_LECTURES", payload: lectures });
+            dispatch({ type: "SET_LECTURES_FLAG", payload: false });
         } catch (error) {
             console.log(
                 "🚀 ~ file: LoginControls.js:23 ~ logout ~ error:",

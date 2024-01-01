@@ -125,11 +125,25 @@ export const quickScan = async () => {
     }
 };
 
+export const getExtraPerms = async (email) => {
+    try {
+        const response = await api.post(`${URL}/permissions`, { email });
+        console.log(
+            "🚀 ~ file: aws.js:132 ~ getExtraPerms ~ response:",
+            response
+        );
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ file: aws.js:132 ~ getExtraPerms ~ error:", error);
+        return error;
+    }
+};
+
 export const getExtraLessons = async (keys) => {
     //esta funcion se encarga de traer las lecciones en la base de datos
 
     try {
-        const response = await api.post(`${URL}/getLessons`, { keys });
+        const response = await api.post(`${URL}/lessons`, { keys });
 
         return response;
     } catch (error) {
