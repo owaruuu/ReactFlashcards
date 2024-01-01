@@ -4,10 +4,10 @@ import BackToTopButton from "../Buttons/BackToTopButton";
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import Spinner from "react-bootstrap/Spinner";
-import { getExtraLessons } from "../../aws/aws";
+import { getExtraLessons, getExtraPerms } from "../../aws/aws";
 
 const LectureList = () => {
-    const { loggedIn, dispatch, lectures, gotLectures } =
+    const { loggedIn, dispatch, lectures, gotLectures, user } =
         useContext(AppContext);
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -20,7 +20,18 @@ const LectureList = () => {
 
             try {
                 //consulta a los permisos
-                const result = ["26", "27"];
+                const userEmail = user.userName;
+                console.log(
+                    "🚀 ~ file: LectureList.js:24 ~ getLectures ~ userEmail:",
+                    userEmail
+                );
+                const perms = await getExtraPerms(userEmail);
+                console.log(
+                    "🚀 ~ file: LectureList.js:29 ~ getLectures ~ perms:",
+                    perms
+                );
+
+                const result = perms.data.Item ? perms.data.Item.access : [];
 
                 if (result.length === 0) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
@@ -71,7 +82,7 @@ const LectureList = () => {
             <h2 className="lectureListTitle">Set List</h2>
             <div className="lectureButtons">
                 <LectureButtons />
-                {!gotLectures && (
+                {loggedIn && !gotLectures ? (
                     <Spinner
                         className="spinner"
                         animation="border"
@@ -79,6 +90,8 @@ const LectureList = () => {
                     >
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
+                ) : (
+                    ""
                 )}
                 <p>{extraLessonMessage}</p>
             </div>
