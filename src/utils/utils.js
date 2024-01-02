@@ -41,7 +41,7 @@ export const shuffleArray = (array) => {
 export const backToTop = () => {
     window.scrollTo(0, 0);
 };
-export const randomInt = (lower = 0, upper) => {
+export const randomInt = (lower, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
@@ -84,11 +84,11 @@ export const chooseFiveMondai = (test, randomNumberArray) => {
     return mondaiArray;
 };
 
-export const getThreeRandomNumbers = () => {
+export const getRandomNumbersSimple = (ammount, size) => {
     let randomNumbersArray = [];
 
-    while (randomNumbersArray.length <= 2) {
-        let number = randomInt(0, 10);
+    while (randomNumbersArray.length < ammount) {
+        let number = randomInt(0, size - 1);
 
         //si randomNumbersArray no contiene
         if (!randomNumbersArray.includes(number)) {
@@ -97,10 +97,6 @@ export const getThreeRandomNumbers = () => {
     }
 
     randomNumbersArray.sort((a, b) => a - b);
-    console.log(
-        "🚀 ~ file: utils.js:97 ~ getThreeRandomNumbers ~ randomNumbersArray:",
-        randomNumbersArray
-    );
 
     return randomNumbersArray;
 };
