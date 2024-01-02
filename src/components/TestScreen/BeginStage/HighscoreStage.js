@@ -4,7 +4,6 @@ import TestResultSticker from "../ResultStage/TestResultSticker";
 import { useState } from "react";
 
 const HighscoreStage = (props) => {
-    console.log(props.progress);
     const results = props.progress[props.lectureId].highScore;
     const date = new Date(results.date);
     const score = results.score[props.version];
@@ -12,10 +11,10 @@ const HighscoreStage = (props) => {
 
     const [showWonMedal] = useState(() => {
         if (props.hasWonMedal) {
-            console.log("mostrar medalla ganada");
+            //"mostrar medalla ganada");
             return 1;
         } else {
-            console.log("no tengo medalla y no la gane ahora");
+            //"no tengo medalla y no la gane ahora");
             return -1;
         }
     });

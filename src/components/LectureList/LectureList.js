@@ -1,5 +1,4 @@
 import LectureButtons from "./LectureButtons";
-// import { lectures } from "../data/lectures";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -14,22 +13,11 @@ const LectureList = () => {
 
     useEffect(() => {
         const getLectures = async () => {
-            //aqui hacer primero hacer consulta por permisos y con los resultados
-            //hacer consulta a lectures
-            //asumiremos por ahora que ya tengo los resultados de permisos
-
             try {
                 //consulta a los permisos
                 const userEmail = user.userName;
-                console.log(
-                    "🚀 ~ file: LectureList.js:24 ~ getLectures ~ userEmail:",
-                    userEmail
-                );
+
                 const perms = await getExtraPerms(userEmail);
-                console.log(
-                    "🚀 ~ file: LectureList.js:29 ~ getLectures ~ perms:",
-                    perms
-                );
 
                 const result = perms.data.Item ? perms.data.Item.access : [];
 
@@ -42,10 +30,7 @@ const LectureList = () => {
                 }
 
                 const response = await getExtraLessons(result);
-                console.log(
-                    "🚀 ~ file: LectureList.js:19 ~ getLectures ~ response:",
-                    response
-                );
+
                 if (response.data.Responses.lectures.length > 0) {
                     const orderedResults =
                         response.data.Responses.lectures.sort(

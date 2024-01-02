@@ -10,15 +10,15 @@ const ResultStage = (props) => {
 
     const [showWonMedal] = useState(() => {
         if (props.hasWonMedal) {
-            console.log("mostrar medalla ganada");
+            //"mostrar medalla ganada");
             return 1;
         }
 
         if (perfectScore) {
-            console.log("mostrar medalla por primera vez");
+            //"mostrar medalla por primera vez");
             return 0;
         } else {
-            console.log("no tengo medalla y no la gane ahora");
+            //"no tengo medalla y no la gane ahora");
             return -1;
         }
     });
@@ -55,7 +55,7 @@ const ResultStage = (props) => {
                 ""
             )}
 
-            {congrats}
+            {/* {congrats} */}
             <TestResultSticker
                 show={showWonMedal}
                 lectureId={props.lectureId}

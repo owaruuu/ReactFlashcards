@@ -55,7 +55,6 @@ const TestTimer = (props) => {
     return (
         <span style={{ textAlign: "center", color: "white" }}>
             <span>- {timerText}</span>
-            <p>{isRunning ? "Running" : "Not running"}</p>
         </span>
     );
 };

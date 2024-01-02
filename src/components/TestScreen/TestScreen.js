@@ -165,7 +165,6 @@ const TestScreen = () => {
 
     const handleOptionClick = (info) => {
         if (info.correct) {
-            console.log("Correct");
             writeAnswer("multiple", info);
             setCorrect(info.index);
             setFeedback((prev) => {
@@ -174,7 +173,6 @@ const TestScreen = () => {
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
-            console.log("Wrong");
             writeAnswer("multiple", info);
             setIncorrect(info.index);
             setFeedback((prev) => {
@@ -186,7 +184,7 @@ const TestScreen = () => {
 
     const handleDragAnswer = (info) => {
         if (info.correct) {
-            console.log("Correct");
+            //console.log("Correct");
             writeAnswer("drag", info);
             setFeedback((prev) => {
                 return { ...prev, feedback: "Correcto!" };
@@ -194,7 +192,7 @@ const TestScreen = () => {
             setThinking(true);
             setScore((prevScore) => prevScore + 1);
         } else {
-            console.log("Wrong");
+            // console.log("Wrong");
             writeAnswer("drag", info);
             setFeedback((prev) => {
                 return { ...prev, feedback: "Incorrecto!" };
@@ -207,7 +205,7 @@ const TestScreen = () => {
         const index = problem + 1;
 
         if (index > currentTest["dragDrop"].length - 1) {
-            console.log("this is the last problem");
+            //console.log("this is the last problem");
             setStopTimer(true);
             setFeedback((prev) => {
                 return { ...prev, nextButtonText: "Guardar Resutados" };
@@ -333,9 +331,9 @@ const TestScreen = () => {
             if (!savedTest && startTest) {
                 event.preventDefault(); //esto previene salir/recargar la pagina
                 event.returnValue = ""; //esto es necesario al parecer
-                console.log("before unload activated");
+                // console.log("before unload activated");
             } else {
-                console.log("no preveni nada porque ya salve");
+                //console.log("no preveni nada porque ya salve");
             }
         };
 
@@ -348,9 +346,9 @@ const TestScreen = () => {
 
     const handleSaveTestScore = () => {
         if (dbError || !loggedIn) {
-            console.log(
-                "no tengo acceso a la db entonces no puedo salvar el testScore"
-            );
+            // console.log(
+            //     "no tengo acceso a la db entonces no puedo salvar el testScore"
+            // );
             return;
         }
 
@@ -427,8 +425,7 @@ const TestScreen = () => {
         <div className="testScreen">
             <h2 className="testTitle">
                 <p>
-                    {startTest.toString()} - {savedTest.toString()} - Prueba -{" "}
-                    {lecture.name}{" "}
+                    Prueba - {lecture.name}{" "}
                     {showTimer && (
                         <TestTimer
                             stopTimer={stopTimer}

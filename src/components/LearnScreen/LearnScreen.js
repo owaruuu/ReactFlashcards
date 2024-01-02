@@ -103,14 +103,12 @@ const LearnScreen = (props) => {
 
         for (let i = index + 1; i < terms.length; i++) {
             if (currentLectureProgress[terms[i].id] == "learning") {
-                console.log(`encontre un red con el id ${i}`);
                 return i;
             }
         }
 
         for (let i = 0; i < index; i++) {
             if (currentLectureProgress[terms[i].id] == "learning") {
-                console.log(`encontre un red con el id ${i}`);
                 return i;
             }
         }

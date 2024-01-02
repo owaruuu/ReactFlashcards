@@ -8,7 +8,7 @@ const TestAnswersSummary = (props) => {
     const multipleChoiceComponents = props.results.multiple.map(
         (elem, index) => {
             return (
-                <div className="testAnswerComponent">
+                <div key={index} className="testAnswerComponent">
                     <p>Pregunta {index + 1}:</p>
                     <div>
                         <p className="staticText">

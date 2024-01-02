@@ -46,7 +46,7 @@ export const Container = forwardRef(
                 tabIndex={onClick ? 0 : undefined}
             >
                 <div className="optionsParent">
-                    {props.isFirst && props.showTip ? (
+                    {props.isfirst && props.showtip ? (
                         <div className="dragHereText">
                             Arrastra aqui para empezar
                         </div>

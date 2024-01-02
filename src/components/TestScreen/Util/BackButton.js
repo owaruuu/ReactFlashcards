@@ -8,7 +8,6 @@ const BackButton = (props) => {
         switch (stage) {
             case "begin":
             case "results":
-                console.log("back button desde test screen");
                 dispatch({
                     type: "CHANGE_SCREEN",
                     payload: {

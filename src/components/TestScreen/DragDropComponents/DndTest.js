@@ -283,9 +283,9 @@ export function MultipleContainers(
             // Reset items to their original state in case items have been
             // Dragged across containers
             setItems(clonedItems);
-            console.log(
-                "cancele el drag y devolvi los items al estado anterior"
-            );
+            // console.log(
+            //     "cancele el drag y devolvi los items al estado anterior"
+            // );
         }
 
         setActiveId(null);
@@ -312,7 +312,7 @@ export function MultipleContainers(
         requestAnimationFrame(() => {
             recentlyMovedToNewContainer.current = false;
         });
-        console.warn("items a sido modificado");
+        //console.warn("items a sido modificado");
     }, [items]);
 
     return (
@@ -338,8 +338,8 @@ export function MultipleContainers(
                 const activeContainer = findContainer(active.id);
 
                 if (activeContainer !== overContainer) {
-                    console.log("Mi active container es: ", activeContainer);
-                    console.log("Mi over container es: ", overContainer);
+                    //console.log("Mi active container es: ", activeContainer);
+                    //console.log("Mi over container es: ", overContainer);
                     let copy = _.cloneDeep(items[overContainer]);
 
                     const activeIndex = getIndexOf(
@@ -361,17 +361,17 @@ export function MultipleContainers(
                     });
 
                     if (pixelLength > width + 15) {
-                        console.log("too long");
+                        //console.log("too long");
                         return;
                     }
 
                     //Esto controla un error causado por el estado actual de Active en dispositivos lentos
                     if (!active.rect.current.translated) {
-                        console.error("ERROR, cancelare el movimiento");
+                        //console.error("ERROR, cancelare el movimiento");
                         return;
                     }
 
-                    console.log("entre a setItems((items) => {");
+                    //console.log("entre a setItems((items) => {");
                     //items del container de donde vengo
                     const activeItems = items[activeContainer];
                     //items del container al que me estoy moviendo
@@ -423,7 +423,7 @@ export function MultipleContainers(
 
                     setItems(newItems);
                 } else {
-                    console.log("On Drag Over same container");
+                    //console.log("On Drag Over same container");
                     const overId = over?.id;
 
                     const overContainer = findContainer(overId);
@@ -481,8 +481,8 @@ export function MultipleContainers(
                             scrollable={scrollable}
                             style={containerStyle}
                             unstyled={minimal}
-                            isFirst={index === 0}
-                            showTip={items["FirstRowAnswer"].length < 1}
+                            isfirst={index === 0}
+                            showtip={items["FirstRowAnswer"].length < 1}
                         >
                             <SortableContext
                                 items={items[containerId]}

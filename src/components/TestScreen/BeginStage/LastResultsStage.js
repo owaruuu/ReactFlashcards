@@ -2,7 +2,6 @@ import TestAnswersSummary from "../TestAnswersSummary";
 import BackButton from "../Util/BackButton";
 
 const LastResultsStage = (props) => {
-    console.log(props.progress);
     const results = props.progress[props.lectureId].lastTest;
     const date = new Date(results.date);
 

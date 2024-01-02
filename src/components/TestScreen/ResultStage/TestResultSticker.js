@@ -21,7 +21,6 @@ const TestResultSticker = (props) => {
     const tooltipMessage = `${stickerName}, Sticker para la prueba de ${props.lectureName}`;
 
     const loaded = () => {
-        console.log("loaded");
         setLoadedSticker(true);
     };
 
