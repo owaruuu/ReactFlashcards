@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import BackButton from "../BackButton";
+import { HiClipboardDocumentList } from "react-icons/hi2";
 
 const LectureScreenButtons = (props) => {
     const { dispatch, user } = useContext(AppContext);
@@ -17,7 +18,7 @@ const LectureScreenButtons = (props) => {
                 })
             }
         >
-            Review
+            Revisar
         </button>
     );
 
@@ -33,7 +34,7 @@ const LectureScreenButtons = (props) => {
                 })
             }
         >
-            Learn
+            Memorizar
         </button>
     );
 
@@ -49,7 +50,7 @@ const LectureScreenButtons = (props) => {
                 })
             }
         >
-            Test
+            <HiClipboardDocumentList className="testIcon" /> Prueba
         </button>
     );
 

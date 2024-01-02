@@ -16,7 +16,7 @@ const BackButton = (props) => {
                 })
             }
         >
-            back
+            Volver
         </button>
     );
 };
