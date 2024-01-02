@@ -615,8 +615,14 @@ a {
   align-self: center !important;
 }
 @media (min-width: 768px) {
+  .main .lectureScreen .termListDiv .termList .termItem {
+    width: 80%;
+    max-width: 1024px;
+  }
+}
+@media (min-width: 768px) {
   .main .lectureScreen .termListDiv .termList {
-    max-width: 80%;
+    width: 100%;
   }
   .main .lectureScreen .termListDiv .termList .termItem {
     border-radius: 15px;
