@@ -1,16 +1,14 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { getArray, getDescription } from "../../utils/StickersUtils";
-import { tests } from "../../data/tests";
 
 const stickersArray = getArray();
-console.log("🚀 ~ file: UserPanelScreen.js:6 ~ stickersArray:", stickersArray);
-
 const gold = <span className="goldAccent">:</span>;
 
 const UserPanelScreen = () => {
     const { dispatch, appState, user } = useContext(AppContext);
     const [currentSticker, setCurrentSticker] = useState(-1);
+    const [selectedSticker, setSelectedSticker] = useState(-1);
 
     const handleBackButton = () => {
         dispatch({
@@ -20,20 +18,26 @@ const UserPanelScreen = () => {
     };
 
     const handleStickerClick = (id) => {
-        setCurrentSticker(id);
+        setSelectedSticker(id);
+        const hasSticker = user.currentProgress.stickers?.[id];
+
+        if (hasSticker) {
+            setCurrentSticker(id);
+        } else {
+            setCurrentSticker(999);
+        }
     };
 
     const Stickers = stickersArray.map((sticker) => {
-        //por cada sticker revisar el currentPRogress para ver si tengo esa sticker
-
-        const hasSticker = user.currentProgress.stickers[sticker.id];
+        const hasSticker = user.currentProgress.stickers?.[sticker.id];
 
         const stickerSuffix = hasSticker ? "-with-shadow.png" : "-outline.png";
 
         return (
             <div
+                key={sticker.id}
                 className={
-                    currentSticker === sticker.id
+                    selectedSticker === sticker.id
                         ? "sticker selected"
                         : "sticker"
                 }
