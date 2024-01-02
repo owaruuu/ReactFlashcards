@@ -31,7 +31,7 @@ const HighscoreStage = (props) => {
                 ></BackButton>
             </div>
             <div className="scoreParent">
-                <span className="score">{score}</span> out of{" "}
+                <span className="score">{score}</span> de{" "}
                 <span className="maxScore">{maxScore}</span> pts
             </div>
 

@@ -35,7 +35,7 @@ const ResultStage = (props) => {
     return (
         <div className="resultContent">
             <div className="scoreParent">
-                <span className="score">{props.score}</span> out of{" "}
+                <span className="score">{props.score}</span> de{" "}
                 <span className="maxScore">{props.maxScore}</span> pts{" "}
                 {props.newRecord ? (
                     <span className="newRecord">New Record!</span>
