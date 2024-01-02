@@ -70,7 +70,9 @@ const LectureButton = (props) => {
             </div>
 
             <span className="lectureButtonTitle">{props.title}</span>
-            {hasTest && <HiClipboardDocumentList className="testIcon" />}
+            <div className="extras">
+                {hasTest && <HiClipboardDocumentList className="testIcon" />}
+            </div>
         </div>
     );
 };

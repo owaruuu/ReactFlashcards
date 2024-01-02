@@ -153,7 +153,7 @@ a {
 .header .pageTitle {
   font-family: "Gidugu";
   text-transform: uppercase;
-  font-size: clamp(2rem, 1rem + 5vw, 3rem);
+  font-size: clamp(2rem, 1rem + 5vw, 8rem);
   text-align: center;
   margin: 0;
   cursor: pointer;
@@ -193,6 +193,7 @@ a {
   .header .loginControls .accountButtons {
     flex-direction: row;
     padding: 0;
+    font-size: clamp(0rem, 0rem + 2vw, 3rem);
   }
 }
 .header .loginControls .username {
@@ -341,6 +342,8 @@ a {
 }
 .main .lectureList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .main .lectureList p {
   color: white;
@@ -374,6 +377,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1024px;
   }
 }
 .main .confirmation {
@@ -429,7 +433,7 @@ a {
 .main .lectureButton {
   display: grid;
   grid-template-rows: 33% 33% 33%;
-  grid-template-areas: "info" "name" ".";
+  grid-template-areas: "info" "name" "extras";
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
@@ -451,6 +455,10 @@ a {
   grid-area: info;
   font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
 }
+.main .lectureButton .extras {
+  grid-area: extras;
+  margin: auto;
+}
 .main .lectureButton .lectureButtonTitle {
   font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
   grid-area: name;
@@ -471,8 +479,9 @@ a {
   .main .lectureButton {
     grid-template-rows: auto;
     grid-template-columns: 30% 40% 30%;
-    grid-template-areas: "info name .";
+    grid-template-areas: "info name extras";
     width: 76vw;
+    max-width: 1024px;
     border: 3px solid #f5b64e;
     border-radius: 100px;
     flex-direction: row;
@@ -480,6 +489,8 @@ a {
   .main .lectureButton .set-buttons-helper {
     font-size: clamp(1rem, 1rem + 2vw, 1rem);
     justify-content: space-evenly;
+    flex-direction: column;
+    padding-left: 30px;
   }
   .main .lectureButton .lectureButtonTitle {
     text-align: center;
@@ -509,9 +520,17 @@ a {
 .main .lectureScreen .lectureScreenButtons .learningButtons {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+}
+.main .lectureScreen .lectureScreenButtons .learningButtons button {
+  margin: 5px;
+}
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .learningButtons {
+    flex-direction: row;
+  }
 }
 .main .lectureScreen .lectureScreenButtons button {
-  flex: 1;
   font-weight: 400;
   text-transform: capitalize;
   font-size: 1.1rem;
@@ -537,6 +556,11 @@ a {
     padding: 0 60px;
   }
 }
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .testButton {
+    padding: 0 15px;
+  }
+}
 .main .lectureScreen .lectureScreenButtons .backButton {
   margin-left: auto;
   flex: 0;
@@ -552,13 +576,19 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #20496b;
+}
+.main .lectureScreen .termListDiv h2 {
+  color: white;
+  font-family: serif;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
 }
 .main .lectureScreen .termListDiv .termList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 10px 0;
+  background-color: #20496b;
 }
 .main .lectureScreen .termListDiv .termList .termItem {
   display: flex;
@@ -1484,6 +1514,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 @media (min-width: 768px) {
   .main .userPanel {
@@ -1517,6 +1548,7 @@ a {
 .main .userPanel .userPanelContent .stickersDiv .allStickers {
   display: flex;
   flex-direction: column;
+  align-content: flex-start;
   flex-wrap: wrap;
   height: 130px;
   background-color: #164b78;

@@ -170,9 +170,10 @@ a {
     .pageTitle {
         font-family: "Gidugu";
         text-transform: uppercase;
-        font-size: clamp(2rem, 1rem + 5vw, 3rem);
+        font-size: clamp(2rem, 1rem + 5vw, 8rem);
         text-align: center;
         margin: 0;
+        // font-size: clamp(0rem, 0rem + 2vw, 3rem);
         cursor: pointer;
     }
 
@@ -211,6 +212,7 @@ a {
             @media (min-width: 768px) {
                 flex-direction: row;
                 padding: 0;
+                font-size: clamp(0rem, 0rem + 2vw, 3rem);
             }
         }
 
@@ -378,6 +380,8 @@ a {
 
     .lectureList {
         width: 100%;
+        display: flex;
+        flex-direction: column;
 
         p {
             color: white;
@@ -412,6 +416,7 @@ a {
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 1024px;
         }
     }
 
@@ -483,7 +488,7 @@ a {
         grid-template-areas:
             "info"
             "name"
-            ".";
+            "extras";
         background-color: $cloud-white;
         color: $inner-type-color;
         font-family: "Noto_Serif";
@@ -507,6 +512,11 @@ a {
             font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
         }
 
+        .extras {
+            grid-area: extras;
+            margin: auto;
+        }
+
         .lectureButtonTitle {
             font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
             grid-area: name;
@@ -528,15 +538,18 @@ a {
         @media (min-width: 768px) {
             grid-template-rows: auto;
             grid-template-columns: 30% 40% 30%;
-            grid-template-areas: "info name .";
+            grid-template-areas: "info name extras";
 
             width: 76vw;
+            max-width: 1024px;
             border: 3px solid $border-yellow;
             border-radius: 100px;
 
             .set-buttons-helper {
                 font-size: clamp(1rem, 1rem + 2vw, 1rem);
                 justify-content: space-evenly;
+                flex-direction: column;
+                padding-left: 30px;
             }
 
             .lectureButtonTitle {
@@ -573,10 +586,19 @@ a {
             .learningButtons {
                 display: flex;
                 justify-content: space-around;
+                flex-direction: column;
+
+                button {
+                    margin: 5px;
+                }
+
+                @media (min-width: 768px) {
+                    flex-direction: row;
+                }
             }
 
             button {
-                flex: 1;
+                // flex: 1;
                 font-weight: 400;
                 text-transform: capitalize;
                 font-size: 1.1rem;
@@ -606,6 +628,12 @@ a {
                 }
             }
 
+            .testButton {
+                @media (min-width: 768px) {
+                    padding: 0 15px;
+                }
+            }
+
             .backButton {
                 margin-left: auto;
                 flex: 0;
@@ -622,13 +650,20 @@ a {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #20496b;
+
+            h2 {
+                color: white;
+                font-family: serif;
+                text-decoration: underline;
+                text-decoration-color: #dbb01c;
+            }
 
             .termList {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                padding: 20px 0;
+                padding: 10px 0;
+                background-color: #20496b;
 
                 .termItem {
                     display: flex;
@@ -1741,7 +1776,7 @@ a {
 
         align-items: center;
         // height: 70vh;
-        // width: 100%;
+        width: 100%;
 
         @media (min-width: 768px) {
             width: 100%;
@@ -1775,6 +1810,7 @@ a {
                 .allStickers {
                     display: flex;
                     flex-direction: column;
+                    align-content: flex-start;
                     flex-wrap: wrap;
                     height: 130px;
                     background-color: #164b78;

@@ -27,7 +27,7 @@ const LectureScreen = () => {
             <div
                 className="upperDivider"
                 style={{
-                    marginBottom: "25px",
+                    marginBottom: "9px",
                 }}
             >
                 <img
@@ -41,6 +41,7 @@ const LectureScreen = () => {
                 ></img>
             </div>
             <div className="termListDiv">
+                <h2>Lista Palabras</h2>
                 <TermList lecture={lecture}></TermList>
                 <BackToTopButton />
             </div>

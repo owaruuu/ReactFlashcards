@@ -13,7 +13,7 @@ const Header = () => {
     return (
         <header className="header">
             <h1 className="pageTitle" onClick={handleClick}>
-                -React Flashcards-
+                -Renshuu-
             </h1>
             <LoginHeader />
         </header>

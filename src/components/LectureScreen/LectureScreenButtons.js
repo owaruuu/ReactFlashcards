@@ -40,7 +40,7 @@ const LectureScreenButtons = (props) => {
 
     const testButton = (
         <button
-            className="learnButton"
+            className="testButton"
             onClick={() =>
                 dispatch({
                     type: "CHANGE_SCREEN",
@@ -50,7 +50,7 @@ const LectureScreenButtons = (props) => {
                 })
             }
         >
-            <HiClipboardDocumentList className="testIcon" /> Prueba
+            <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>
         </button>
     );
 
