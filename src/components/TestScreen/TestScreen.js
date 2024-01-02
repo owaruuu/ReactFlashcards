@@ -6,7 +6,7 @@ import {
     chooseFiveMondai,
     getFiveRandomNumbers,
     chooseThreeDrag,
-    getThreeRandomNumbers,
+    getRandomNumbersSimple,
 } from "../../utils/utils";
 import FeedbackText from "./FeedbackText";
 import ProblemCounter from "./ProblemCounter";
@@ -40,11 +40,11 @@ const TestScreen = () => {
 
     //el objeto test del lecture
     const [test] = useState(() => {
-        return tests[lecture.testId];
+        return tests[lecture.lectureId];
     });
 
     const randomMon = getFiveRandomNumbers();
-    const randomDrag = getThreeRandomNumbers();
+    const randomDrag = getRandomNumbersSimple(3, test.dragDrop.length);
 
     const [fiveMondai] = useState(() => chooseFiveMondai(test, randomMon));
 
@@ -83,9 +83,13 @@ const TestScreen = () => {
         const highScore =
             user.currentProgress[lecture.lectureId]?.["highScore"];
         if (highScore) {
-            return true;
-        } else {
-            return false;
+            const hasHighScoreForThisTestVersion = highScore.score[testVersion];
+
+            if (hasHighScoreForThisTestVersion) {
+                return true;
+            } else {
+                return false;
+            }
         }
     });
 
@@ -97,8 +101,14 @@ const TestScreen = () => {
         const testScore =
             user.currentProgress[lecture.lectureId]?.["highScore"];
 
-        if (testScore) {
-            return testScore.score[testVersion];
+        if (!testScore) {
+            return 0;
+        }
+
+        const hasHighScoreForThisTestVersion = testScore.score[testVersion];
+
+        if (hasHighScoreForThisTestVersion) {
+            return hasHighScoreForThisTestVersion;
         } else {
             return 0;
         }
