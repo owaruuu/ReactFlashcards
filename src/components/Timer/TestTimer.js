@@ -1,20 +1,11 @@
-import { useTimer } from "react-timer-hook";
 import { useStopwatch } from "react-timer-hook";
 import { useState, useEffect } from "react";
-import { padStart } from "lodash";
 
 const TestTimer = (props) => {
-    const {
-        totalSeconds,
-        seconds,
-        minutes,
-        hours,
-        days,
-        isRunning,
-        start,
-        pause,
-        reset,
-    } = useStopwatch({ autoStart: true });
+    const { stopTimer } = props;
+    const { totalSeconds, seconds, minutes, hours, pause } = useStopwatch({
+        autoStart: true,
+    });
 
     const [overtime, setOvertime] = useState(false);
     useEffect(() => {
@@ -34,7 +25,7 @@ const TestTimer = (props) => {
             });
             pause();
         }
-    }, [props.stopTimer]);
+    }, [stopTimer]);
 
     const pad = (number) => {
         return number.toLocaleString("en-US", {

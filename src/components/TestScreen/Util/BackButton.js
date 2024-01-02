@@ -18,6 +18,8 @@ const BackButton = (props) => {
             case "last":
                 props.callback();
                 break;
+            default:
+                throw new Error("Invalid stage");
         }
     };
 

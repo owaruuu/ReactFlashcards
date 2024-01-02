@@ -43,7 +43,10 @@ const UserPanelScreen = () => {
                 }
                 onClick={() => handleStickerClick(sticker.id)}
             >
-                <img src={`../img/${sticker.name}${stickerSuffix}`}></img>
+                <img
+                    src={`../img/${sticker.name}${stickerSuffix}`}
+                    alt={`Sticker de ${sticker.name}`}
+                ></img>
             </div>
         );
     });

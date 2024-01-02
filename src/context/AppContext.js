@@ -56,7 +56,7 @@ export const AppReducer = (state, action) => {
         case "SET_SAVE_INFO_MSG":
             return { ...state, saveInfoMessage: action.payload };
         default:
-            throw "wrong action type: " + action.type;
+            throw new Error("wrong action type: " + action.type);
     }
 };
 

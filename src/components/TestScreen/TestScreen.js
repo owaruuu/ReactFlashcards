@@ -60,7 +60,7 @@ const TestScreen = () => {
     });
 
     const [score, setScore] = useState(0);
-    const [maxScore, setMaxScore] = useState(() => {
+    const [maxScore] = useState(() => {
         let max = 0;
         max += currentTest.mondai.length;
         max += currentTest.dragDrop.length;
@@ -70,7 +70,7 @@ const TestScreen = () => {
     });
 
     const [testVersion] = useState(test.version);
-    const [hasLastTest, setHasLastTest] = useState(() => {
+    const [hasLastTest] = useState(() => {
         const lastTest = user.currentProgress[lecture.lectureId]?.["lastTest"];
 
         if (lastTest) {
@@ -79,7 +79,7 @@ const TestScreen = () => {
             return false;
         }
     });
-    const [hasHighScore, setHasHighScore] = useState(() => {
+    const [hasHighScore] = useState(() => {
         const highScore =
             user.currentProgress[lecture.lectureId]?.["highScore"];
         if (highScore) {
@@ -93,7 +93,7 @@ const TestScreen = () => {
         }
     });
 
-    const [previousHighScore, setPreviousHighScore] = useState(() => {
+    const [previousHighScore] = useState(() => {
         if (dbError || !loggedIn) {
             return 0;
         }
@@ -115,7 +115,7 @@ const TestScreen = () => {
     });
 
     //-1: dont have access to dv, 0: false, 1: true
-    const [hasWonMedal, setHasWonMedal] = useState(() => {
+    const [hasWonMedal] = useState(() => {
         if (dbError || !loggedIn) {
             return -1;
         }
@@ -346,27 +346,16 @@ const TestScreen = () => {
 
     const handleSaveTestScore = () => {
         if (dbError || !loggedIn) {
-            // console.log(
-            //     "no tengo acceso a la db entonces no puedo salvar el testScore"
-            // );
+            //  "no tengo acceso a la db entonces no puedo salvar el testScore"
             return;
         }
 
-        // console.log("setie new record");
-        // setNewRecord(true);
-
-        // return;
-
         //aqui deberia comparar primero los scores
+        setSave(true);
         if (score > previousHighScore) {
             setNewRecord(true);
-            setSave(true);
-        } else {
-            setSave(true);
         }
     };
-
-    const handleBackButton = () => {};
 
     const currentMax =
         stage === "mondai"
