@@ -47,17 +47,17 @@ const LectureList = () => {
                     response
                 );
                 if (response.data.Responses.lectures.length > 0) {
-                    const extraLectures = response.data.Responses.lectures.map(
-                        (item) => {
-                            return JSON.parse(item.lecture);
-                        }
-                    );
+                    const orderedResults =
+                        response.data.Responses.lectures.sort(
+                            (a, b) => a.orderNumber - b.orderNumber
+                        );
+
+                    const extraLectures = orderedResults.map((item) => {
+                        return JSON.parse(item.lecture);
+                    });
 
                     const newLectures = [...lectures, ...extraLectures];
-                    console.log(
-                        "🚀 ~ file: LectureList.js:32 ~ getLectures ~ newLectures:",
-                        newLectures
-                    );
+
                     dispatch({
                         type: "SET_LECTURES",
                         payload: newLectures,
