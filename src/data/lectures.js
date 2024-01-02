@@ -2,7 +2,7 @@
 //last Id : 31
 export const lectures = [
     {
-        lectureId: "31",
+        lectureId: "501",
         name: "Set 1 Mondai No Nai",
         termList: [
             {
@@ -178,7 +178,7 @@ export const lectures = [
         ],
     },
     {
-        lectureId: "30",
+        lectureId: "601",
         name: "Set 1 Dr Stone ",
         termList: [
             { id: 0, term: "かがく", extra: "科学", answer: "Ciencia" },
