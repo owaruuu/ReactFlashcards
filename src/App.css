@@ -442,6 +442,9 @@ a {
   align-items: center;
   cursor: pointer;
 }
+.main .lectureButton .testIcon {
+  font-size: 24px;
+}
 .main .lectureButton .set-buttons-helper {
   display: flex;
   justify-content: space-between;

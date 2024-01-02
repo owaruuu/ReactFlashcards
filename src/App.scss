@@ -496,6 +496,10 @@ a {
         align-items: center;
         cursor: pointer;
 
+        .testIcon {
+            font-size: 24px;
+        }
+
         .set-buttons-helper {
             display: flex;
             justify-content: space-between;
