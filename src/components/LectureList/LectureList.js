@@ -79,7 +79,7 @@ const LectureList = () => {
 
     return (
         <div className="lectureList">
-            <h2 className="lectureListTitle">Set List</h2>
+            <h2 className="lectureListTitle">Lecciones</h2>
             <div className="lectureButtons">
                 <LectureButtons />
                 {loggedIn && !gotLectures ? (

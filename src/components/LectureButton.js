@@ -44,9 +44,9 @@ const LectureButton = (props) => {
         }
 
         if (user.currentProgress) {
-            return <span>{percentage}% learned</span>;
+            return <span>{percentage}% Aprendido</span>;
         } else {
-            return <span>loading...</span>;
+            return <span>Cargando...</span>;
         }
     };
 
@@ -65,7 +65,7 @@ const LectureButton = (props) => {
             }}
         >
             <div className="set-buttons-helper">
-                <span>{props.amount} terms</span>
+                <span>{props.amount} Palabras</span>
                 {progressPercentage()}
             </div>
 
