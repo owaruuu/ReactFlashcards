@@ -71,7 +71,6 @@ export const logoutUser = async () => {
 //gets the user progress from the db using his id
 //returns the progress string or
 export const getUserProgress = async (id) => {
-    console.log("🚀 ~ file: aws.js:42 ~ getUserProgress ~ id:", id);
     try {
         const response = await api.post(`${URL}/progress`, {
             id,
@@ -79,6 +78,10 @@ export const getUserProgress = async (id) => {
 
         if (response.data.value === -1) {
             return null;
+        }
+
+        if (response.data.value.progress === "") {
+            return "{}";
         }
 
         return response.data.value.progress;
