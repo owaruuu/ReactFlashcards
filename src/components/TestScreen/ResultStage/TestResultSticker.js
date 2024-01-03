@@ -39,6 +39,7 @@ const TestResultSticker = (props) => {
                             className="showOutline"
                             src={`../img/${stickerName}-outline.png`}
                             onLoad={loaded}
+                            alt="sticker outline"
                         />
                     </div>
                 </>
@@ -59,11 +60,13 @@ const TestResultSticker = (props) => {
                             className="showOutline"
                             src={`../img/${stickerName}-outline.png`}
                             onLoad={loaded}
+                            alt="sticker outline"
                         />
                         <img
                             className="winSticker"
                             src={`../img/${stickerName}-sticker.png`}
                             onLoad={loaded}
+                            alt={`sticker de ${stickerName}`}
                         />
                     </div>
                     <Tooltip
@@ -88,6 +91,7 @@ const TestResultSticker = (props) => {
                             className="showSticker"
                             src={`../img/${stickerName}-with-shadow.png`}
                             onLoad={loaded}
+                            alt={`sticker de ${stickerName}`}
                         />
                     </div>
                     <Tooltip

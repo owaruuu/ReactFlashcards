@@ -4,7 +4,7 @@ import TestResultSticker from "./TestResultSticker";
 import { useState } from "react";
 
 const ResultStage = (props) => {
-    const percent = (props.score * 100) / props.maxScore;
+    // const percent = (props.score * 100) / props.maxScore;
     const perfectScore = props.score === props.maxScore;
     // const perfectScore = true;
 
@@ -23,14 +23,13 @@ const ResultStage = (props) => {
         }
     });
 
-    const getMessage = () => {
-        if (percent === 100) return "Perfect !!";
-        if (percent >= 90) return "Amazing !!";
-        if (percent >= 80) return "Great !";
+    // const getMessage = () => {
+    //     if (percent === 100) return "Perfect !!";
+    //     if (percent >= 90) return "Amazing !!";
+    //     if (percent >= 80) return "Great !";
 
-        return "";
-    };
-    const congrats = getMessage();
+    //     return "";
+    // };
 
     return (
         <div className="resultContent">

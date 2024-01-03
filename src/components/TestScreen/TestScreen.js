@@ -143,7 +143,6 @@ const TestScreen = () => {
         multiple: [],
         drag: [],
     });
-    const [save, setSave] = useState(false);
 
     //for multiple choice buttons
     const [correct, setCorrect] = useState(-1);
@@ -245,6 +244,8 @@ const TestScreen = () => {
                 case "manga":
                     setStage("results");
                     break;
+                default:
+                    throw new Error("Invalid case");
             }
 
             setProblem(0);
@@ -268,55 +269,6 @@ const TestScreen = () => {
         }
         setStage(stage);
     };
-
-    useEffect(() => {
-        //necesito calcular si gane el sticker esta vez
-        const needToUpdateSticker =
-            hasWonMedal === 1 ? false : score === maxScore ? true : false;
-
-        const payloadObject = {
-            currentProgress: {
-                ...user.currentProgress,
-                [lecture.lectureId]: {
-                    ...user.currentProgress[lecture.lectureId],
-                    lastTest: {
-                        ...answers,
-                        score: { [test.version]: score },
-                        timer: timerInfo,
-                    },
-                },
-            },
-        };
-
-        if (needToUpdateSticker) {
-            payloadObject.currentProgress.stickers = {
-                ...user.currentProgress.stickers,
-                [lecture.lectureId]: true,
-            };
-        }
-
-        if (save) {
-            //check for new record
-            if (newRecord) {
-                payloadObject.currentProgress[lecture.lectureId].highScore = {
-                    ...answers,
-                    score: { [test.version]: score },
-                    timer: timerInfo,
-                };
-                dispatch({
-                    type: "UPDATE_PROGRESS",
-                    payload: payloadObject,
-                });
-            } else {
-                dispatch({
-                    type: "UPDATE_PROGRESS",
-                    payload: payloadObject,
-                });
-            }
-
-            setSave(false);
-        }
-    }, [save]);
 
     useEffect(() => {
         dispatch({ type: "SET_SAVE_TEST", payload: false });
@@ -350,10 +302,47 @@ const TestScreen = () => {
             return;
         }
 
-        //aqui deberia comparar primero los scores
-        setSave(true);
+        const needToUpdateSticker =
+            hasWonMedal === 1 ? false : score === maxScore ? true : false;
+
+        const payloadObject = {
+            currentProgress: {
+                ...user.currentProgress,
+                [lecture.lectureId]: {
+                    ...user.currentProgress[lecture.lectureId],
+                    lastTest: {
+                        ...answers,
+                        score: { [test.version]: score },
+                        timer: timerInfo,
+                    },
+                },
+            },
+        };
+
+        if (needToUpdateSticker) {
+            payloadObject.currentProgress.stickers = {
+                ...user.currentProgress.stickers,
+                [lecture.lectureId]: true,
+            };
+        }
+
+        //check for new record
         if (score > previousHighScore) {
             setNewRecord(true);
+            payloadObject.currentProgress[lecture.lectureId].highScore = {
+                ...answers,
+                score: { [test.version]: score },
+                timer: timerInfo,
+            };
+            dispatch({
+                type: "UPDATE_PROGRESS",
+                payload: payloadObject,
+            });
+        } else {
+            dispatch({
+                type: "UPDATE_PROGRESS",
+                payload: payloadObject,
+            });
         }
     };
 
