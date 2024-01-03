@@ -2,27 +2,32 @@ import TermList from "./TermList";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
-import { lectures } from "../../data/lectures";
+import BackToTopButton from "../Buttons/BackToTopButton";
+// import { lectures } from "../../data/lectures";
 import svg from "../../svg/cherry-blossom-petal.svg";
 
 const LectureScreen = () => {
-    const { appState } = useContext(AppContext);
+    const { appState, dbError, loggedIn, user, lectures } =
+        useContext(AppContext);
 
     const lectureId = appState.currentLecture;
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });
 
+    const hasTest = lecture.testId !== undefined ? true : false;
+    const showTestButton = hasTest && user.currentProgress ? true : false;
+
     return (
         <div className="lectureScreen">
             <h2 id="title" className="lectureTitle" string={lecture.name}>
                 {lecture.name}
             </h2>
-            <LectureScreenButtons />
+            <LectureScreenButtons test={showTestButton} />
             <div
                 className="upperDivider"
                 style={{
-                    marginBottom: "25px",
+                    marginBottom: "9px",
                 }}
             >
                 <img
@@ -36,7 +41,9 @@ const LectureScreen = () => {
                 ></img>
             </div>
             <div className="termListDiv">
+                <h2>Lista Palabras</h2>
                 <TermList lecture={lecture}></TermList>
+                <BackToTopButton />
             </div>
         </div>
     );

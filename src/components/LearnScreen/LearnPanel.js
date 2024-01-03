@@ -3,7 +3,7 @@ import BackButton from "../BackButton";
 
 const LearnPanel = (props) => {
     return (
-        <div className="panel">
+        <div className="learnScreenPanel">
             <OptionsButton showFunc={props.showFunc} />
             <p>
                 {props.index + 1}/{props.terms.length}

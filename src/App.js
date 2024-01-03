@@ -1,5 +1,5 @@
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header.js";
 import Main from "./components/Main.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AppProvider } from "./context/AppContext";

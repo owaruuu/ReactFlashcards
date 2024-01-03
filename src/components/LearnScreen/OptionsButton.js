@@ -1,7 +1,7 @@
 const OptionsButton = (props) => {
     return (
         <button className="optionsButton" onClick={props.showFunc}>
-            Options
+            Opciones
         </button>
     );
 };

@@ -71,7 +71,6 @@ export const logoutUser = async () => {
 //gets the user progress from the db using his id
 //returns the progress string or
 export const getUserProgress = async (id) => {
-    console.log("🚀 ~ file: aws.js:42 ~ getUserProgress ~ id:", id);
     try {
         const response = await api.post(`${URL}/progress`, {
             id,
@@ -79,6 +78,10 @@ export const getUserProgress = async (id) => {
 
         if (response.data.value === -1) {
             return null;
+        }
+
+        if (response.data.value.progress === "") {
+            return "{}";
         }
 
         return response.data.value.progress;
@@ -120,6 +123,27 @@ export const saveUserProgress = async (currentProgress) => {
 export const quickScan = async () => {
     try {
         await api.get(`${URL}/scanTables`);
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getExtraPerms = async (email) => {
+    try {
+        const response = await api.post(`${URL}/permissions`, { email });
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getExtraLessons = async (keys) => {
+    //esta funcion se encarga de traer las lecciones en la base de datos
+
+    try {
+        const response = await api.post(`${URL}/lessons`, { keys });
+
+        return response;
     } catch (error) {
         return error;
     }

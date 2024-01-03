@@ -1,11 +1,14 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
+import { logoutUser } from "../../aws/aws";
+import { lectures } from "../../data/lectures";
 import Spinner from "react-bootstrap/Spinner";
-import { logoutUser } from "../aws/aws";
+import LogoutModal from "./LogoutModal";
 
 const LoginControls = (props) => {
     const {
         dispatch,
+        isTakingTest,
         cognito,
         cognitoError,
         dbError,
@@ -14,6 +17,33 @@ const LoginControls = (props) => {
         LoginControlErrorMessage,
         serverError,
     } = useContext(AppContext);
+    const [showModal, setShowModal] = useState(false);
+    const [button, setButton] = useState(null);
+
+    const handleUserPanelClick = () => {
+        if (isTakingTest) {
+            setButton("userPanel");
+            setShowModal(true);
+        } else {
+            changeToUserPanel();
+        }
+    };
+
+    const changeToUserPanel = () => {
+        dispatch({
+            type: "CHANGE_SCREEN",
+            payload: { currentScreen: "userPanel" },
+        });
+        dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+    };
+
+    const handleLogoutClick = (state) => {
+        if (state) {
+            setButton("logout");
+        }
+
+        setShowModal(state);
+    };
 
     const logout = async () => {
         console.log("log out");
@@ -25,6 +55,9 @@ const LoginControls = (props) => {
             });
             dispatch({ type: "SET_LOG_STATUS", payload: false });
             dispatch({ type: "SET_USER", payload: { currentProgress: null } });
+            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+            dispatch({ type: "SET_LECTURES", payload: lectures });
+            dispatch({ type: "SET_LECTURES_FLAG", payload: false });
         } catch (error) {
             console.log(
                 "🚀 ~ file: LoginControls.js:23 ~ logout ~ error:",
@@ -35,12 +68,24 @@ const LoginControls = (props) => {
     };
 
     const loggedInControls = (
-        <>
-            <button className="logoutButton" onClick={logout}>
+        <div className="accountButtons">
+            <button
+                className="logoutButton"
+                onClick={() => handleLogoutClick(true)}
+            >
                 Logout
             </button>
-            <div className="username">{props.userName}</div>
-        </>
+            <div className="username" onClick={handleUserPanelClick}>
+                {props.userName}
+            </div>
+            <LogoutModal
+                visible={showModal}
+                hideFunc={() => handleLogoutClick(false)}
+                logoutFunc={logout}
+                userPanelFunc={changeToUserPanel}
+                buttonClicked={button}
+            />
+        </div>
     );
 
     const loggedOutControls = (

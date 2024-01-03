@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { lectures } from "../data/lectures";
 
 export const AppReducer = (state, action) => {
     switch (action.type) {
@@ -16,6 +17,10 @@ export const AppReducer = (state, action) => {
             return { ...state, loggedIn: action.payload };
         case "SET_LOGIN_CONTROL_MSG":
             return { ...state, LoginControlErrorMessage: action.payload };
+        case "SET_LECTURES":
+            return { ...state, lectures: action.payload };
+        case "SET_LECTURES_FLAG":
+            return { ...state, gotLectures: action.payload };
         case "SET_USER":
             return {
                 ...state,
@@ -27,6 +32,11 @@ export const AppReducer = (state, action) => {
                 appState: {
                     ...state.appState,
                     ...action.payload,
+                    lastScreen:
+                        state.appState.currentScreen ===
+                        action.payload.currentScreen
+                            ? state.appState.lastScreen
+                            : state.appState.currentScreen,
                 },
             };
         case "UPDATE_PROGRESS":
@@ -37,12 +47,16 @@ export const AppReducer = (state, action) => {
             };
         case "SET_SAVE_FLAG":
             return { ...state, needToSave: action.payload };
+        case "SET_IS_TAKING_TEST":
+            return { ...state, isTakingTest: action.payload };
+        case "SET_SAVE_TEST":
+            return { ...state, savedTest: action.payload };
         case "SET_SAVE_ERROR":
             return { ...state, saveError: action.payload };
         case "SET_SAVE_INFO_MSG":
             return { ...state, saveInfoMessage: action.payload };
         default:
-            throw "wrong action type: " + action.type;
+            throw new Error("wrong action type: " + action.type);
     }
 };
 
@@ -55,12 +69,16 @@ const initialState = {
     loaded: false,
     loggedIn: false, //true si ya confirme que tengo tokens validos
     loginControlErrorMessage: "",
+    lectures: lectures,
+    gotLectures: false,
     user: {
         userName: "",
         currentProgress: null,
     },
-    appState: { currentScreen: "main", currentLecture: null }, //currentLecture es el id
+    appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
     needToSave: false,
+    isTakingTest: false,
+    savedTest: false,
     saveError: false,
     saveInfoMessage: "",
     dbError: false,
@@ -81,9 +99,13 @@ export const AppProvider = (props) => {
                 loaded: state.loaded,
                 loggedIn: state.loggedIn,
                 LoginControlErrorMessage: state.LoginControlErrorMessage,
+                lectures: state.lectures,
+                gotLectures: state.gotLectures,
                 user: state.user,
                 appState: state.appState,
                 needToSave: state.needToSave,
+                isTakingTest: state.isTakingTest,
+                savedTest: state.savedTest,
                 saveError: state.saveError,
                 saveInfoMessage: state.saveInfoMessage,
                 dbError: state.dbError,

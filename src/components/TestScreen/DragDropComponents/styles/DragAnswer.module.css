@@ -1,0 +1,25 @@
+.dragAnswer {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0 10px;
+    min-height: 60px;
+}
+
+.blinkAnimation {
+    animation: blinker 0.25s linear;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@media (min-width: 768px) {
+    .dragAnswer {
+           
+            font-size: 1.8rem;
+            
+        }
+}

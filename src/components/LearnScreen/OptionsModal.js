@@ -4,7 +4,7 @@ const OptionsModal = (props) => {
     return (
         <Modal show={props.visible} onHide={props.hideFunc}>
             <Modal.Header closeButton>
-                <Modal.Title>Options</Modal.Title>
+                <Modal.Title>Opciones</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="form-check form-switch">

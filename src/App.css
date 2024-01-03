@@ -10,6 +10,12 @@
 hr {
   border-top: 4px solid #ab071d !important;
   opacity: 1 !important;
+  margin: 5px 0;
+}
+@media (min-width: 768px) {
+  hr {
+    margin: 0;
+  }
 }
 
 h1 {
@@ -44,9 +50,32 @@ a {
   padding-left: 10px;
 }
 
+.goldAccent {
+  color: goldenrod;
+}
+
 .App {
   background-color: #032745;
   font-family: メイリオ, Meiryo !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.App .backToTopButton {
+  color: #f5fcff;
+  background-color: rgba(32, 73, 107, 0);
+  border: none;
+  padding-bottom: 20px;
+  margin-left: auto;
+}
+.App .backToTopButton:hover {
+  color: #c3c3c3;
+}
+@media (min-width: 768px) {
+  .App .backToTopButton {
+    padding-right: 10%;
+  }
 }
 
 .upperDivider {
@@ -124,10 +153,13 @@ a {
 .header .pageTitle {
   font-family: "Gidugu";
   text-transform: uppercase;
-  font-size: clamp(3rem, 1rem + 6vw, 5rem);
+  font-size: clamp(2rem, 1rem + 5vw, 8rem);
   text-align: center;
   margin: 0;
   cursor: pointer;
+}
+.header .infoHeader {
+  font-size: 12px;
 }
 @media (min-width: 768px) {
   .header .infoHeader {
@@ -146,14 +178,31 @@ a {
   text-align: center;
   overflow: hidden;
 }
+.header .loginControls .accountButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0 5px;
+}
+.header .loginControls .accountButtons .logoutButton {
+  background-color: rgba(0, 30, 55, 0);
+  border: none;
+  color: #f5fcff;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .header .loginControls .accountButtons {
+    flex-direction: row;
+    padding: 0;
+    font-size: clamp(0rem, 0rem + 2vw, 3rem);
+  }
+}
 .header .loginControls .username {
   background: #ab071d;
   color: white;
   border-style: none;
-  width: 100%;
-  padding-right: 50px;
-  padding-left: 50px;
+  padding: 0 10px;
   align-self: center;
+  cursor: pointer;
 }
 .header .loginControls .loginButton {
   background-color: #ab071d;
@@ -235,6 +284,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 .main .form {
   display: flex;
@@ -292,6 +342,12 @@ a {
 }
 .main .lectureList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.main .lectureList p {
+  color: white;
+  text-align: center;
 }
 .main .lectureList .lectureListTitle {
   text-align: center;
@@ -304,10 +360,24 @@ a {
   margin-bottom: 32px;
 }
 @media (min-width: 768px) {
+  .main .lectureList .lectureListTitle {
+    margin-top: 32px;
+  }
+}
+.main .lectureList .lectureButtons {
+  display: flex;
+  flex-direction: column;
+}
+.main .lectureList .lectureButtons .spinner {
+  color: white;
+  margin: auto;
+}
+@media (min-width: 768px) {
   .main .lectureList {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1024px;
   }
 }
 .main .confirmation {
@@ -363,7 +433,7 @@ a {
 .main .lectureButton {
   display: grid;
   grid-template-rows: 33% 33% 33%;
-  grid-template-areas: "info" "name" ".";
+  grid-template-areas: "info" "name" "extras";
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
@@ -376,11 +446,18 @@ a {
   align-items: center;
   cursor: pointer;
 }
+.main .lectureButton .testIcon {
+  font-size: 24px;
+}
 .main .lectureButton .set-buttons-helper {
   display: flex;
   justify-content: space-between;
   grid-area: info;
   font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
+}
+.main .lectureButton .extras {
+  grid-area: extras;
+  margin: auto;
 }
 .main .lectureButton .lectureButtonTitle {
   font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
@@ -402,8 +479,9 @@ a {
   .main .lectureButton {
     grid-template-rows: auto;
     grid-template-columns: 30% 40% 30%;
-    grid-template-areas: "info name .";
+    grid-template-areas: "info name extras";
     width: 76vw;
+    max-width: 1024px;
     border: 3px solid #f5b64e;
     border-radius: 100px;
     flex-direction: row;
@@ -411,6 +489,8 @@ a {
   .main .lectureButton .set-buttons-helper {
     font-size: clamp(1rem, 1rem + 2vw, 1rem);
     justify-content: space-evenly;
+    flex-direction: column;
+    padding-left: 30px;
   }
   .main .lectureButton .lectureButtonTitle {
     text-align: center;
@@ -440,9 +520,17 @@ a {
 .main .lectureScreen .lectureScreenButtons .learningButtons {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+}
+.main .lectureScreen .lectureScreenButtons .learningButtons button {
+  margin: 5px;
+}
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .learningButtons {
+    flex-direction: row;
+  }
 }
 .main .lectureScreen .lectureScreenButtons button {
-  flex: 1;
   font-weight: 400;
   text-transform: capitalize;
   font-size: 1.1rem;
@@ -468,6 +556,11 @@ a {
     padding: 0 60px;
   }
 }
+@media (min-width: 768px) {
+  .main .lectureScreen .lectureScreenButtons .testButton {
+    padding: 0 15px;
+  }
+}
 .main .lectureScreen .lectureScreenButtons .backButton {
   margin-left: auto;
   flex: 0;
@@ -481,14 +574,21 @@ a {
 }
 .main .lectureScreen .termListDiv {
   display: flex;
-  justify-content: center;
-  background-color: #20496b;
+  flex-direction: column;
+  align-items: center;
+}
+.main .lectureScreen .termListDiv h2 {
+  color: white;
+  font-family: serif;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
 }
 .main .lectureScreen .termListDiv .termList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 10px 0;
+  background-color: #20496b;
 }
 .main .lectureScreen .termListDiv .termList .termItem {
   display: flex;
@@ -515,8 +615,14 @@ a {
   align-self: center !important;
 }
 @media (min-width: 768px) {
+  .main .lectureScreen .termListDiv .termList .termItem {
+    width: 80%;
+    max-width: 1024px;
+  }
+}
+@media (min-width: 768px) {
   .main .lectureScreen .termListDiv .termList {
-    max-width: 80%;
+    width: 100%;
   }
   .main .lectureScreen .termListDiv .termList .termItem {
     border-radius: 15px;
@@ -549,17 +655,17 @@ a {
     margin-top: 17px;
   }
 }
-.main .learnScreen .panel {
+.main .learnScreen .learnScreenPanel {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: auto;
   width: 100%;
   margin: 2px 0;
 }
-.main .learnScreen .panel button {
+.main .learnScreen .learnScreenPanel button {
   min-width: 85px;
 }
-.main .learnScreen .panel p {
+.main .learnScreen .learnScreenPanel p {
   align-self: center;
   justify-self: center;
   color: white;
@@ -567,7 +673,7 @@ a {
   font-size: 2rem;
   font-family: "Gidugu";
 }
-.main .learnScreen .panel .optionsButton {
+.main .learnScreen .learnScreenPanel .optionsButton {
   font-weight: 400;
   text-transform: capitalize;
   background-color: #f5fcff;
@@ -580,16 +686,16 @@ a {
   align-self: center;
   justify-self: center;
 }
-.main .learnScreen .panel .optionsButton:hover {
+.main .learnScreen .learnScreenPanel .optionsButton:hover {
   border-color: #ab071d;
 }
 @media (min-width: 768px) {
-  .main .learnScreen .panel .optionsButton {
+  .main .learnScreen .learnScreenPanel .optionsButton {
     font-size: 1.1rem;
     padding: 10px 26px;
   }
 }
-.main .learnScreen .panel .backButton {
+.main .learnScreen .learnScreenPanel .backButton {
   font-weight: 400;
   text-transform: capitalize;
   background-color: #f5fcff;
@@ -602,11 +708,11 @@ a {
   align-self: center;
   justify-self: center;
 }
-.main .learnScreen .panel .backButton:hover {
+.main .learnScreen .learnScreenPanel .backButton:hover {
   border-color: #ab071d;
 }
 @media (min-width: 768px) {
-  .main .learnScreen .panel .backButton {
+  .main .learnScreen .learnScreenPanel .backButton {
     font-size: 1.1rem;
     padding: 10px 26px;
   }
@@ -658,19 +764,23 @@ a {
     display: block;
     border-style: none;
     border-radius: 41px;
-    background-color: brown;
+    background-color: #656565;
     color: aliceblue;
     width: 51px;
+    transition: 0.3s;
   }
   .main .learnScreen .termCardSection .termCardButtonDesktop:hover {
-    background-color: rgb(148, 24, 24);
+    background-color: #474747;
+  }
+  .main .learnScreen .termCardSection .termCardButtonDesktop:active {
+    background-color: #818181;
   }
 }
 .main .learnScreen .termCardSection button {
   margin: 40px 0;
 }
-.main .learnScreen .termCardSection button:hover {
-  background-color: brown;
+.main .learnScreen .termCardSection button:active {
+  margin: 35px 0;
 }
 .main .learnScreen .termCardDiv {
   max-width: 935px;
@@ -777,8 +887,7 @@ a {
   color: white;
 }
 .main .learnScreen .mobileTermButtons .termCardButtonMobile {
-  background-color: brown;
-  background-color: brown;
+  background-color: #656565;
   width: 100px;
   color: aliceblue;
   border-style: solid;
@@ -787,12 +896,16 @@ a {
   gap: 10px;
   padding: 12px 0px;
   border-radius: 10px;
-  border-color: #4c0000;
+  border-color: #868686;
 }
 @media (min-width: 768px) {
   .main .learnScreen .mobileTermButtons .termCardButtonMobile {
     display: none;
   }
+}
+.main .learnScreen .mobileTermButtons .termCardButtonMobile:active {
+  background-color: #5c5c5c;
+  border-color: #3d3d3d;
 }
 .main .learnScreen .learnButtons {
   display: flex;
@@ -843,6 +956,645 @@ a {
     margin: 10px;
     padding: 20px;
   }
+}
+.main .beginTestScreen .beginTestButton {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 27px;
+  /* border: #98da98 6px solid; */
+  padding: 10px 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #137508;
+  color: #e8ebed;
+  width: 75%;
+  margin-bottom: 20px;
+}
+.main .beginTestScreen .beginTestButton:hover {
+  background-color: #269719;
+}
+.main .beginTestScreen .info {
+  padding: 15px 0;
+}
+.main .testScreen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 60vh;
+  max-width: 962px;
+  align-items: center;
+  text-align: center;
+  color: #f5fcff;
+}
+.main .testScreen hr {
+  margin: 0;
+  border-top: 1px white solid !important;
+  width: 45%;
+  align-self: center;
+}
+.main .testScreen .titleAndPoints {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 15% 70% 15%;
+  grid-template-areas: ". title points";
+}
+.main .testScreen .titleAndPoints .pointsCounter {
+  display: flex;
+  right: 10px;
+  background-color: #880000;
+  border-radius: 100px;
+  height: 40px;
+  width: 40px;
+}
+.main .testScreen .titleAndPoints .pointsCounter p {
+  font-size: 10px;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .main .testScreen .titleAndPoints .pointsCounter {
+    right: 20%;
+    width: 60px;
+  }
+  .main .testScreen .titleAndPoints .pointsCounter p {
+    font-size: 15px;
+    margin: auto;
+  }
+}
+.main .testScreen .highScoreResume .testBackButton,
+.main .testScreen .lastTestResume .testBackButton {
+  margin-top: 0px;
+}
+.main .testScreen .highScoreResume .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: "date . backButton";
+  align-items: center;
+}
+.main .testScreen .highScoreResume .panel p {
+  margin: 0;
+}
+.main .testScreen .highScoreResume .backButton {
+  border: none;
+  border-radius: 15px;
+  max-width: 140px;
+}
+.main .testScreen .highScoreResume hr {
+  margin-left: auto;
+  margin-right: auto;
+}
+.main .testScreen .lastTestResume .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: "date points backButton";
+  align-items: center;
+}
+.main .testScreen .lastTestResume .panel p {
+  margin: 0;
+}
+.main .testScreen .lastTestResume .backButton {
+  border: none;
+  border-radius: 15px;
+  max-width: 140px;
+}
+.main .testScreen .testResume {
+  display: flex;
+  flex-direction: column;
+}
+.main .testScreen .testResume h1 {
+  margin-top: 20px;
+}
+.main .testScreen .testResume .testAnswerComponent {
+  margin: 15px 0;
+  padding: 10px;
+  width: 100%;
+}
+.main .testScreen .testResume .testAnswerComponent:nth-child(odd) {
+  background-color: #164b78;
+}
+.main .testScreen .testResume .testAnswerComponent p {
+  margin: 0;
+}
+@media (min-width: 600px) {
+  .main .testScreen .testResume .testAnswerComponent p {
+    margin-bottom: 1rem;
+  }
+}
+.main .testScreen .testResume .testAnswerComponent div {
+  margin-bottom: 10px;
+}
+@media (min-width: 600px) {
+  .main .testScreen .testResume .testAnswerComponent div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+.main .testScreen .testResume .testAnswerComponent .staticText {
+  text-align: start;
+}
+.main .testScreen .savedResultsButtons {
+  margin-top: 35%;
+  margin-bottom: 27px;
+}
+.main .testScreen .savedResultsButtons button {
+  border: none;
+  border-radius: 15px;
+  color: white;
+  padding: 10px 10px;
+  margin: 10px;
+}
+.main .testScreen .savedResultsButtons button:first-child {
+  background-color: #164b78;
+}
+.main .testScreen .savedResultsButtons button:first-child:hover {
+  background-color: #2d628f;
+}
+.main .testScreen .savedResultsButtons button:last-child {
+  background-color: #997800;
+}
+.main .testScreen .savedResultsButtons button:last-child:hover {
+  background-color: #856800;
+}
+.main .testScreen .savedResultsButtons .deactivated {
+  text-decoration: line-through;
+  background-color: gray !important;
+}
+.main .testScreen .stickerDiv .spinnerContainer {
+  display: flex;
+  justify-content: center;
+  height: 150px;
+}
+.main .testScreen .stickerDiv .spinnerContainer div {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main .testScreen .stickerDiv #sticker-info-tooltip {
+  width: 200px;
+  overflow-wrap: break-word;
+  background-color: white;
+  color: #022e52;
+  border-radius: 23px;
+}
+.main .testScreen .stickerDiv .stickerTooltip {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  background-color: #3a5c77;
+  width: 150px;
+  height: 150px;
+  border-radius: 15px;
+  border-style: dashed;
+  border-color: #9cb0c0;
+  box-sizing: content-box;
+}
+.main .testScreen .stickerDiv .stickerTooltip .winSticker {
+  position: relative;
+  top: -150px;
+  opacity: 0;
+  width: 100%;
+  animation: winSticker 1s;
+  animation-delay: 2s;
+  animation-timing-function: cubic-bezier(0.07, 0.76, 0.4, 1);
+  animation-fill-mode: forwards;
+}
+.main .testScreen .stickerDiv .stickerTooltip .showSticker {
+  opacity: 1;
+  width: 100%;
+  animation: showSticker 4s infinite;
+  animation-fill-mode: forwards;
+}
+.main .testScreen .stickerDiv .stickerTooltip .showOutline {
+  opacity: 1;
+  width: 100%;
+}
+@keyframes winSticker {
+  0% {
+    transform: translateY(-120px) rotateZ(-20deg) translateX(-80px) scale(250%);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+@keyframes borderGold {
+  50% {
+    border-style: dashed;
+    border-color: #9cb0c0;
+  }
+  100% {
+    border-color: #f5b64e;
+    border-style: inset;
+  }
+}
+@keyframes showSticker {
+  0% {
+    transform: rotateZ(0);
+  }
+  5% {
+    transform: rotateZ(-5deg);
+  }
+  10% {
+    transform: rotateZ(5deg);
+  }
+  15% {
+    transform: rotateZ(-5deg);
+  }
+  20% {
+    transform: rotateZ(5deg);
+  }
+  25% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+.main .testScreen .stickerDiv .win {
+  border-color: #f5b64e;
+  border-style: inset;
+}
+.main .testScreen .stickerDiv .stickerContainer {
+  background-color: #20496b;
+  padding: 20px;
+}
+.main .testScreen .scoreParent {
+  position: relative;
+}
+.main .testScreen .scoreParent .score,
+.main .testScreen .scoreParent .maxScore {
+  font-size: 4rem;
+  font-family: "Gidugu";
+}
+@media (min-width: 768px) {
+  .main .testScreen .scoreParent .score,
+  .main .testScreen .scoreParent .maxScore {
+    font-size: 7rem;
+  }
+}
+.main .testScreen .scoreParent .newRecord {
+  margin: 0;
+  font-size: 12px;
+  color: goldenrod;
+  position: absolute;
+  padding-left: 5px;
+  /* right: 0; */
+  bottom: 53%;
+  /* left: 235px; */
+  width: 100px;
+  text-align: start;
+  /* padding-top: 50%; */
+  /* padding-bottom: 50%; */
+}
+@media (min-width: 768px) {
+  .main .testScreen .scoreParent .newRecord {
+    font-size: 16px;
+    width: 110px;
+  }
+}
+.main .testScreen .resultContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 50vh;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main .testScreen .resultContent .waviy {
+  font-size: 37px;
+}
+.main .testScreen .resultContent .waviy span {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  animation: waviy 1s infinite;
+  animation-delay: calc(0.08s * var(--i));
+}
+@keyframes waviy {
+  0%, 40%, 100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+}
+.main .testScreen .testBackButton {
+  background-color: #404040;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  padding: 6px 15px;
+  margin-top: 20px;
+  max-width: 200px;
+}
+.main .testScreen h2,
+.main .testScreen h3 {
+  margin: 0;
+}
+.main .testScreen .problemCounter {
+  font-size: 0.8rem;
+}
+.main .testScreen .upArrow {
+  font-size: 1.3rem;
+  color: #20496b;
+}
+.main .testScreen .testTitle {
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  width: 90vw;
+}
+.main .testScreen .testTitle p {
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testTitle {
+    font-size: 24px;
+    width: 70vw;
+  }
+}
+.main .testScreen .dragAndDrop p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+.main .testScreen .dropContainer .dragHereText {
+  position: absolute;
+  color: #31628a;
+  text-transform: uppercase;
+  padding-left: 10px;
+  font-size: 0.9rem;
+  padding-top: 6px;
+  animation-name: shine;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes shine {
+  10%, 60%, 100% {
+    color: #31628a;
+  }
+  80% {
+    color: #79a6ca;
+  }
+}
+.main .testScreen .answerDropContainers {
+  margin: 0 5px;
+  margin-bottom: 7px;
+}
+.main .testScreen .answerDropContainers .optionsParent {
+  border-bottom: 1px solid white;
+}
+.main .testScreen .optionsDropContainers {
+  background-color: #20496b;
+  margin: 7px 0;
+  border-radius: 15px;
+  padding: 5px 0;
+}
+.main .testScreen .optionsDropContainers .optionsParent {
+  justify-content: center;
+}
+.main .testScreen .optionsParent {
+  padding: 4px 0;
+  box-sizing: content-box;
+  min-height: 30px;
+  min-width: 100%;
+  display: flex;
+}
+.main .testScreen .feedbackSection {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: ". feedback nextButton";
+  width: 100%;
+  margin: 30px 0;
+  visibility: hidden;
+}
+@media (min-width: 768px) {
+  .main .testScreen .feedbackSection {
+    width: 60%;
+  }
+}
+.main .testScreen .feedbackSection.show {
+  visibility: visible;
+}
+.main .testScreen .feedbackSection .feedbackText {
+  grid-area: feedback;
+  text-align: center;
+  font-size: 2rem;
+  font-family: "Gidugu";
+}
+.main .testScreen .feedbackSection .feedbackText.correct {
+  color: #30a929;
+}
+.main .testScreen .feedbackSection .feedbackText.incorrect {
+  color: #e31720;
+}
+.main .testScreen .feedbackSection .feedbackButton {
+  grid-area: nextButton;
+  border-radius: 34px;
+  background-color: #164b78;
+  color: white;
+  border: none;
+}
+.main .testScreen .testContent {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main .testScreen .testContent .dragAnswer {
+  min-height: 60px;
+}
+.main .testScreen .testContent .dragAnswer svg {
+  color: red;
+  font-size: 48px;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testContent .dragAnswer {
+    min-height: 90px;
+  }
+}
+.main .testScreen .testContent .dragAnswerButton {
+  position: relative;
+  border-radius: 4px;
+  text-transform: uppercase;
+  outline: 0;
+  overflow: hidden;
+  background: none;
+  background-color: #6c7a93;
+  color: #ffffff;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.08s ease-in;
+  -o-transition: 0.08s ease-in;
+  -ms-transition: 0.08s ease-in;
+  -moz-transition: 0.08s ease-in;
+  -webkit-transition: 0.08s ease-in;
+  border-radius: 10px;
+  border: none;
+  text-transform: uppercase;
+  margin-top: 20px;
+  padding: 15px 0;
+  width: 70%;
+}
+.main .testScreen .testContent .dragAnswerButton:disabled {
+  background-color: #444444;
+  text-decoration: line-through;
+  width: 40%;
+}
+.main .testScreen .testContent p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #b5b5b5;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testContent {
+    width: 769px;
+  }
+}
+.main .testScreen .testContent .testPhrase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+  background-color: #7d0707;
+  margin: 3px auto;
+}
+.main .testScreen .testContent .testPhrase p {
+  font-size: clamp(1rem, 1rem + 0.8vw, 2rem);
+  text-align: center;
+  margin: 0;
+  color: white;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testContent .testPhrase {
+    background-color: #4a7da8;
+    border-radius: 23px;
+  }
+}
+.main .testScreen .testContent .testDivider {
+  background-color: #f5fcff;
+  height: 1px;
+  width: 95%;
+  margin: 15px auto;
+}
+.main .testScreen .testContent .mondaiOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton {
+  color: #f5fcff;
+  background-color: #001e37;
+  border: none;
+  margin: 3px 0;
+  padding: 12px 0;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton:hover {
+  background-color: #20496b;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton:disabled {
+  color: #858585;
+  background-color: #4f4f4f;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton.correct {
+  color: #f5fcff;
+  background-color: #30a929;
+}
+.main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
+  color: #f5fcff;
+  background-color: #e31720;
+}
+.main .testScreen .testContent .answersBox {
+  height: 200px;
+  background-color: #20496b;
+}
+.main .testScreen .testContent .draggable {
+  height: 100px;
+}
+.main .userPanel {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .main .userPanel {
+    width: 100%;
+  }
+}
+.main .userPanel h3 {
+  text-decoration: underline;
+  text-decoration-color: goldenrod;
+}
+.main .userPanel .userPanelContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 30px;
+}
+@media (min-width: 768px) {
+  .main .userPanel .userPanelContent {
+    flex-direction: row;
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+.main .userPanel .userPanelContent p {
+  text-align: center;
+}
+.main .userPanel .userPanelContent .stickersDiv {
+  width: 100%;
+}
+.main .userPanel .userPanelContent .stickersDiv .allStickers {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  height: 130px;
+  background-color: #164b78;
+  padding: 15px 5px;
+  box-shadow: inset 0 8px 6px -6px #040329;
+  overflow-x: scroll;
+}
+@media (min-width: 768px) {
+  .main .userPanel .userPanelContent .stickersDiv .allStickers {
+    height: auto;
+    flex-direction: row;
+    width: 325px;
+    border-radius: 22px;
+    margin: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}
+.main .userPanel .userPanelContent .stickersDiv .allStickers .sticker {
+  height: 100px;
+  width: 100px;
+}
+.main .userPanel .userPanelContent .stickersDiv .allStickers .sticker img {
+  width: 100%;
+}
+.main .userPanel .userPanelContent .stickersDiv .allStickers .selected {
+  filter: sepia(1);
+}
+.main .userPanel .userPanelContent .infoDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.main .userPanel .userPanelContent .infoDiv .infoText {
+  min-height: 225px;
+  padding: 5px;
+}
+.main .userPanel .userPanelContent .infoDiv .title {
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .forms {
