@@ -36,6 +36,28 @@ a {
     color: $link-yellow !important;
 }
 
+.dismissableBanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    p {
+        margin: 0;
+        font-size: 12px;
+
+        @media (min-width: 768px) {
+            font-size: 16px;
+        }
+    }
+
+    button {
+        border: none;
+        margin-left: 15px;
+        font-size: 18px;
+    }
+}
+
 .modal-body {
     padding-bottom: 30px !important;
 }
@@ -130,11 +152,16 @@ a {
 }
 
 .header {
+    z-index: 15;
+    position: fixed;
     display: flex;
     flex-direction: column;
+    background-color: #032745;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     color: $cloud-white;
+    border-bottom: 4px solid $stripes-red !important;
 
     #db-error-tooltip {
         z-index: 1;
@@ -170,11 +197,15 @@ a {
     .pageTitle {
         font-family: "Gidugu";
         text-transform: uppercase;
-        font-size: clamp(2rem, 1rem + 5vw, 8rem);
+        font-size: 36px;
         text-align: center;
         margin: 0;
         // font-size: clamp(0rem, 0rem + 2vw, 3rem);
         cursor: pointer;
+
+        @media (min-width: 768px) {
+            font-size: 54px;
+        }
     }
 
     .infoHeader {
@@ -196,6 +227,7 @@ a {
         padding: 0 10px;
         text-align: center;
         overflow: hidden;
+        margin-bottom: 10px;
 
         .accountButtons {
             display: flex;
@@ -212,7 +244,7 @@ a {
             @media (min-width: 768px) {
                 flex-direction: row;
                 padding: 0;
-                font-size: clamp(0rem, 0rem + 2vw, 3rem);
+                font-size: clamp(0rem, 0rem + 1vw, 3rem);
             }
         }
 
@@ -314,6 +346,7 @@ a {
 }
 
 .main {
+    margin-top: 115px;
     overflow: hidden;
     min-height: 70vh;
     display: flex;
@@ -394,11 +427,11 @@ a {
             font-weight: 600;
             text-decoration: underline;
             text-decoration-color: #dbb01c;
-            font-size: 3rem;
-            margin-bottom: 32px;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
 
             @media (min-width: 768px) {
-                margin-top: 32px;
+                margin-top: 8px;
             }
         }
 
@@ -495,7 +528,7 @@ a {
         width: 100%;
         border-top: 3px solid #dbb01c;
         border-bottom: 3px solid #dbb01c;
-        margin: 15px 0;
+        margin: 5px 0;
         padding: 10px 0;
         justify-content: space-around;
         align-items: center;
@@ -523,7 +556,7 @@ a {
             margin-top: 4px;
 
             @media (min-width: 768px) {
-                font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+                font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);
             }
         }
 
@@ -541,12 +574,12 @@ a {
             grid-template-areas: "info name extras";
 
             width: 76vw;
-            max-width: 1024px;
+            max-width: 740px;
             border: 3px solid $border-yellow;
             border-radius: 100px;
 
             .set-buttons-helper {
-                font-size: clamp(1rem, 1rem + 2vw, 1rem);
+                font-size: clamp(0rem, 0.5rem + 0.5vw, 1rem);
                 justify-content: space-evenly;
                 flex-direction: column;
                 padding-left: 30px;
@@ -576,6 +609,7 @@ a {
             font-weight: 600;
             text-decoration: underline;
             text-decoration-color: #dbb01c;
+            margin: 10px 0;
             // margin-top: 35px;
         }
 
@@ -639,9 +673,21 @@ a {
                 flex: 0;
             }
 
+            .disabled {
+                background-color: gray;
+                color: rgb(77, 77, 77);
+                border: 3px solid rgb(77, 77, 77);
+                cursor: default;
+
+                &:hover {
+                    border-color: rgb(77, 77, 77);
+                }
+            }
+
             @media (min-width: 768px) {
                 padding: 0 10%;
-                margin: 30px 0;
+                margin-top: 8px;
+                margin-bottom: 30px;
                 flex-direction: row;
             }
         }
@@ -706,7 +752,7 @@ a {
 
                     .termItem {
                         border-radius: 15px;
-                        padding: 24px 15px;
+                        padding: 15px 15px;
                     }
                 }
             }
@@ -731,7 +777,7 @@ a {
             font-weight: 600;
             text-decoration: underline;
             text-decoration-color: #dbb01c;
-            margin-top: 0px;
+            margin: 0px;
 
             @media (min-width: 768px) {
                 margin-top: 17px;
@@ -1250,7 +1296,7 @@ a {
         }
 
         .savedResultsButtons {
-            margin-top: 35%;
+            margin-top: 15%;
             margin-bottom: 27px;
 
             button {
@@ -1866,6 +1912,10 @@ a {
                 }
             }
         }
+    }
+
+    @media (min-width: 768px) {
+        margin-top: 80px;
     }
 }
 

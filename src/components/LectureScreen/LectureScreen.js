@@ -5,6 +5,7 @@ import LectureScreenButtons from "./LectureScreenButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
 // import { lectures } from "../../data/lectures";
 import svg from "../../svg/cherry-blossom-petal.svg";
+import DismissableBanner from "../Misc/DismissableBanner";
 
 const LectureScreen = () => {
     const { appState, dbError, loggedIn, user, lectures } =
@@ -16,14 +17,24 @@ const LectureScreen = () => {
     });
 
     const hasTest = lecture.testId !== undefined ? true : false;
-    const showTestButton = hasTest && user.currentProgress ? true : false;
+    const showTestButton = hasTest ? true : false;
 
     return (
         <div className="lectureScreen">
+            {!loggedIn && (
+                <DismissableBanner
+                    text={"Accede al modo Memorizar o Prueba con tu cuenta."}
+                    bgColor={"#ab071d"}
+                    color={"white"}
+                    transition={1}
+                ></DismissableBanner>
+            )}
+
             <h2 id="title" className="lectureTitle" string={lecture.name}>
                 {lecture.name}
             </h2>
             <LectureScreenButtons test={showTestButton} />
+
             <div
                 className="upperDivider"
                 style={{

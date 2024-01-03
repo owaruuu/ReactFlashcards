@@ -26,6 +26,27 @@ a {
   color: #ff9b31 !important;
 }
 
+.dismissableBanner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.dismissableBanner p {
+  margin: 0;
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .dismissableBanner p {
+    font-size: 16px;
+  }
+}
+.dismissableBanner button {
+  border: none;
+  margin-left: 15px;
+  font-size: 18px;
+}
+
 .modal-body {
   padding-bottom: 30px !important;
 }
@@ -116,11 +137,16 @@ a {
 }
 
 .header {
+  z-index: 15;
+  position: fixed;
   display: flex;
   flex-direction: column;
+  background-color: #032745;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   color: #f5fcff;
+  border-bottom: 4px solid #ab071d !important;
 }
 .header #db-error-tooltip {
   z-index: 1;
@@ -153,10 +179,15 @@ a {
 .header .pageTitle {
   font-family: "Gidugu";
   text-transform: uppercase;
-  font-size: clamp(2rem, 1rem + 5vw, 8rem);
+  font-size: 36px;
   text-align: center;
   margin: 0;
   cursor: pointer;
+}
+@media (min-width: 768px) {
+  .header .pageTitle {
+    font-size: 54px;
+  }
 }
 .header .infoHeader {
   font-size: 12px;
@@ -177,6 +208,7 @@ a {
   padding: 0 10px;
   text-align: center;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 .header .loginControls .accountButtons {
   display: flex;
@@ -193,7 +225,7 @@ a {
   .header .loginControls .accountButtons {
     flex-direction: row;
     padding: 0;
-    font-size: clamp(0rem, 0rem + 2vw, 3rem);
+    font-size: clamp(0rem, 0rem + 1vw, 3rem);
   }
 }
 .header .loginControls .username {
@@ -279,6 +311,7 @@ a {
 }
 
 .main {
+  margin-top: 115px;
   overflow: hidden;
   min-height: 70vh;
   display: flex;
@@ -356,12 +389,12 @@ a {
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: #dbb01c;
-  font-size: 3rem;
-  margin-bottom: 32px;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
 }
 @media (min-width: 768px) {
   .main .lectureList .lectureListTitle {
-    margin-top: 32px;
+    margin-top: 8px;
   }
 }
 .main .lectureList .lectureButtons {
@@ -440,7 +473,7 @@ a {
   width: 100%;
   border-top: 3px solid #dbb01c;
   border-bottom: 3px solid #dbb01c;
-  margin: 15px 0;
+  margin: 5px 0;
   padding: 10px 0;
   justify-content: space-around;
   align-items: center;
@@ -466,7 +499,7 @@ a {
 }
 @media (min-width: 768px) {
   .main .lectureButton .lectureButtonTitle {
-    font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+    font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);
   }
 }
 .main .lectureButton:hover {
@@ -481,13 +514,13 @@ a {
     grid-template-columns: 30% 40% 30%;
     grid-template-areas: "info name extras";
     width: 76vw;
-    max-width: 1024px;
+    max-width: 740px;
     border: 3px solid #f5b64e;
     border-radius: 100px;
     flex-direction: row;
   }
   .main .lectureButton .set-buttons-helper {
-    font-size: clamp(1rem, 1rem + 2vw, 1rem);
+    font-size: clamp(0rem, 0.5rem + 0.5vw, 1rem);
     justify-content: space-evenly;
     flex-direction: column;
     padding-left: 30px;
@@ -512,6 +545,7 @@ a {
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: #dbb01c;
+  margin: 10px 0;
 }
 .main .lectureScreen .lectureScreenButtons {
   display: flex;
@@ -565,10 +599,20 @@ a {
   margin-left: auto;
   flex: 0;
 }
+.main .lectureScreen .lectureScreenButtons .disabled {
+  background-color: gray;
+  color: rgb(77, 77, 77);
+  border: 3px solid rgb(77, 77, 77);
+  cursor: default;
+}
+.main .lectureScreen .lectureScreenButtons .disabled:hover {
+  border-color: rgb(77, 77, 77);
+}
 @media (min-width: 768px) {
   .main .lectureScreen .lectureScreenButtons {
     padding: 0 10%;
-    margin: 30px 0;
+    margin-top: 8px;
+    margin-bottom: 30px;
     flex-direction: row;
   }
 }
@@ -626,7 +670,7 @@ a {
   }
   .main .lectureScreen .termListDiv .termList .termItem {
     border-radius: 15px;
-    padding: 24px 15px;
+    padding: 15px 15px;
   }
 }
 .main .learnScreen {
@@ -648,7 +692,7 @@ a {
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: #dbb01c;
-  margin-top: 0px;
+  margin: 0px;
 }
 @media (min-width: 768px) {
   .main .learnScreen .learnScreenTitle {
@@ -1094,7 +1138,7 @@ a {
   text-align: start;
 }
 .main .testScreen .savedResultsButtons {
-  margin-top: 35%;
+  margin-top: 15%;
   margin-bottom: 27px;
 }
 .main .testScreen .savedResultsButtons button {
@@ -1596,6 +1640,11 @@ a {
 .main .userPanel .userPanelContent .infoDiv .title {
   font-weight: 600;
   font-size: 18px;
+}
+@media (min-width: 768px) {
+  .main {
+    margin-top: 80px;
+  }
 }
 
 .forms {

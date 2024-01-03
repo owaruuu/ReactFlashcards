@@ -73,7 +73,7 @@ const LoginControls = (props) => {
                 className="logoutButton"
                 onClick={() => handleLogoutClick(true)}
             >
-                Logout
+                logout
             </button>
             <div className="username" onClick={handleUserPanelClick}>
                 {props.userName}

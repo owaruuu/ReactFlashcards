@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import BackButton from "../BackButton";
 import { HiClipboardDocumentList } from "react-icons/hi2";
@@ -24,7 +24,9 @@ const LectureScreenButtons = (props) => {
 
     const learnButton = (
         <button
-            className="learnButton"
+            className={
+                user.currentProgress ? "learnButton" : "learnButton disabled"
+            }
             onClick={() =>
                 dispatch({
                     type: "CHANGE_SCREEN",
@@ -33,6 +35,7 @@ const LectureScreenButtons = (props) => {
                     },
                 })
             }
+            disabled={!user.currentProgress}
         >
             Memorizar
         </button>
@@ -40,7 +43,9 @@ const LectureScreenButtons = (props) => {
 
     const testButton = (
         <button
-            className="testButton"
+            className={
+                user.currentProgress ? "learnButton" : "learnButton disabled"
+            }
             onClick={() =>
                 dispatch({
                     type: "CHANGE_SCREEN",
@@ -49,6 +54,7 @@ const LectureScreenButtons = (props) => {
                     },
                 })
             }
+            disabled={!user.currentProgress}
         >
             <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>
         </button>
@@ -58,7 +64,7 @@ const LectureScreenButtons = (props) => {
         <div className="lectureScreenButtons">
             <div className="learningButtons">
                 {reviewButton}
-                {user.currentProgress && learnButton}
+                {learnButton}
                 {props.test && testButton}
             </div>
 

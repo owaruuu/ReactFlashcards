@@ -10,6 +10,7 @@ import { BiSolidRightArrow } from "react-icons/bi";
 import { shuffleArray } from "../../utils/utils";
 import OptionsModal from "./OptionsModal";
 import NextRedTermButton from "./NextRedTermButton";
+import DismissableBanner from "../Misc/DismissableBanner";
 
 const LearnScreen = (props) => {
     const { dispatch, appState, user, lectures } = useContext(AppContext);
@@ -272,6 +273,16 @@ const LearnScreen = (props) => {
                 flip={flip}
                 random={random}
             />
+            {props.isReview && (
+                <DismissableBanner
+                    text={
+                        "Ocupa el modo Memorizar para marcar las palabras que ya has aprendido."
+                    }
+                    bgColor={"#ab071d"}
+                    color={"white"}
+                    transition={1}
+                ></DismissableBanner>
+            )}
             <h2 className="learnScreenTitle">{lecture.name}</h2>
             <LearnPanel
                 terms={terms}

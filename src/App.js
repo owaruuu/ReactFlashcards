@@ -37,7 +37,7 @@ function App() {
         <AppProvider>
             <div className="App">
                 <Header />
-                <hr></hr>
+                {/* <hr style={{ margin: 0 }}></hr> */}
                 <Main />
                 <div className="divider">
                     <img className="logo" src={svg}></img>
