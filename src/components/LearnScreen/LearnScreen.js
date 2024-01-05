@@ -156,7 +156,11 @@ const LearnScreen = (props) => {
         setBlocked(true);
 
         //obtener id del current term
-        const currentTermId = terms[index].id;
+        let currentTermId = terms[index].id;
+
+        if (flip) {
+            currentTermId = "j" + currentTermId;
+        }
 
         //dependiendo del boton, agregar o modificar el user.currentProgress
         //con un valor de "learned" o 'learning'
@@ -222,9 +226,10 @@ const LearnScreen = (props) => {
 
         terms.map((term, termIndex) => {
             let classNames = "progressBarItem";
+            const termId = flip ? "j" + term.id : term.id;
 
             const termState =
-                user.currentProgress?.[lecture.lectureId]?.[term.id];
+                user.currentProgress?.[lecture.lectureId]?.[termId];
 
             if (termState) {
                 classNames += ` ${termState}`;
@@ -288,6 +293,7 @@ const LearnScreen = (props) => {
                 terms={terms}
                 index={index}
                 showFunc={() => handleOptionsButtonClick(true)}
+                flip={flip}
             />
             {props.isReview
                 ? ""
@@ -319,22 +325,25 @@ const LearnScreen = (props) => {
                 {props.isReview
                     ? ""
                     : user.currentProgress &&
-                      learnButtons.map((button, id) => (
-                          <button
-                              key={id}
-                              className={
-                                  user.currentProgress[lecture.lectureId]?.[
-                                      terms[index].id
-                                  ] === button.id
-                                      ? button.classes[1]
-                                      : button.classes[0]
-                              }
-                              onClick={() => handleLearnButton(button.id)}
-                              disabled={blocked}
-                          >
-                              {button.text}
-                          </button>
-                      ))}
+                      learnButtons.map((button, id) => {
+                          const modifier = flip ? "j" : "";
+                          return (
+                              <button
+                                  key={id}
+                                  className={
+                                      user.currentProgress[lecture.lectureId]?.[
+                                          modifier + terms[index].id
+                                      ] === button.id
+                                          ? button.classes[1]
+                                          : button.classes[0]
+                                  }
+                                  onClick={() => handleLearnButton(button.id)}
+                                  disabled={blocked}
+                              >
+                                  {button.text}
+                              </button>
+                          );
+                      })}
             </div>
             <div className="mobileTermButtons">
                 <button className="termCardButtonMobile" onClick={goBack}>

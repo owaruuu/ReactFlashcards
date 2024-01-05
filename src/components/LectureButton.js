@@ -15,6 +15,7 @@ const LectureButton = (props) => {
         cognitoError,
     } = useContext(AppContext);
     const [percentage, setPercentage] = useState(0);
+    const [japanesePercentage, setJapanesePercentage] = useState(0);
 
     const [hasTest] = useState(() => tests[props.id]);
 
@@ -24,16 +25,25 @@ const LectureButton = (props) => {
 
             if (lectureProgress) {
                 let learnedAmount = 0;
+                let japaneseLearnedAmount = 0;
 
                 for (const [key, value] of Object.entries(lectureProgress)) {
                     if (value === "learned") {
-                        learnedAmount += 1;
+                        if (key.includes("j")) {
+                            japaneseLearnedAmount += 1;
+                        } else {
+                            learnedAmount += 1;
+                        }
                     }
                 }
 
                 setPercentage(Math.trunc((learnedAmount / props.amount) * 100));
+                setJapanesePercentage(
+                    Math.trunc((japaneseLearnedAmount / props.amount) * 100)
+                );
             } else {
                 setPercentage(0);
+                setJapanesePercentage(0);
             }
         }
     }, [user]);
@@ -44,7 +54,12 @@ const LectureButton = (props) => {
         }
 
         if (user.currentProgress) {
-            return <span>{percentage}% Aprendido</span>;
+            return (
+                <>
+                    <span>{percentage}% Español</span>
+                    <span>{japanesePercentage}% Japones</span>
+                </>
+            );
         } else {
             return <span>Cargando...</span>;
         }

@@ -50,6 +50,11 @@ a {
 .modal-body {
   padding-bottom: 30px !important;
 }
+.modal-body .languageText {
+  text-decoration: underline;
+  text-decoration-color: #ab071d;
+  font-weight: 600;
+}
 
 .modal-header {
   background-color: #ab071d;
@@ -464,9 +469,8 @@ a {
   display: flex;
 }
 .main .lectureButton {
-  display: grid;
-  grid-template-rows: 33% 33% 33%;
-  grid-template-areas: "info" "name" "extras";
+  display: flex;
+  flex-direction: column;
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
@@ -484,6 +488,7 @@ a {
 }
 .main .lectureButton .set-buttons-helper {
   display: flex;
+  width: 80%;
   justify-content: space-between;
   grid-area: info;
   font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
@@ -510,6 +515,7 @@ a {
 }
 @media (min-width: 768px) {
   .main .lectureButton {
+    display: grid;
     grid-template-rows: auto;
     grid-template-columns: 30% 40% 30%;
     grid-template-areas: "info name extras";
@@ -701,10 +707,22 @@ a {
 }
 .main .learnScreen .learnScreenPanel {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: auto;
+  grid-template-rows: 70% 30%;
   width: 100%;
   margin: 2px 0;
+}
+.main .learnScreen .learnScreenPanel .panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto;
+}
+.main .learnScreen .learnScreenPanel .info {
+  display: grid;
+}
+.main .learnScreen .learnScreenPanel .info p {
+  color: white;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .main .learnScreen .learnScreenPanel button {
   min-width: 85px;

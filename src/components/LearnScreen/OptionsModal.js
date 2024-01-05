@@ -1,6 +1,15 @@
 import Modal from "react-bootstrap/Modal";
 
 const OptionsModal = (props) => {
+    const languageText = (
+        <p>
+            {"(Respondiendo con: "}
+            <span className="languageText">
+                {props.flip ? "Japones" : "Español"}
+            </span>{" "}
+            {")"}
+        </p>
+    );
     return (
         <Modal show={props.visible} onHide={props.hideFunc}>
             <Modal.Header closeButton>
@@ -20,11 +29,13 @@ const OptionsModal = (props) => {
                         className="form-check-label"
                         forhtml="flipTermsSwitch"
                     >
-                        Switch Terms and Answers
+                        Intercambia entre Español y Japones
                     </label>
                     <p className="form-check-p">
-                        Use this option to see if you can recall the term from
-                        the other side.
+                        Ocupa esta opcion para intercambiar la pregunta con la
+                        respuesta. El avanze de Español y Japones es guardado
+                        por separado.
+                        {languageText}
                     </p>
                 </div>
                 <div className="form-check form-switch">
@@ -37,10 +48,10 @@ const OptionsModal = (props) => {
                         onChange={props.handleRandom}
                     />
                     <label className="form-check-label" forhtml="randomSwitch">
-                        Random order
+                        Orden Aleatorio
                     </label>
                     <p className="form-check-p">
-                        Sort the cards randomly for better a study experience.
+                        Baraja las palabras para estudiar mejor.
                     </p>
                 </div>
             </Modal.Body>

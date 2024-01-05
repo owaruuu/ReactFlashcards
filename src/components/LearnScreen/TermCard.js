@@ -38,7 +38,7 @@ const TermCard = (props) => {
 
                 {!props.showAnswer && (
                     <div className="clickReveal" onClick={props.answerFunction}>
-                        <span>Click to reveal answer</span>
+                        <span>Haz click para ver la respuesta</span>
                     </div>
                 )}
             </div>
