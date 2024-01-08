@@ -1,12 +1,19 @@
 import BackButton from "../Util/BackButton";
 
 const BeginStage = (props) => {
+    const mondaiQuantity =
+        props.test.mondaiOptions.easy +
+        props.test.mondaiOptions.mid +
+        props.test.mondaiOptions.hard;
+
+    const dragQuantity = props.test.dragOptions.quantity;
+
     return (
         <div className="beginTestScreen">
             <div className="info">
                 <p>Tiempo estimado: 10 min.</p>
-                <p>5 preguntas de opcion multiple</p>
-                <p>3 preguntas de traducir y ordenar</p>
+                <p>{mondaiQuantity} preguntas de opcion multiple</p>
+                <p>{dragQuantity} preguntas de ordenar</p>
                 {/* <p>5 preguntas de particulas</p> */}
             </div>
 

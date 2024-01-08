@@ -45,10 +45,14 @@ export const randomInt = (lower, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
-export const getFiveRandomNumbers = () => {
+export const getRandomNumbersMondai = (options) => {
     let randomNumbersArray = [];
 
-    while (randomNumbersArray.length <= 1) {
+    const easyLimit = options.easy > 5 ? 5 : options.easy;
+    const midLimit = options.mid > 5 ? 5 : options.mid;
+    const hardLimit = options.hard > 5 ? 5 : options.hard;
+
+    while (randomNumbersArray.length < easyLimit) {
         let number = randomInt(0, 4);
 
         //si randomNumbersArray no contiene
@@ -57,7 +61,7 @@ export const getFiveRandomNumbers = () => {
         }
     }
 
-    while (randomNumbersArray.length <= 3) {
+    while (randomNumbersArray.length < easyLimit + midLimit) {
         let number = randomInt(5, 9);
 
         //si randomNumbersArray no contiene
@@ -66,8 +70,14 @@ export const getFiveRandomNumbers = () => {
         }
     }
 
-    let number = randomInt(10, 14);
-    randomNumbersArray.push(number);
+    while (randomNumbersArray.length < easyLimit + midLimit + hardLimit) {
+        let number = randomInt(10, 14);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
 
     randomNumbersArray.sort((a, b) => a - b);
 

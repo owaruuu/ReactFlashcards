@@ -4,7 +4,7 @@ import { lectures } from "../../data/lectures";
 import { tests } from "../../data/tests";
 import {
     chooseFiveMondai,
-    getFiveRandomNumbers,
+    getRandomNumbersMondai,
     chooseThreeDrag,
     getRandomNumbersSimple,
 } from "../../utils/utils";
@@ -43,8 +43,12 @@ const TestScreen = () => {
         return tests[lecture.lectureId];
     });
 
-    const randomMon = getFiveRandomNumbers();
-    const randomDrag = getRandomNumbersSimple(3, test.dragDrop.length);
+    const randomMon = getRandomNumbersMondai(test.mondaiOptions);
+
+    const randomDrag = getRandomNumbersSimple(
+        test.dragOptions.quantity,
+        test.dragDrop.length
+    );
 
     const [fiveMondai] = useState(() => chooseFiveMondai(test, randomMon));
 
@@ -345,6 +349,17 @@ const TestScreen = () => {
             });
         }
     };
+    const getInstruction = (type) => {
+        switch (type) {
+            case "mondai":
+                return test.mondaiTitle;
+            case "drag":
+                return test.dragTitle;
+            default:
+                console.error("unknown type " + type);
+                break;
+        }
+    };
 
     const currentMax =
         stage === "mondai"
@@ -363,9 +378,9 @@ const TestScreen = () => {
         ) : stage === "high" ? (
             <h3>Tu record{goldAccent}</h3>
         ) : stage === "mondai" ? (
-            <h3>Selecciona la traduccion correcta</h3>
+            getInstruction("mondai")
         ) : stage === "dragDrop" ? (
-            <h3>Arrastra y ordena la frase</h3>
+            getInstruction("drag")
         ) : stage === "manga" ? (
             <h3>Sigue la conversacion</h3>
         ) : (
@@ -430,6 +445,7 @@ const TestScreen = () => {
                     clickStart={() => handleBeginButtonClick("mondai")}
                     clickLast={() => handleBeginButtonClick("last")}
                     clickHigh={() => handleBeginButtonClick("high")}
+                    test={test}
                     hasLast={hasLastTest}
                     hasHighScore={hasHighScore}
                 ></BeginStage>

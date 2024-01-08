@@ -1,4 +1,5 @@
 import TermList from "./TermList";
+import { tests } from "../../data/tests";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
@@ -16,7 +17,7 @@ const LectureScreen = () => {
         return lecture.lectureId === lectureId;
     });
 
-    const hasTest = lecture.testId !== undefined ? true : false;
+    const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
     const showTestButton = hasTest ? true : false;
 
     return (

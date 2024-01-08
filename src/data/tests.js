@@ -1,6 +1,17 @@
 export const tests = {
     1: {
         version: "01012024",
+        mondaiTitle: "Selecciona la traduccion correcta.",
+        dragTitle:
+            "Ordena la traduccion de la siguiente frase. (debes ocupar todas las palabras)",
+        mondaiOptions: {
+            easy: 2,
+            mid: 2,
+            hard: 1,
+        },
+        dragOptions: {
+            quantity: 3,
+        },
         mondai: [
             //5 problemas por set
             //primer problema de multiple eleccion
@@ -349,4 +360,185 @@ export const tests = {
 
         manga: {},
     },
+    // 701: {
+    //     version: "07012024",
+    //     mondaiTitle:
+    //         "Selecciona la respuesta adecuada dependiendo de la situacion.",
+    //     dragTitle:
+    //         "Ordena la respuesta a la pregunta en Japones. (pueden haber palabras extras dentro de las opciones)",
+    //     mondaiOptions: {
+    //         easy: 2,
+    //         mid: 2,
+    //         hard: 1,
+    //     },
+    //     dragOptions: {
+    //         quantity: 3,
+    //     },
+    //     mondai: [
+    //         [
+    //             "Situacion en espaniol 1 facil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 2 facil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 3 facil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 4 facil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 5 facil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 6 medio",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 7 medio",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 8 medio",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 9 medio",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 10 medio",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 11 dificil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 12 dificil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 13 dificil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 14 dificil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //         [
+    //             "Situacion en espaniol 15 dificil",
+    //             [
+    //                 { id: 0, phrase: "Respuesta correcta en japones" },
+    //                 { id: 1, phrase: "Respuesta incorrecta en japones 1" },
+    //                 { id: 2, phrase: "Respuesta incorrecta en japones 2" },
+    //             ],
+    //         ],
+    //     ],
+    //     dragDrop: [
+    //         [
+    //             "Pregunta en japones 1",
+    //             "Respuestacorrectaenjapones1",
+    //             [
+    //                 { id: 0, drag: "Respuesta" },
+    //                 { id: 1, drag: "correcta" },
+    //                 { id: 2, drag: "en" },
+    //                 { id: 3, drag: "japones" },
+    //                 { id: 4, drag: "1" },
+    //                 { id: 5, drag: "incorrecto 1" },
+    //                 { id: 6, drag: "incorrecto 2" },
+    //                 { id: 7, drag: "incorrecto 3" },
+    //             ],
+    //         ],
+    //         [
+    //             "Pregunta en japones 2",
+    //             "Respuestacorrectaenjapones2",
+    //             [
+    //                 { id: 0, drag: "Respuesta" },
+    //                 { id: 1, drag: "correcta" },
+    //                 { id: 2, drag: "en" },
+    //                 { id: 3, drag: "japones" },
+    //                 { id: 4, drag: "2" },
+    //                 { id: 5, drag: "incorrecto 1" },
+    //                 { id: 6, drag: "incorrecto 2" },
+    //                 { id: 7, drag: "incorrecto 3" },
+    //             ],
+    //         ],
+    //         [
+    //             "Pregunta en japones 3",
+    //             "Respuestacorrectaenjapones3",
+    //             [
+    //                 { id: 0, drag: "Respuesta" },
+    //                 { id: 1, drag: "correcta" },
+    //                 { id: 2, drag: "en" },
+    //                 { id: 3, drag: "japones" },
+    //                 { id: 4, drag: "3" },
+    //                 { id: 5, drag: "incorrecto 1" },
+    //                 { id: 6, drag: "incorrecto 2" },
+    //                 { id: 7, drag: "incorrecto 3" },
+    //             ],
+    //         ],
+    //     ],
+    // },
 };
