@@ -1,6 +1,6 @@
 const stickers = {
     1: "torii",
-    2: "uchiwa",
+    702: "uchiwa",
     3: "onigiri",
     // 999: "one",
     // 998: "missing",
@@ -14,7 +14,7 @@ const descriptions = {
         title: "とりい(鳥居)",
         content: `Los Torii son puertas de color rojo ligeramente amarillento (しゅいろ/朱色) que se alza a la entrada de los santuarios. Las puertas Torii representan el límite entre las zonas interiores y sagradas del santuario y las zonas exteriores, donde vive la gente. Además, también se dice que las puertas Torii sirven de "frontera" para impedir que entren cosas impuras al santuario.`,
     },
-    2: {
+    702: {
         title: "うちわ",
         content: `Uchiwa es un objeto importante para sentir "verano". Generalmente delgado y plano con un mango que se utiliza para agitarlo y hacer viento. Tradicionalmente está hecho con un armazón de bambú y recubierto de papel. Hoy en día en vez de bambú se utiliza plástico reciclado, etc.`,
     },

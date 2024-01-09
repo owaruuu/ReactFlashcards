@@ -125,7 +125,7 @@ export const lectures = [
                 id: 27,
                 term: "こうこう",
                 extra: "Koukou",
-                answer: "Escuela secundario (15 a 18 años)",
+                answer: "Escuela secundaria (15 a 18 años)",
             },
             {
                 id: 28,
@@ -419,7 +419,7 @@ export const lectures = [
                 extra: "Konpure-to",
                 answer: "Completo",
             },
-            { id: 23, term: "カズエラ", extra: "Kazuera", answer: "Cazuela" },
+            { id: 23, term: "カスエラ", extra: "Kasuera", answer: "Cazuela" },
             {
                 id: 24,
                 term: "のみもの",
@@ -1559,7 +1559,7 @@ export const lectures = [
                 answer: "Vehículo",
             },
             { id: 29, term: "つくえ tsukue", extra: "", answer: "Escritorio" },
-            { id: 59, term: "テーブル Te-buru", extra: "", answer: "Mesa" },
+            { id: 59, term: "テーブル Tebu-ru", extra: "", answer: "Mesa" },
             { id: 30, term: "いす isu", extra: "", answer: "Silla" },
             {
                 id: 31,

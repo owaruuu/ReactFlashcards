@@ -183,6 +183,17 @@ const TestScreen = () => {
             });
             setThinking(true);
         }
+
+        if (currentTest["dragDrop"].length < 1) {
+            const index = problem + 1;
+            if (index > currentTest["mondai"].length - 1) {
+                //console.log("this is the last problem");
+                setStopTimer(true);
+                setFeedback((prev) => {
+                    return { ...prev, nextButtonText: "Guardar Resutados" };
+                });
+            }
+        }
     };
 
     const handleDragAnswer = (info) => {
@@ -238,7 +249,12 @@ const TestScreen = () => {
         if (index > currentTest[stage].length - 1) {
             switch (stage) {
                 case "mondai":
-                    setStage("dragDrop");
+                    if (test.dragDrop.length > 0) {
+                        setStage("dragDrop");
+                    } else {
+                        handleSaveTestScore();
+                        setStage("results");
+                    }
                     break;
                 case "dragDrop":
                     // setStage("manga");

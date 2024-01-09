@@ -541,4 +541,185 @@ export const tests = {
     //         ],
     //     ],
     // },
+
+    702: {
+        version: "09012024",
+        mondaiTitle:
+            "Selecciona la respuesta adecuada dependiendo de la situacion.",
+        dragTitle:
+            "Ordena la respuesta a la pregunta en Japones. (pueden haber palabras extras dentro de las opciones)",
+        mondaiOptions: {
+            easy: 3,
+            mid: 3,
+            hard: 3,
+        },
+        dragOptions: {
+            quantity: 0,
+        },
+        mondai: [
+            [
+                "Cuando ves a la persona por PRIMERA VEZ, como tienes que saludar?",
+                [
+                    {
+                        id: 0,
+                        phrase: "Hajimemashite! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Konnichiwa! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Ohayou gozaimasu! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                    },
+                ],
+            ],
+            [
+                "Cuando ves una persona que esta mirando para alla, para aca... que vas a decir a esta persona?",
+                [
+                    { id: 0, phrase: "Daijyoubu desuka?" },
+                    { id: 1, phrase: "Nandesuka?" },
+                    { id: 2, phrase: "Doko desuka?" },
+                ],
+            ],
+            [
+                "Cuando quieres saber una palabra EN JAPONES, como tenias que preguntar?",
+                [
+                    { id: 0, phrase: "XXX wa nihongo de nandesuka?" },
+                    { id: 1, phrase: "XXX wa nandesuka?" },
+                    { id: 2, phrase: "XXX wa nihongo desu." },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto 「Kore wa nandesuka?」como puedes responder?",
+                [
+                    { id: 0, phrase: "Kore wa XXX desu" },
+                    { id: 1, phrase: "Kore XXX wa anata no desu." },
+                    { id: 2, phrase: "Kore XXX wa chiri desu." },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto「Otearai wa doko desuka?」como puedes responder?",
+                [
+                    { id: 0, phrase: "Kochira desu." },
+                    { id: 1, phrase: "Kono desu." },
+                    { id: 2, phrase: "Kore desu." },
+                ],
+            ],
+            [
+                "Estas caminando en plaza soto mayor y pasando donde bomberos, que vas a decir?",
+                [
+                    { id: 0, phrase: "Kore wa shoubousha desu." },
+                    { id: 1, phrase: "Kore wa chiri desu." },
+                    { id: 2, phrase: "Kore wa gakkou desu." },
+                ],
+            ],
+            [
+                "Estas caminando en plaza soto mayor y casi llegando al acensor, que vas a decir?",
+                [
+                    { id: 0, phrase: "Are wa asenso-ru desu." },
+                    { id: 1, phrase: "Are wa baruparaiso desu." },
+                    { id: 2, phrase: "Are wa resutoran desu." },
+                ],
+            ],
+            [
+                "Cuando quieres saber el nombre de la(s) persona(s) que estas guiando, como vas a preguntar?",
+                [
+                    {
+                        id: 0,
+                        phrase: "Sumimasen ga, Anata no namae wa nandesuka?",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Sumimasen ga, Anata wa namae wa nandesuka?",
+                    },
+                    { id: 2, phrase: "Sumimasen ga, Anata namae desuka?" },
+                ],
+            ],
+            [
+                "Estamos en el restaurante, quieres explicar sobre el Menu del dia, como puedes explicar ?",
+                [
+                    {
+                        id: 0,
+                        phrase: "Zensai wa Su-pu desu.Mein wa Oniku desu. Deza-to wa Chokore-to desu.",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Sarada desu.Oniku desu.Chokore-to desu.",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Menyu-desu.Su-pu desu. Oniku desu. Chokore-to desu.",
+                    },
+                ],
+            ],
+            [
+                "Cuando termina el tour, que tienes que decir?",
+                [
+                    {
+                        id: 0,
+                        phrase: "Otsukare sama deshita.Arigatou gozaimashita.",
+                    },
+                    { id: 1, phrase: "Konnichiwa.Arigatou gozaimashita." },
+                    { id: 2, phrase: "Hai.Arigatou gozaimashita." },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto teniendo un vino tinto a su mano「Kore wa Jyu-su desuka?」como puedes responder?",
+                [
+                    {
+                        id: 0,
+                        phrase: "Iie, Jyu-su jya arimasen. Aka wain desu.",
+                    },
+                    { id: 1, phrase: "Hai, Jyu-su desu." },
+                    { id: 2, phrase: "Iie, Jyu-su desu." },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto mirando estatua de sotomayor 「Sore wa nandesuka?」como puedes responder?",
+                [
+                    { id: 0, phrase: "Sore wa Sotomajyo-ru hiroba desu." },
+                    { id: 1, phrase: "Sore wa Zou desu." },
+                    { id: 2, phrase: "Sore wa Kafe desu." },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto mirando la carta de restaurante, 「Carne de vacuno wa oniku desuka?」como puedes responder?",
+                [
+                    { id: 0, phrase: "Hai, oniku desu. Gyuu niku desu." },
+                    { id: 1, phrase: "Hai, oniku desu. Buta niku desu." },
+                    {
+                        id: 2,
+                        phrase: "Iie, oniku jya arimasen. Daizu mi-to desu.",
+                    },
+                ],
+            ],
+            [
+                "Japones(a) te pregunto mirando a la iglesia catolica 「Are wa nandesuka?」como puedes responder?",
+                [
+                    { id: 0, phrase: "Katorikku no kyoukai desu." },
+                    { id: 1, phrase: "Ie desu." },
+                    { id: 2, phrase: "Tatemono desu." },
+                ],
+            ],
+            [
+                `Japones(a) mirando "$100" en asensor, y quieres decir 「Ese es precio (de ascensor).」como puedes decir?`,
+                [
+                    {
+                        id: 0,
+                        phrase: "Kore wa ryoukin desu.(Kore wa asenso-ru no ryoukin desu.)",
+                    },
+                    {
+                        id: 1,
+                        phrase: "Kore wa otona desu.(Kore wa asenso-ru no otona desu.)",
+                    },
+                    {
+                        id: 2,
+                        phrase: "Kore wa norimono desu.(Kore wa asenso-ru no norimono desu.)",
+                    },
+                ],
+            ],
+        ],
+        dragDrop: [],
+    },
 };
