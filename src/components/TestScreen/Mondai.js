@@ -5,6 +5,7 @@ import { shuffleArray } from "../../utils/utils";
 const Mondai = (props) => {
     const { mondai, problem, correct, incorrect, thinking, handleClick } =
         props;
+
     //el array de opciones revueltas
     const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
     const currentPhrase = mondai[problem][0];

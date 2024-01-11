@@ -4,7 +4,7 @@ import { lectures } from "../../data/lectures";
 import { tests } from "../../data/tests";
 import {
     chooseFiveMondai,
-    getRandomNumbersMondai,
+    getRandomMondai,
     chooseThreeDrag,
     getRandomNumbersSimple,
 } from "../../utils/utils";
@@ -43,14 +43,14 @@ const TestScreen = () => {
         return tests[lecture.lectureId];
     });
 
-    const randomMon = getRandomNumbersMondai(test.mondaiOptions);
+    const randomMon = getRandomMondai(test);
 
     const randomDrag = getRandomNumbersSimple(
         test.dragOptions.quantity,
         test.dragDrop.length
     );
 
-    const [fiveMondai] = useState(() => chooseFiveMondai(test, randomMon));
+    const [fiveMondai] = useState(() => getRandomMondai(test));
 
     //chooseThreeDrag
     const [threeDrag] = useState(() => chooseThreeDrag(test, randomDrag));

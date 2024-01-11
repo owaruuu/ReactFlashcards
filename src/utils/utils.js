@@ -45,43 +45,72 @@ export const randomInt = (lower, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
-export const getRandomNumbersMondai = (options) => {
-    let randomNumbersArray = [];
+export const getRandomMondai = (test) => {
+    const options = test.mondaiOptions;
+    const questions = test.mondai;
 
-    const easyLimit = options.easy > 5 ? 5 : options.easy;
-    const midLimit = options.mid > 5 ? 5 : options.mid;
-    const hardLimit = options.hard > 5 ? 5 : options.hard;
+    let randomArray = [];
+    let randomNumbers = [];
 
-    while (randomNumbersArray.length < easyLimit) {
-        let number = randomInt(0, 4);
+    const easyLimit =
+        options.easy > questions.easy.length
+            ? questions.easy.length
+            : options.easy;
+    const midLimit =
+        options.mid > questions.mid.length ? questions.mid.length : options.mid;
+    const hardLimit =
+        options.hard > questions.hard.length
+            ? questions.hard.length
+            : options.hard;
+
+    //pick questions from easy
+    while (randomNumbers.length < easyLimit) {
+        let number = randomInt(0, questions.easy.length - 1);
 
         //si randomNumbersArray no contiene
-        if (!randomNumbersArray.includes(number)) {
-            randomNumbersArray.push(number);
+        if (!randomNumbers.includes(number)) {
+            randomNumbers.push(number);
         }
     }
 
-    while (randomNumbersArray.length < easyLimit + midLimit) {
-        let number = randomInt(5, 9);
+    randomArray = [
+        ...randomArray,
+        ...randomNumbers.map((item) => questions.easy[item]),
+    ];
+    randomNumbers = [];
+
+    //pick questions from mid
+    while (randomNumbers.length < midLimit) {
+        let number = randomInt(0, questions.mid.length - 1);
 
         //si randomNumbersArray no contiene
-        if (!randomNumbersArray.includes(number)) {
-            randomNumbersArray.push(number);
+        if (!randomNumbers.includes(number)) {
+            randomNumbers.push(number);
         }
     }
 
-    while (randomNumbersArray.length < easyLimit + midLimit + hardLimit) {
-        let number = randomInt(10, 14);
+    randomArray = [
+        ...randomArray,
+        ...randomNumbers.map((item) => questions.mid[item]),
+    ];
+    randomNumbers = [];
+
+    //pick questions from hard
+    while (randomNumbers.length < hardLimit) {
+        let number = randomInt(0, questions.hard.length - 1);
 
         //si randomNumbersArray no contiene
-        if (!randomNumbersArray.includes(number)) {
-            randomNumbersArray.push(number);
+        if (!randomNumbers.includes(number)) {
+            randomNumbers.push(number);
         }
     }
 
-    randomNumbersArray.sort((a, b) => a - b);
+    randomArray = [
+        ...randomArray,
+        ...randomNumbers.map((item) => questions.hard[item]),
+    ];
 
-    return randomNumbersArray;
+    return randomArray;
 };
 
 export const chooseFiveMondai = (test, randomNumberArray) => {

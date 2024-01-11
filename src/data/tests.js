@@ -12,164 +12,167 @@ export const tests = {
         dragOptions: {
             quantity: 3,
         },
-        mondai: [
-            //5 problemas por set
-            //primer problema de multiple eleccion
-            [
-                "わたしは、チリじんです。",
+        mondai: {
+            easy: [
                 [
-                    { id: 0, phrase: "Yo soy chileno." },
-                    { id: 1, phrase: "Yo soy americano." },
-                    { id: 2, phrase: "Yo soy japones." },
+                    "わたしは、チリじんです。",
+                    [
+                        { id: 0, phrase: "Yo soy chileno." },
+                        { id: 1, phrase: "Yo soy americano." },
+                        { id: 2, phrase: "Yo soy japones." },
+                    ],
+                ],
+                [
+                    "わたしは、エンジニアです。",
+                    [
+                        { id: 0, phrase: "Yo soy ingeniero." },
+                        { id: 1, phrase: "Yo soy profesor." },
+                        { id: 2, phrase: "Yo soy estudiante." },
+                    ],
+                ],
+                [
+                    "わたしは、おとなです。",
+                    [
+                        { id: 0, phrase: "Yo soy adulto." },
+                        { id: 1, phrase: "Yo soy niño." },
+                        { id: 2, phrase: "Yo soy hombre." },
+                    ],
+                ],
+                [
+                    "じぶんは、がくせいじゃありません。",
+                    [
+                        { id: 0, phrase: "Yo no soy estudiante." },
+                        { id: 1, phrase: "Yo no soy profesor." },
+                        { id: 2, phrase: "Yo no soy trabajador." },
+                    ],
+                ],
+                [
+                    "あなたは、ねこではありません。",
+                    [
+                        { id: 0, phrase: "Usted no es gato." },
+                        { id: 1, phrase: "Usted no es perro." },
+                        { id: 2, phrase: "Usted no es animal. " },
+                    ],
                 ],
             ],
-            [
-                "わたしは、エンジニアです。",
+            mid: [
                 [
-                    { id: 0, phrase: "Yo soy ingeniero." },
-                    { id: 1, phrase: "Yo soy profesor." },
-                    { id: 2, phrase: "Yo soy estudiante." },
+                    "うちは、にほんじんじゃありません。",
+                    [
+                        { id: 0, phrase: "Yo no soy japones." },
+                        { id: 1, phrase: "Yo no soy koreano." },
+                        { id: 2, phrase: "Yo no soy chino." },
+                    ],
+                ],
+                [
+                    "あなたは、チリじんですか",
+                    [
+                        { id: 0, phrase: "Usted es chileno?" },
+                        { id: 1, phrase: "Usted es japones?" },
+                        { id: 2, phrase: "Usted es americano?" },
+                    ],
+                ],
+                [
+                    "カスエラは、たべものですか",
+                    [
+                        { id: 0, phrase: "Cazuela es comida?" },
+                        { id: 1, phrase: "Cazuela es sopa?" },
+                        { id: 2, phrase: "Cazuela es salado?" },
+                    ],
+                ],
+                [
+                    "リャマは、どうつぶですか",
+                    [
+                        { id: 0, phrase: "Llama es un animal?" },
+                        { id: 1, phrase: "Llama es ser vivo?" },
+                        { id: 2, phrase: "Llama es un objeto?" },
+                    ],
+                ],
+                [
+                    "カーラさんは、(お)いしゃ(さん)です。 わたしもです。",
+                    [
+                        { id: 0, phrase: "Carla es doctora. Yo tambien." },
+                        { id: 1, phrase: "Carla es enfermera. Yo no." },
+                        { id: 2, phrase: "Carla es profesora. Yo tambien. " },
+                    ],
                 ],
             ],
-            [
-                "わたしは、おとなです。",
+            hard: [
                 [
-                    { id: 0, phrase: "Yo soy adulto." },
-                    { id: 1, phrase: "Yo soy niño." },
-                    { id: 2, phrase: "Yo soy hombre." },
+                    "きょうは、はれです。 あしたもです。",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Hoydia esta soleado. Mañana tambien.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Hoydia esta nublado. Mañana tambien.",
+                        },
+                        { id: 2, phrase: "Hoydia esta lloviendo. Mañana no." },
+                    ],
+                ],
+                [
+                    "ピスコラは、チリののみものです。チチャもです。",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Piscola es un trago de chile. Chicha tambien.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Piscola es un jugo de chile. Chicha no.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Piscola es de chile. Chirimoya tambien.",
+                        },
+                    ],
+                ],
+                [
+                    "わたしのスマホです。",
+                    [
+                        { id: 0, phrase: "Mi celular." },
+                        { id: 1, phrase: "Tu celular." },
+                        { id: 2, phrase: "Es un celular." },
+                    ],
+                ],
+                [
+                    "ともだちのかのじょのかばんです。",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Es la cartera de la polola de mi amig@.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Es la mochila del amig@ de mi polola.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Es la maleta del mejor amig@ de mi polola.",
+                        },
+                    ],
+                ],
+                [
+                    "こんしゅうのにほんごのじゅぎょうのしゅくだいです。",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Es la tarea de la clase de idioma japones de esta semana.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Es el repaso de la clase de idioma japones de la proxima semana.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Es la practica de la clase de idioma japones de la semana pasada.",
+                        },
+                    ],
                 ],
             ],
-            [
-                "じぶんは、がくせいじゃありません。",
-                [
-                    { id: 0, phrase: "Yo no soy estudiante." },
-                    { id: 1, phrase: "Yo no soy profesor." },
-                    { id: 2, phrase: "Yo no soy trabajador." },
-                ],
-            ],
-            [
-                "あなたは、ねこではありません。",
-                [
-                    { id: 0, phrase: "Usted no es gato." },
-                    { id: 1, phrase: "Usted no es perro." },
-                    { id: 2, phrase: "Usted no es animal. " },
-                ],
-            ],
-            [
-                "うちは、にほんじんじゃありません。",
-                [
-                    { id: 0, phrase: "Yo no soy japones." },
-                    { id: 1, phrase: "Yo no soy koreano." },
-                    { id: 2, phrase: "Yo no soy chino." },
-                ],
-            ],
-            [
-                "あなたは、チリじんですか",
-                [
-                    { id: 0, phrase: "Usted es chileno?" },
-                    { id: 1, phrase: "Usted es japones?" },
-                    { id: 2, phrase: "Usted es americano?" },
-                ],
-            ],
-            [
-                "カスエラは、たべものですか",
-                [
-                    { id: 0, phrase: "Cazuela es comida?" },
-                    { id: 1, phrase: "Cazuela es sopa?" },
-                    { id: 2, phrase: "Cazuela es salado?" },
-                ],
-            ],
-            [
-                "リャマは、どうつぶですか",
-                [
-                    { id: 0, phrase: "Llama es un animal?" },
-                    { id: 1, phrase: "Llama es ser vivo?" },
-                    { id: 2, phrase: "Llama es un objeto?" },
-                ],
-            ],
-            [
-                "カーラさんは、(お)いしゃ(さん)です。 わたしもです。",
-                [
-                    { id: 0, phrase: "Carla es doctora. Yo tambien." },
-                    { id: 1, phrase: "Carla es enfermera. Yo no." },
-                    { id: 2, phrase: "Carla es profesora. Yo tambien. " },
-                ],
-            ],
-            [
-                "きょうは、はれです。 あしたもです。",
-                [
-                    {
-                        id: 0,
-                        phrase: "Hoydia esta soleado. Mañana tambien.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Hoydia esta nublado. Mañana tambien.",
-                    },
-                    { id: 2, phrase: "Hoydia esta lloviendo. Mañana no." },
-                ],
-            ],
-            [
-                "ピスコラは、チリののみものです。チチャもです。",
-                [
-                    {
-                        id: 0,
-                        phrase: "Piscola es un trago de chile. Chicha tambien.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Piscola es un jugo de chile. Chicha no.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Piscola es de chile. Chirimoya tambien.",
-                    },
-                ],
-            ],
-            [
-                "わたしのスマホです。",
-                [
-                    { id: 0, phrase: "Mi celular." },
-                    { id: 1, phrase: "Tu celular." },
-                    { id: 2, phrase: "Es un celular." },
-                ],
-            ],
-            [
-                "ともだちのかのじょのかばんです。",
-                [
-                    {
-                        id: 0,
-                        phrase: "Es la cartera de la polola de mi amig@.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Es la mochila del amig@ de mi polola.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Es la maleta del mejor amig@ de mi polola.",
-                    },
-                ],
-            ],
-            [
-                "こんしゅうのにほんごのじゅぎょうのしゅくだいです。",
-                [
-                    {
-                        id: 0,
-                        phrase: "Es la tarea de la clase de idioma japones de esta semana.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Es el repaso de la clase de idioma japones de la proxima semana.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Es la practica de la clase de idioma japones de la semana pasada.",
-                    },
-                ],
-            ],
-        ],
-
+        },
         dragDrop: [
             [
                 "Es el celular de mi mejor amigo.",
@@ -541,7 +544,23 @@ export const tests = {
     //         ],
     //     ],
     // },
-
+    // 777: {
+    //     version: "321321",
+    //     mondaiTitle:
+    //         "Selecciona la respuesta adecuada dependiendo de la situacion.",
+    //     dragTitle:
+    //         "Ordena la respuesta a la pregunta en Japones. (pueden haber palabras extras dentro de las opciones)",
+    //     mondaiOptions: {
+    //         easy: 3,//y aqui elegimos cuantos queremos
+    //         mid: 3,
+    //         hard: 3,
+    //     },
+    //     mondai: {
+    //         easy: [["la cantidad de problemas faciles que queramos"]],//puede ser la cantidad que sea
+    //         mid: [["la cantidad de problemas medio que queramos"]],//otras pruebas pueden tener otra cantidad
+    //         hard: [["la cantidad de problemas dificil que queramos"]],//asi no dependemos de dividir las preguntas en 5,5,5
+    //     },
+    // },
     702: {
         version: "09012024",
         mondaiTitle:
@@ -556,170 +575,176 @@ export const tests = {
         dragOptions: {
             quantity: 0,
         },
-        mondai: [
-            [
-                "Cuando ves a la persona por PRIMERA VEZ, como tienes que saludar?",
+        mondai: {
+            easy: [
                 [
-                    {
-                        id: 0,
-                        phrase: "Hajimemashite! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Konnichiwa! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Ohayou gozaimasu! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
-                    },
+                    "Cuando ves a la persona por PRIMERA VEZ, como tienes que saludar?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Hajimemashite! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Konnichiwa! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Ohayou gozaimasu! Watashi wa Ferunando desu.Yoroshiku onegaishimasu",
+                        },
+                    ],
+                ],
+                [
+                    "Cuando ves una persona que esta mirando para alla, para aca... que vas a decir a esta persona?",
+                    [
+                        { id: 0, phrase: "Daijyoubu desuka?" },
+                        { id: 1, phrase: "Nandesuka?" },
+                        { id: 2, phrase: "Doko desuka?" },
+                    ],
+                ],
+                [
+                    "Cuando quieres saber una palabra EN JAPONES, como tenias que preguntar?",
+                    [
+                        { id: 0, phrase: "XXX wa nihongo de nandesuka?" },
+                        { id: 1, phrase: "XXX wa nandesuka?" },
+                        { id: 2, phrase: "XXX wa nihongo desu." },
+                    ],
+                ],
+                [
+                    "Japones(a) te pregunto 「Kore wa nandesuka?」como puedes responder?",
+                    [
+                        { id: 0, phrase: "Kore wa XXX desu" },
+                        { id: 1, phrase: "Kore XXX wa anata no desu." },
+                        { id: 2, phrase: "Kore XXX wa chiri desu." },
+                    ],
+                ],
+                [
+                    "Japones(a) te pregunto「Otearai wa doko desuka?」como puedes responder?",
+                    [
+                        { id: 0, phrase: "Kochira desu." },
+                        { id: 1, phrase: "Kono desu." },
+                        { id: 2, phrase: "Kore desu." },
+                    ],
                 ],
             ],
-            [
-                "Cuando ves una persona que esta mirando para alla, para aca... que vas a decir a esta persona?",
+            mid: [
                 [
-                    { id: 0, phrase: "Daijyoubu desuka?" },
-                    { id: 1, phrase: "Nandesuka?" },
-                    { id: 2, phrase: "Doko desuka?" },
+                    "Estas caminando en plaza soto mayor y pasando donde bomberos, que vas a decir?",
+                    [
+                        { id: 0, phrase: "Kore wa shoubousha desu." },
+                        { id: 1, phrase: "Kore wa chiri desu." },
+                        { id: 2, phrase: "Kore wa gakkou desu." },
+                    ],
+                ],
+                [
+                    "Estas caminando en plaza soto mayor y casi llegando al acensor, que vas a decir?",
+                    [
+                        { id: 0, phrase: "Are wa asenso-ru desu." },
+                        { id: 1, phrase: "Are wa baruparaiso desu." },
+                        { id: 2, phrase: "Are wa resutoran desu." },
+                    ],
+                ],
+                [
+                    "Cuando quieres saber el nombre de la(s) persona(s) que estas guiando, como vas a preguntar?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Sumimasen ga, Anata no namae wa nandesuka?",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Sumimasen ga, Anata wa namae wa nandesuka?",
+                        },
+                        { id: 2, phrase: "Sumimasen ga, Anata namae desuka?" },
+                    ],
+                ],
+                [
+                    "Estamos en el restaurante, quieres explicar sobre el Menu del dia, como puedes explicar ?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Zensai wa Su-pu desu.Mein wa Oniku desu. Deza-to wa Chokore-to desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Sarada desu.Oniku desu.Chokore-to desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Menyu-desu.Su-pu desu. Oniku desu. Chokore-to desu.",
+                        },
+                    ],
+                ],
+                [
+                    "Cuando termina el tour, que tienes que decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Otsukare sama deshita.Arigatou gozaimashita.",
+                        },
+                        { id: 1, phrase: "Konnichiwa.Arigatou gozaimashita." },
+                        { id: 2, phrase: "Hai.Arigatou gozaimashita." },
+                    ],
                 ],
             ],
-            [
-                "Cuando quieres saber una palabra EN JAPONES, como tenias que preguntar?",
+            hard: [
                 [
-                    { id: 0, phrase: "XXX wa nihongo de nandesuka?" },
-                    { id: 1, phrase: "XXX wa nandesuka?" },
-                    { id: 2, phrase: "XXX wa nihongo desu." },
+                    "Japones(a) te pregunto teniendo un vino tinto a su mano「Kore wa Jyu-su desuka?」como puedes responder?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Iie, Jyu-su jya arimasen. Aka wain desu.",
+                        },
+                        { id: 1, phrase: "Hai, Jyu-su desu." },
+                        { id: 2, phrase: "Iie, Jyu-su desu." },
+                    ],
+                ],
+                [
+                    "Japones(a) te pregunto mirando estatua de sotomayor 「Sore wa nandesuka?」como puedes responder?",
+                    [
+                        { id: 0, phrase: "Sore wa Sotomajyo-ru hiroba desu." },
+                        { id: 1, phrase: "Sore wa Zou desu." },
+                        { id: 2, phrase: "Sore wa Kafe desu." },
+                    ],
+                ],
+                [
+                    "Japones(a) te pregunto mirando la carta de restaurante, 「Carne de vacuno wa oniku desuka?」como puedes responder?",
+                    [
+                        { id: 0, phrase: "Hai, oniku desu. Gyuu niku desu." },
+                        { id: 1, phrase: "Hai, oniku desu. Buta niku desu." },
+                        {
+                            id: 2,
+                            phrase: "Iie, oniku jya arimasen. Daizu mi-to desu.",
+                        },
+                    ],
+                ],
+                [
+                    "Japones(a) te pregunto mirando a la iglesia catolica 「Are wa nandesuka?」como puedes responder?",
+                    [
+                        { id: 0, phrase: "Katorikku no kyoukai desu." },
+                        { id: 1, phrase: "Ie desu." },
+                        { id: 2, phrase: "Tatemono desu." },
+                    ],
+                ],
+                [
+                    `Japones(a) mirando "$100" en asensor, y quieres decir 「Ese es precio (de ascensor).」como puedes decir?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kore wa ryoukin desu.(Kore wa asenso-ru no ryoukin desu.)",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kore wa otona desu.(Kore wa asenso-ru no otona desu.)",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kore wa norimono desu.(Kore wa asenso-ru no norimono desu.)",
+                        },
+                    ],
                 ],
             ],
-            [
-                "Japones(a) te pregunto 「Kore wa nandesuka?」como puedes responder?",
-                [
-                    { id: 0, phrase: "Kore wa XXX desu" },
-                    { id: 1, phrase: "Kore XXX wa anata no desu." },
-                    { id: 2, phrase: "Kore XXX wa chiri desu." },
-                ],
-            ],
-            [
-                "Japones(a) te pregunto「Otearai wa doko desuka?」como puedes responder?",
-                [
-                    { id: 0, phrase: "Kochira desu." },
-                    { id: 1, phrase: "Kono desu." },
-                    { id: 2, phrase: "Kore desu." },
-                ],
-            ],
-            [
-                "Estas caminando en plaza soto mayor y pasando donde bomberos, que vas a decir?",
-                [
-                    { id: 0, phrase: "Kore wa shoubousha desu." },
-                    { id: 1, phrase: "Kore wa chiri desu." },
-                    { id: 2, phrase: "Kore wa gakkou desu." },
-                ],
-            ],
-            [
-                "Estas caminando en plaza soto mayor y casi llegando al acensor, que vas a decir?",
-                [
-                    { id: 0, phrase: "Are wa asenso-ru desu." },
-                    { id: 1, phrase: "Are wa baruparaiso desu." },
-                    { id: 2, phrase: "Are wa resutoran desu." },
-                ],
-            ],
-            [
-                "Cuando quieres saber el nombre de la(s) persona(s) que estas guiando, como vas a preguntar?",
-                [
-                    {
-                        id: 0,
-                        phrase: "Sumimasen ga, Anata no namae wa nandesuka?",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Sumimasen ga, Anata wa namae wa nandesuka?",
-                    },
-                    { id: 2, phrase: "Sumimasen ga, Anata namae desuka?" },
-                ],
-            ],
-            [
-                "Estamos en el restaurante, quieres explicar sobre el Menu del dia, como puedes explicar ?",
-                [
-                    {
-                        id: 0,
-                        phrase: "Zensai wa Su-pu desu.Mein wa Oniku desu. Deza-to wa Chokore-to desu.",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Sarada desu.Oniku desu.Chokore-to desu.",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Menyu-desu.Su-pu desu. Oniku desu. Chokore-to desu.",
-                    },
-                ],
-            ],
-            [
-                "Cuando termina el tour, que tienes que decir?",
-                [
-                    {
-                        id: 0,
-                        phrase: "Otsukare sama deshita.Arigatou gozaimashita.",
-                    },
-                    { id: 1, phrase: "Konnichiwa.Arigatou gozaimashita." },
-                    { id: 2, phrase: "Hai.Arigatou gozaimashita." },
-                ],
-            ],
-            [
-                "Japones(a) te pregunto teniendo un vino tinto a su mano「Kore wa Jyu-su desuka?」como puedes responder?",
-                [
-                    {
-                        id: 0,
-                        phrase: "Iie, Jyu-su jya arimasen. Aka wain desu.",
-                    },
-                    { id: 1, phrase: "Hai, Jyu-su desu." },
-                    { id: 2, phrase: "Iie, Jyu-su desu." },
-                ],
-            ],
-            [
-                "Japones(a) te pregunto mirando estatua de sotomayor 「Sore wa nandesuka?」como puedes responder?",
-                [
-                    { id: 0, phrase: "Sore wa Sotomajyo-ru hiroba desu." },
-                    { id: 1, phrase: "Sore wa Zou desu." },
-                    { id: 2, phrase: "Sore wa Kafe desu." },
-                ],
-            ],
-            [
-                "Japones(a) te pregunto mirando la carta de restaurante, 「Carne de vacuno wa oniku desuka?」como puedes responder?",
-                [
-                    { id: 0, phrase: "Hai, oniku desu. Gyuu niku desu." },
-                    { id: 1, phrase: "Hai, oniku desu. Buta niku desu." },
-                    {
-                        id: 2,
-                        phrase: "Iie, oniku jya arimasen. Daizu mi-to desu.",
-                    },
-                ],
-            ],
-            [
-                "Japones(a) te pregunto mirando a la iglesia catolica 「Are wa nandesuka?」como puedes responder?",
-                [
-                    { id: 0, phrase: "Katorikku no kyoukai desu." },
-                    { id: 1, phrase: "Ie desu." },
-                    { id: 2, phrase: "Tatemono desu." },
-                ],
-            ],
-            [
-                `Japones(a) mirando "$100" en asensor, y quieres decir 「Ese es precio (de ascensor).」como puedes decir?`,
-                [
-                    {
-                        id: 0,
-                        phrase: "Kore wa ryoukin desu.(Kore wa asenso-ru no ryoukin desu.)",
-                    },
-                    {
-                        id: 1,
-                        phrase: "Kore wa otona desu.(Kore wa asenso-ru no otona desu.)",
-                    },
-                    {
-                        id: 2,
-                        phrase: "Kore wa norimono desu.(Kore wa asenso-ru no norimono desu.)",
-                    },
-                ],
-            ],
-        ],
+        },
         dragDrop: [],
     },
 };
