@@ -27,15 +27,19 @@ const LectureButton = (props) => {
                 let learnedAmount = 0;
                 let japaneseLearnedAmount = 0;
 
-                for (const [key, value] of Object.entries(lectureProgress)) {
-                    if (value === "learned") {
-                        if (key.includes("j")) {
-                            japaneseLearnedAmount += 1;
-                        } else {
-                            learnedAmount += 1;
-                        }
+                const terms = props.lecture.termList;
+
+                terms.forEach((term) => {
+                    const id = term.id;
+                    const japaneseId = `j${term.id}`;
+                    if (lectureProgress[id] === "learned") {
+                        learnedAmount += 1;
                     }
-                }
+
+                    if (lectureProgress[japaneseId] === "learned") {
+                        japaneseLearnedAmount += 1;
+                    }
+                });
 
                 setPercentage(Math.trunc((learnedAmount / props.amount) * 100));
                 setJapanesePercentage(

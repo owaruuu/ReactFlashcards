@@ -8,6 +8,7 @@ const LectureButtons = () => {
     const lectureButtons = lectures.map((lecture) => {
         return (
             <LectureButton
+                lecture={lecture}
                 key={lecture.lectureId}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
