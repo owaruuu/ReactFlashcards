@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "https://api.owaruuu.xyz";
-// const URL = "http://localhost:3003";
+let URL = "https://api.owaruuu.xyz";
+// URL = "http://localhost:3003";
 
 const api = axios.create({
     withCredentials: true, // Include credentials (cookies) in the request

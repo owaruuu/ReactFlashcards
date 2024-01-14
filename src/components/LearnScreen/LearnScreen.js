@@ -103,13 +103,21 @@ const LearnScreen = (props) => {
         const currentLectureProgress = user.currentProgress[lecture.lectureId];
 
         for (let i = index + 1; i < terms.length; i++) {
-            if (currentLectureProgress[terms[i].id] == "learning") {
+            if (
+                currentLectureProgress[
+                    flip ? `j${terms[i].id}` : terms[i].id
+                ] == "learning"
+            ) {
                 return i;
             }
         }
 
         for (let i = 0; i < index; i++) {
-            if (currentLectureProgress[terms[i].id] == "learning") {
+            if (
+                currentLectureProgress[
+                    flip ? `j${terms[i].id}` : terms[i].id
+                ] == "learning"
+            ) {
                 return i;
             }
         }
