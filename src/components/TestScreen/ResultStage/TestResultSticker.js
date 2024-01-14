@@ -112,7 +112,14 @@ const TestResultSticker = (props) => {
             </p>
             {stickerInfoTooltip}
             {props.show === 0 ? <p>Obtuviste un nuevo sticker!</p> : ""}
-            {props.show === 1 ? <p></p> : ""}
+            {props.show === 1 ? (
+                <p>
+                    <FaCircleInfo />
+                    Ingresa a tu perfil para saber mas sobre este Sticker.
+                </p>
+            ) : (
+                ""
+            )}
             {props.show === -1 ? (
                 <p>
                     <FaCircleInfo /> Obten un puntaje perfecto para ganar este

@@ -198,6 +198,8 @@ const LearnScreen = (props) => {
             //si es el random
             setRandom((prev) => !prev);
         }
+
+        setIndex(0);
     };
 
     useEffect(() => {
