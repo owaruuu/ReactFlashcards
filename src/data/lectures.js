@@ -108,9 +108,9 @@ export const lectures = [
             },
             {
                 id: 37,
-                term: "ひなん",
-                extra: "Hinan",
-                answer: "Refugiarse, Evacuar",
+                term: "ひなんする",
+                extra: "Hinan suru",
+                answer: "Buscar refugio, Evacuar",
             },
             {
                 id: 38,
@@ -126,7 +126,7 @@ export const lectures = [
             },
             {
                 id: 40,
-                term: "米ドル",
+                term: "べいドル",
                 extra: "Beidoru",
                 answer: "Dolar americano",
             },
