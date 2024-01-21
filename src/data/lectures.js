@@ -823,7 +823,7 @@ export const lectures = [
                 id: 21,
                 term: "する、します",
                 extra: "Suru, Shimasu",
-                answer: "Hacer",
+                answer: "Hacer (una accion)",
             },
             {
                 id: 22,
@@ -900,7 +900,7 @@ export const lectures = [
             {
                 id: 34,
                 term: "ためす、ためします",
-                extra: "Tameru, Tamemasu",
+                extra: "Tamesu, Tameshimasu",
                 answer: "Probar, Intentar",
             },
             {
@@ -2530,7 +2530,7 @@ export const lectures = [
                 id: 31,
                 term: "こまかいおかね",
                 extra: "細かいお金",
-                answer: "Sencillo",
+                answer: "Sencillo (dinero)",
             },
             {
                 id: 32,
