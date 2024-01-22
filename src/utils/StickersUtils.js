@@ -1,7 +1,8 @@
 const stickers = {
     1: "torii",
     702: "uchiwa",
-    3: "onigiri",
+    704: "onigiri",
+    708: "shuriken",
     // 999: "one",
     // 998: "missing",
     // 997: "missing",
@@ -18,11 +19,14 @@ const descriptions = {
         title: "うちわ",
         content: `Uchiwa es un objeto importante para sentir "verano". Generalmente delgado y plano con un mango que se utiliza para agitarlo y hacer viento. Tradicionalmente está hecho con un armazón de bambú y recubierto de papel. Hoy en día en vez de bambú se utiliza plástico reciclado, etc.`,
     },
-    3: {
+    704: {
         title: "おにぎり(お握り)",
         content: `Onigiri es una comida típica e icónica de Japón. Aquí en Chile se dice "Bolita de arroz". En general tiene algún relleno dentro de esa bolita. O también puede ser arroz mezclado con algo. Nigiru significa "Doblar todos los dedos de la mano hacia dentro.  también, agarre o sujete objetos de esta forma."`,
     },
-
+    708: {
+        title: "しゅりけん(手裏剣)",
+        content: `Un shuriken es un tipo de arma blanca arrojadiza, originaria del Japón medieval. Posee una gran variedad de formas y estilos, pero predominantemente en forma de estrella, con filos cortantes y de un tamaño lo bastante pequeño para ocultarlo con facilidad. Su uso está asociado con los ninja, lo que le ha otorgado el nombre popular de «estrella ninja».`,
+    },
     999: {
         title: "???",
         content: "Obten este sticker para saber mas.",

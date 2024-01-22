@@ -363,6 +363,511 @@ export const tests = {
 
         manga: {},
     },
+    708: {
+        version: "22012024",
+        mondaiTitle:
+            "Selecciona la respuesta adecuada dependiendo de la situacion.",
+        mondaiOptions: {
+            easy: 3,
+            mid: 3,
+            hard: 3,
+        },
+        dragOptions: {
+            quantity: 0,
+        },
+        mondai: {
+            easy: [
+                [
+                    `Cuando hablas sobre el objeto y NO sabes como se llama el objeto O simplemente quiere decir "Esto, Eso, Aquello" como se dice? `,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kore, Sore, Are",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko, Soko, Asoko",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kono, Sono, Ano",
+                        },
+                    ],
+                ],
+                [
+                    `Cuando hablas sobre el objeto y SI sabes como se llama el objeto O quieres 'especificar' "Esta cosa, Esa cosa, Aquella cosa" como se dice?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kono, Sono, Ano",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko, Soko, Asoko",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kore, Sore, Are",
+                        },
+                    ],
+                ],
+                [
+                    `Estas guiando y quieres explicar sobre estacion de bomberos que esta en la Plaza Soto mayor, como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: `Koko wa Chiri no hajimete no shoubousho desu.`,
+                        },
+                        {
+                            id: 1,
+                            phrase: `Kore wa Chiri no hajimete no shoubousha desu.`,
+                        },
+                        {
+                            id: 2,
+                            phrase: `Kochira wa Chiri no hajimete no shoubousha desu.`,
+                        },
+                    ],
+                ],
+                [
+                    `Cual es la diferencia entre "Koko, Soko, Asoko" y "Kochira, Sochira, Achira"?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: `"Kochira, Sochira, Achira" mas formal que "Koko, Soko, Asoko".`,
+                        },
+                        {
+                            id: 1,
+                            phrase: `"Koko, Soko, Asoko" mas formal que "Kochira, Sochira, Achira".`,
+                        },
+                        { id: 2, phrase: "No hay diferencia." },
+                    ],
+                ],
+                [
+                    `Japones(a) te pregunto "Reji wa doko desuka? " como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Achira desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Migi desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Are desu.",
+                        },
+                    ],
+                ],
+            ],
+            mid: [
+                [
+                    `Quieres hablar sobre una iglesia que esta cerca de Japones(a) (Pero no cerca de ti), como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Soko wa Chiri no katorikku no kyoukai desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko wa Chiri no katorikku no kyoukai desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Asoko wa Chiri no katorikku no kyoukai desu.",
+                        },
+                    ],
+                ],
+                [
+                    "Estamos viendo la vista desde el cerro y quieres explicar que aquel lugar son las Dunas de Con Con, como vas a explicar?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Mite kudasai ! Asoko wa chiri no sakyuu desu. KonKon Sakyuu desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Mimashou ! Koko wa chiri no sakyuu desu. KonKon Sakyuu desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Mite kudasai ! Mae wa chiri no sakyuu desu. KonKon Sakyuu desu.",
+                        },
+                    ],
+                ],
+                // [
+                //     `Japones(a) te pregunto "Osusume no omiyageya san wa doko desuka? " como vas a responder?`,
+                //     [
+                //         { id: 0, phrase: "Sochira desu." },
+                //         { id: 1, phrase: "Ushiro desu." },
+                //         { id: 2, phrase: "Naname desu." },
+                //     ],
+                // ],
+                [
+                    `Estamos en el restaurante y quieres decir a Gojyou san "Tu asiento es aqui!", como vas a decir? `,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Gojyou san ! Anata no seki wa kokodesu!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Gojyou san! Anata no isu wa kochira desu!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Gojyou san! Anata no kaban wa kore desu!",
+                        },
+                    ],
+                ],
+                [
+                    `Estamos cerca del ascensor El Peral y quieres decir "Vamos a tomar el ascensor de ahi.",como vas a decir?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Soko no Asenso-ru ni norimasu!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko no Asenso-ru ni norimasu!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Asoko no Asenso-ru ni norimasu!",
+                        },
+                    ],
+                ],
+            ],
+            hard: [
+                [
+                    `Estas guiando cerca de otro grupo y Japones(a) te pregunto "Hoka no Gaido san wa dochira desuka?", como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Achira desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko desu.",
+                        },
+                        { id: 2, phrase: "Sore desu." },
+                    ],
+                ],
+                [
+                    `Estamos viendo la vista desde el cerro y Japones(a) te pregunto "Watashitachi no fune wa doko desuka?", como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Asoko desu!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko desu!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Sore desu!",
+                        },
+                    ],
+                ],
+                [
+                    `Estas guiando en el cerro y hay varios lugares que se ve como una casa pero, es una galeria del arte, como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Soko wa minka jya arimasen. Garou desu. Hairimasenka?",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kochira wa minka jya arimasen. Toshokan desu. Hairimasenka?",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Are wa eki jya arimasen. Garou desu. Hairimasenka?",
+                        },
+                    ],
+                ],
+                [
+                    `Japones(a) esta caminando hacia otro lado (alejandose), que vas a decir? `,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Sumimasen! Kochira desu! Kochira ni kite kudasai!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Sumimasen! Asoko desu! Asoko ni kite kudasai!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Sumimasen! Are desu! Are ni kite kudasai!",
+                        },
+                    ],
+                ],
+                [
+                    `Estas guiando en el cerro y quieres enseñar el nombre del cerro que estas caminando, como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: `Koko no oka no namae wa, "Sero Aregure(cerro alegre) desu."`,
+                        },
+                        {
+                            id: 1,
+                            phrase: `Soko no oka no namae wa, "Sero Aregure(cerro alegre) desu." `,
+                        },
+                        {
+                            id: 2,
+                            phrase: `Asoko no oka no namae wa, "Sero Aregure(cerro alegre) desu."`,
+                        },
+                    ],
+                ],
+            ],
+        },
+
+        dragDrop: [],
+    },
+    704: {
+        version: "22012024",
+        mondaiTitle:
+            "Selecciona la respuesta adecuada dependiendo de la situacion.",
+        mondaiOptions: {
+            easy: 3,
+            mid: 3,
+            hard: 3,
+        },
+        dragOptions: {
+            quantity: 0,
+        },
+        mondai: {
+            easy: [
+                [
+                    `"Cazuela es una sopa rica de Chile" wa Nihongo de nandesuka?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kasuera wa Chiri no oishii su-pu desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kasuera wa Chiri no amai su-pu desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kasuera wa Chiri no shoppai su-pu desu.",
+                        },
+                    ],
+                ],
+                [
+                    "Japones(a) esta viendo dulce de Chile pero, parece que no ha entendido que es un dulce, que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kore wa, Chiri no amai okashi desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kore wa, Chiri no nigai okashi desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kore wa, Chiri no karai okashi desu.",
+                        },
+                    ],
+                ],
+                [
+                    `Estan en plaza soto mayor y Japones(a) te pregunto "Kore wa nan desuka?" apuntando hacia la estatua de Arturo Prat, como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: `Kono hito no namae wa "Aruturo puratto desu. Totemo Yuumei na Chiri no Hito desu".`,
+                        },
+                        {
+                            id: 1,
+                            phrase: `Kono hito no namae wa "Aruturo puratto desu. Himana Chiri no Hito desu.".`,
+                        },
+                        {
+                            id: 2,
+                            phrase: `Kono hito no namae wa "Aruturo puratto desu. Nigiyaka na Chiri no Hito desu.".`,
+                        },
+                    ],
+                ],
+                [
+                    `Japones(a) te pregunto antes de comenzar el tour, "Baruparaiso wa donna machi desuka?", como vas a explicar?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Baruparaiso wa omoshiroi machi desu.",
+                        },
+                        { id: 1, phrase: "Baruparaiso wa semai machi desu." },
+                        { id: 2, phrase: "Baruparaiso wa chiisai machi desu." },
+                    ],
+                ],
+                [
+                    `Japones(a) te pregunto "Sero aregure(cerro alegre) wa abunai desuka?", como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Hai, sukoshi abunai desu. Ki wo tsukete kudasai.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Iie, Abunakunai desu. Ki wo tsukete kudasai.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Iie, Abunaku arimasen desu.Ki wo tsukete kudasai.",
+                        },
+                    ],
+                ],
+            ],
+            mid: [
+                [
+                    `En el restaurante, menu es "Chorillana" y Japones(a) te pregunto "Kore wa Karai desuka?", como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Iie, Karaku arimasen. Shoppai desu. Soshite Oishii desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Iie, Karaku arimasen. Nigai desu. Soshite Oishii desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Iie, Karaku arimasen. Usui desu. Soshite Oishii desu.",
+                        },
+                    ],
+                ],
+                [
+                    "En la tienda de regalo, Japones(a) se esta probando un poncho pero, se ve demasiado grande, que vas a decir? ",
+                    [
+                        { id: 0, phrase: "Dou desuka ? Ookii desuka?" },
+                        { id: 1, phrase: "Dou desuka? Chiisai desuka?" },
+                        { id: 2, phrase: "Dou desuka? Kitanai desuka?" },
+                    ],
+                ],
+                [
+                    `En la tienda de regalo, viendo cuchufli de $5000(4 cuchifri en una bolsa), Japones(a) te pregunto "Kono Kuchufuri- wa yasui desuka?",como vas a responder?`,
+                    [
+                        { id: 0, phrase: "U-n...Yasukunaidesu..." },
+                        { id: 1, phrase: "U-n...Yasuidesu." },
+                        { id: 2, phrase: "U-n...Oishikunaidesu." },
+                    ],
+                ],
+                [
+                    `Estamos en lugar X que dice "Silencio", que vas a decir?`,
+                    [
+                        { id: 0, phrase: "Koko wa shizuka ni shimashou." },
+                        { id: 1, phrase: "Koko wa urusaku shimashou." },
+                        { id: 2, phrase: "Koko wa otonashiku shimashou." },
+                    ],
+                ],
+                // [
+                //     "Estan viendo una iglecia catolica grande, pero no pueden entrar, como vas a explicar? ",
+                //     [
+                //         {
+                //             id: 0,
+                //             phrase: "Kono katorikku no kyoukai wa ookiidesu. Soshite, naka wa hiroi desu.",
+                //         },
+                //         {
+                //             id: 1,
+                //             phrase: "Kono katorikku no kyoukai wa semai. Soshite, naka wa samui desu.",
+                //         },
+                //         {
+                //             id: 2,
+                //             phrase: "Kono katorikku no kyoukai wa kirei. Soshite, naka wa kakkoii desu.",
+                //         },
+                //     ],
+                // ],
+            ],
+            hard: [
+                [
+                    "Estan caminando por el cerro y hay una persona extraña en la calle, que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Henna hito ga imasu ! ",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kawaii hito ga imasu!",
+                        },
+                        { id: 2, phrase: "Hima na hito ga imasu!" },
+                    ],
+                ],
+                [
+                    `Estan viendo "Manjar" y Japones(a) pregunto "Manha-ru wa donna aji desuka?" quieres decir "Es suave(textura) y dulce", como vas a decir?  `,
+                    [
+                        {
+                            id: 0,
+                            phrase: "ManHa-ru wa Yawarakai desu. Soshite amai desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "ManHa-ru wa Katai desu. Soshite amai desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "ManHa-ru wa Nigate desu. Soshite amai desu.",
+                        },
+                    ],
+                ],
+                [
+                    `En la tienda de regalo, Japones(a) esta viendo sorprendido a un Indio picaro y te pregunto "Kore nandesuka?!", que vas a decir? `,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kore no namae wa Indio Pikaro desu. Chiri no shukougeihin desu. Kawaii Mapuche no ningyou desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kore no namae wa Indio Pikaro desu. Chiri no osusume desu. Kawaii Mapuche no ningyou desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kore no namae wa Indio Pikaro desu. Chiri no yuumeina desu. Warui Mapuche no ningyou desu.",
+                        },
+                    ],
+                ],
+                [
+                    `En la calle viendo las tiendas, Japones(a) te pregunto "X san wa X ga sukidesuka?" y quieres decir "No me gusta tanto"`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Nigate desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kirai desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Suki desuka?",
+                        },
+                    ],
+                ],
+                [
+                    `En la tienda del regalo, Japones(a) te pregunto "Kore no Aka arimasuka?" y tu sabes que hay variedad de colores, como vas a responder?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Iroiro na iro ga arimasu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Aka ga arimasu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Shiro ga arimasu.",
+                        },
+                    ],
+                ],
+            ],
+        },
+        dragDrop: [],
+    },
+
     // 701: {
     //     version: "07012024",
     //     mondaiTitle:
