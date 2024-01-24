@@ -747,7 +747,7 @@ export const tests = {
                     ],
                 ],
                 [
-                    `En la tienda de regalo, viendo cuchufli de $5000(4 cuchifri en una bolsa), Japones(a) te pregunto "Kono Kuchufuri- wa yasui desuka?",como vas a responder?`,
+                    `En la tienda de regalo, viendo cuchufli de $5000(4 cuchufli en una bolsa), Japones(a) te pregunto "Kono Kuchufuri- wa yasui desuka?",como vas a responder?`,
                     [
                         { id: 0, phrase: "U-n...Yasukunaidesu..." },
                         { id: 1, phrase: "U-n...Yasuidesu." },
@@ -762,23 +762,23 @@ export const tests = {
                         { id: 2, phrase: "Koko wa otonashiku shimashou." },
                     ],
                 ],
-                // [
-                //     "Estan viendo una iglecia catolica grande, pero no pueden entrar, como vas a explicar? ",
-                //     [
-                //         {
-                //             id: 0,
-                //             phrase: "Kono katorikku no kyoukai wa ookiidesu. Soshite, naka wa hiroi desu.",
-                //         },
-                //         {
-                //             id: 1,
-                //             phrase: "Kono katorikku no kyoukai wa semai. Soshite, naka wa samui desu.",
-                //         },
-                //         {
-                //             id: 2,
-                //             phrase: "Kono katorikku no kyoukai wa kirei. Soshite, naka wa kakkoii desu.",
-                //         },
-                //     ],
-                // ],
+                [
+                    "Estan viendo una Iglecia Catolica grande, como la describirias ?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Kono katorikku no kyoukai wa ookiidesu. Soshite, naka wa hiroi desu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Kono katorikku no kyoukai wa semai. Soshite, naka wa samui desu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Kono katorikku no kyoukai wa kirei. Soshite, naka wa kakkoii desu.",
+                        },
+                    ],
+                ],
             ],
             hard: [
                 [

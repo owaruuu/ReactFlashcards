@@ -436,7 +436,12 @@ export const lectures = [
                 extra: "Migite",
                 answer: "Mano derecha, Lado derecha",
             },
-            { id: 10, term: "まっすぐ", extra: "Massugu", answer: "Derecho" },
+            {
+                id: 10,
+                term: "まっすぐ",
+                extra: "Massugu",
+                answer: "Derecho (direccion)",
+            },
             { id: 11, term: "まわり", extra: "Mawari", answer: "Alrededores" },
             {
                 id: 12,
@@ -3324,9 +3329,9 @@ export const lectures = [
                 extra: "",
                 answer: "Vehículo",
             },
-            { id: 29, term: "つくえ tsukue", extra: "", answer: "Escritorio" },
-            { id: 59, term: "テーブル Tebu-ru", extra: "", answer: "Mesa" },
-            { id: 30, term: "いす isu", extra: "", answer: "Silla" },
+            { id: 29, term: "つくえ", extra: "tsukue", answer: "Escritorio" },
+            { id: 59, term: "テーブル", extra: "Tebu-ru", answer: "Mesa" },
+            { id: 30, term: "いす", extra: "isu", answer: "Silla" },
             {
                 id: 31,
                 term: "チョコレート chokore-to",

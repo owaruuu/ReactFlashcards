@@ -422,6 +422,53 @@ a {
         display: flex;
         flex-direction: column;
 
+        .searchBar {
+            color: white;
+
+            .searchInput {
+                margin-bottom: 10px;
+
+                .searchButton {
+                    background-color: #ab071d;
+                    color: white;
+                }
+
+                button {
+                }
+            }
+
+            .resultElem {
+                display: grid;
+                grid-template-columns: 25% 25% 25% 25%;
+                grid-template-areas: "lectureName term extra answer";
+
+                .name {
+                    grid-area: lectureName;
+
+                    border-right: goldenrod 2px solid;
+                    margin-right: 2px;
+                }
+
+                .term {
+                    grid-area: term;
+                }
+
+                .extra {
+                    grid-area: extra;
+                }
+
+                .answer {
+                    grid-area: answer;
+                }
+                &:nth-child(odd) {
+                    background-color: #20496b;
+                }
+            }
+
+            .resultList {
+            }
+        }
+
         p {
             color: white;
             text-align: center;

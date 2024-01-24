@@ -383,6 +383,38 @@ a {
   display: flex;
   flex-direction: column;
 }
+.main .lectureList .searchBar {
+  color: white;
+}
+.main .lectureList .searchBar .searchInput {
+  margin-bottom: 10px;
+}
+.main .lectureList .searchBar .searchInput .searchButton {
+  background-color: #ab071d;
+  color: white;
+}
+.main .lectureList .searchBar .resultElem {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: "lectureName term extra answer";
+}
+.main .lectureList .searchBar .resultElem .name {
+  grid-area: lectureName;
+  border-right: goldenrod 2px solid;
+  margin-right: 2px;
+}
+.main .lectureList .searchBar .resultElem .term {
+  grid-area: term;
+}
+.main .lectureList .searchBar .resultElem .extra {
+  grid-area: extra;
+}
+.main .lectureList .searchBar .resultElem .answer {
+  grid-area: answer;
+}
+.main .lectureList .searchBar .resultElem:nth-child(odd) {
+  background-color: #20496b;
+}
 .main .lectureList p {
   color: white;
   text-align: center;
