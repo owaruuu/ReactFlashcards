@@ -1,10 +1,11 @@
 const stickers = {
     1: "torii",
     702: "uchiwa",
+    703: "missing",
     704: "onigiri",
     708: "shuriken",
     // 999: "one",
-    // 998: "missing",
+
     // 997: "missing",
     // 996: "missing",
     // 995: "missing",
@@ -18,6 +19,10 @@ const descriptions = {
     702: {
         title: "うちわ",
         content: `Uchiwa es un objeto importante para sentir "verano". Generalmente delgado y plano con un mango que se utiliza para agitarlo y hacer viento. Tradicionalmente está hecho con un armazón de bambú y recubierto de papel. Hoy en día en vez de bambú se utiliza plástico reciclado, etc.`,
+    },
+    703: {
+        title: "???",
+        content: "les debo un sticker u.u",
     },
     704: {
         title: "おにぎり(お握り)",

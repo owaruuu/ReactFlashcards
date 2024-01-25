@@ -1252,4 +1252,224 @@ export const tests = {
         },
         dragDrop: [],
     },
+    703: {
+        version: "24012024",
+        mondaiTitle:
+            "Selecciona la respuesta adecuada dependiendo de la situacion.",
+        dragTitle:
+            "Ordena la respuesta a la pregunta en Japones. (pueden haber palabras extras dentro de las opciones)",
+        mondaiOptions: {
+            easy: 3,
+            mid: 3,
+            hard: 3,
+        },
+        dragOptions: {
+            quantity: 0,
+        },
+        mondai: {
+            easy: [
+                [
+                    "Cuando caminando en el Hodou, los japoneses estan mirando otro lado... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Sumimasen ! Kochira ni kite kudasai!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Sumimasen ! Kochira ni ikimashouka?",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Sumimasen ! Kochira ni ittemo iidesuka?",
+                        },
+                    ],
+                ],
+                [
+                    "En el restaurante, los japoneses estan buscando sus asientos... que vas a decir?",
+                    [
+                        { id: 0, phrase: "Anata no seki wa kokodesuyo." },
+                        { id: 1, phrase: "Anata no seki wa jiyuu desu." },
+                        { id: 2, phrase: "Anata no isu wa kore desu." },
+                    ],
+                ],
+                [
+                    "Cuando caminando hodou y no tiene semaforo pero, quieres cruzar, justamente viene auto un poco cerca... que vas a decir?",
+                    [
+                        { id: 0, phrase: "Sukoshi matte kudasai." },
+                        { id: 1, phrase: "Sukoshi matemo iidesuka?" },
+                        { id: 2, phrase: "Sukoshi matanaide kudasai." },
+                    ],
+                ],
+                [
+                    "Cuando hay Henna hito/Abunai hito en la calle, pero, para los japoneses les llamo la atencion y sacando la foto, grabando video... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Sumimasen! Shashin wo toranaide kudasai./Bideo wo toranaide kudasai.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Sumimasen! Shashin wo torimashouka?/Bideo wo torimashouka?",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Sumimasen! Henna hito/Abunai hito desune?",
+                        },
+                    ],
+                ],
+                [
+                    "Cuando estan caminando hodou un poco mal estado, que vas a decir?",
+                    [
+                        { id: 0, phrase: "Ashimoto kiwo tsukete kudasai!" },
+                        { id: 1, phrase: "Aruite kudasai! Mite kudasai!" },
+                        { id: 2, phrase: "Ashi mite aruite kudasai." },
+                    ],
+                ],
+            ],
+            mid: [
+                [
+                    "Cuando un lugar mas o menos tranquilo, que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Koko de shashin wo tottemo iidesuyo.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Koko de shashin wo kattemo iidesuyo.",
+                        },
+                        { id: 2, phrase: "Koko de bideo wo mitemo iidesuyo." },
+                    ],
+                ],
+                [
+                    "Cuando caminando hodou y el(la) japones(a) se ve que tiene algun dificultad... que vas a decir?",
+                    [
+                        { id: 0, phrase: "(Watashi no) Ude wo mochimasuka?" },
+                        {
+                            id: 1,
+                            phrase: "(Watashi no) Te wo motanaide kudasai.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "(Watashi no) Kaban wo mochimashouka?",
+                        },
+                    ],
+                ],
+                [
+                    "Cuando japones(a) te pregunto algunas cosas pero, no sabias la respuesta... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Sumimasen, sukoshi matte kudasai, shirabemasu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Wakaranai, shirabete.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Sumimasen, shiranai, sagashitemoiidesuka?",
+                        },
+                    ],
+                ],
+                [
+                    "Ya llegando la hora de tren, pero, los japoneses estan caminando leeeento... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Minasan ! Densha ga kimashita! Isogimashou!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Minasan ! Hayaku! Densha!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Minasan ! Nottemo iidesu!",
+                        },
+                    ],
+                ],
+                [
+                    "Cuando caminando, henna hito (ho-muresu) pidio dinero a japoneses... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Okane wo agenaide kudasai.",
+                        },
+                        { id: 1, phrase: "Daijyoubu desu." },
+                        { id: 2, phrase: "Okane ga arimasuka?" },
+                    ],
+                ],
+            ],
+            hard: [
+                [
+                    "En el restaurante, el(la) japones(a) se ve que esta buscando el baño... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Otearai wa shita ni hitotsu, ueni futatsu arimasu.",
+                        },
+                        { id: 1, phrase: "Otearai wo mimasuka?" },
+                        { id: 2, phrase: "Otearai ni ikimashouka?" },
+                    ],
+                ],
+                [
+                    "Haciendo tour, quieres saber si los japoneses tienen duda o no... que vas a decir?",
+                    [
+                        { id: 0, phrase: "Shitsumon ga arimasuka?" },
+                        { id: 1, phrase: "Shitsumon motteimasuka?" },
+                        { id: 2, phrase: "Shitsumon iimasuka?" },
+                    ],
+                ],
+                [
+                    "En la tienda X los japoneses tiene algo en la mano y caminando... que vas a decir?",
+                    [
+                        { id: 0, phrase: "Sore, kaimasuka?" },
+                        { id: 1, phrase: "Sore, irimasuka?" },
+                        {
+                            id: 2,
+                            phrase: "Sore, moraimasuka?",
+                        },
+                    ],
+                ],
+                [
+                    "En el ascensor, tren, los japoneses te preguntaron sobre precio de ellos y haciendo gesto de pagar... que vas a decir?",
+                    [
+                        {
+                            id: 0,
+                            phrase: "Daijyoubu desu! Watashi ga haraimasu.",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Daijyoubu desu! Watashi ga hairimasu.",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Daijyoubu desu! Watashi ga kaerimasu.",
+                        },
+                    ],
+                ],
+                [
+                    `En la tienda, los japoneses estan viendo lo que hay, etc y quieres ofrecer vealo mas cerca o toma en su mano... como vas a decir?`,
+                    [
+                        {
+                            id: 0,
+                            phrase: "Douzo! Mite kudasai! Sawatte kudasai!",
+                        },
+                        {
+                            id: 1,
+                            phrase: "Doumo! Mite kudasai! Tsukatte kudasai!",
+                        },
+                        {
+                            id: 2,
+                            phrase: "Douzo! Mite kudasai! Suwatte kudasai!",
+                        },
+                    ],
+                ],
+            ],
+        },
+
+        dragDrop: [],
+    },
 };
