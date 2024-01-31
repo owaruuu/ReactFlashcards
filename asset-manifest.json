@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.20248a01.css",
-    "main.js": "/static/js/main.0eb55d7c.js",
+    "main.js": "/static/js/main.9b7b2fe7.js",
     "static/media/NotoSerif-VariableFont_wdth,wght.ttf": "/static/media/NotoSerif-VariableFont_wdth,wght.e2a14d3706bc085fafa9.ttf",
     "static/media/Gidugu-Regular.ttf": "/static/media/Gidugu-Regular.ff30ac537a03c88f3b2c.ttf",
     "static/media/cherry-blossom-petal.svg": "/static/media/cherry-blossom-petal.fb76af8413eac41b1ed39dfad2224dae.svg",
     "index.html": "/index.html",
     "main.20248a01.css.map": "/static/css/main.20248a01.css.map",
-    "main.0eb55d7c.js.map": "/static/js/main.0eb55d7c.js.map"
+    "main.9b7b2fe7.js.map": "/static/js/main.9b7b2fe7.js.map"
   },
   "entrypoints": [
     "static/css/main.20248a01.css",
-    "static/js/main.0eb55d7c.js"
+    "static/js/main.9b7b2fe7.js"
   ]
 }
