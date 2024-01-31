@@ -27,6 +27,7 @@ export const confirmUser = async (email, code) => {
 
         return response;
     } catch (error) {
+        //recibo los errores de cognito o si el server esta caido
         throw error;
     }
 };
@@ -117,14 +118,6 @@ export const saveUserProgress = async (currentProgress) => {
             msg: "Error en el servidor, intentandolo mas tarde.",
             value: null,
         };
-    }
-};
-
-export const quickScan = async () => {
-    try {
-        await api.get(`${URL}/scanTables`);
-    } catch (error) {
-        return error;
     }
 };
 

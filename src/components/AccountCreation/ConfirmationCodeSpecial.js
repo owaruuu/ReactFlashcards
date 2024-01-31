@@ -51,19 +51,31 @@ const ConfirmationCodeSpecial = (props) => {
         try {
             const response = await confirmUser(email, code);
 
-            //error check
-            if (response.code === "ERR_BAD_RESPONSE") {
-                setMessage(response.response.data);
-                setThinking(false);
-                return;
-            }
-
-            //no errors
             setMessage(response.data + ". You can now log in.");
             setConfirmed(true);
         } catch (error) {
+            if (error.code === "ERR_NETWORK") {
+                setThinking(false);
+                dispatch({ type: "SET_SERVER_ERROR", payload: true });
+                dispatch({
+                    type: "SET_LOGIN_CONTROL_MSG",
+                    payload: "Server error, try refreshing the page.",
+                });
+                return setMessage("Network error. Please try again.");
+            }
+
+            //reset server error state just in case
+            dispatch({ type: "SET_SERVER_ERROR", payload: false });
+
+            //cualquier otro error que retorne cognito
+            if (error.code === "ERR_BAD_RESPONSE") {
+                setThinking(false);
+                return setMessage(error.response.data);
+            }
+
+            //dejo esto aqui por si hay otro errores raros que no encontre
             setThinking(false);
-            alert("El server no esta respondiendo, intentalo mas tarde.");
+            alert("Hubo error con la peticion");
         }
     };
 

@@ -3,7 +3,6 @@ import { AppContext } from "../../context/AppContext";
 import { forEach } from "lodash";
 const SearchBar = () => {
     const { lectures } = useContext(AppContext);
-    console.log("🚀 ~ SearchBar ~ lectures:", lectures);
     const [value, setValue] = useState("");
     const [results, setResults] = useState([]);
 
