@@ -186,7 +186,7 @@ export const lectures = [
             },
             {
                 id: 35,
-                term: "~ mashouka.",
+                term: "~ mashou.",
                 extra: "",
                 answer: "Para expresar que hagamos algo.",
             },
