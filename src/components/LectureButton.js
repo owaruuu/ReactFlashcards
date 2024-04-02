@@ -83,15 +83,20 @@ const LectureButton = (props) => {
                 });
             }}
         >
-            <div className="set-buttons-helper">
+            <div className="text">Progreso:</div>
+            <div className="bar">barra normal</div>
+            <div className="jap-bar">barra japones</div>
+            {/* <div className="set-buttons-helper">
                 <span>{props.amount} Palabras</span>
                 {progressPercentage()}
-            </div>
-
+            </div> */}
             <span className="lectureButtonTitle">{props.title}</span>
-            <div className="extras">
+            <span className="terms">{props.amount} Palabras</span>
+            <div className="memo">cola: 99+</div>
+            <div className="icons">
                 {hasTest && <HiClipboardDocumentList className="testIcon" />}
             </div>
+            <div className="date">estudiado hace: 33 dias.</div>
         </div>
     );
 };

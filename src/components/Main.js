@@ -8,7 +8,6 @@ import TestScreen from "./TestScreen/TestScreen.js";
 import LoginForm from "./Forms/LoginForm.js";
 import RegisterForm from "./Forms/RegisterForm.js";
 import UserPanelScreen from "./UserPanel/UserPanelScreen.js";
-
 import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.js";
 
 const Main = () => {

@@ -184,8 +184,10 @@
   display: flex;
 }
 .main .lectureButton {
-  display: flex;
+  display: grid;
   flex-direction: column;
+  grid-template-areas: "icons terms  memo" "title title  title" "text bar jap-bar  " "date date date ";
+  grid-template-columns: 33% 33% 33%;
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
@@ -193,34 +195,47 @@
   border-top: 3px solid #dbb01c;
   border-bottom: 3px solid #dbb01c;
   margin: 5px 0;
-  padding: 10px 0;
+  padding: 10px 25px;
   justify-content: space-around;
   align-items: center;
   cursor: pointer;
 }
-.main .lectureButton .testIcon {
-  font-size: 24px;
+.main .lectureButton .text {
+  grid-area: text;
+  text-align: center;
 }
-.main .lectureButton .set-buttons-helper {
-  display: flex;
-  width: 80%;
-  justify-content: space-between;
-  grid-area: info;
-  font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
+.main .lectureButton .bar {
+  grid-area: bar;
 }
-.main .lectureButton .extras {
-  grid-area: extras;
-  margin: auto;
+.main .lectureButton .jap-bar {
+  grid-area: jap-bar;
 }
 .main .lectureButton .lectureButtonTitle {
   font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
-  grid-area: name;
-  margin-top: 4px;
+  grid-area: title;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .main .lectureButton .lectureButtonTitle {
     font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);
   }
+}
+.main .lectureButton .terms {
+  grid-area: terms;
+  text-align: center;
+}
+.main .lectureButton .memo {
+  grid-area: memo;
+  text-align: end;
+}
+.main .lectureButton .icons {
+  grid-area: icons;
+  text-align: center;
+}
+.main .lectureButton .date {
+  grid-area: date;
+  text-align: end;
+  font-size: clamp(7px, 7px + 1vw, 14px);
 }
 .main .lectureButton:hover {
   background-color: rgb(245, 215, 176);
@@ -228,16 +243,19 @@
 .main .lectureButton:active {
   background-color: rgb(243, 187, 149);
 }
+.main .lectureButton .testIcon {
+  font-size: 24px;
+}
 @media (min-width: 768px) {
   .main .lectureButton {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 30% 40% 30%;
-    grid-template-areas: "info name extras";
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "text title memo" "bar title icons" "jap-bar terms date";
     width: 76vw;
     max-width: 740px;
     border: 3px solid #f5b64e;
-    border-radius: 100px;
+    border-radius: 17px;
     flex-direction: row;
   }
   .main .lectureButton .set-buttons-helper {
@@ -246,14 +264,12 @@
     flex-direction: column;
     padding-left: 30px;
   }
+  .main .lectureButton .text {
+    text-align: start;
+  }
   .main .lectureButton .lectureButtonTitle {
-    text-align: center;
-  }
-  .main .lectureButton:nth-of-type(odd) {
-    margin-left: 30px;
-  }
-  .main .lectureButton:nth-of-type(even) {
-    margin-right: 30px;
+    font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+    font-weight: 500;
   }
 }
 .main .lectureScreen {

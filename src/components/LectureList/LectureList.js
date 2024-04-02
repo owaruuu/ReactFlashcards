@@ -5,7 +5,6 @@ import { AppContext } from "../../context/AppContext";
 import Spinner from "react-bootstrap/Spinner";
 import { getExtraLessons, getExtraPerms } from "../../aws/aws";
 import DismissableBanner from "../Misc/DismissableBanner";
-import SearchBar from "../SearchBar/SearchBar";
 
 const LectureList = () => {
     const { loggedIn, dispatch, lectures, gotLectures, user } =
@@ -76,7 +75,6 @@ const LectureList = () => {
                     transition={1}
                 ></DismissableBanner>
             )}
-            <SearchBar />
             <h2 className="lectureListTitle">Lecciones</h2>
             <div className="lectureButtons">
                 <LectureButtons />
