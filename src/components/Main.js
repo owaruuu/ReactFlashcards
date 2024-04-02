@@ -1,3 +1,4 @@
+import "./Styles/Main.css";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext.js";
 import LectureList from "./LectureList/LectureList.js";

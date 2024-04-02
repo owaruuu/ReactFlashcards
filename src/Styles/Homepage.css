@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.App {
+  background-color: #032745;
+  font-family: メイリオ, Meiryo !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.App .backToTopButton {
+  color: #f5fcff;
+  background-color: rgba(32, 73, 107, 0);
+  border: none;
+  padding-bottom: 20px;
+  margin-left: auto;
+}
+.App .backToTopButton:hover {
+  color: #c3c3c3;
+}
+@media (min-width: 768px) {
+  .App .backToTopButton {
+    padding-right: 10%;
+  }
+}/*# sourceMappingURL=Homepage.css.map */

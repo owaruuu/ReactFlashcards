@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Gidugu";
+    src: url("../assets/fonts/Gidugu/Gidugu-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Noto_Serif";
+    src: url("../assets/fonts/Noto_Serif/NotoSerif-VariableFont_wdth\,wght.ttf") format("truetype");
+}

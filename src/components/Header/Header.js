@@ -1,6 +1,7 @@
 import LoginHeader from "./LoginHeader";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import "./Styles/Header.css";
 
 const Header = () => {
     const { dispatch } = useContext(AppContext);

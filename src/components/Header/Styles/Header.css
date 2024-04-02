@@ -1,0 +1,173 @@
+.header {
+  z-index: 15;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background-color: #032745;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  color: #f5fcff;
+  border-bottom: 4px solid #ab071d !important;
+}
+.header #db-error-tooltip {
+  z-index: 1;
+  width: 200px;
+  overflow-wrap: break-word;
+  display: block;
+}
+.header .dbError {
+  display: flex;
+  position: fixed;
+  font-size: 2rem;
+  top: 40vh;
+  color: gold;
+  right: 20px;
+  z-index: 1;
+  background-color: #c10000;
+  border-radius: 39px;
+  padding: 6px;
+}
+@media (min-width: 768px) {
+  .header .dbError {
+    background-color: rgba(0, 30, 55, 0);
+    font-size: 3rem;
+  }
+}
+.header .logo {
+  color: white;
+  width: 20px;
+}
+.header .pageTitle {
+  font-family: "Gidugu";
+  text-transform: uppercase;
+  font-size: 36px;
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .header .pageTitle {
+    font-size: 54px;
+  }
+}
+.header .infoHeader {
+  font-size: 12px;
+}
+@media (min-width: 768px) {
+  .header .infoHeader {
+    text-align: start;
+    margin-left: 10px;
+  }
+}
+.header .save {
+  padding-left: 5px;
+  margin-right: auto;
+}
+.header .loginControls {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0 10px;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.header .loginControls .accountButtons {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0 5px;
+}
+.header .loginControls .accountButtons .logoutButton {
+  background-color: rgba(0, 30, 55, 0);
+  border: none;
+  color: #f5fcff;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .header .loginControls .accountButtons {
+    flex-direction: row;
+    padding: 0;
+    font-size: clamp(0rem, 0rem + 1vw, 3rem);
+  }
+}
+.header .loginControls .username {
+  background: #ab071d;
+  color: white;
+  border-style: none;
+  padding: 0 10px;
+  align-self: center;
+  cursor: pointer;
+}
+.header .loginControls .loginButton {
+  background-color: #ab071d;
+  padding: 0 40px;
+  color: white;
+  border: none;
+}
+.header .loginControls .loginButton:hover {
+  color: #f5b64e;
+}
+@media (min-width: 768px) {
+  .header .loginControls .loginButton {
+    background-color: #ab071d;
+    padding: 0 40px;
+  }
+}
+.header .loginControls .registerButton {
+  border: none;
+  background-color: #032745;
+  color: #f5fcff;
+}
+@media (min-width: 768px) {
+  .header .loginControls {
+    padding: 0;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+  .header .loginControls button {
+    border: none;
+    background-color: #032745;
+    color: #f5fcff;
+    margin-right: 15px;
+  }
+  .header .loginControls button:hover {
+    color: #f5b64e;
+  }
+  .header .loginControls .infoHeader {
+    flex: 2;
+  }
+  .header .loginControls .username {
+    flex: 1;
+    background: #ab071d;
+    color: white;
+    border-style: none;
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 20px;
+    align-self: center;
+  }
+  .header .loginControls .yellowBar {
+    position: relative;
+    left: 400px;
+    background-color: #f5b64e;
+    height: 3px;
+    width: 100%;
+    transition: 0.4s;
+    transition-timing-function: ease;
+  }
+  .header .loginControls:hover .yellowBar {
+    left: 0px;
+  }
+}
+.header .not-logged {
+  color: red;
+}
+.header p {
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    padding-left: 20px;
+  }
+}/*# sourceMappingURL=Header.css.map */

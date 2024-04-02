@@ -1,0 +1,26 @@
+@import "Theme";
+
+.App {
+    background-color: $background-blue;
+    font-family: メイリオ, Meiryo !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .backToTopButton {
+        color: $cloud-white;
+        background-color: #20496b00;
+        border: none;
+        padding-bottom: 20px;
+        margin-left: auto;
+
+        &:hover {
+            color: #c3c3c3;
+        }
+
+        @media (min-width: 768px) {
+            padding-right: 10%;
+        }
+    }
+}

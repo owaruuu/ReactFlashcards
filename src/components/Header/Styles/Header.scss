@@ -1,0 +1,193 @@
+.header {
+    z-index: 15;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: #032745;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    color: $cloud-white;
+    border-bottom: 4px solid $stripes-red !important;
+
+    #db-error-tooltip {
+        z-index: 1;
+        width: 200px;
+        overflow-wrap: break-word;
+        display: block;
+    }
+
+    .dbError {
+        display: flex;
+        position: fixed;
+        font-size: 2rem;
+        top: 40vh;
+        color: gold;
+        right: 20px;
+        z-index: 1;
+        background-color: #c10000;
+        border-radius: 39px;
+        padding: 6px;
+
+        @media (min-width: 768px) {
+            background-color: #001e3700;
+            font-size: 3rem;
+        }
+    }
+
+    .logo {
+        color: white;
+
+        width: 20px;
+    }
+
+    .pageTitle {
+        font-family: "Gidugu";
+        text-transform: uppercase;
+        font-size: 36px;
+        text-align: center;
+        margin: 0;
+        // font-size: clamp(0rem, 0rem + 2vw, 3rem);
+        cursor: pointer;
+
+        @media (min-width: 768px) {
+            font-size: 54px;
+        }
+    }
+
+    .infoHeader {
+        font-size: 12px;
+        @media (min-width: 768px) {
+            text-align: start;
+            margin-left: 10px;
+        }
+    }
+
+    .save {
+        padding-left: 5px;
+        margin-right: auto;
+    }
+
+    .loginControls {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 0 10px;
+        text-align: center;
+        overflow: hidden;
+        margin-bottom: 10px;
+
+        .accountButtons {
+            display: flex;
+            flex-direction: row-reverse;
+            padding: 0 5px;
+
+            .logoutButton {
+                background-color: #001e3700;
+                border: none;
+                color: $cloud-white;
+                font-size: 14px;
+            }
+
+            @media (min-width: 768px) {
+                flex-direction: row;
+                padding: 0;
+                font-size: clamp(0rem, 0rem + 1vw, 3rem);
+            }
+        }
+
+        .username {
+            background: #ab071d;
+            color: white;
+            border-style: none;
+            padding: 0 10px;
+            // width: 100%;
+            // padding-right: 50px;
+            // padding-left: 50px;
+            align-self: center;
+            cursor: pointer;
+        }
+
+        .loginButton {
+            background-color: $stripes-red;
+            padding: 0 40px;
+            color: white;
+            border: none;
+
+            &:hover {
+                color: $border-yellow;
+            }
+
+            @media (min-width: 768px) {
+                background-color: $stripes-red;
+                padding: 0 40px;
+            }
+        }
+
+        .registerButton {
+            border: none;
+            background-color: $background-blue;
+            color: $cloud-white;
+        }
+
+        @media (min-width: 768px) {
+            padding: 0;
+            flex-direction: row;
+            flex-grow: 1;
+
+            button {
+                border: none;
+                background-color: $background-blue;
+                color: $cloud-white;
+                margin-right: 15px;
+
+                &:hover {
+                    color: $border-yellow;
+                }
+            }
+
+            .infoHeader {
+                flex: 2;
+            }
+
+            .username {
+                flex: 1;
+                background: #ab071d;
+                color: white;
+                border-style: none;
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 20px;
+                align-self: center;
+            }
+
+            .yellowBar {
+                position: relative;
+                left: 400px;
+                background-color: $border-yellow;
+                height: 3px;
+                width: 100%;
+                transition: 0.4s;
+                transition-timing-function: ease;
+            }
+
+            &:hover {
+                .yellowBar {
+                    left: 0px;
+                }
+            }
+        }
+    }
+
+    .not-logged {
+        color: red;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        padding-left: 20px;
+    }
+}
