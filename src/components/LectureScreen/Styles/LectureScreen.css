@@ -1,0 +1,166 @@
+.lectureScreen {
+  width: 100%;
+}
+.lectureScreen .lectureTitle {
+  text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  margin: 10px 0;
+}
+.lectureScreen .lectureScreenButtons {
+  display: flex;
+  flex-direction: column;
+}
+.lectureScreen .lectureScreenButtons .learningButtons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.lectureScreen .lectureScreenButtons .learningButtons button {
+  margin: 5px;
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenButtons .learningButtons {
+    flex-direction: row;
+  }
+}
+.lectureScreen .lectureScreenButtons button {
+  font-weight: 400;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 10px 26px;
+  margin: 10px 10px;
+}
+.lectureScreen .lectureScreenButtons button:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenButtons .reviewButton {
+    margin-right: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenButtons .learnButton {
+    padding: 0 60px;
+  }
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenButtons .testButton {
+    padding: 0 15px;
+  }
+}
+.lectureScreen .lectureScreenButtons .backButton {
+  margin-left: auto;
+  flex: 0;
+}
+.lectureScreen .lectureScreenButtons .disabled {
+  background-color: gray;
+  color: rgb(77, 77, 77);
+  border: 3px solid rgb(77, 77, 77);
+  cursor: default;
+}
+.lectureScreen .lectureScreenButtons .disabled:hover {
+  border-color: rgb(77, 77, 77);
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenButtons {
+    padding: 0 10%;
+    margin-top: 8px;
+    margin-bottom: 30px;
+    flex-direction: row;
+  }
+}
+.lectureScreen .termListDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lectureScreen .termListDiv h2 {
+  color: white;
+  font-family: serif;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+}
+.lectureScreen .termListDiv button {
+  color: #f5fcff;
+}
+.lectureScreen .termListDiv .tab-content {
+  width: 100%;
+}
+.lectureScreen .termListDiv .termList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #20496b;
+}
+.lectureScreen .termListDiv .termList .termItem {
+  background-color: #001e37;
+  display: flex;
+  flex-direction: column;
+  color: #f5fcff;
+  margin: 6px 0;
+  width: 100%;
+  padding: 14px 8px 5px 8px;
+  font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+}
+.lectureScreen .termListDiv .termList .termItem .termData {
+  display: flex;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.lectureScreen .termListDiv .termList .termItem .termOptions {
+  width: 100%;
+  border-top: 1px solid grey;
+  padding: 5px 0;
+}
+.lectureScreen .termListDiv .termList .termItem .termOptions button {
+  background: 0;
+  margin: 0 10px;
+  border-radius: 100px;
+  border: none;
+}
+.lectureScreen .termListDiv .termList .termItem .termOptions button:hover {
+  background-color: #113d61;
+}
+.lectureScreen .termListDiv .termList .termItem .termOptions button:active {
+  background-color: #316fa2;
+}
+.lectureScreen .termListDiv .termList .termItem .term {
+  flex: 1;
+}
+.lectureScreen .termListDiv .termList .termItem .verticalRule {
+  background-color: #ab071d;
+  height: 20px;
+  width: 2px;
+}
+.lectureScreen .termListDiv .termList .termItem .answer {
+  flex: 1;
+}
+.lectureScreen .termListDiv .termList .termItem div {
+  align-self: center !important;
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termList .termItem {
+    width: 80%;
+    max-width: 1024px;
+  }
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termList {
+    width: 100%;
+  }
+  .lectureScreen .termListDiv .termList .termItem {
+    border-radius: 15px;
+    padding: 15px 15px 7px 15px;
+  }
+}/*# sourceMappingURL=LectureScreen.css.map */

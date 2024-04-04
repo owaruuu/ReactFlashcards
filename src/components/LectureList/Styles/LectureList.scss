@@ -1,0 +1,88 @@
+.lectureList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .searchBar {
+        color: white;
+
+        .searchInput {
+            margin-bottom: 10px;
+
+            .searchButton {
+                background-color: #ab071d;
+                color: white;
+            }
+
+            button {
+            }
+        }
+
+        .resultElem {
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+            grid-template-areas: "lectureName term extra answer";
+
+            .name {
+                grid-area: lectureName;
+
+                border-right: goldenrod 2px solid;
+                margin-right: 2px;
+            }
+
+            .term {
+                grid-area: term;
+            }
+
+            .extra {
+                grid-area: extra;
+            }
+
+            .answer {
+                grid-area: answer;
+            }
+            &:nth-child(odd) {
+                background-color: #20496b;
+            }
+        }
+
+        .resultList {
+        }
+    }
+
+    p {
+        color: white;
+        text-align: center;
+    }
+    .lectureListTitle {
+        text-align: center;
+        color: #f5fcff;
+        font-family: "Noto Serif";
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: #dbb01c;
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+
+        @media (min-width: 768px) {
+            margin-top: 8px;
+        }
+    }
+
+    .lectureButtons {
+        display: flex;
+        flex-direction: column;
+
+        .spinner {
+            color: white;
+            margin: auto;
+        }
+    }
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 1024px;
+    }
+}

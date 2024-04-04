@@ -1,0 +1,72 @@
+.lectureList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.lectureList .searchBar {
+  color: white;
+}
+.lectureList .searchBar .searchInput {
+  margin-bottom: 10px;
+}
+.lectureList .searchBar .searchInput .searchButton {
+  background-color: #ab071d;
+  color: white;
+}
+.lectureList .searchBar .resultElem {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-areas: "lectureName term extra answer";
+}
+.lectureList .searchBar .resultElem .name {
+  grid-area: lectureName;
+  border-right: goldenrod 2px solid;
+  margin-right: 2px;
+}
+.lectureList .searchBar .resultElem .term {
+  grid-area: term;
+}
+.lectureList .searchBar .resultElem .extra {
+  grid-area: extra;
+}
+.lectureList .searchBar .resultElem .answer {
+  grid-area: answer;
+}
+.lectureList .searchBar .resultElem:nth-child(odd) {
+  background-color: #20496b;
+}
+.lectureList p {
+  color: white;
+  text-align: center;
+}
+.lectureList .lectureListTitle {
+  text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+@media (min-width: 768px) {
+  .lectureList .lectureListTitle {
+    margin-top: 8px;
+  }
+}
+.lectureList .lectureButtons {
+  display: flex;
+  flex-direction: column;
+}
+.lectureList .lectureButtons .spinner {
+  color: white;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .lectureList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1024px;
+  }
+}/*# sourceMappingURL=LectureList.css.map */

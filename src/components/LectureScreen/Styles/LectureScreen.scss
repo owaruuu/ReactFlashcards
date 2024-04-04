@@ -1,0 +1,194 @@
+@import "../../../Styles/Theme";
+.lectureScreen {
+    width: 100%;
+    .lectureTitle {
+        text-align: center;
+        color: $cloud-white;
+        font-family: "Noto Serif";
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: #dbb01c;
+        margin: 10px 0;
+        // margin-top: 35px;
+    }
+
+    .lectureScreenButtons {
+        display: flex;
+        flex-direction: column;
+
+        .learningButtons {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+
+            button {
+                margin: 5px;
+            }
+
+            @media (min-width: 768px) {
+                flex-direction: row;
+            }
+        }
+
+        button {
+            // flex: 1;
+            font-weight: 400;
+            text-transform: capitalize;
+            font-size: 1.1rem;
+            background-color: #f5fcff;
+            color: #532f00;
+            font-family: "Noto_Serif";
+            border: 3px solid #f5b64e;
+            border-radius: 100px;
+            cursor: pointer;
+            padding: 10px 26px;
+            margin: 10px 10px;
+
+            &:hover {
+                border-color: $stripes-red;
+            }
+        }
+
+        .reviewButton {
+            @media (min-width: 768px) {
+                margin-right: 15px;
+            }
+        }
+
+        .learnButton {
+            @media (min-width: 768px) {
+                padding: 0 60px;
+            }
+        }
+
+        .testButton {
+            @media (min-width: 768px) {
+                padding: 0 15px;
+            }
+        }
+
+        .backButton {
+            margin-left: auto;
+            flex: 0;
+        }
+
+        .disabled {
+            background-color: gray;
+            color: rgb(77, 77, 77);
+            border: 3px solid rgb(77, 77, 77);
+            cursor: default;
+
+            &:hover {
+                border-color: rgb(77, 77, 77);
+            }
+        }
+
+        @media (min-width: 768px) {
+            padding: 0 10%;
+            margin-top: 8px;
+            margin-bottom: 30px;
+            flex-direction: row;
+        }
+    }
+
+    .termListDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            color: white;
+            font-family: serif;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+        }
+
+        button {
+            color: $cloud-white;
+        }
+
+        .tab-content {
+            width: 100%;
+        }
+
+        .termList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            background-color: #20496b;
+
+            .termItem {
+                background-color: #001e37;
+                display: flex;
+                flex-direction: column;
+                color: #f5fcff;
+                margin: 6px 0;
+                width: 100%;
+                padding: 14px 8px 5px 8px;
+                font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+                .termData {
+                    display: flex;
+                    width: 100%;
+                    padding-bottom: 5px;
+                }
+
+                .termOptions {
+                    width: 100%;
+                    border-top: 1px solid grey;
+                    padding: 5px 0;
+                    // background-color: #532f00;
+                    button {
+                        background: 0;
+                        margin: 0 10px;
+                        border-radius: 100px;
+                        // border: 1px solid black;
+                        border: none;
+
+                        &:hover {
+                            background-color: #113d61;
+                        }
+
+                        &:active {
+                            background-color: #316fa2;
+                        }
+                    }
+                }
+
+                .term {
+                    flex: 1;
+                }
+
+                .verticalRule {
+                    background-color: $stripes-red;
+                    height: 20px;
+                    width: 2px;
+                }
+
+                .answer {
+                    // text-align: end;
+                    flex: 1;
+                }
+
+                div {
+                    align-self: center !important;
+                }
+
+                @media (min-width: 768px) {
+                    width: 80%;
+                    max-width: 1024px;
+                }
+            }
+
+            @media (min-width: 768px) {
+                // max-width: 80%;
+                width: 100%;
+
+                .termItem {
+                    border-radius: 15px;
+                    padding: 15px 15px 7px 15px;
+                }
+            }
+        }
+    }
+}

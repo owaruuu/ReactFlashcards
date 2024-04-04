@@ -1,0 +1,162 @@
+@import "../../../../Styles/Theme";
+
+.lectureButton {
+    display: grid;
+    flex-direction: column;
+    grid-template-areas:
+        "icons terms  memo"
+        "title title  title"
+        "text bar jap-bar  "
+        "date date date ";
+    // display: grid;
+    grid-template-columns: 25% 50% 25%;
+    // grid-template-areas:
+    //     "info"
+    //     "name"
+    //     "extras";
+    background-color: $cloud-white;
+    color: $inner-type-color;
+    font-family: "Noto_Serif";
+    width: 100%;
+    border-top: 3px solid #dbb01c;
+    border-bottom: 3px solid #dbb01c;
+    margin: 5px 0;
+    padding: 10px 25px;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+
+    .text {
+        grid-area: text;
+        text-align: center;
+    }
+
+    .progressBarContainer {
+        display: flex;
+        align-items: center;
+
+        span {
+            line-height: 0px;
+        }
+
+        .arrowTypeKana {
+            font-size: 12px;
+        }
+        .progressBar {
+            display: flex;
+            background-color: $gray-2;
+            margin-left: 5px;
+            min-height: 10px;
+            max-height: 12px;
+            min-width: 100px;
+        }
+    }
+
+    .bar {
+        grid-area: bar;
+    }
+
+    .jap-bar {
+        grid-area: jap-bar;
+    }
+
+    // .set-buttons-helper {
+    //     display: flex;
+    //     width: 80%;
+    //     justify-content: space-between;
+    //     grid-area: info;
+    //     font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
+    // }
+
+    .lectureButtonTitle {
+        font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
+        grid-area: title;
+        // margin-top: 4px;
+        text-align: center;
+
+        @media (min-width: 768px) {
+            font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);
+        }
+    }
+
+    .terms {
+        grid-area: terms;
+        text-align: center;
+    }
+
+    .memo {
+        grid-area: memo;
+        text-align: end;
+    }
+    .icons {
+        grid-area: icons;
+        // margin: auto;
+        text-align: center;
+    }
+
+    .date {
+        grid-area: date;
+        text-align: end;
+        font-size: clamp(7px, 7px + 1vw, 14px);
+    }
+
+    &:hover {
+        background-color: rgb(221 221 221);
+    }
+
+    &:active {
+        background-color: rgb(227 235 255);
+    }
+
+    .testIcon {
+        font-size: 24px;
+    }
+
+    @media (min-width: 768px) {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 25% 50% 25%;
+        // grid-template-areas: "info name extras";
+        grid-template-areas:
+            "text title memo"
+            "bar title icons"
+            "jap-bar terms date";
+
+        width: 76vw;
+        max-width: 740px;
+        border: 3px solid $border-yellow;
+        border-radius: 17px;
+
+        .set-buttons-helper {
+            font-size: clamp(0rem, 0.5rem + 0.5vw, 1rem);
+            justify-content: space-evenly;
+            flex-direction: column;
+            padding-left: 30px;
+        }
+
+        .text {
+            text-align: start;
+        }
+
+        .lectureButtonTitle {
+            font-size: clamp(0.4rem, 1rem + 1vw, 2.5rem);
+            font-weight: 500;
+        }
+
+        .icons {
+            text-align: end;
+        }
+
+        .date {
+        }
+
+        flex-direction: row;
+
+        // &:nth-of-type(odd) {
+        //     margin-left: 30px;
+        // }
+        // &:nth-of-type(even) {
+        //     margin-right: 30px;
+        // }
+    }
+}
