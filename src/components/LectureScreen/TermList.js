@@ -8,6 +8,7 @@ const TermList = (props) => {
                 term={term.term}
                 extra={term.extra}
                 answer={term.answer}
+                flipped={props.flipped}
             ></TermItem>
         );
     });

@@ -1,11 +1,15 @@
+import "./Styles/LectureScreen.css";
 import TermList from "./TermList";
 import { tests } from "../../data/tests";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
+import UpperDivider from "./UpperDivider";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 // import { lectures } from "../../data/lectures";
-import svg from "../../svg/cherry-blossom-petal.svg";
+
 import DismissableBanner from "../Misc/DismissableBanner";
 
 const LectureScreen = () => {
@@ -36,25 +40,18 @@ const LectureScreen = () => {
             </h2>
             <LectureScreenButtons test={showTestButton} />
 
-            <div
-                className="upperDivider"
-                style={{
-                    marginBottom: "9px",
-                }}
-            >
-                <img
-                    className="upperLogo"
-                    src={svg}
-                    style={{
-                        width: "68px",
-                        top: "-26px",
-                        marginLeft: "calc(50% - 34px)",
-                    }}
-                ></img>
-            </div>
+            <UpperDivider />
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
-                <TermList lecture={lecture}></TermList>
+                <Tabs defaultActiveKey="japanese" id="lists-tab" fill>
+                    <Tab eventKey="japanese" title="Japones">
+                        <TermList lecture={lecture}></TermList>
+                    </Tab>
+                    <Tab eventKey="spanish" title="Espaniol">
+                        <TermList lecture={lecture} flipped></TermList>
+                    </Tab>
+                </Tabs>
+
                 <BackToTopButton />
             </div>
         </div>

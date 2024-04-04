@@ -1,3 +1,4 @@
+import "./Styles/LectureList.css";
 import LectureButtons from "./LectureButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import { useContext, useState, useEffect } from "react";
