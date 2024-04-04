@@ -1,8 +1,13 @@
-import LectureButton from "../LectureButton";
+import LectureButton from "./LectureButton.js/LectureButton.js";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
+import { userQuizProgress } from "../../data/fake-db.js";
+
 const LectureButtons = () => {
+    const userId = 123;
+    const myProgress = userQuizProgress[userId];
+
     const { lectures } = useContext(AppContext);
 
     const lectureButtons = lectures.map((lecture) => {
@@ -13,6 +18,7 @@ const LectureButtons = () => {
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
                 title={lecture.name}
+                progress={myProgress[lecture.lectureId]}
             />
         );
     });

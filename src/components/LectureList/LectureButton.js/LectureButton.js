@@ -1,8 +1,12 @@
+import "./Styles/LectureButton.css";
 import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../context/AppContext";
-import { backToTop } from "../utils/utils";
-import { tests } from "../data/tests";
+import { AppContext } from "../../../context/AppContext";
+import { backToTop } from "../../../utils/utils";
+import { tests } from "../../../data/tests";
 import { HiClipboardDocumentList } from "react-icons/hi2";
+import ProgressBar from "./ProgressBar/ProgressBar.js";
+import QuizQueue from "./QuizQueue.js";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const LectureButton = (props) => {
     const {
@@ -19,6 +23,7 @@ const LectureButton = (props) => {
 
     const [hasTest] = useState(() => tests[props.id]);
 
+    //Listens to user change to show the progress
     useEffect(() => {
         if (user.currentProgress) {
             const lectureProgress = user.currentProgress[props.id];
@@ -52,22 +57,18 @@ const LectureButton = (props) => {
         }
     }, [user]);
 
-    const progressPercentage = () => {
-        if (serverError || cognitoError || !loggedIn || dbError) {
-            return "";
-        }
-
-        if (user.currentProgress) {
-            return (
-                <>
-                    <span>{percentage}% Español</span>
-                    <span>{japanesePercentage}% Japones</span>
-                </>
-            );
-        } else {
-            return <span>Cargando...</span>;
-        }
-    };
+    const japaneseArrow = (
+        <span>
+            <span className="arrowTypeKana">あ</span>
+            <IoIosArrowRoundForward />a
+        </span>
+    );
+    const spanishArrow = (
+        <span>
+            a<IoIosArrowRoundForward />
+            <span className="arrowTypeKana">あ</span>
+        </span>
+    );
 
     return (
         <div
@@ -84,19 +85,29 @@ const LectureButton = (props) => {
             }}
         >
             <div className="text">Progreso:</div>
-            <div className="bar">barra normal</div>
-            <div className="jap-bar">barra japones</div>
-            {/* <div className="set-buttons-helper">
-                <span>{props.amount} Palabras</span>
-                {progressPercentage()}
-            </div> */}
+            <div className="bar">
+                <ProgressBar
+                    arrow={japaneseArrow}
+                    terms={props.progress?.japaneseTerms}
+                    amount={props.amount}
+                />
+            </div>
+            <div className="jap-bar">
+                <ProgressBar
+                    arrow={spanishArrow}
+                    terms={props.progress?.spanishTerms}
+                    amount={props.amount}
+                />
+            </div>
             <span className="lectureButtonTitle">{props.title}</span>
             <span className="terms">{props.amount} Palabras</span>
-            <div className="memo">cola: 99+</div>
+            <QuizQueue
+                japaneseQuizQueue={props.progress?.japaneseQuizQueue}
+                spanishQuizQueue={props.progress?.spanishQuizQueue}
+            />
             <div className="icons">
                 {hasTest && <HiClipboardDocumentList className="testIcon" />}
             </div>
-            <div className="date">estudiado hace: 33 dias.</div>
         </div>
     );
 };
