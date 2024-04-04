@@ -149,3 +149,12 @@ export const chooseThreeDrag = (test, randomNumberArray) => {
 
     return dragArray;
 };
+
+export const levelOrder = [
+    "bronze",
+    "silver",
+    "gold",
+    "platinum",
+    "diamond",
+    "master",
+];

@@ -23,4 +23,28 @@
             padding-right: 10%;
         }
     }
+
+    .bronze-section {
+        background-color: $bronze-level;
+    }
+
+    .silver-section {
+        background-color: $silver-level;
+    }
+
+    .gold-section {
+        background-color: $gold-level;
+    }
+
+    .platinum-section {
+        background-color: $platinum-level;
+    }
+
+    .diamond-section {
+        background-color: $diamond-level;
+    }
+
+    .master-section {
+        background-color: $master-level;
+    }
 }

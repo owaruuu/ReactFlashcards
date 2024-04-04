@@ -21,4 +21,22 @@
   .App .backToTopButton {
     padding-right: 10%;
   }
+}
+.App .bronze-section {
+  background-color: #724927;
+}
+.App .silver-section {
+  background-color: #a3a3a3;
+}
+.App .gold-section {
+  background-color: #c4ad00;
+}
+.App .platinum-section {
+  background-color: #6bb0ff;
+}
+.App .diamond-section {
+  background-color: #009c81;
+}
+.App .master-section {
+  background-color: #9600db;
 }/*# sourceMappingURL=Homepage.css.map */
