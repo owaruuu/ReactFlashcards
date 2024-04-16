@@ -11,8 +11,10 @@ const ProgressBar = (props) => {
         master: 0,
     };
 
-    for (const value of Object.values(props.terms)) {
-        barState[value.level] += 1;
+    if (props.terms) {
+        for (const value of Object.values(props.terms)) {
+            barState[value.level] += 1;
+        }
     }
 
     let progressBar = [];
