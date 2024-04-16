@@ -1,11 +1,4 @@
-import axios from "axios";
-
-let URL = "https://api.owaruuu.xyz";
-// URL = "http://localhost:3003";
-
-const api = axios.create({
-    withCredentials: true, // Include credentials (cookies) in the request
-});
+import { api, URL } from "../api/api";
 
 //intenta revisar si estoy logeado o no
 export const connectCognito = async () => {
