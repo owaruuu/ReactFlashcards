@@ -45,6 +45,11 @@ export const AppReducer = (state, action) => {
                 user: { ...state.user, ...action.payload },
                 needToSave: true,
             };
+        case "UPDATE_USER_DATA":
+            return {
+                ...state,
+                userData: { ...state.userData, ...action.payload },
+            };
         case "SET_SAVE_FLAG":
             return { ...state, needToSave: action.payload };
         case "SET_IS_TAKING_TEST":
@@ -75,6 +80,7 @@ const initialState = {
         userName: "",
         currentProgress: null,
     },
+    userData: { currentData: {} },
     appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
     needToSave: false,
     isTakingTest: false,
@@ -102,6 +108,7 @@ export const AppProvider = (props) => {
                 lectures: state.lectures,
                 gotLectures: state.gotLectures,
                 user: state.user,
+                userData: state.userData,
                 appState: state.appState,
                 needToSave: state.needToSave,
                 isTakingTest: state.isTakingTest,
