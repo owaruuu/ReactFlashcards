@@ -5,6 +5,7 @@ import {
     getUserProgress,
     saveUserProgress,
 } from "../../aws/aws";
+import { getUserData } from "../../aws/userDataApi";
 import LoginControls from "./LoginControls";
 import InfoHeader from "./InfoHeader";
 import { RiSignalWifiErrorLine } from "react-icons/ri";
@@ -84,6 +85,7 @@ const LoginHeader = (props) => {
             //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
 
+            const userData = await getUserData;
             const progress = await getUserProgress(sub);
 
             if (progress) {
@@ -172,6 +174,7 @@ const LoginHeader = (props) => {
             setTimeSinceLastSave(0);
             //reset needToSave y isTakingTest
             dispatch({ type: "SET_SAVE_FLAG", payload: false });
+            //helper para desactivar la alerta al salir de la pagina sin guardar el progreso de la prueba
             dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
 
             //hacer put en db

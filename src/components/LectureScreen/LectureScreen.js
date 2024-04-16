@@ -8,11 +8,13 @@ import BackToTopButton from "../Buttons/BackToTopButton";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { QueryClient, QueryClientProvider } from "react-query";
 // import { lectures } from "../../data/lectures";
 
 import DismissableBanner from "../Misc/DismissableBanner";
 
 const LectureScreen = () => {
+    const queryClient = new QueryClient();
     const { appState, dbError, loggedIn, user, lectures } =
         useContext(AppContext);
 
@@ -41,19 +43,22 @@ const LectureScreen = () => {
             <LectureScreenButtons test={showTestButton} />
 
             <UpperDivider />
-            <div className="termListDiv">
-                <h2>Lista Palabras</h2>
-                <Tabs defaultActiveKey="japanese" id="lists-tab" fill>
-                    <Tab eventKey="japanese" title="Japones">
-                        <TermList lecture={lecture}></TermList>
-                    </Tab>
-                    <Tab eventKey="spanish" title="Espaniol">
-                        <TermList lecture={lecture} flipped></TermList>
-                    </Tab>
-                </Tabs>
 
-                <BackToTopButton />
-            </div>
+            <QueryClientProvider client={queryClient}>
+                <div className="termListDiv">
+                    <h2>Lista Palabras</h2>
+                    <Tabs defaultActiveKey="japanese" id="lists-tab" fill>
+                        <Tab eventKey="japanese" title="Japones">
+                            <TermList lecture={lecture}></TermList>
+                        </Tab>
+                        <Tab eventKey="spanish" title="Espaniol">
+                            <TermList lecture={lecture} flipped></TermList>
+                        </Tab>
+                    </Tabs>
+
+                    <BackToTopButton />
+                </div>
+            </QueryClientProvider>
         </div>
     );
 };
