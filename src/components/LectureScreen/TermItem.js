@@ -1,9 +1,7 @@
-import { HiOutlineStar } from "react-icons/hi2";
-import { HiStar } from "react-icons/hi2";
-import { BiSolidHide } from "react-icons/bi";
-import TermOptionButton from "./TermOptionButton";
+import TermOptionButton from "./TermOptionButtons/TermOptionButton";
 
 const TermItem = (props) => {
+    // console.log("🚀 ~ TermItem ~ props:", props);
     const term = () => {
         if (props.extra) {
             return (
@@ -27,8 +25,15 @@ const TermItem = (props) => {
                     </div>
                 </div>
                 <div className="termOptions">
-                    <TermOptionButton star />
-                    <TermOptionButton />
+                    <TermOptionButton
+                        star
+                        lectureId={props.lectureId}
+                        id={props.id}
+                    />
+                    <TermOptionButton
+                        lectureId={props.lectureId}
+                        id={props.id}
+                    />
                 </div>
             </div>
         );
@@ -44,8 +49,12 @@ const TermItem = (props) => {
                 </div>
             </div>
             <div className="termOptions">
-                <TermOptionButton star />
-                <TermOptionButton />
+                <TermOptionButton
+                    star
+                    lectureId={props.lectureId}
+                    id={props.id}
+                />
+                <TermOptionButton lectureId={props.lectureId} id={props.id} />
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ import DismissableBanner from "../Misc/DismissableBanner";
 const LectureList = () => {
     const { loggedIn, dispatch, lectures, gotLectures, user } =
         useContext(AppContext);
+    // console.log("🚀 ~ LectureList ~ user:", user);
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
 
