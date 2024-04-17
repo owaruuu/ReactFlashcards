@@ -18,7 +18,19 @@ export async function putUserData(userId, lectureId, options) {
     }
 }
 
-export async function getUserData(lectureId) {
+export async function getUserData() {
+    try {
+        const response = await api.get(`${URL}/user-data`);
+        console.log("🚀 ~ getUserData ~ response:", response);
+
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ getUserData ~ error:", error);
+        return error;
+    }
+}
+
+export async function getLectureData(lectureId) {
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
         console.log("🚀 ~ getUserData ~ response:", response);

@@ -8,8 +8,7 @@ import {
 import { getUserData } from "../../aws/userDataApi";
 import LoginControls from "./LoginControls";
 import InfoHeader from "./InfoHeader";
-import { RiSignalWifiErrorLine } from "react-icons/ri";
-import { Tooltip } from "react-tooltip";
+import ConnectionErrorIcon from "./ConnectionErrorIcon";
 
 const LoginHeader = (props) => {
     const saveDelay = 5;
@@ -85,7 +84,8 @@ const LoginHeader = (props) => {
             //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
 
-            const userData = await getUserData;
+            const userData = await getUserData();
+            console.log("🚀 ~ loginStatus ~ userData:", userData);
             const progress = await getUserProgress(sub);
 
             if (progress) {
@@ -182,21 +182,6 @@ const LoginHeader = (props) => {
         }
     }, [timeSinceLastSave]);
 
-    const connectionErrorIcon = (
-        <>
-            <div
-                className="dbError"
-                data-tooltip-id="db-error-tooltip"
-                data-tooltip-content="
-                 Your progress might not be saved."
-                data-tooltip-place="left"
-            >
-                <RiSignalWifiErrorLine />
-            </div>
-            <Tooltip id="db-error-tooltip" isOpen={true} />
-        </>
-    );
-
     return (
         <div className="loginControls">
             <InfoHeader />
@@ -204,7 +189,7 @@ const LoginHeader = (props) => {
                 errorMsg={loginControlErrorMessage}
                 userName={user.userName}
             />
-            {saveError ? connectionErrorIcon : ""}
+            {saveError ? ConnectionErrorIcon : ""}
         </div>
     );
 };
