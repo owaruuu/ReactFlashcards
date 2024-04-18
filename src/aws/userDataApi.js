@@ -31,13 +31,14 @@ export async function getUserData() {
 }
 
 export async function getLectureData(lectureId) {
+    console.log("🚀 ~ getLectureData ~ lectureId:", lectureId);
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
-        console.log("🚀 ~ getUserData ~ response:", response);
+        console.log("🚀 ~ getLectureData ~ response:", response);
 
-        return response;
+        return { data: response.data.Item };
     } catch (error) {
-        console.log("🚀 ~ getUserData ~ error:", error);
+        console.log("🚀 ~ getLectureData ~ error:", error);
         return error;
     }
 }

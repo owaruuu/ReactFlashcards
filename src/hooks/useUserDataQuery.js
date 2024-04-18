@@ -1,6 +1,10 @@
 import { useQuery } from "react-query";
-import { getUserData } from "../aws/userDataApi";
+import { getLectureData } from "../aws/userDataApi";
 
-export function useUserDataQuery(lectureId) {
-    return useQuery("userDataQuery", () => getUserData(lectureId));
+export function useDataForUserByLectureIdQuery(lectureId, initialData) {
+    return useQuery({
+        queryKey: ["dataForUserByLectureIdQuery"],
+        queryFn: () => getLectureData(lectureId),
+        initialData: initialData,
+    });
 }

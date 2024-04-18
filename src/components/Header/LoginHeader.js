@@ -9,8 +9,10 @@ import { getUserData } from "../../aws/userDataApi";
 import LoginControls from "./LoginControls";
 import InfoHeader from "./InfoHeader";
 import ConnectionErrorIcon from "./ConnectionErrorIcon";
+import { useQueryClient } from "react-query";
 
 const LoginHeader = (props) => {
+    let queryClient = useQueryClient();
     const saveDelay = 5;
 
     const {
@@ -86,6 +88,9 @@ const LoginHeader = (props) => {
 
             const userData = await getUserData();
             console.log("🚀 ~ loginStatus ~ userData:", userData);
+            if (userData.data?.Count > 0) {
+                queryClient.setQueryData("allDataForUser", userData.data.Items);
+            }
             const progress = await getUserProgress(sub);
 
             if (progress) {
