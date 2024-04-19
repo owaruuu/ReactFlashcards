@@ -5,23 +5,17 @@ export const userData = {
         1: {
             //terms options
             japaneseTerms: {
-                1: {
-                    modifier: "muted",
-                },
-                2: {
-                    modifier: "highlighted",
-                },
+                1: "muted",
+
+                2: "highlighted",
             },
             spanishTerms: {
-                1: {
-                    modifier: "muted",
-                },
-                2: {
-                    modifier: "highlighted",
-                },
+                1: "muted",
+
+                2: "highlighted",
             },
             //Informacion sobre el review 2.0
-            currentSession: {
+            japaneseCurrentSesion: {
                 currentIndex: 1,
                 terms: ["1", "2", "3", "4"],
             },

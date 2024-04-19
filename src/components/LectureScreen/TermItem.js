@@ -1,7 +1,13 @@
 import TermOptionButton from "./TermOptionButtons/TermOptionButton";
+import TermOptionsContainer from "./TermOptionButtons/TermOptionsContainer";
 
 const TermItem = (props) => {
     // console.log("🚀 ~ TermItem ~ props:", props);
+    let lectureData;
+    if (props.lectureData) {
+        lectureData = props.lectureData;
+    }
+    // console.log("🚀 ~ TermItem ~ lectureData:", lectureData);
     const term = () => {
         if (props.extra) {
             return (
@@ -24,17 +30,12 @@ const TermItem = (props) => {
                         {term()}
                     </div>
                 </div>
-                <div className="termOptions">
-                    <TermOptionButton
-                        star
-                        lectureId={props.lectureId}
-                        id={props.id}
-                    />
-                    <TermOptionButton
-                        lectureId={props.lectureId}
-                        id={props.id}
-                    />
-                </div>
+                <TermOptionsContainer
+                    termData={lectureData?.spanish_terms_data?.[props.id]}
+                    language={"spanish"}
+                    onIconClick={props.onIconClick}
+                    termId={props.id}
+                />
             </div>
         );
     }
@@ -48,14 +49,12 @@ const TermItem = (props) => {
                     {props.answer}
                 </div>
             </div>
-            <div className="termOptions">
-                <TermOptionButton
-                    star
-                    lectureId={props.lectureId}
-                    id={props.id}
-                />
-                <TermOptionButton lectureId={props.lectureId} id={props.id} />
-            </div>
+            <TermOptionsContainer
+                termData={lectureData?.japanese_terms_data?.[props.id]}
+                language={"japanese"}
+                onIconClick={props.onIconClick}
+                termId={props.id}
+            />
         </div>
     );
 };

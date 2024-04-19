@@ -1,49 +1,83 @@
 import TermItem from "./TermItem";
-import { useDataForUserByLectureIdQuery } from "../../hooks/useUserDataQuery";
+import {
+    useJapaneseTermsDataForUserByLectureIdQuery,
+    useJapaneseTermsDataForUserByLectureIdMutation,
+} from "../../hooks/useUserDataQuery";
 import { useQueryClient } from "react-query";
-
-function findLectureData(array, lectureId) {
-    console.log("🚀 ~ findLectureData ~ array, lectureId:", array, lectureId);
-    let result = {};
-
-    array.forEach((element) => {
-        if (element.lecture_id == lectureId) {
-            console.log("encontrado");
-            result = element;
-        }
-    });
-
-    console.log("returning: ", result);
-    return result;
-}
 
 const TermList = (props) => {
     const queryClient = useQueryClient();
+    //get 'global' user data query
     const allUserData = queryClient.getQueryData("allDataForUser");
-    console.log("🚀 ~ TermList ~ allUserData:", allUserData);
-    const query = useDataForUserByLectureIdQuery(props.lecture.lectureId, {
-        data: findLectureData(allUserData, props.lecture.lectureId),
-    });
-    console.log("🚀 ~ TermList ~ query:", query);
-    console.log("🚀 ~ TermList ~ query.data:", query.data);
 
-    // console.log("data: ", query.data.data.Item.lecture_data);
+    //start local query
+    const japaneseTermsQuery = useJapaneseTermsDataForUserByLectureIdQuery(
+        props.lecture.lectureId,
+        {
+            data: findLectureData(allUserData, props.lecture.lectureId),
+        }
+    );
+    // console.log("🚀 ~ TermList ~ japaneseTermsQuery 17:", japaneseTermsQuery);
+
+    const japaneseTermsMutation =
+        useJapaneseTermsDataForUserByLectureIdMutation();
+
+    //query mutation
+    function onIconClick(language, termId, newValue) {
+        let termsObject = {};
+
+        if (japaneseTermsQuery.data.data) {
+            termsObject = japaneseTermsQuery.data.data.japanese_terms_data;
+        }
+
+        // console.log("🚀 ~ onIconClick ~ termsObject:", termsObject);
+        const newObject = {
+            ...termsObject,
+            [termId]: newValue,
+        };
+        // console.log("🚀 ~ onIconClick ~ newObject:", newObject);
+        japaneseTermsMutation.mutate({
+            lectureId: props.lecture.lectureId,
+            attributeName: `${language}_terms_data`,
+            newValue: newObject,
+        });
+    }
+
+    function findLectureData(dataArray, lectureId) {
+        let result = {};
+        if (dataArray) {
+            dataArray.forEach((element) => {
+                if (element.lecture_id == lectureId) {
+                    result = element;
+                }
+            });
+        }
+
+        return result;
+    }
 
     const termItems = props.lecture.termList.map((term) => {
         return (
             <TermItem
                 key={term.id}
+                lectureData={japaneseTermsQuery.data.data}
                 lectureId={props.lecture.lectureId}
                 id={term.id}
                 term={term.term}
                 extra={term.extra}
                 answer={term.answer}
                 flipped={props.flipped}
+                onIconClick={onIconClick}
             ></TermItem>
         );
     });
 
-    return <div className="termList">{termItems}</div>;
+    return (
+        <div className="termList">
+            {JSON.stringify(japaneseTermsQuery.data.data)}
+            {termItems}
+        </div>
+    );
 };
 
 export default TermList;

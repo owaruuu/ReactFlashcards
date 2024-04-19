@@ -86,8 +86,10 @@ const LoginHeader = (props) => {
             //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
 
+            //obtengo informacion sobre todas las lectures
             const userData = await getUserData();
-            console.log("🚀 ~ loginStatus ~ userData:", userData);
+
+            //guardo en query la informacion
             if (userData.data?.Count > 0) {
                 queryClient.setQueryData("allDataForUser", userData.data.Items);
             }

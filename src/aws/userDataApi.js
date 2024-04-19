@@ -2,18 +2,18 @@
 import { api, URL } from "../api/api";
 
 //funcion para modificar las opciones de las terminos en una lecture
-export async function putUserData(userId, lectureId, options) {
+export async function postLectureData({ lectureId, attributeName, newValue }) {
     try {
         const response = await api.post(`${URL}/user-data`, {
-            userId,
             lectureId,
-            options,
+            attributeName,
+            newValue,
         });
-        console.log("🚀 ~ putUserData ~ response:", response);
+        console.log("🚀 ~ postLectureData ~ response:", response);
 
         return response;
     } catch (error) {
-        console.log("🚀 ~ putUserData ~ error:", error);
+        console.log("🚀 ~ postLectureData ~ error:", error);
         return error;
     }
 }
@@ -31,7 +31,6 @@ export async function getUserData() {
 }
 
 export async function getLectureData(lectureId) {
-    console.log("🚀 ~ getLectureData ~ lectureId:", lectureId);
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
         console.log("🚀 ~ getLectureData ~ response:", response);

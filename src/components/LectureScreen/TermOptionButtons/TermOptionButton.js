@@ -1,39 +1,17 @@
 import React from "react";
-
-import { useContext, useState } from "react";
-import { AppContext } from "../../../context/AppContext";
 import TermOptionButtonIcon from "./TermOptionButtonIcon";
 
 const TermOptionButton = (props) => {
-    const { dispatch, userData } = useContext(AppContext);
+    // console.log("🚀 ~ TermOptionButton ~ props:", props);
+
     function onClick(option) {
         let newValue = option;
-        if (userData.currentData[props.lectureId]?.terms?.[props.id]) {
-            if (
-                userData.currentData[props.lectureId].terms[props.id]
-                    .modifier == option
-            ) {
-                newValue = "";
-            }
+
+        if (newValue === props.selected) {
+            newValue = "";
         }
 
-        //cambio el estado global
-        dispatch({
-            type: "UPDATE_USER_DATA",
-            payload: {
-                currentData: {
-                    ...userData.currentData,
-                    [props.lectureId]: {
-                        ...(userData.currentData[props.lectureId] ?? {}),
-                        terms: {
-                            ...userData.currentData[props.lectureId]?.terms,
-                            [props.id]: { modifier: newValue },
-                        },
-                    },
-                },
-            },
-        });
-
+        props.onIconClick(props.language, props.termId, newValue);
         //TODO use debounce para actualizar db
     }
 
@@ -41,19 +19,16 @@ const TermOptionButton = (props) => {
         return (
             <button onClick={() => onClick("highlighted")}>
                 <TermOptionButtonIcon
-                    data={userData.currentData[props.lectureId]}
-                    id={props.id}
                     star
+                    id={props.id}
+                    selected={props.selected}
                 />
             </button>
         );
     }
     return (
         <button onClick={() => onClick("muted")}>
-            <TermOptionButtonIcon
-                data={userData.currentData[props.lectureId]}
-                id={props.id}
-            />
+            <TermOptionButtonIcon id={props.id} selected={props.selected} />
         </button>
     );
 };

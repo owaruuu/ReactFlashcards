@@ -6,24 +6,16 @@ import { BiSolidHide } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
 
 const TermOptionButtonVisual = (props) => {
-    let termData = props.data?.terms;
-    let modifier = "";
-
-    if (termData) {
-        if (termData[props.id]?.modifier.length > 0) {
-            modifier = termData[props.id]?.modifier;
-        }
-    }
-
+    // console.log("🚀 ~ TermOptionButtonVisual ~ props:", props.selected);
     if (props.star) {
-        return modifier == "highlighted" ? (
+        return props.selected == "highlighted" ? (
             <HiStar className="star-checked" />
         ) : (
             <HiOutlineStar />
         );
     }
 
-    return modifier == "muted" ? (
+    return props.selected == "muted" ? (
         <BiSolidHide className="mute-checked" />
     ) : (
         <BiHide />
