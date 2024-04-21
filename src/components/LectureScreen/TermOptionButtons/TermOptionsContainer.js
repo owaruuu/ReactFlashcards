@@ -1,9 +1,19 @@
 import React from "react";
 import TermOptionButton from "./TermOptionButton";
+import { Spinner } from "react-bootstrap";
 
 const TermOptionsContainer = (props) => {
+    // console.log("🚀 ~ TermOptionsContainer ~ props:", props.queryLoaded);
     // console.log("🚀 ~ TermOptionsContainer ~ props:", props);
     let selected = props.termData;
+
+    if (!props.queryLoaded) {
+        return (
+            <div className="termOptions">
+                <Spinner size="sm" />
+            </div>
+        );
+    }
 
     return (
         <div className="termOptions">
