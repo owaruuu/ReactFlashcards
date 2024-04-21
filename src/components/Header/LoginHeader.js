@@ -5,7 +5,7 @@ import {
     getUserProgress,
     saveUserProgress,
 } from "../../aws/aws";
-import { getUserData } from "../../aws/userDataApi";
+import { getAllUserData } from "../../aws/userDataApi";
 import LoginControls from "./LoginControls";
 import InfoHeader from "./InfoHeader";
 import ConnectionErrorIcon from "./ConnectionErrorIcon";
@@ -87,7 +87,7 @@ const LoginHeader = (props) => {
             const sub = response.value.sub;
 
             //obtengo informacion sobre todas las lectures
-            const userData = await getUserData();
+            const userData = await getAllUserData();
 
             //guardo en query la informacion
             if (userData.data?.Count > 0) {

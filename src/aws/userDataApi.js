@@ -1,7 +1,7 @@
 //will connect to the userData table in aws
 import { api, URL } from "../api/api";
 
-//funcion para modificar las opciones de las terminos en una lecture
+//reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
 export async function postLectureData({ lectureId, attributeName, newValue }) {
     try {
         const response = await api.post(`${URL}/user-data`, {
@@ -18,7 +18,8 @@ export async function postLectureData({ lectureId, attributeName, newValue }) {
     }
 }
 
-export async function getUserData() {
+//get data about term options
+export async function getAllUserData() {
     try {
         const response = await api.get(`${URL}/user-data`);
         console.log("🚀 ~ getUserData ~ response:", response);
@@ -30,12 +31,21 @@ export async function getUserData() {
     }
 }
 
-export async function getLectureData(lectureId) {
+//
+export async function getLectureOptionsData(lectureId, language) {
+    // console.log("gettuing lecture data for ", lectureId, "language:", language);
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
         console.log("🚀 ~ getLectureData ~ response:", response);
 
-        return { data: response.data.Item };
+        let result = {};
+        if (response.data.Item) {
+            if (response.data.Item[`${language}_terms_data`]) {
+                result = response.data.Item[`${language}_terms_data`];
+            }
+        }
+
+        return { data: result };
     } catch (error) {
         console.log("🚀 ~ getLectureData ~ error:", error);
         return error;
