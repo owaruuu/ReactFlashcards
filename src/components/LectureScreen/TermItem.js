@@ -1,13 +1,20 @@
-import TermOptionButton from "./TermOptionButtons/TermOptionButton";
 import TermOptionsContainer from "./TermOptionButtons/TermOptionsContainer";
 
 const TermItem = (props) => {
     // console.log("🚀 ~ TermItem ~ props:", props);
-    let lectureData;
-    if (props.lectureData) {
-        lectureData = props.lectureData;
+    let japaneseLectureData = undefined;
+    // console.log(
+    //     "🚀 ~ TermItem ~ japaneseLectureData:",
+    //     japaneseLectureData === undefined
+    // );
+    let spanishLectureData = undefined;
+    if (props.japaneseLectureData) {
+        japaneseLectureData = props.japaneseLectureData;
     }
-    // console.log("🚀 ~ TermItem ~ lectureData:", lectureData);
+    if (props.spanishLectureData) {
+        spanishLectureData = props.spanishLectureData;
+    }
+
     const term = () => {
         if (props.extra) {
             return (
@@ -20,9 +27,18 @@ const TermItem = (props) => {
         }
     };
 
+    // console.log(japaneseLectureData?.[props.id]);
+    const japaneseClassName = japaneseLectureData?.[props.id]
+        ? `termItem ${japaneseLectureData?.[props.id]}`
+        : "termItem";
+
+    const spanishClassName = spanishLectureData?.[props.id]
+        ? `termItem ${spanishLectureData?.[props.id]}`
+        : "termItem";
+
     if (props.flipped) {
         return (
-            <div className="termItem">
+            <div className={spanishClassName}>
                 <div className="termData">
                     <div className="answer">{props.answer}</div>
                     <div className="verticalRule"></div>
@@ -31,7 +47,10 @@ const TermItem = (props) => {
                     </div>
                 </div>
                 <TermOptionsContainer
-                    termData={lectureData?.spanish_terms_data?.[props.id]}
+                    queryLoaded={
+                        spanishLectureData === undefined ? false : true
+                    }
+                    termData={spanishLectureData?.[props.id]}
                     language={"spanish"}
                     onIconClick={props.onIconClick}
                     termId={props.id}
@@ -41,7 +60,7 @@ const TermItem = (props) => {
     }
 
     return (
-        <div className="termItem">
+        <div className={japaneseClassName}>
             <div className="termData">
                 <div className="term">{term()}</div>
                 <div className="verticalRule"></div>
@@ -50,7 +69,8 @@ const TermItem = (props) => {
                 </div>
             </div>
             <TermOptionsContainer
-                termData={lectureData?.japanese_terms_data?.[props.id]}
+                queryLoaded={japaneseLectureData === undefined ? false : true}
+                termData={japaneseLectureData?.[props.id]}
                 language={"japanese"}
                 onIconClick={props.onIconClick}
                 termId={props.id}

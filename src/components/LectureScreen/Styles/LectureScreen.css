@@ -155,6 +155,19 @@
     max-width: 1024px;
   }
 }
+.lectureScreen .termListDiv .termList .highlighted {
+  border: gold solid 2px;
+}
+.lectureScreen .termListDiv .termList .highlighted .verticalRule {
+  background-color: gold;
+}
+.lectureScreen .termListDiv .termList .muted {
+  background-color: grey;
+  color: #505050;
+}
+.lectureScreen .termListDiv .termList .muted .verticalRule {
+  background-color: #535353;
+}
 @media (min-width: 768px) {
   .lectureScreen .termListDiv .termList {
     width: 100%;

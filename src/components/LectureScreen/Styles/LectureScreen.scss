@@ -127,6 +127,7 @@
                 width: 100%;
                 padding: 14px 8px 5px 8px;
                 font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+
                 .termData {
                     display: flex;
                     width: 100%;
@@ -177,6 +178,23 @@
                 @media (min-width: 768px) {
                     width: 80%;
                     max-width: 1024px;
+                }
+            }
+
+            .highlighted {
+                border: gold solid 2px;
+
+                .verticalRule {
+                    background-color: gold;
+                }
+            }
+
+            .muted {
+                background-color: grey;
+                color: #505050;
+
+                .verticalRule {
+                    background-color: #535353;
                 }
             }
 
