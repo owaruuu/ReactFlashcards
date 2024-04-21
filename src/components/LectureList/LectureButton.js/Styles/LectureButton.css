@@ -57,6 +57,9 @@
   grid-area: terms;
   text-align: center;
 }
+.lectureButton .terms .spinner-border {
+  font-size: 10px;
+}
 .lectureButton .memo {
   grid-area: memo;
   text-align: end;

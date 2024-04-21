@@ -7,6 +7,7 @@ import { HiClipboardDocumentList } from "react-icons/hi2";
 import ProgressBar from "./ProgressBar/ProgressBar.js";
 import QuizQueue from "./QuizQueue.js";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { Spinner } from "react-bootstrap";
 
 const LectureButton = (props) => {
     const {
@@ -100,7 +101,20 @@ const LectureButton = (props) => {
                 />
             </div>
             <span className="lectureButtonTitle">{props.title}</span>
-            <span className="terms">{props.amount} Palabras</span>
+            <div className="terms">
+                <span>{props.amount} Palabras</span>
+                <span>
+                    {" "}
+                    -{" "}
+                    {!props.starQuerySuccess ? (
+                        <Spinner size="sm" />
+                    ) : (
+                        props.starredAmount || 0
+                    )}{" "}
+                    estrellados.
+                </span>
+            </div>
+
             <QuizQueue
                 japaneseQuizQueue={props.progress?.japaneseQuizQueue}
                 spanishQuizQueue={props.progress?.spanishQuizQueue}

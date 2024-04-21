@@ -82,6 +82,10 @@
     .terms {
         grid-area: terms;
         text-align: center;
+
+        .spinner-border {
+            font-size: 10px;
+        }
     }
 
     .memo {
