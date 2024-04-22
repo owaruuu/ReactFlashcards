@@ -1,58 +1,14 @@
 import TermItem from "./TermItem";
 import {
-    useTermsDataForUserByLectureIdQuery,
     useTermsDataForUserByLectureIdMutation,
+    useJapaneseTermsQuery,
+    useSpanishTermsQuery,
 } from "../../hooks/useUserDataQuery";
-import { useQueryClient } from "react-query";
 
 const TermList = (props) => {
-    const queryClient = useQueryClient();
+    const japaneseTermsQuery = useJapaneseTermsQuery(props.lecture.lectureId);
 
-    //get 'global' user data query
-    const allUserData = queryClient.getQueryData("allDataForUser");
-
-    //start local query
-    const japaneseTermsQuery = useTermsDataForUserByLectureIdQuery(
-        "japaneseTermsForUserByLectureIdQuery",
-        props.lecture.lectureId,
-        "japanese",
-        {
-            data: findLectureData(
-                "japanese",
-                allUserData,
-                props.lecture.lectureId
-            ),
-        }
-    );
-
-    const spanishTermsQuery = useTermsDataForUserByLectureIdQuery(
-        "spanishTermsForUserByLectureIdQuery",
-        props.lecture.lectureId,
-        "spanish",
-        {
-            data: findLectureData(
-                "spanish",
-                allUserData,
-                props.lecture.lectureId
-            ),
-        }
-    );
-
-    function findLectureData(language, dataArray, lectureId) {
-        let result = undefined;
-        if (dataArray) {
-            dataArray.forEach((element) => {
-                if (element.lecture_id == lectureId) {
-                    result = element[`${language}_terms_data`];
-                }
-            });
-        }
-
-        return result;
-    }
-
-    // console.log("🚀 ~ TermList ~ japaneseTermsQuery 40:", japaneseTermsQuery);
-    // console.log("🚀 ~ TermList ~ spanishTermsQuery 55:", spanishTermsQuery);
+    const spanishTermsQuery = useSpanishTermsQuery(props.lecture.lectureId);
 
     const japaneseTermsMutation = useTermsDataForUserByLectureIdMutation(
         "japaneseTermsForUserByLectureIdQuery"

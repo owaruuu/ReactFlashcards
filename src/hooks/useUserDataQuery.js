@@ -1,13 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLectureOptionsData, postLectureData } from "../aws/userDataApi";
 
-export function useTermsDataForUserByLectureIdQuery(
+function useTermsDataForUserByLectureIdQuery(
     queryKey,
     lectureId,
     language,
     initialData
 ) {
-    // console.log("llamo la contruccion de la query y paso la initial data");
     const queryClient = useQueryClient();
     return useQuery({
         queryKey: [queryKey],
@@ -91,4 +90,45 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
             // });
         },
     });
+}
+
+export function useJapaneseTermsQuery(lectureId) {
+    const queryClient = useQueryClient();
+    const allUserData = queryClient.getQueryData("allDataForUser");
+
+    return useTermsDataForUserByLectureIdQuery(
+        "japaneseTermsForUserByLectureIdQuery",
+        lectureId,
+        "japanese",
+        {
+            data: findLectureData("japanese", allUserData, lectureId),
+        }
+    );
+}
+
+export function useSpanishTermsQuery(lectureId) {
+    const queryClient = useQueryClient();
+    const allUserData = queryClient.getQueryData("allDataForUser");
+
+    return useTermsDataForUserByLectureIdQuery(
+        "spanishTermsForUserByLectureIdQuery",
+        lectureId,
+        "spanish",
+        {
+            data: findLectureData("spanish", allUserData, lectureId),
+        }
+    );
+}
+
+function findLectureData(language, dataArray, lectureId) {
+    let result = undefined;
+    if (dataArray) {
+        dataArray.forEach((element) => {
+            if (element.lecture_id == lectureId) {
+                result = element[`${language}_terms_data`];
+            }
+        });
+    }
+
+    return result;
 }

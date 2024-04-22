@@ -8,7 +8,6 @@ import BackToTopButton from "../Buttons/BackToTopButton";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-// import { lectures } from "../../data/lectures";
 
 import DismissableBanner from "../Misc/DismissableBanner";
 

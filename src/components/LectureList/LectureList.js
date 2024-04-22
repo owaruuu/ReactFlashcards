@@ -1,16 +1,15 @@
 import "./Styles/LectureList.css";
-import LectureButtons from "./LectureButtons";
-import BackToTopButton from "../Buttons/BackToTopButton";
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
-import Spinner from "react-bootstrap/Spinner";
 import { getExtraLessons, getExtraPerms } from "../../aws/aws";
+import LectureButtons from "./LectureButtons";
+import BackToTopButton from "../Buttons/BackToTopButton";
+import Spinner from "react-bootstrap/Spinner";
 import DismissableBanner from "../Misc/DismissableBanner";
 
 const LectureList = () => {
     const { loggedIn, dispatch, lectures, gotLectures, user } =
         useContext(AppContext);
-    // console.log("🚀 ~ LectureList ~ user:", user);
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
 
