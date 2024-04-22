@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { AppContext } from "../../context/AppContext";
-import { logoutUser } from "../../aws/aws";
-import { lectures } from "../../data/lectures";
+import { AppContext } from "../../../context/AppContext";
+import { logoutUser } from "../../../aws/aws";
+import { lectures } from "../../../data/lectures";
 import Spinner from "react-bootstrap/Spinner";
 import LogoutModal from "./LogoutModal";
 
@@ -46,7 +46,6 @@ const LoginControls = (props) => {
     };
 
     const logout = async () => {
-        console.log("log out");
         try {
             await logoutUser();
             dispatch({

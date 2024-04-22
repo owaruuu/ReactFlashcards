@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "../../../context/AppContext";
 
 const InfoHeader = (props) => {
     const { saveInfoMessage } = useContext(AppContext);
