@@ -1,18 +1,39 @@
 import LectureButton from "./LectureButton.js/LectureButton.js";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
+import { getAllUserData } from "../../aws/userDataApi.js";
 
 import { userQuizProgress } from "../../data/fake-db.js";
 
 const LectureButtons = () => {
     const queryClient = useQueryClient();
 
-    const userDataQuery = queryClient.getQueryState("allDataForUser");
+    const userDataQuery = useQuery({
+        queryKey: ["allDataForUser"],
+        queryFn: getAllUserData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        retryOnMount: false,
+        retry: 1,
+        throwOnError: false,
+        onError: () => {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+        },
+    });
+
+    console.log("🚀 ~ LectureButtons ~ globalQuery:", userDataQuery);
+
+    // const userDataQuery = queryClient.getQueryState("allDataForUser");
     // console.log("🚀 ~ LectureButtons ~ userDataQuery:", userDataQuery);
+    // const starQuerySuccess =
+    //     userDataQuery === undefined
+    //         ? undefined
+    //         : userDataQuery?.status === "success"
+    //         ? true
+    //         : false;
 
-    const starQuerySuccess = userDataQuery?.status === "success" ? true : false;
-
+    // console.log("🚀 ~ LectureButtons ~ starQuerySuccess:", starQuerySuccess);
     const userId = 123;
     const myProgress = userQuizProgress[userId];
 
@@ -30,8 +51,8 @@ const LectureButtons = () => {
                 lecture={lecture}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
-                starQuerySuccess={starQuerySuccess}
-                starredAmount={starredAmountObject?.[lecture.lectureId]} //cambiar
+                starQuerySuccess={userDataQuery.status}
+                starredAmount={starredAmountObject?.[lecture.lectureId]}
                 title={lecture.name}
                 progress={myProgress[lecture.lectureId]}
             />
@@ -48,9 +69,7 @@ function calculateStarred(dataArray) {
         let spanishStarred = 0;
 
         if (element["japanese_terms_data"]) {
-            for (const [key, value] of Object.entries(
-                element["japanese_terms_data"]
-            )) {
+            for (const value of Object.values(element["japanese_terms_data"])) {
                 if (value == "highlighted") {
                     japaneseStarred += 1;
                 }
@@ -58,9 +77,7 @@ function calculateStarred(dataArray) {
         }
 
         if (element["spanish_terms_data"]) {
-            for (const [key, value] of Object.entries(
-                element["spanish_terms_data"]
-            )) {
+            for (const value of Object.values(element["spanish_terms_data"])) {
                 if (value == "highlighted") {
                     spanishStarred += 1;
                 }

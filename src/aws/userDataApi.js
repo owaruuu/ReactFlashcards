@@ -24,10 +24,10 @@ export async function getAllUserData() {
         const response = await api.get(`${URL}/user-data`);
         console.log("🚀 ~ getUserData ~ response:", response);
 
-        return response;
+        return [...response.data.Items];
     } catch (error) {
         console.log("🚀 ~ getUserData ~ error:", error);
-        return error;
+        throw error;
     }
 }
 

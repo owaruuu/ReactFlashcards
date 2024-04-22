@@ -4,10 +4,10 @@ import { AppContext } from "../../../context/AppContext";
 import { backToTop } from "../../../utils/utils";
 import { tests } from "../../../data/tests";
 import { HiClipboardDocumentList } from "react-icons/hi2";
-import ProgressBar from "./ProgressBar/ProgressBar.js";
-import QuizQueue from "./QuizQueue.js";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { Spinner } from "react-bootstrap";
+import QuizQueue from "./QuizQueue.js";
+import ProgressBar from "./ProgressBar/ProgressBar.js";
+import StarAmount from "./components/StarAmount.js";
 
 const LectureButton = (props) => {
     const {
@@ -104,14 +104,10 @@ const LectureButton = (props) => {
             <div className="terms">
                 <span>{props.amount} Palabras</span>
                 <span>
-                    {" "}
-                    -{" "}
-                    {!props.starQuerySuccess ? (
-                        <Spinner size="sm" />
-                    ) : (
-                        props.starredAmount || 0
-                    )}{" "}
-                    estrellados.
+                    <StarAmount
+                        querySuccess={props.starQuerySuccess}
+                        starredAmount={props.starredAmount}
+                    />
                 </span>
             </div>
 

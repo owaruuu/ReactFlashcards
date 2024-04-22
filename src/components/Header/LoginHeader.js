@@ -5,14 +5,11 @@ import {
     getUserProgress,
     saveUserProgress,
 } from "../../aws/aws";
-import { getAllUserData } from "../../aws/userDataApi";
-import LoginControls from "./LoginControls";
-import InfoHeader from "./InfoHeader";
-import ConnectionErrorIcon from "./ConnectionErrorIcon";
-import { useQueryClient } from "react-query";
+import LoginControls from "./Components/LoginControls";
+import InfoHeader from "./Components/InfoHeader";
+import ConnectionErrorIcon from "./Components/ConnectionErrorIcon";
 
 const LoginHeader = (props) => {
-    let queryClient = useQueryClient();
     const saveDelay = 5;
 
     const {
@@ -86,14 +83,7 @@ const LoginHeader = (props) => {
             //**obtener progreso desde db, usando el sub del token para filtrar**
             const sub = response.value.sub;
 
-            //obtengo informacion sobre todas las lectures
-            const userData = await getAllUserData();
-
-            //guardo en query la informacion
-            if (userData.data?.Count > 0) {
-                queryClient.setQueryData("allDataForUser", userData.data.Items);
-            }
-            const progress = await getUserProgress(sub);
+            const progress = await getUserProgress(sub); // TODO remover sub de la funcion y obtenerlo desde las cookies
 
             if (progress) {
                 dispatch({
