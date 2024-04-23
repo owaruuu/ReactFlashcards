@@ -22,7 +22,7 @@ const LectureButtons = () => {
         },
     });
 
-    console.log("🚀 ~ LectureButtons ~ globalQuery:", userDataQuery);
+    // console.log("🚀 ~ LectureButtons ~ globalQuery:", userDataQuery);
 
     // const userDataQuery = queryClient.getQueryState("allDataForUser");
     // console.log("🚀 ~ LectureButtons ~ userDataQuery:", userDataQuery);

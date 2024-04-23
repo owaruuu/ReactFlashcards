@@ -2,8 +2,6 @@ import React from "react";
 import TermOptionButtonIcon from "./TermOptionButtonIcon";
 
 const TermOptionButton = (props) => {
-    // console.log("🚀 ~ TermOptionButton ~ props:", props);
-
     function onClick(option) {
         let newValue = option;
 

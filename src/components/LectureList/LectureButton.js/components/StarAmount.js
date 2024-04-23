@@ -2,7 +2,7 @@ import React from "react";
 import { Spinner } from "react-bootstrap";
 
 const StarAmount = ({ querySuccess, starredAmount }) => {
-    console.log("🚀 ~ StarAmount ~ querySuccess:", querySuccess);
+    // console.log("🚀 ~ StarAmount ~ querySuccess:", querySuccess);
     if (querySuccess === "error") {
         return "";
     }
