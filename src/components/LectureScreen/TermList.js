@@ -4,11 +4,22 @@ import {
     useJapaneseTermsQuery,
     useSpanishTermsQuery,
 } from "../../hooks/useUserDataQuery";
+import { AppContext } from "../../context/AppContext";
+import { useContext } from "react";
 
 const TermList = (props) => {
-    const japaneseTermsQuery = useJapaneseTermsQuery(props.lecture.lectureId);
+    const { loggedIn } = useContext(AppContext);
 
-    const spanishTermsQuery = useSpanishTermsQuery(props.lecture.lectureId);
+    const japaneseTermsQuery = useJapaneseTermsQuery(
+        props.lecture.lectureId,
+        loggedIn ? true : false
+    );
+    console.log("🚀 ~ TermList ~ japaneseTermsQuery:", japaneseTermsQuery);
+
+    const spanishTermsQuery = useSpanishTermsQuery(
+        props.lecture.lectureId,
+        loggedIn ? true : false
+    );
 
     const japaneseTermsMutation = useTermsDataForUserByLectureIdMutation(
         "japaneseTermsForUserByLectureIdQuery"
@@ -45,6 +56,8 @@ const TermList = (props) => {
         return (
             <TermItem
                 key={term.id}
+                japaneseQuery={japaneseTermsQuery}
+                spanishQuery={spanishTermsQuery}
                 japaneseLectureData={japaneseTermsQuery.data.data}
                 spanishLectureData={spanishTermsQuery.data.data}
                 lectureId={props.lecture.lectureId}
@@ -54,14 +67,21 @@ const TermList = (props) => {
                 answer={term.answer}
                 flipped={props.flipped}
                 onIconClick={onIconClick}
+                loggedIn={loggedIn}
             ></TermItem>
         );
     });
 
-    return (
-        <div className="termList">
+    const logData = (
+        <>
             {JSON.stringify(japaneseTermsQuery.data.data)}
             {JSON.stringify(spanishTermsQuery.data.data)}
+        </>
+    );
+
+    return (
+        <div className="termList">
+            {logData}
             {termItems}
         </div>
     );
