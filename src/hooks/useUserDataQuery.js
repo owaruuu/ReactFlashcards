@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLectureOptionsData, postLectureData } from "../aws/userDataApi";
-
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
@@ -46,7 +45,7 @@ function useTermsDataForUserByLectureIdQuery(
 }
 
 export function useTermsDataForUserByLectureIdMutation(queryKey) {
-    const { dispatch, saveError } = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: postLectureData,
@@ -109,9 +108,7 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
 
 export function useJapaneseTermsQuery(lectureId, enabled) {
     const queryClient = useQueryClient();
-    const allUserDataQuery = queryClient.getQueryState("allDataForUser");
     const allUserData = queryClient.getQueryData("allDataForUser");
-    // console.log("🚀 ~ useJapaneseTermsQuery ~ allUserData:", allUserData);
 
     return useTermsDataForUserByLectureIdQuery(
         "japaneseTermsForUserByLectureIdQuery",
