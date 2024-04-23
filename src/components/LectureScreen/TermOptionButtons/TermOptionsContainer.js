@@ -3,12 +3,13 @@ import TermOptionButton from "./TermOptionButton";
 import { Spinner } from "react-bootstrap";
 
 const TermOptionsContainer = (props) => {
-    if (props.queryLoaded.status === "error") {
+    if (props.query.status === "error") {
         return "";
     }
+
     if (
-        props.queryLoaded.status === "loading" ||
-        props.queryLoaded.data.data === undefined
+        props.query.status === "loading" ||
+        props.query.data.data === undefined
     ) {
         return (
             <div className="termOptions">
@@ -23,15 +24,13 @@ const TermOptionsContainer = (props) => {
         <div className="termOptions">
             <TermOptionButton
                 selected={selected}
-                star
-                lectureId={props.lectureId}
                 termId={props.termId}
                 onIconClick={props.onIconClick}
                 language={props.language}
+                star
             />
             <TermOptionButton
                 selected={selected}
-                lectureId={props.lectureId}
                 termId={props.termId}
                 onIconClick={props.onIconClick}
                 language={props.language}

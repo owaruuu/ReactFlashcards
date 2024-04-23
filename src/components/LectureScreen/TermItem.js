@@ -13,12 +13,8 @@ const TermItem = (props) => {
         }
     };
 
-    const japaneseClassName = props.japaneseLectureData?.[props.id]
-        ? `termItem ${props.japaneseLectureData?.[props.id]}`
-        : "termItem";
-
-    const spanishClassName = props.spanishLectureData?.[props.id]
-        ? `termItem ${props.spanishLectureData?.[props.id]}`
+    const classNames = props.query?.data?.data?.[props.id]
+        ? `termItem ${props.query?.data?.data?.[props.id]}`
         : "termItem";
 
     const termData = props.flipped ? (
@@ -40,18 +36,12 @@ const TermItem = (props) => {
     );
 
     return (
-        <div className={props.flipped ? spanishClassName : japaneseClassName}>
+        <div className={classNames}>
             {termData}
-            {props.loggedIn && (
+            {props.showControls && (
                 <TermOptionsContainer
-                    queryLoaded={
-                        props.flipped ? props.spanishQuery : props.japaneseQuery
-                    }
-                    termData={
-                        props.flipped
-                            ? props.spanishLectureData?.[props.id]
-                            : props.japaneseLectureData?.[props.id]
-                    }
+                    query={props.query}
+                    termData={props.query.data?.data?.[props.id]}
                     language={props.flipped ? "spanish" : "japanese"}
                     onIconClick={props.onIconClick}
                     termId={props.id}

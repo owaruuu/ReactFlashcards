@@ -9,6 +9,12 @@ import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
+import {
+    useTermsDataForUserByLectureIdMutation,
+    useJapaneseTermsQuery,
+    useSpanishTermsQuery,
+} from "../../hooks/useUserDataQuery";
+
 import DismissableBanner from "../Misc/DismissableBanner";
 
 const LectureScreen = () => {
@@ -22,6 +28,56 @@ const LectureScreen = () => {
 
     const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
     const showTestButton = hasTest ? true : false;
+
+    //QUERIES
+    const japaneseTermsQuery = useJapaneseTermsQuery(
+        lectureId,
+        loggedIn ? true : false
+    );
+
+    const spanishTermsQuery = useSpanishTermsQuery(
+        lectureId,
+        loggedIn ? true : false
+    );
+
+    //MUTATIONS
+    const japaneseTermsMutation = useTermsDataForUserByLectureIdMutation(
+        "japaneseTermsForUserByLectureIdQuery"
+    );
+
+    const spanishTermsMutation = useTermsDataForUserByLectureIdMutation(
+        "spanishTermsForUserByLectureIdQuery"
+    );
+
+    function onIconClick(language, termId, newValue) {
+        if (language == "japanese") {
+            japaneseTermsMutation.mutate({
+                lectureId: lectureId,
+                attributeName: `${language}_terms_data`,
+                newValue: {
+                    ...japaneseTermsQuery.data.data,
+                    [termId]: newValue,
+                },
+            });
+        } else {
+            spanishTermsMutation.mutate({
+                lectureId: lectureId,
+                attributeName: `${language}_terms_data`,
+                newValue: {
+                    ...spanishTermsQuery.data.data,
+                    [termId]: newValue,
+                },
+            });
+        }
+    }
+
+    //TEMP
+    const logData = (
+        <div style={{ color: "white" }}>
+            {JSON.stringify(japaneseTermsQuery.data.data)}
+            {JSON.stringify(spanishTermsQuery.data.data)}
+        </div>
+    );
 
     return (
         <div className="lectureScreen">
@@ -43,12 +99,24 @@ const LectureScreen = () => {
 
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
+                {logData}
                 <Tabs defaultActiveKey="japanese" id="lists-tab" fill>
                     <Tab eventKey="japanese" title="Japones">
-                        <TermList lecture={lecture}></TermList>
+                        <TermList
+                            termList={lecture.termList}
+                            onIconClick={onIconClick}
+                            query={japaneseTermsQuery}
+                            showControls={loggedIn ? true : false}
+                        ></TermList>
                     </Tab>
-                    <Tab eventKey="spanish" title="Espaniol">
-                        <TermList lecture={lecture} flipped></TermList>
+                    <Tab eventKey="spanish" title="Español">
+                        <TermList
+                            termList={lecture.termList}
+                            onIconClick={onIconClick}
+                            query={spanishTermsQuery}
+                            flipped
+                            showControls={loggedIn ? true : false}
+                        ></TermList>
                     </Tab>
                 </Tabs>
 
