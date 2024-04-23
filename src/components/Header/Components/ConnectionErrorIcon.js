@@ -8,8 +8,7 @@ const ConnectionErrorIcon = () => {
             <div
                 className="dbError"
                 data-tooltip-id="db-error-tooltip"
-                data-tooltip-content="
-                 Your progress might not be saved."
+                data-tooltip-content="Puede que tus cambios no se esten guardando."
                 data-tooltip-place="left"
             >
                 <RiSignalWifiErrorLine />
