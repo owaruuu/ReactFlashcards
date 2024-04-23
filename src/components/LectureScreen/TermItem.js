@@ -1,20 +1,6 @@
 import TermOptionsContainer from "./TermOptionButtons/TermOptionsContainer";
 
 const TermItem = (props) => {
-    // console.log("🚀 ~ TermItem ~ props:", props);
-    let japaneseLectureData = undefined;
-    // console.log(
-    //     "🚀 ~ TermItem ~ japaneseLectureData:",
-    //     japaneseLectureData === undefined
-    // );
-    let spanishLectureData = undefined;
-    if (props.japaneseLectureData) {
-        japaneseLectureData = props.japaneseLectureData;
-    }
-    if (props.spanishLectureData) {
-        spanishLectureData = props.spanishLectureData;
-    }
-
     const term = () => {
         if (props.extra) {
             return (
@@ -27,54 +13,50 @@ const TermItem = (props) => {
         }
     };
 
-    // console.log(japaneseLectureData?.[props.id]);
-    const japaneseClassName = japaneseLectureData?.[props.id]
-        ? `termItem ${japaneseLectureData?.[props.id]}`
+    const japaneseClassName = props.japaneseLectureData?.[props.id]
+        ? `termItem ${props.japaneseLectureData?.[props.id]}`
         : "termItem";
 
-    const spanishClassName = spanishLectureData?.[props.id]
-        ? `termItem ${spanishLectureData?.[props.id]}`
+    const spanishClassName = props.spanishLectureData?.[props.id]
+        ? `termItem ${props.spanishLectureData?.[props.id]}`
         : "termItem";
 
-    if (props.flipped) {
-        return (
-            <div className={spanishClassName}>
-                <div className="termData">
-                    <div className="answer">{props.answer}</div>
-                    <div className="verticalRule"></div>
-                    <div className="term" style={{ textAlign: "end" }}>
-                        {term()}
-                    </div>
-                </div>
+    const termData = props.flipped ? (
+        <div className="termData">
+            <div className="answer">{props.answer}</div>
+            <div className="verticalRule"></div>
+            <div className="term" style={{ textAlign: "end" }}>
+                {term()}
+            </div>
+        </div>
+    ) : (
+        <div className="termData">
+            <div className="term">{term()}</div>
+            <div className="verticalRule"></div>
+            <div className="answer" style={{ textAlign: "end" }}>
+                {props.answer}
+            </div>
+        </div>
+    );
+
+    return (
+        <div className={props.flipped ? spanishClassName : japaneseClassName}>
+            {termData}
+            {props.loggedIn && (
                 <TermOptionsContainer
                     queryLoaded={
-                        spanishLectureData === undefined ? false : true
+                        props.flipped ? props.spanishQuery : props.japaneseQuery
                     }
-                    termData={spanishLectureData?.[props.id]}
-                    language={"spanish"}
+                    termData={
+                        props.flipped
+                            ? props.spanishLectureData?.[props.id]
+                            : props.japaneseLectureData?.[props.id]
+                    }
+                    language={props.flipped ? "spanish" : "japanese"}
                     onIconClick={props.onIconClick}
                     termId={props.id}
                 />
-            </div>
-        );
-    }
-
-    return (
-        <div className={japaneseClassName}>
-            <div className="termData">
-                <div className="term">{term()}</div>
-                <div className="verticalRule"></div>
-                <div className="answer" style={{ textAlign: "end" }}>
-                    {props.answer}
-                </div>
-            </div>
-            <TermOptionsContainer
-                queryLoaded={japaneseLectureData === undefined ? false : true}
-                termData={japaneseLectureData?.[props.id]}
-                language={"japanese"}
-                onIconClick={props.onIconClick}
-                termId={props.id}
-            />
+            )}
         </div>
     );
 };
