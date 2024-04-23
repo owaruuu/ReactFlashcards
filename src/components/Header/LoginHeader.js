@@ -186,7 +186,8 @@ const LoginHeader = (props) => {
                 errorMsg={loginControlErrorMessage}
                 userName={user.userName}
             />
-            {saveError ? ConnectionErrorIcon : ""}
+            {/* <ConnectionErrorIcon /> */}
+            {saveError ? <ConnectionErrorIcon /> : ""}
         </div>
     );
 };
