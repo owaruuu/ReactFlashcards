@@ -1,16 +1,22 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLectureOptionsData, postLectureData } from "../aws/userDataApi";
 
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
 function useTermsDataForUserByLectureIdQuery(
     queryKey,
     lectureId,
     language,
-    initialData
+    initialData,
+    enabled
 ) {
     const queryClient = useQueryClient();
     return useQuery({
+        enabled: enabled,
         queryKey: [queryKey],
         queryFn: () => getLectureOptionsData(lectureId, language),
+        retry: 1,
         initialData: initialData,
         cacheTime: 0,
         refetchOnWindowFocus: false,
@@ -40,10 +46,12 @@ function useTermsDataForUserByLectureIdQuery(
 }
 
 export function useTermsDataForUserByLectureIdMutation(queryKey) {
+    const { dispatch, saveError } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: postLectureData,
         onMutate: async (variables) => {
+            console.log("on mutate en mutation");
             await queryClient.cancelQueries({
                 queryKey: [queryKey],
             });
@@ -59,9 +67,14 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
             return { previousValue };
         },
         onError: (err, variables, context) => {
-            queryClient.setQueryData([queryKey], context.previousValue.data);
+            console.log("on error en mutation");
+            dispatch({ type: "SET_SAVE_ERROR", payload: true });
+            queryClient.setQueryData([queryKey], {
+                data: context.previousValue.data,
+            });
         },
         onSuccess: (data, variables, context) => {
+            console.log("on success en mutation");
             const globalQuery = queryClient.getQueryData("allDataForUser");
 
             const allButChanged = globalQuery.filter((object) => {
@@ -84,6 +97,8 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
             //cambio el estado de la query global
             queryClient.setQueryData("allDataForUser", newArray);
 
+            dispatch({ type: "SET_SAVE_ERROR", payload: false });
+
             // Invalidate and refetch
             // queryClient.invalidateQueries({
             //     queryKey: [queryKey],
@@ -92,9 +107,11 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
     });
 }
 
-export function useJapaneseTermsQuery(lectureId) {
+export function useJapaneseTermsQuery(lectureId, enabled) {
     const queryClient = useQueryClient();
+    const allUserDataQuery = queryClient.getQueryState("allDataForUser");
     const allUserData = queryClient.getQueryData("allDataForUser");
+    // console.log("🚀 ~ useJapaneseTermsQuery ~ allUserData:", allUserData);
 
     return useTermsDataForUserByLectureIdQuery(
         "japaneseTermsForUserByLectureIdQuery",
@@ -102,11 +119,12 @@ export function useJapaneseTermsQuery(lectureId) {
         "japanese",
         {
             data: findLectureData("japanese", allUserData, lectureId),
-        }
+        },
+        enabled
     );
 }
 
-export function useSpanishTermsQuery(lectureId) {
+export function useSpanishTermsQuery(lectureId, enabled) {
     const queryClient = useQueryClient();
     const allUserData = queryClient.getQueryData("allDataForUser");
 
@@ -116,7 +134,8 @@ export function useSpanishTermsQuery(lectureId) {
         "spanish",
         {
             data: findLectureData("spanish", allUserData, lectureId),
-        }
+        },
+        enabled
     );
 }
 

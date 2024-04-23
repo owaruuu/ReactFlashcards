@@ -14,7 +14,7 @@ export async function postLectureData({ lectureId, attributeName, newValue }) {
         return response;
     } catch (error) {
         console.log("🚀 ~ postLectureData ~ error:", error);
-        return error;
+        throw error;
     }
 }
 
@@ -48,6 +48,6 @@ export async function getLectureOptionsData(lectureId, language) {
         return { data: result };
     } catch (error) {
         console.log("🚀 ~ getLectureData ~ error:", error);
-        return error;
+        throw error;
     }
 }
