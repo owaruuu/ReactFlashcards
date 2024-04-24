@@ -13,8 +13,8 @@ const TermItem = (props) => {
         }
     };
 
-    const classNames = props.query?.data?.data?.[props.id]
-        ? `termItem ${props.query?.data?.data?.[props.id]}`
+    const classNames = props.queryData?.[props.id]
+        ? `termItem ${props.queryData?.[props.id]}`
         : "termItem";
 
     const termData = props.flipped ? (
@@ -40,8 +40,9 @@ const TermItem = (props) => {
             {termData}
             {props.showControls && (
                 <TermOptionsContainer
-                    query={props.query}
-                    termData={props.query.data?.data?.[props.id]}
+                    queryStatus={props.queryStatus}
+                    queryData={props.queryData}
+                    termData={props.queryData?.[props.id]}
                     language={props.flipped ? "spanish" : "japanese"}
                     onIconClick={props.onIconClick}
                     termId={props.id}

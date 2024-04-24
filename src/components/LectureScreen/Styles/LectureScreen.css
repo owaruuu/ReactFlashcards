@@ -96,12 +96,61 @@
 .lectureScreen .termListDiv .tab-content {
   width: 100%;
 }
+.lectureScreen .termListDiv .termTab {
+  background-color: #20496b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer {
+  width: 80%;
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  justify-content: space-around;
+  padding: 15px 0;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer button {
+  font-size: clamp(0.4rem, 0.4rem + 1.5vw, 1rem);
+  font-weight: 400;
+  font-family: "Noto_Serif";
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px #ab071d solid;
+  background-color: #022343;
+  color: #fefefe;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer button:hover {
+  background-color: #153b5f;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer button:disabled {
+  background-color: gray;
+  color: rgb(77, 77, 77);
+  border: 3px solid rgb(77, 77, 77);
+  cursor: default;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer button:disabled .mute-checked {
+  color: #595252;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer button:disabled .star-checked {
+  color: #595252;
+}
+@media (min-width: 425px) {
+  .lectureScreen .termListDiv .termTab .termListButtonContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termTab .termListButtonContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
 .lectureScreen .termListDiv .termList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0;
-  background-color: #20496b;
+  overflow-anchor: none;
 }
 .lectureScreen .termListDiv .termList .termItem {
   background-color: #001e37;

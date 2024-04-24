@@ -1,7 +1,9 @@
+@import "../../../../Styles/Theme";
+
 .star-checked {
     color: gold;
 }
 
 .mute-checked {
-    color: purple;
+    color: $mute-purple;
 }

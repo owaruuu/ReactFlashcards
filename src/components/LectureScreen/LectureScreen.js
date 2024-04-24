@@ -4,15 +4,13 @@ import { tests } from "../../data/tests";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
-import BackToTopButton from "../Buttons/BackToTopButton";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import {
-    useTermsDataForUserByLectureIdMutation,
-    useJapaneseTermsQuery,
-    useSpanishTermsQuery,
+    useLectureQuery,
+    useLectureMutation,
 } from "../../hooks/useUserDataQuery";
 
 import DismissableBanner from "../Misc/DismissableBanner";
@@ -30,52 +28,45 @@ const LectureScreen = () => {
     const showTestButton = hasTest ? true : false;
 
     //QUERIES
-    const japaneseTermsQuery = useJapaneseTermsQuery(
-        lectureId,
-        loggedIn ? true : false
-    );
-
-    const spanishTermsQuery = useSpanishTermsQuery(
-        lectureId,
-        loggedIn ? true : false
-    );
+    const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+    console.log("🚀 ~ LectureScreen ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
-    const japaneseTermsMutation = useTermsDataForUserByLectureIdMutation(
-        "japaneseTermsForUserByLectureIdQuery"
-    );
+    const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
 
-    const spanishTermsMutation = useTermsDataForUserByLectureIdMutation(
-        "spanishTermsForUserByLectureIdQuery"
-    );
-
+    //funcion para los botoes de highlight y mute
     function onIconClick(language, termId, newValue) {
-        if (language == "japanese") {
-            japaneseTermsMutation.mutate({
-                lectureId: lectureId,
-                attributeName: `${language}_terms_data`,
-                newValue: {
-                    ...japaneseTermsQuery.data.data,
-                    [termId]: newValue,
+        lectureMutation.mutate({
+            lectureId: lectureId,
+            attributeName: `${language}_terms_data`,
+            newValue: {
+                ...lectureQuery.data.data[`${language}_terms_data`],
+                [termId]: newValue,
+            },
+        });
+    }
+
+    function onSessionUpdate(language, newvalue) {
+        lectureMutation.mutate({
+            lectureId: lectureId,
+            attributeName: `${language}_session`,
+            newValue: {
+                currentIndex: 0,
+                terms: [1, 2, 3],
+                options: {
+                    showHighlighted: true,
+                    showNormal: true,
+                    showMuted: false,
                 },
-            });
-        } else {
-            spanishTermsMutation.mutate({
-                lectureId: lectureId,
-                attributeName: `${language}_terms_data`,
-                newValue: {
-                    ...spanishTermsQuery.data.data,
-                    [termId]: newValue,
-                },
-            });
-        }
+            },
+        });
     }
 
     //TEMP
     const logData = (
-        <div style={{ color: "white" }}>
-            {JSON.stringify(japaneseTermsQuery.data.data)}
-            {JSON.stringify(spanishTermsQuery.data.data)}
+        <div style={{ color: "white", width: "100%", wordBreak: "break-all" }}>
+            {JSON.stringify(lectureQuery.data.data)}
+            {/* {JSON.stringify(spanishTermsQuery.data.data)} */}
         </div>
     );
 
@@ -104,23 +95,27 @@ const LectureScreen = () => {
                     <Tab eventKey="japanese" title="Japones">
                         <TermList
                             termList={lecture.termList}
+                            queryStatus={lectureQuery.status}
+                            queryData={
+                                lectureQuery.data?.data?.["japanese_terms_data"]
+                            }
                             onIconClick={onIconClick}
-                            query={japaneseTermsQuery}
                             showControls={loggedIn ? true : false}
                         ></TermList>
                     </Tab>
                     <Tab eventKey="spanish" title="Español">
                         <TermList
                             termList={lecture.termList}
+                            queryStatus={lectureQuery.status}
+                            queryData={
+                                lectureQuery.data?.data?.["spanish_terms_data"]
+                            }
                             onIconClick={onIconClick}
-                            query={spanishTermsQuery}
                             flipped
                             showControls={loggedIn ? true : false}
                         ></TermList>
                     </Tab>
                 </Tabs>
-
-                <BackToTopButton />
             </div>
         </div>
     );

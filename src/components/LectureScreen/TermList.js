@@ -1,16 +1,20 @@
 import TermItem from "./TermItem";
+import BackToTopButton from "../Buttons/BackToTopButton";
+import { HiStar } from "react-icons/hi2";
+import { BiSolidHide } from "react-icons/bi";
 
 const TermList = (props) => {
     let termList = props.termList;
-    if (props.query.data.data) {
-        termList = reorderList(termList, props.query.data.data);
+    if (props.queryData) {
+        termList = reorderList(termList, props.queryData);
     }
 
     const termItems = termList.map((term) => {
         return (
             <TermItem
                 key={term.id}
-                query={props.query}
+                queryStatus={props.queryStatus}
+                queryData={props.queryData}
                 id={term.id}
                 term={term.term}
                 extra={term.extra}
@@ -22,7 +26,22 @@ const TermList = (props) => {
         );
     });
 
-    return <div className="termList">{termItems}</div>;
+    return (
+        <div className="termTab">
+            <div className="termListButtonContainer">
+                <button disabled>Continuar repaso</button>
+                <button>Repasar todo</button>
+                <button disabled>
+                    Repasar todo menos <BiSolidHide className="mute-checked" />{" "}
+                </button>
+                <button disabled>
+                    Repasar solo <HiStar className="star-checked" />{" "}
+                </button>
+            </div>
+            <div className="termList">{termItems}</div>
+            <BackToTopButton />
+        </div>
+    );
 };
 
 function reorderList(originalList, data) {
