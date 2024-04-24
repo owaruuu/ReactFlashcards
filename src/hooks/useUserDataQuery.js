@@ -1,50 +1,33 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { getLectureOptionsData, postLectureData } from "../aws/userDataApi";
+import { getLectureData, postLectureData } from "../aws/userDataApi";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
-function useTermsDataForUserByLectureIdQuery(
-    queryKey,
-    lectureId,
-    language,
-    initialData,
-    enabled
-) {
+//query local para una leccion
+export function useLectureQuery(lectureId, enabled) {
     const queryClient = useQueryClient();
+    const allUserData = queryClient.getQueryData("allDataForUser");
     return useQuery({
         enabled: enabled,
-        queryKey: [queryKey],
-        queryFn: () => getLectureOptionsData(lectureId, language),
+        queryKey: [`id-${lectureId}-LectureQuery`],
+        queryFn: () => getLectureData(lectureId),
         retry: 1,
-        initialData: initialData,
-        cacheTime: 0,
+        initialData: { data: findLectureData(allUserData, lectureId) },
+        //cacheTime: 0,
         refetchOnWindowFocus: false,
         onSuccess: (data) => {
-            const globalQuery = queryClient.getQueryData("allDataForUser");
-
-            const allButChanged = globalQuery.filter((object) => {
+            const allButChanged = allUserData.filter((object) => {
                 return object.lecture_id != lectureId;
             });
 
-            const oldValue = globalQuery.filter((object) => {
-                return object.lecture_id == lectureId;
-            });
-
-            const newArray = [
-                ...allButChanged,
-                {
-                    ...oldValue[0],
-                    lecture_id: lectureId,
-                    [`${language}_terms_data`]: data.data,
-                },
-            ];
+            const newArray = [...allButChanged, data.data];
 
             queryClient.setQueryData("allDataForUser", newArray);
         },
     });
 }
 
-export function useTermsDataForUserByLectureIdMutation(queryKey) {
+export function useLectureMutation(queryKey) {
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
@@ -56,12 +39,16 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
             });
 
             //get previos values to return as context
+            //contiene todos los attributos de una leccion
             const previousValue = queryClient.getQueryData([queryKey]);
-            // console.log("🚀 ~ onMutate: ~ previousValue:", previousValue);
+            console.log("🚀 ~ onMutate: ~ previousValue:", previousValue);
 
             //optimistic update
             queryClient.setQueryData([queryKey], {
-                data: variables.newValue,
+                data: {
+                    ...previousValue.data,
+                    [variables.attributeName]: variables.newValue,
+                },
             });
             return { previousValue };
         },
@@ -106,42 +93,12 @@ export function useTermsDataForUserByLectureIdMutation(queryKey) {
     });
 }
 
-export function useJapaneseTermsQuery(lectureId, enabled) {
-    const queryClient = useQueryClient();
-    const allUserData = queryClient.getQueryData("allDataForUser");
-
-    return useTermsDataForUserByLectureIdQuery(
-        "japaneseTermsForUserByLectureIdQuery",
-        lectureId,
-        "japanese",
-        {
-            data: findLectureData("japanese", allUserData, lectureId),
-        },
-        enabled
-    );
-}
-
-export function useSpanishTermsQuery(lectureId, enabled) {
-    const queryClient = useQueryClient();
-    const allUserData = queryClient.getQueryData("allDataForUser");
-
-    return useTermsDataForUserByLectureIdQuery(
-        "spanishTermsForUserByLectureIdQuery",
-        lectureId,
-        "spanish",
-        {
-            data: findLectureData("spanish", allUserData, lectureId),
-        },
-        enabled
-    );
-}
-
-function findLectureData(language, dataArray, lectureId) {
+function findLectureData(dataArray, lectureId) {
     let result = undefined;
     if (dataArray) {
         dataArray.forEach((element) => {
             if (element.lecture_id == lectureId) {
-                result = element[`${language}_terms_data`];
+                result = element;
             }
         });
     }

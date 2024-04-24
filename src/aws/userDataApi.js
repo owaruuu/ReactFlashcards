@@ -31,17 +31,22 @@ export async function getAllUserData() {
     }
 }
 
-//
-export async function getLectureOptionsData(lectureId, language) {
-    // console.log("gettuing lecture data for ", lectureId, "language:", language);
+export async function getLectureData(lectureId) {
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
         console.log("🚀 ~ getLectureData ~ response:", response);
 
-        let result = {};
+        let result = {
+            user_id: null,
+            lecture_id: lectureId,
+            japanese_terms_data: {},
+            spanish_terms_data: {},
+            japanese_session: {},
+            spanish_session: {},
+        };
         if (response.data.Item) {
-            if (response.data.Item[`${language}_terms_data`]) {
-                result = response.data.Item[`${language}_terms_data`];
+            if (response.data.Item) {
+                result = { ...result, ...response.data.Item };
             }
         }
 
