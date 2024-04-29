@@ -288,7 +288,7 @@ const LearnScreen = (props) => {
                 flip={flip}
                 random={random}
             />
-            {props.isReview && (
+            {/* {props.isReview && (
                 <DismissableBanner
                     text={
                         "Ocupa el modo Memorizar para marcar las palabras que ya has aprendido."
@@ -297,7 +297,7 @@ const LearnScreen = (props) => {
                     color={"white"}
                     transition={1}
                 ></DismissableBanner>
-            )}
+            )} */}
             <h2 className="learnScreenTitle">{lecture.name}</h2>
             <LearnPanel
                 terms={terms}
@@ -321,6 +321,13 @@ const LearnScreen = (props) => {
                     <TermCard
                         terms={terms}
                         index={index}
+                        //
+                        term={
+                            terms[index].extra
+                                ? terms[index].term + " - " + terms[index].extra
+                                : terms[index].term
+                        }
+                        answer={terms[index].answer}
                         showAnswer={showAnswer}
                         answerFunction={handleClick}
                         flipped={flip}

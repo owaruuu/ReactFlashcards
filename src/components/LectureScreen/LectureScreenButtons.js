@@ -64,7 +64,7 @@ const LectureScreenButtons = (props) => {
         <div className="lectureScreenButtons">
             <div className="learningButtons">
                 {reviewButton}
-                {learnButton}
+                {/* {learnButton} */}
                 {props.test && testButton}
             </div>
 

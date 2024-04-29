@@ -2,28 +2,41 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 
 const TermCard = (props) => {
-    const termComp = (
-        <span>
-            {props.terms[props.index].term}
-            {props.terms[props.index].extra && " - "}
-            {props.terms[props.index].extra}
-        </span>
-    );
-    const answerComp = (
+    // const termId = props.termsIds[props.index];
+    // const termComp = props.termsDict[termId] ? (
+    //     <span>
+    //         {props.termsDict[termId]?.term}
+    //         {props.termsDict[termId]?.extra}
+    //         {" - "}
+    //         {props.termsDict[termId]?.extra}
+    //     </span>
+    // ) : (
+    //     <span>Guardando...</span>
+    // );
+
+    // const answerComp = props.termsDict[termId] ? (
+    //     <div>
+    //         <span>{props.termsDict[termId]?.answer}</span>
+    //     </div>
+    // ) : (
+    //     <span>Guardando...</span>
+    // );
+
+    let termContent, answerContent;
+    let term = <span>{props.term}</span>;
+    let answer = (
         <div>
-            <span>{props.terms[props.index].answer}</span>
+            <span>{props.answer}</span>
         </div>
     );
 
-    let termContent, answerContent;
-
     const fillContent = () => {
         if (props.flipped) {
-            termContent = answerComp;
-            answerContent = termComp;
+            termContent = answer;
+            answerContent = term;
         } else {
-            termContent = termComp;
-            answerContent = answerComp;
+            termContent = term;
+            answerContent = answer;
         }
     };
 

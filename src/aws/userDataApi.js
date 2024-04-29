@@ -2,13 +2,27 @@
 import { api, URL } from "../api/api";
 
 //reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
-export async function postLectureData({ lectureId, attributeName, newValue }) {
+export async function postLectureData({
+    lectureId,
+    attributeName,
+    newValue,
+    lastReviewed,
+}) {
+    console.log(
+        "🚀 ~ lectureId,attributeName, newValue,lastReviewed,:",
+        lectureId,
+        attributeName,
+        newValue,
+        lastReviewed
+    );
     try {
         const response = await api.post(`${URL}/user-data`, {
             lectureId,
             attributeName,
             newValue,
+            lastReviewed,
         });
+
         console.log("🚀 ~ postLectureData ~ response:", response);
 
         return response;

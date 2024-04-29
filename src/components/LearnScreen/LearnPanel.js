@@ -1,4 +1,4 @@
-import OptionsButton from "./OptionsButton";
+import OptionsButton from "../OptionsButton";
 import BackButton from "../BackButton";
 
 const LearnPanel = (props) => {
@@ -9,7 +9,7 @@ const LearnPanel = (props) => {
                 <p>
                     {props.index + 1}/{props.terms.length}
                 </p>
-                <BackButton options={{ currentScreen: "lecture" }} />
+                <BackButton options={{ currentScreen: "lecture-japanese" }} />
             </div>
             <div className="info">
                 <p>

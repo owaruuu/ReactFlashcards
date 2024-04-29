@@ -143,11 +143,6 @@
   width: 100%;
   margin: 2px 0;
 }
-.main .learnScreen .learnScreenPanel .panel {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: auto;
-}
 .main .learnScreen .learnScreenPanel .info {
   display: grid;
 }
@@ -166,50 +161,6 @@
   margin: 0;
   font-size: 2rem;
   font-family: "Gidugu";
-}
-.main .learnScreen .learnScreenPanel .optionsButton {
-  font-weight: 400;
-  text-transform: capitalize;
-  background-color: #f5fcff;
-  color: #532f00;
-  font-family: "Noto_Serif";
-  border: 3px solid #f5b64e;
-  border-radius: 100px;
-  cursor: pointer;
-  margin: 10px 20px 10px;
-  align-self: center;
-  justify-self: center;
-}
-.main .learnScreen .learnScreenPanel .optionsButton:hover {
-  border-color: #ab071d;
-}
-@media (min-width: 768px) {
-  .main .learnScreen .learnScreenPanel .optionsButton {
-    font-size: 1.1rem;
-    padding: 10px 26px;
-  }
-}
-.main .learnScreen .learnScreenPanel .backButton {
-  font-weight: 400;
-  text-transform: capitalize;
-  background-color: #f5fcff;
-  color: #532f00;
-  font-family: "Noto_Serif";
-  border: 3px solid #f5b64e;
-  border-radius: 100px;
-  cursor: pointer;
-  margin: 10px 20px 10px;
-  align-self: center;
-  justify-self: center;
-}
-.main .learnScreen .learnScreenPanel .backButton:hover {
-  border-color: #ab071d;
-}
-@media (min-width: 768px) {
-  .main .learnScreen .learnScreenPanel .backButton {
-    font-size: 1.1rem;
-    padding: 10px 26px;
-  }
 }
 .main .learnScreen .progressBar {
   display: flex;
@@ -275,107 +226,6 @@
 }
 .main .learnScreen .termCardSection button:active {
   margin: 35px 0;
-}
-.main .learnScreen .termCardDiv {
-  max-width: 935px;
-  width: 80vw;
-  height: 40vh;
-  position: relative;
-}
-@media (min-width: 768px) {
-  .main .learnScreen .termCardDiv {
-    width: 70vw;
-  }
-}
-.main .learnScreen .termCardDiv .termCard {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  color: #8b4500;
-  background-color: #fdd2a6;
-  margin: 10px;
-  border-radius: 15px;
-  overflow: hidden;
-}
-.main .learnScreen .termCardDiv .termCard div {
-  display: grid;
-}
-.main .learnScreen .termCardDiv .termCard .term,
-.main .learnScreen .termCardDiv .termCard .answerSection {
-  font-size: clamp(1rem, 1rem + 2vw, 1rem);
-  flex: 1;
-  text-align: center;
-}
-.main .learnScreen .termCardDiv .termCard .term span,
-.main .learnScreen .termCardDiv .termCard .answerSection span {
-  align-self: center;
-}
-.main .learnScreen .termCardDiv .termCard .term .clickReveal,
-.main .learnScreen .termCardDiv .termCard .answerSection .clickReveal {
-  cursor: pointer;
-}
-@media (min-width: 768px) {
-  .main .learnScreen .termCardDiv .termCard .term,
-  .main .learnScreen .termCardDiv .termCard .answerSection {
-    font-size: clamp(1rem, 1rem + 2vw, 2rem);
-  }
-}
-.main .learnScreen .termCardDiv .termCard .answerSection {
-  flex: 1;
-}
-.main .learnScreen .termCardDiv .termCard .divider {
-  height: 1px;
-  background-color: #b33e09;
-  padding: 0 10px;
-  margin: 0 20px;
-}
-.main .learnScreen .termCardDiv .disappear-right {
-  animation-name: disappear-right;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-}
-@keyframes disappear-right {
-  10% {
-    opacity: 1;
-  }
-  20% {
-    opacity: 0;
-  }
-  30% {
-    transform: translateX(400px) translateY(-100px) scale(1.05) rotateZ(5deg) rotateY(50deg) rotateX(40deg);
-    background-color: rgb(177, 128, 78);
-  }
-  100% {
-    transform: translateX(400px) translateY(-100px) scale(1.02);
-    opacity: 0;
-  }
-}
-.main .learnScreen .termCardDiv .disappear-left {
-  animation-name: disappear-left;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-}
-@keyframes disappear-left {
-  10% {
-    opacity: 1;
-  }
-  20% {
-    opacity: 0;
-  }
-  30% {
-    transform: translateX(-400px) translateY(-100px) scale(1.05) rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
-    background-color: rgb(177, 128, 78);
-  }
-  100% {
-    transform: translateX(-400px) translateY(-100px) scale(1.02);
-    opacity: 0;
-  }
 }
 .main .learnScreen .mobileTermButtons {
   color: white;
@@ -1094,5 +944,159 @@
 @media (min-width: 768px) {
   .main {
     margin-top: 80px;
+  }
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto;
+}
+
+.optionsButton {
+  font-weight: 400;
+  text-transform: capitalize;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  margin: 10px 20px 10px;
+  align-self: center;
+  justify-self: center;
+}
+.optionsButton:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .optionsButton {
+    font-size: 1.1rem;
+    padding: 10px 26px;
+  }
+}
+
+.backButton {
+  font-weight: 400;
+  text-transform: capitalize;
+  background-color: #f5fcff;
+  color: #532f00;
+  font-family: "Noto_Serif";
+  border: 3px solid #f5b64e;
+  border-radius: 100px;
+  cursor: pointer;
+  margin: 10px 20px 10px;
+  align-self: center;
+  justify-self: center;
+}
+.backButton:hover {
+  border-color: #ab071d;
+}
+@media (min-width: 768px) {
+  .backButton {
+    font-size: 1.1rem;
+    padding: 10px 26px;
+  }
+}
+
+.termCardDiv {
+  max-width: 935px;
+  width: 80vw;
+  height: 40vh;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .termCardDiv {
+    width: 70vw;
+  }
+}
+.termCardDiv .termCard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  color: #8b4500;
+  background-color: #fdd2a6;
+  margin: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.termCardDiv .termCard div {
+  display: grid;
+}
+.termCardDiv .termCard .term,
+.termCardDiv .termCard .answerSection {
+  font-size: clamp(1rem, 1rem + 2vw, 1rem);
+  flex: 1;
+  text-align: center;
+}
+.termCardDiv .termCard .term span,
+.termCardDiv .termCard .answerSection span {
+  align-self: center;
+}
+.termCardDiv .termCard .term .clickReveal,
+.termCardDiv .termCard .answerSection .clickReveal {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .termCardDiv .termCard .term,
+  .termCardDiv .termCard .answerSection {
+    font-size: clamp(1rem, 1rem + 2vw, 2rem);
+  }
+}
+.termCardDiv .termCard .answerSection {
+  flex: 1;
+}
+.termCardDiv .termCard .divider {
+  height: 1px;
+  background-color: #b33e09;
+  padding: 0 10px;
+  margin: 0 20px;
+}
+.termCardDiv .disappear-right {
+  animation-name: disappear-right;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes disappear-right {
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(400px) translateY(-100px) scale(1.05) rotateZ(5deg) rotateY(50deg) rotateX(40deg);
+    background-color: rgb(177, 128, 78);
+  }
+  100% {
+    transform: translateX(400px) translateY(-100px) scale(1.02);
+    opacity: 0;
+  }
+}
+.termCardDiv .disappear-left {
+  animation-name: disappear-left;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+@keyframes disappear-left {
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    transform: translateX(-400px) translateY(-100px) scale(1.05) rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
+    background-color: rgb(177, 128, 78);
+  }
+  100% {
+    transform: translateX(-400px) translateY(-100px) scale(1.02);
+    opacity: 0;
   }
 }/*# sourceMappingURL=Main.css.map */

@@ -1,0 +1,77 @@
+.ReviewV2Screen {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 50px;
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen {
+    width: 80%;
+  }
+}
+.ReviewV2Screen .learnScreenTitle {
+  text-align: center;
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  margin: 0px;
+}
+.ReviewV2Screen .reviewScreenPanel {
+  width: 100%;
+  margin: 2px 0;
+}
+.ReviewV2Screen .reviewScreenPanel p {
+  align-self: center;
+  justify-self: center;
+  color: white;
+  margin: 0;
+  font-size: 2rem;
+  font-family: "Gidugu";
+}
+.ReviewV2Screen .controls {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-content: center;
+  width: 100%;
+}
+.ReviewV2Screen .controls p {
+  text-align: center;
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+}
+.ReviewV2Screen .controls button {
+  padding: 10px 50px;
+  margin-right: 20px;
+  border-radius: 15px;
+  border: 2px solid #ab071d;
+  background-color: #f5fcff;
+  color: #66121d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto_Serif";
+  font-size: 1.2rem;
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls button {
+    margin-right: 40px;
+  }
+}
+.ReviewV2Screen .controls .continue:hover {
+  background-color: #449754;
+  color: white;
+  border-color: #1dcb3f;
+}
+.ReviewV2Screen .controls .close:hover {
+  background-color: #ab071d;
+  color: white;
+}/*# sourceMappingURL=ReviewScreen.css.map */

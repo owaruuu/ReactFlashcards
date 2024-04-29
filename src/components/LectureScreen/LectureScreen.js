@@ -1,7 +1,7 @@
 import "./Styles/LectureScreen.css";
 import TermList from "./TermList";
 import { tests } from "../../data/tests";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import LectureScreenButtons from "./LectureScreenButtons";
 import UpperDivider from "./UpperDivider";
@@ -11,13 +11,16 @@ import Tabs from "react-bootstrap/Tabs";
 import {
     useLectureQuery,
     useLectureMutation,
+    useSessionMutation,
 } from "../../hooks/useUserDataQuery";
 
 import DismissableBanner from "../Misc/DismissableBanner";
 
-const LectureScreen = () => {
-    const { appState, dbError, loggedIn, user, lectures } =
+const LectureScreen = (props) => {
+    const { appState, dbError, loggedIn, user, lectures, dispatch } =
         useContext(AppContext);
+
+    const [createSessionError, setCreateSessionError] = useState(false);
 
     const lectureId = appState.currentLecture;
     const lecture = lectures.find((lecture) => {
@@ -29,10 +32,19 @@ const LectureScreen = () => {
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    console.log("🚀 ~ LectureScreen ~ lectureQuery:", lectureQuery);
+    // console.log("🚀 ~ LectureScreen ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
+    // console.log("🚀 ~ LectureScreen ~ lectureMutation:", lectureMutation);
+
+    const lectureSessionMutation = useSessionMutation(
+        `id-${lectureId}-LectureQuery`
+    );
+    // console.log(
+    //     "🚀 ~ LectureScreen ~ lectureSessionMutation:",
+    //     lectureSessionMutation
+    // );
 
     //funcion para los botoes de highlight y mute
     function onIconClick(language, termId, newValue) {
@@ -46,20 +58,33 @@ const LectureScreen = () => {
         });
     }
 
-    function onSessionUpdate(language, newvalue) {
-        lectureMutation.mutate({
-            lectureId: lectureId,
-            attributeName: `${language}_session`,
-            newValue: {
-                currentIndex: 0,
-                terms: [1, 2, 3],
-                options: {
-                    showHighlighted: true,
-                    showNormal: true,
-                    showMuted: false,
-                },
+    function changeToReviewScreen(language) {
+        window.scrollTo(0, 0);
+        dispatch({
+            type: "CHANGE_SCREEN",
+            payload: {
+                currentScreen:
+                    language === "japanese"
+                        ? "reviewV2Japanese"
+                        : "reviewV2Spanish",
             },
         });
+    }
+
+    async function onNewSessionCreate(language, newValue) {
+        try {
+            await lectureSessionMutation.mutateAsync({
+                lectureId: lectureId,
+                attributeName: `${language}_session`,
+                newValue: newValue,
+            });
+            //aqui deberia cambiar de pantalla
+            console.log("la mutacion funciono y deberia cambiar de pantalla");
+            changeToReviewScreen(language);
+        } catch (error) {
+            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            setCreateSessionError(true);
+        }
     }
 
     //TEMP
@@ -91,7 +116,7 @@ const LectureScreen = () => {
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
                 {logData}
-                <Tabs defaultActiveKey="japanese" id="lists-tab" fill>
+                <Tabs defaultActiveKey={props.defaultTab} id="lists-tab" fill>
                     <Tab eventKey="japanese" title="Japones">
                         <TermList
                             termList={lecture.termList}
@@ -99,8 +124,16 @@ const LectureScreen = () => {
                             queryData={
                                 lectureQuery.data?.data?.["japanese_terms_data"]
                             }
+                            sessionData={
+                                lectureQuery.data?.data?.["japanese_session"]
+                            }
                             onIconClick={onIconClick}
+                            onReviewClick={onNewSessionCreate}
+                            onContinueClick={changeToReviewScreen}
                             showControls={loggedIn ? true : false}
+                            sessionMutationStatus={
+                                lectureSessionMutation.status
+                            }
                         ></TermList>
                     </Tab>
                     <Tab eventKey="spanish" title="Español">
@@ -110,9 +143,18 @@ const LectureScreen = () => {
                             queryData={
                                 lectureQuery.data?.data?.["spanish_terms_data"]
                             }
+                            sessionData={
+                                lectureQuery.data?.data?.["spanish_session"]
+                            }
                             onIconClick={onIconClick}
+                            onReviewClick={onNewSessionCreate}
+                            onContinueClick={changeToReviewScreen}
                             flipped
                             showControls={loggedIn ? true : false}
+                            sessionMutationStatus={
+                                lectureSessionMutation.status
+                            }
+                            createSessionError={createSessionError}
                         ></TermList>
                     </Tab>
                 </Tabs>

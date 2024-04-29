@@ -79,13 +79,13 @@ const LectureButton = (props) => {
                 dispatch({
                     type: "CHANGE_SCREEN",
                     payload: {
-                        currentScreen: "lecture",
+                        currentScreen: "lecture-japanese",
                         currentLecture: props.id,
                     },
                 });
             }}
         >
-            <div className="text">Progreso:</div>
+            {/* <div className="text">Progreso:</div>
             <div className="bar">
                 <ProgressBar
                     arrow={japaneseArrow}
@@ -99,7 +99,7 @@ const LectureButton = (props) => {
                     terms={props.progress?.spanishTerms}
                     amount={props.amount}
                 />
-            </div>
+            </div> */}
             <span className="lectureButtonTitle">{props.title}</span>
             <div className="terms">
                 <span>{props.amount} Palabras</span>
@@ -111,10 +111,10 @@ const LectureButton = (props) => {
                 </span>
             </div>
 
-            <QuizQueue
+            {/* <QuizQueue
                 japaneseQuizQueue={props.progress?.japaneseQuizQueue}
                 spanishQuizQueue={props.progress?.spanishQuizQueue}
-            />
+            /> */}
             <div className="icons">
                 {hasTest && <HiClipboardDocumentList className="testIcon" />}
             </div>
