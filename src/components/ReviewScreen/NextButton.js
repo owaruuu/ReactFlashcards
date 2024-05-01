@@ -4,7 +4,7 @@ import { PiArrowBendUpLeftFill } from "react-icons/pi";
 import { Spinner } from "react-bootstrap";
 
 const NextButton = (props) => {
-    console.log("🚀 ~ NextButton ~ props:", props);
+    // console.log("🚀 ~ NextButton ~ props:", props);
     if (props.loading) {
         return (
             <button disabled>

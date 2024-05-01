@@ -6,10 +6,16 @@ import LectureButtons from "./LectureButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import Spinner from "react-bootstrap/Spinner";
 import DismissableBanner from "../Misc/DismissableBanner";
+import FilterButton from "./components/FilterButton";
 
 const LectureList = () => {
     const { loggedIn, dispatch, lectures, gotLectures, user } =
         useContext(AppContext);
+
+    const [filterState, setFilterState] = useState(null);
+    console.log("🚀 ~ LectureList ~ filterState:", filterState);
+    const [dateButtonState, setDateButtonState] = useState(null);
+    const [sizeButtonState, setSizeButtonState] = useState(null);
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
 
@@ -64,6 +70,21 @@ const LectureList = () => {
         }
     }, [loggedIn]);
 
+    function cycleState(name, state, callback) {
+        setDateButtonState(null);
+        setSizeButtonState(null);
+        if (state === null) {
+            callback("ASC");
+            setFilterState(name + "ASC");
+        } else if (state === "ASC") {
+            callback("DESC");
+            setFilterState(name + "DESC");
+        } else if (state === "DESC") {
+            callback(null);
+            setFilterState(null);
+        }
+    }
+
     return (
         <div className="lectureList">
             {!loggedIn && (
@@ -76,9 +97,29 @@ const LectureList = () => {
                     transition={1}
                 ></DismissableBanner>
             )}
-            <h2 className="lectureListTitle">Lecciones</h2>
+            <div className="titleContainer">
+                <h2 className="lectureListTitle">Lecciones</h2>
+                <div className="filter">
+                    <span>ordernar por: </span>
+                    <FilterButton
+                        name={"date"}
+                        text={"fecha sesión"}
+                        state={dateButtonState}
+                        onClick={cycleState}
+                        callback={setDateButtonState}
+                    />
+                    <FilterButton
+                        name={"size"}
+                        text={"tamaño sesión"}
+                        state={sizeButtonState}
+                        onClick={cycleState}
+                        callback={setSizeButtonState}
+                    />
+                </div>
+            </div>
+
             <div className="lectureButtons">
-                <LectureButtons />
+                <LectureButtons filterState={filterState} />
                 {loggedIn && !gotLectures ? (
                     <Spinner
                         className="spinner"

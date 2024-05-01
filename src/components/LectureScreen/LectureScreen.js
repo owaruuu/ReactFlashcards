@@ -72,6 +72,7 @@ const LectureScreen = (props) => {
     }
 
     async function onNewSessionCreate(language, newValue) {
+        // console.log("🚀 ~ onNewSessionCreate ~ newValue:", newValue);
         try {
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
@@ -79,10 +80,10 @@ const LectureScreen = (props) => {
                 newValue: newValue,
             });
             //aqui deberia cambiar de pantalla
-            console.log("la mutacion funciono y deberia cambiar de pantalla");
+            // console.log("la mutacion funciono y deberia cambiar de pantalla");
             changeToReviewScreen(language);
         } catch (error) {
-            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            // console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setCreateSessionError(true);
         }
     }
@@ -99,7 +100,7 @@ const LectureScreen = (props) => {
         <div className="lectureScreen">
             {!loggedIn && (
                 <DismissableBanner
-                    text={"Accede al modo Memorizar o Prueba con tu cuenta."}
+                    text={"Accede al modo Prueba o Repaso con tu cuenta."}
                     bgColor={"#ab071d"}
                     color={"white"}
                     transition={1}
@@ -115,7 +116,7 @@ const LectureScreen = (props) => {
 
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
-                {logData}
+                {/* {logData} */}
                 <Tabs defaultActiveKey={props.defaultTab} id="lists-tab" fill>
                     <Tab eventKey="japanese" title="Japones">
                         <TermList

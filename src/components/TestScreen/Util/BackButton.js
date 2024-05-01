@@ -11,7 +11,7 @@ const BackButton = (props) => {
                 dispatch({
                     type: "CHANGE_SCREEN",
                     payload: {
-                        currentScreen: "lecture",
+                        currentScreen: "lecture-japanese",
                     },
                 });
                 break;

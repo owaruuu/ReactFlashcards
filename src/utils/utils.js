@@ -158,3 +158,50 @@ export const levelOrder = [
     "diamond",
     "master",
 ];
+
+export function showDifference(diff) {
+    const days = diff / (1000 * 60 * 60 * 24);
+    // console.log("🚀 ~ showDifference ~ days:", days);
+    const hours = diff / (1000 * 60 * 60);
+
+    // console.log("🚀 ~ showDifference ~ Math.abs(days):", Math.abs(days));
+    if (Math.floor(days) === 1) {
+        return `hace 1 dia.`;
+    }
+
+    if (days > 1) {
+        return `hace ${Math.round(days)} dias.`;
+    }
+
+    if (hours < 1) {
+        return "hace un momento.";
+    }
+
+    if (hours > 0 && hours < 2) {
+        return `hace 1 hora.`;
+    }
+
+    return `hace ${Math.round(hours)} horas.`;
+}
+
+export function pickDifference(japanese, spanish) {
+    // console.log("🚀 ~ pickDifference ~ japanese, spanish:", japanese, spanish);
+    if (japanese && spanish) {
+        const japaneseDiff = Math.abs(
+            japanese.getTime() - new Date().getTime()
+        );
+
+        const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
+
+        const biggerDiff = Math.max(japaneseDiff, spanishDiff);
+        return biggerDiff;
+    } else if (japanese && !spanish) {
+        const japaneseDiff = Math.abs(
+            japanese.getTime() - new Date().getTime()
+        );
+        return japaneseDiff;
+    } else if (!japanese && spanish) {
+        const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
+        return spanishDiff;
+    }
+}

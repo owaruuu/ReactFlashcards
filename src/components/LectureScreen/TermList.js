@@ -1,9 +1,11 @@
 import TermItem from "./TermItem";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import InteractionBlocker from "./InteractionBlocker";
+import { shuffleArray } from "../../utils/utils";
 import { HiStar } from "react-icons/hi2";
 import { BiSolidHide } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import { showDifference } from "../../utils/utils";
 
 const TermList = (props) => {
     const [starred, setStarred] = useState(() =>
@@ -16,7 +18,6 @@ const TermList = (props) => {
     const lastReviewDate = hasSession
         ? props.sessionData.lastReviewed
         : undefined;
-    console.log("🚀 ~ TermList ~ lastReviewDate:", lastReviewDate);
 
     let termList = props.termList;
     if (props.queryData) {
@@ -126,7 +127,7 @@ const TermList = (props) => {
                                     : () => props.onContinueClick("japanese")
                             }
                         >
-                            <p>Continuar repaso</p>
+                            <p>Continuar repaso </p>
                             <p>{amountInfo}</p>
                         </button>
 
@@ -140,8 +141,8 @@ const TermList = (props) => {
                             onClick={onAllButMutedSessionClick}
                         >
                             <p>
-                                Todo menos{" "}
-                                <BiSolidHide className="mute-checked" />{" "}
+                                Todo menos{"  "}
+                                <BiSolidHide className="mute-checked" />
                             </p>
                             <p>{`(${
                                 props.termList.length - muted
@@ -224,7 +225,7 @@ function calculateIds(options, termsArray, data) {
 
     //TODO shuffle array
 
-    return sessionTerms;
+    return shuffleArray(sessionTerms);
 }
 
 function starredAmount(array, data) {
@@ -259,31 +260,13 @@ function mutedAmount(array, data) {
 
 function timeDifference(date) {
     if (date) {
-        console.log("🚀 ~ timeDifference ~ date:", date);
+        // console.log("🚀 ~ timeDifference ~ date:", date);
         const lastReviewDate = new Date(date);
         const today = new Date();
 
         const diff = Math.abs(today.getTime() - lastReviewDate.getTime());
-        const days = diff / (1000 * 60 * 60 * 24);
-        const hours = diff / (1000 * 60 * 60);
 
-        if (days === 1) {
-            return `hace 1 dia.`;
-        }
-
-        if (days > 1) {
-            return `hace ${Math.round(days)} dias.`;
-        }
-
-        if (hours < 1) {
-            return "hace un momento.";
-        }
-
-        if (hours > 0 && hours < 2) {
-            return `hace 1 hora.`;
-        }
-
-        return `hace ${Math.round(hours)} horas.`;
+        return showDifference(diff);
     } else {
         return "nunca.";
     }

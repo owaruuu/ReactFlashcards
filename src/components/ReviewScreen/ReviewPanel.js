@@ -13,7 +13,7 @@ const ReviewPanel = (props) => {
     return (
         <div className="reviewScreenPanel">
             <div className="panel">
-                <OptionsButton showFunc={props.showFunc} />
+                <OptionsButton showFunc={props.showFunc} disabled={true} />
                 <p>{info}</p>
                 <BackButton
                     options={{ currentScreen: `lecture-${props.language}` }}

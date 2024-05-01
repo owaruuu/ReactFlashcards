@@ -1162,6 +1162,13 @@
         border-color: $stripes-red;
     }
 
+    &:disabled {
+        background-color: gray;
+        color: #606060;
+        border-color: #606060;
+        cursor: not-allowed;
+    }
+
     @media (min-width: 768px) {
         font-size: 1.1rem;
         padding: 10px 26px;

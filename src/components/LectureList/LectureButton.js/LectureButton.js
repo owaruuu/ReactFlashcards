@@ -5,9 +5,14 @@ import { backToTop } from "../../../utils/utils";
 import { tests } from "../../../data/tests";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { FaClock } from "react-icons/fa6";
+import { PiStackOverflowLogoFill } from "react-icons/pi";
 import QuizQueue from "./QuizQueue.js";
 import ProgressBar from "./ProgressBar/ProgressBar.js";
 import StarAmount from "./components/StarAmount.js";
+import TermsReviewAmount from "./components/TermsReviewAmount.js";
+import ReviewSessionTime from "./components/ReviewSessionTime.js";
+import { Spinner } from "react-bootstrap";
 
 const LectureButton = (props) => {
     const {
@@ -71,6 +76,20 @@ const LectureButton = (props) => {
         </span>
     );
 
+    const termsAmount =
+        props.userDataQueryStatus === "loading" ? (
+            <Spinner size="sm" />
+        ) : (
+            "aaaaaaaaa"
+        );
+
+    const lastReviewDate =
+        props.userDataQueryStatus === "loading" ? (
+            <Spinner size="sm" />
+        ) : (
+            "aaaaaaaaa"
+        );
+
     return (
         <div
             className="lectureButton"
@@ -103,6 +122,7 @@ const LectureButton = (props) => {
             <span className="lectureButtonTitle">{props.title}</span>
             <div className="terms">
                 <span>{props.amount} Palabras</span>
+                {loggedIn && <span className="mobile"> - </span>}
                 <span>
                     <StarAmount
                         querySuccess={props.starQuerySuccess}
@@ -110,11 +130,32 @@ const LectureButton = (props) => {
                     />
                 </span>
             </div>
-
             {/* <QuizQueue
                 japaneseQuizQueue={props.progress?.japaneseQuizQueue}
                 spanishQuizQueue={props.progress?.spanishQuizQueue}
             /> */}
+            {loggedIn && <div className="session">Sesiónes Repaso: </div>}
+            {loggedIn && (
+                <div className="amount">
+                    <PiStackOverflowLogoFill /> :
+                    <TermsReviewAmount
+                        status={props.userDataQueryStatus}
+                        data={props.userDataQueryData}
+                        id={props.id}
+                    ></TermsReviewAmount>
+                </div>
+            )}
+
+            {loggedIn && (
+                <div className="lastReview">
+                    <FaClock /> :{" "}
+                    <ReviewSessionTime
+                        status={props.userDataQueryStatus}
+                        data={props.userDataQueryData}
+                        id={props.id}
+                    ></ReviewSessionTime>
+                </div>
+            )}
             <div className="icons">
                 {hasTest && <HiClipboardDocumentList className="testIcon" />}
             </div>

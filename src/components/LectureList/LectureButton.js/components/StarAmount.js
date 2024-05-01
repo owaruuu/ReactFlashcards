@@ -15,7 +15,7 @@ const StarAmount = ({ querySuccess, starredAmount }) => {
         starredAmount = 0;
     }
 
-    return <> - {starredAmount} estrellado</>;
+    return <>{starredAmount} estrellada</>;
 };
 
 export default StarAmount;

@@ -6,10 +6,10 @@
     grid-template-areas:
         "icons terms  memo"
         "title title  title"
-        "text bar jap-bar  "
-        "date date date ";
+        "session amount lastReview"
+        "text bar jap-bar";
     // display: grid;
-    grid-template-columns: 25% 50% 25%;
+    grid-template-columns: 33% 33% 33%;
     // grid-template-areas:
     //     "info"
     //     "name"
@@ -21,7 +21,7 @@
     border-top: 3px solid #dbb01c;
     border-bottom: 3px solid #dbb01c;
     margin: 5px 0;
-    padding: 10px 25px;
+    padding: 10px 5px;
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
@@ -80,6 +80,8 @@
     }
 
     .terms {
+        display: flex;
+        flex-direction: column;
         grid-area: terms;
         text-align: center;
 
@@ -98,10 +100,29 @@
         text-align: center;
     }
 
+    .session {
+        grid-area: session;
+        font-size: 14px;
+    }
+
+    .lastReview {
+        grid-area: lastReview;
+        font-size: 10px;
+    }
+
+    .amount {
+        grid-area: amount;
+        font-size: 10px;
+    }
+
     .date {
         grid-area: date;
         text-align: end;
         font-size: clamp(7px, 7px + 1vw, 14px);
+    }
+
+    .mobile {
+        display: none;
     }
 
     &:hover {
@@ -122,14 +143,21 @@
         grid-template-columns: 25% 50% 25%;
         // grid-template-areas: "info name extras";
         grid-template-areas:
-            "text title memo"
-            "bar title icons"
-            "jap-bar terms date";
+            "bar terms session"
+            "jap-bar title amount"
+            "memo icons lastReview";
 
-        width: 76vw;
-        max-width: 740px;
+        width: 85vw;
+        max-width: 870px;
         border: 3px solid $border-yellow;
         border-radius: 17px;
+        padding: 5px 0;
+
+        .terms {
+            flex-direction: row;
+            justify-content: center;
+            gap: 3px;
+        }
 
         .set-buttons-helper {
             font-size: clamp(0rem, 0.5rem + 0.5vw, 1rem);
@@ -148,7 +176,27 @@
         }
 
         .icons {
-            text-align: end;
+            // text-align: end;
+        }
+
+        .mobile {
+            display: block;
+        }
+
+        .session {
+            grid-area: session;
+        }
+
+        .lastReview {
+            grid-area: lastReview;
+            font-size: 14px;
+            padding-left: 5px;
+        }
+
+        .amount {
+            grid-area: amount;
+            font-size: 14px;
+            padding-left: 5px;
         }
 
         .date {

@@ -145,6 +145,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button:hover {
   background-color: #153b5f;

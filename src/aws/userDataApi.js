@@ -1,4 +1,3 @@
-//will connect to the userData table in aws
 import { api, URL } from "../api/api";
 
 //reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
@@ -8,13 +7,6 @@ export async function postLectureData({
     newValue,
     lastReviewed,
 }) {
-    console.log(
-        "🚀 ~ lectureId,attributeName, newValue,lastReviewed,:",
-        lectureId,
-        attributeName,
-        newValue,
-        lastReviewed
-    );
     try {
         const response = await api.post(`${URL}/user-data`, {
             lectureId,
@@ -23,12 +15,12 @@ export async function postLectureData({
             lastReviewed,
         });
 
-        console.log("🚀 ~ postLectureData ~ response:", response);
+        // console.log("🚀 ~ postLectureData ~ response:", response);
 
         return response;
     } catch (error) {
-        console.log("🚀 ~ postLectureData ~ error:", error);
-        throw error;
+        // console.log("🚀 ~ postLectureData ~ error:", error);
+        return error;
     }
 }
 
@@ -36,11 +28,11 @@ export async function postLectureData({
 export async function getAllUserData() {
     try {
         const response = await api.get(`${URL}/user-data`);
-        console.log("🚀 ~ getUserData ~ response:", response);
+        // console.log("🚀 ~ getUserData ~ response:", response);
 
         return [...response.data.Items];
     } catch (error) {
-        console.log("🚀 ~ getUserData ~ error:", error);
+        // console.log("🚀 ~ getUserData ~ error:", error);
         throw error;
     }
 }
@@ -48,7 +40,6 @@ export async function getAllUserData() {
 export async function getLectureData(lectureId) {
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
-        console.log("🚀 ~ getLectureData ~ response:", response);
 
         let result = {
             user_id: null,
@@ -66,7 +57,7 @@ export async function getLectureData(lectureId) {
 
         return { data: result };
     } catch (error) {
-        console.log("🚀 ~ getLectureData ~ error:", error);
+        // console.log("🚀 ~ getLectureData ~ error:", error);
         throw error;
     }
 }

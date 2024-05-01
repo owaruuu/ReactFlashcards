@@ -7,7 +7,6 @@ import { AppContext } from "../context/AppContext";
 export function useLectureQuery(lectureId, enabled) {
     const queryClient = useQueryClient();
     const allUserData = queryClient.getQueryData("allDataForUser");
-    console.log("🚀 ~ useLectureQuery ~ allUserData:", allUserData);
     return useQuery({
         enabled: enabled,
         queryKey: [`id-${lectureId}-LectureQuery`],
@@ -37,7 +36,7 @@ export function useLectureMutation(queryKey) {
     return useMutation({
         mutationFn: postLectureData,
         onMutate: async (variables) => {
-            console.log("on mutate en mutation");
+            // console.log("on mutate en mutation");
             await queryClient.cancelQueries({
                 queryKey: [queryKey],
             });
@@ -45,7 +44,7 @@ export function useLectureMutation(queryKey) {
             //get previos values to return as context
             //contiene todos los attributos de una leccion
             const previousValue = queryClient.getQueryData([queryKey]);
-            console.log("🚀 ~ onMutate: ~ previousValue:", previousValue);
+            // console.log("🚀 ~ onMutate: ~ previousValue:", previousValue);
 
             //optimistic update
             queryClient.setQueryData([queryKey], {
@@ -57,14 +56,14 @@ export function useLectureMutation(queryKey) {
             return { previousValue };
         },
         onError: (err, variables, context) => {
-            console.log("on error en mutation");
+            // console.log("on error en mutation");
             dispatch({ type: "SET_SAVE_ERROR", payload: true });
             queryClient.setQueryData([queryKey], {
                 data: context.previousValue.data,
             });
         },
         onSuccess: (data, variables, context) => {
-            console.log("on success en mutation");
+            // console.log("on success en mutation");
             const globalQuery = queryClient.getQueryData("allDataForUser");
 
             const allButChanged = globalQuery.filter((object) => {
@@ -103,7 +102,7 @@ export function useSessionMutation(queryKey) {
     return useMutation({
         mutationFn: postLectureData,
         onMutate: async (variables) => {
-            console.log("on mutate en mutation");
+            // console.log("on mutate en mutation");
             await queryClient.cancelQueries({
                 queryKey: [queryKey],
             });
@@ -120,16 +119,16 @@ export function useSessionMutation(queryKey) {
             return { previousValue };
         },
         onError: (err, variables, context) => {
-            console.log("on error en session mutation");
+            // console.log("on error en session mutation");
             dispatch({ type: "SET_SAVE_ERROR", payload: true });
             queryClient.setQueryData([queryKey], {
                 data: context.previousValue.data,
             });
         },
         onSuccess: (data, variables, context) => {
-            console.log("on success en session mutation");
+            // console.log("on success en session mutation");
             const globalQuery = queryClient.getQueryData("allDataForUser");
-            console.log("🚀 ~ useSessionMutation ~ globalQuery:", globalQuery);
+            // console.log("🚀 ~ useSessionMutation ~ globalQuery:", globalQuery);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;

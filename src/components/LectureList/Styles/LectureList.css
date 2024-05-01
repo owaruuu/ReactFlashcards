@@ -39,7 +39,18 @@
   color: white;
   text-align: center;
 }
-.lectureList .lectureListTitle {
+.lectureList .titleContainer {
+  display: grid;
+  grid-template-areas: "title" "filter";
+  width: 85vw;
+  max-width: 870px;
+  justify-items: center;
+}
+.lectureList .titleContainer .emptyDiv {
+  width: 16px;
+}
+.lectureList .titleContainer .lectureListTitle {
+  grid-area: title;
   text-align: center;
   color: #f5fcff;
   font-family: "Noto Serif";
@@ -50,8 +61,29 @@
   margin-bottom: 8px;
 }
 @media (min-width: 768px) {
-  .lectureList .lectureListTitle {
+  .lectureList .titleContainer .lectureListTitle {
     margin-top: 8px;
+  }
+}
+.lectureList .titleContainer .filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  grid-area: filter;
+}
+.lectureList .titleContainer span {
+  color: white;
+}
+.lectureList .titleContainer button {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  color: #c4ad00;
+}
+@media (min-width: 768px) {
+  .lectureList .titleContainer {
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-areas: ". title filter";
   }
 }
 .lectureList .lectureButtons {

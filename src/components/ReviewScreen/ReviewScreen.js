@@ -88,14 +88,14 @@ const ReviewScreen = (props) => {
     }
 
     async function handleEndSession() {
-        console.log("intentar terminar sesion");
+        // console.log("intentar terminar sesion");
         const clonedArray = JSON.parse(JSON.stringify(termsIds));
         clonedArray.shift();
-        console.log("🚀 ~ handleNextTerm ~ newValue:", clonedArray);
-        console.log(
-            "🚀 ~ ReviewScreen ~ lectureQuery.data.data[`${props.language}_session`]:",
-            lectureQuery.data.data[`${props.language}_session`]
-        );
+        // console.log("🚀 ~ handleNextTerm ~ newValue:", clonedArray);
+        // console.log(
+        //     "🚀 ~ ReviewScreen ~ lectureQuery.data.data[`${props.language}_session`]:",
+        //     lectureQuery.data.data[`${props.language}_session`]
+        // );
         //aqui hacer la mutacion
         //necesito eliminar el primer id del array
 
@@ -121,7 +121,7 @@ const ReviewScreen = (props) => {
                 },
             });
         } catch (error) {
-            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            // console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(
                 "No se pudo terminar la sesion, intentalo otra vez."
             );
@@ -143,17 +143,17 @@ const ReviewScreen = (props) => {
         );
 
     const termId = termsIds[0];
-    console.log("🚀 ~ ReviewScreen ~ termId:", termId);
+    // console.log("🚀 ~ ReviewScreen ~ termId:", termId);
     const term =
         termId !== undefined
             ? termsDict[termId].extra
                 ? termsDict[termId].term + " - " + termsDict[termId].extra
                 : termsDict[termId].term
             : "Cargando...";
-    console.log("🚀 ~ ReviewScreen ~ term:", term);
+    // console.log("🚀 ~ ReviewScreen ~ term:", term);
     const answer =
         termId !== undefined ? termsDict[termId].answer : "Cargando...";
-    console.log("🚀 ~ ReviewScreen ~ answer:", answer);
+    // console.log("🚀 ~ ReviewScreen ~ answer:", answer);
 
     return (
         <div className="ReviewV2Screen">

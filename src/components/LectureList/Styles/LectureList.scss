@@ -1,3 +1,5 @@
+@import "../../../Styles/Theme";
+
 .lectureList {
     width: 100%;
     display: flex;
@@ -54,18 +56,59 @@
         color: white;
         text-align: center;
     }
-    .lectureListTitle {
-        text-align: center;
-        color: #f5fcff;
-        font-family: "Noto Serif";
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-color: #dbb01c;
-        font-size: 2.2rem;
-        margin-bottom: 8px;
+
+    .titleContainer {
+        display: grid;
+        // grid-template-columns: 2fr 1fr 2fr;
+        grid-template-areas:
+            "title"
+            "filter";
+        width: 85vw;
+        max-width: 870px;
+        justify-items: center;
+        // align-items: center;
+
+        .emptyDiv {
+            width: 16px;
+        }
+
+        .lectureListTitle {
+            grid-area: title;
+            text-align: center;
+            color: #f5fcff;
+            font-family: "Noto Serif";
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+
+            @media (min-width: 768px) {
+                margin-top: 8px;
+            }
+        }
+
+        .filter {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            grid-area: filter;
+        }
+
+        span {
+            color: white;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0);
+            color: $gold-level;
+        }
 
         @media (min-width: 768px) {
-            margin-top: 8px;
+            grid-template-columns: 2fr 1fr 2fr;
+            grid-template-areas: ". title filter";
         }
     }
 
