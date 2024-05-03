@@ -110,11 +110,15 @@ function LoginForm() {
 
             // setThinking(false);
         } catch (error) {
+            // console.log("🚀 ~ handleLogin ~ error:", error);
             setThinking(false);
             if (error.code === "ERR_NETWORK") {
                 return setMessage("Server Offline, try again later");
             }
 
+            if (error.response.data === "Incorrect username or password.") {
+                return setMessage("Email o contraseña incorrectos");
+            }
             return setMessage(error.response.data);
         }
     }

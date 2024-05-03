@@ -69,6 +69,7 @@ export const getUserProgress = async (id) => {
         const response = await api.post(`${URL}/progress`, {
             id,
         });
+        // console.log("🚀 ~ getUserProgress ~ response:", response);
 
         if (response.data.value === -1) {
             return null;
@@ -80,6 +81,7 @@ export const getUserProgress = async (id) => {
 
         return response.data.value.progress;
     } catch (error) {
+        // console.log("🚀 ~ getUserProgress ~ error:", error);
         return null;
     }
 };
