@@ -20,15 +20,16 @@ export async function postLectureData({
         return response;
     } catch (error) {
         // console.log("🚀 ~ postLectureData ~ error:", error);
-        return error;
+        throw error;
     }
 }
 
 //get data about term options
 export async function getAllUserData() {
+    // console.log("called get all user data");
     try {
         const response = await api.get(`${URL}/user-data`);
-        // console.log("🚀 ~ getUserData ~ response:", response);
+        // console.warn("🚀 ~ getUserData ~ response:", response);
 
         return [...response.data.Items];
     } catch (error) {
@@ -38,6 +39,7 @@ export async function getAllUserData() {
 }
 
 export async function getLectureData(lectureId) {
+    // console.log("called get lecture data");
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
 

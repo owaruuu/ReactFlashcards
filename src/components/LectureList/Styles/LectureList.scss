@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     .searchBar {
         color: white;
@@ -79,13 +80,8 @@
             font-family: "Noto Serif";
             font-weight: 600;
             text-decoration: underline;
-            text-decoration-color: #dbb01c;
+            text-decoration-color: $decoration-yellow;
             font-size: 2.2rem;
-            margin-bottom: 8px;
-
-            @media (min-width: 768px) {
-                margin-top: 8px;
-            }
         }
 
         .filter {
@@ -93,6 +89,7 @@
             align-items: center;
             justify-content: flex-end;
             grid-area: filter;
+            font-size: 14px;
         }
 
         span {
@@ -103,10 +100,17 @@
             display: flex;
             align-items: center;
             background-color: rgba(0, 0, 0, 0);
-            color: $gold-level;
+            border: none;
+            color: $decoration-yellow;
         }
 
-        @media (min-width: 768px) {
+        .active {
+            text-decoration: underline;
+            text-decoration-color: $decoration-yellow;
+        }
+
+        @media (min-width: 985px) {
+            margin: 8px 0;
             grid-template-columns: 2fr 1fr 2fr;
             grid-template-areas: ". title filter";
         }

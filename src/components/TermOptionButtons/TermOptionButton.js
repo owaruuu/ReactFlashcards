@@ -5,7 +5,7 @@ const TermOptionButton = (props) => {
     function onClick(option) {
         let newValue = option;
 
-        if (newValue === props.selected) {
+        if (newValue === props.state) {
             newValue = "";
         }
 
@@ -16,17 +16,13 @@ const TermOptionButton = (props) => {
     if (props.star) {
         return (
             <button onClick={() => onClick("highlighted")}>
-                <TermOptionButtonIcon
-                    star
-                    id={props.id}
-                    selected={props.selected}
-                />
+                <TermOptionButtonIcon star id={props.id} state={props.state} />
             </button>
         );
     }
     return (
         <button onClick={() => onClick("muted")}>
-            <TermOptionButtonIcon id={props.id} selected={props.selected} />
+            <TermOptionButtonIcon id={props.id} state={props.state} />
         </button>
     );
 };

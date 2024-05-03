@@ -1219,10 +1219,13 @@
         display: flex;
         flex-direction: column;
         color: #8b4500;
+
         background-color: #fdd2a6;
+        // background-color: #4f4d63;
         margin: 10px;
         border-radius: 15px;
         overflow: hidden;
+        box-shadow: 1px 5px 17px 7px rgb(1 1 26 / 71%);
 
         div {
             display: grid;

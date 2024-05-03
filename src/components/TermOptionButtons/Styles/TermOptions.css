@@ -1,0 +1,24 @@
+.termOptions {
+  grid-area: buttons;
+  padding: 5px 0;
+  font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+  font-size: 20px;
+}
+.termOptions button {
+  background: 0;
+  border-radius: 100px;
+  color: #f5fcff;
+  border: none;
+}
+.termOptions button:hover {
+  background-color: #113d61;
+}
+.termOptions button:active {
+  background-color: #316fa2;
+}
+@media (min-width: 768px) {
+  .termOptions {
+    width: 100%;
+    font-size: 40px;
+  }
+}/*# sourceMappingURL=TermOptions.css.map */

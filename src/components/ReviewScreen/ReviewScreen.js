@@ -13,6 +13,8 @@ import {
     useLectureQuery,
     useSessionMutation,
 } from "../../hooks/useUserDataQuery";
+import { useQueryClient } from "react-query";
+import TermOptionsContainer from "../TermOptionButtons/TermOptionsContainer";
 
 const ReviewScreen = (props) => {
     const { dispatch, appState, user, lectures, loggedIn } =
@@ -36,7 +38,19 @@ const ReviewScreen = (props) => {
         return termsDict;
     });
 
+    const removeDisappearingCard = () => {
+        const now = new Date().getTime();
+
+        setDisappearingCards((prevCards) => {
+            return prevCards.filter((card) => {
+                const diff = now - card.props.timeStamp;
+                return diff < 299;
+            });
+        });
+    };
+
     //QUERIES
+    const globalQuery = useQueryClient().getQueryState("allDataForUser");
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
     // console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
 
@@ -61,25 +75,41 @@ const ReviewScreen = (props) => {
         setShowAnswer((prevState) => !prevState);
     };
 
+    //funcion para los botoes de highlight y mute
+    async function onIconClick(language, termId, newValue) {
+        try {
+            setFeedbackMessage("Modificando termino...");
+            await lectureMutation.mutateAsync({
+                lectureId: lectureId,
+                attributeName: `${language}_terms_data`,
+                newValue: {
+                    ...lectureQuery.data.data[`${language}_terms_data`],
+                    [termId]: newValue,
+                },
+            });
+
+            setShowAnswer(false);
+
+            termsIds.length > 1 ? handleNextTerm() : handleEndSession();
+        } catch (error) {
+            console.log("🚀 ~ onIconClick ~ error:", error);
+            setFeedbackMessage("Hubo un error, intentalo otra vez.");
+        }
+    }
+
     async function handleNextTerm() {
-        setShowAnswer(false);
-
-        const clonedArray = JSON.parse(JSON.stringify(termsIds));
-        clonedArray.shift();
-
-        const newValue = {
-            options:
-                lectureQuery.data.data[`${props.language}_session`].options,
-            terms: clonedArray,
-            lastReviewed: new Date(),
-        };
+        const newValue = removeFirstTerm();
 
         try {
+            setShowAnswer(false);
+            createDissappearingCard();
+            setFeedbackMessage("Cambiando termino...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
                 attributeName: `${props.language}_session`,
                 newValue: newValue,
             });
+
             setFeedbackMessage("");
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
@@ -88,30 +118,16 @@ const ReviewScreen = (props) => {
     }
 
     async function handleEndSession() {
-        // console.log("intentar terminar sesion");
-        const clonedArray = JSON.parse(JSON.stringify(termsIds));
-        clonedArray.shift();
-        // console.log("🚀 ~ handleNextTerm ~ newValue:", clonedArray);
-        // console.log(
-        //     "🚀 ~ ReviewScreen ~ lectureQuery.data.data[`${props.language}_session`]:",
-        //     lectureQuery.data.data[`${props.language}_session`]
-        // );
-        //aqui hacer la mutacion
-        //necesito eliminar el primer id del array
-
-        const newValue = {
-            options:
-                lectureQuery.data.data[`${props.language}_session`].options,
-            terms: clonedArray,
-            lastReviewed: new Date(),
-        };
+        const newValue = removeFirstTerm();
 
         try {
+            // createDissappearingCard();
+            setFeedbackMessage("Terminando sesion...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
                 attributeName: `${props.language}_session`,
                 newValue: newValue,
-                lastReviewed: new Date(),
+                // lastReviewed: new Date(),
             });
 
             dispatch({
@@ -133,12 +149,18 @@ const ReviewScreen = (props) => {
             <NextButton
                 next={true}
                 onClick={handleNextTerm}
-                loading={lectureSessionMutation.status === "loading"}
+                loading={
+                    lectureSessionMutation.status === "loading" ||
+                    lectureMutation.status === "loading"
+                }
             />
         ) : (
             <NextButton
                 onClick={handleEndSession}
-                loading={lectureSessionMutation.status === "loading"}
+                loading={
+                    lectureSessionMutation.status === "loading" ||
+                    lectureMutation.status === "loading"
+                }
             />
         );
 
@@ -154,6 +176,40 @@ const ReviewScreen = (props) => {
     const answer =
         termId !== undefined ? termsDict[termId].answer : "Cargando...";
     // console.log("🚀 ~ ReviewScreen ~ answer:", answer);
+
+    function removeFirstTerm() {
+        const clonedArray = JSON.parse(JSON.stringify(termsIds));
+        clonedArray.shift();
+
+        const newValue = {
+            options:
+                lectureQuery.data.data[`${props.language}_session`].options,
+            terms: clonedArray,
+            lastReviewed: new Date(),
+        };
+
+        return newValue;
+    }
+
+    function createDissappearingCard() {
+        const now = new Date().getTime();
+        const uniqueKey = `0-${now}`;
+
+        setDisappearingCards([
+            <DisappearingCard
+                id={uniqueKey}
+                timeStamp={now}
+                key={uniqueKey}
+                term={term}
+                answer={answer}
+                showAnswer={showAnswer}
+                killFunc={() => removeDisappearingCard()}
+                direction={" disappear-left"}
+                flipped={props.language === "japanese" ? false : true}
+            />,
+            ...disappearingCards,
+        ]);
+    }
 
     return (
         <div className="ReviewV2Screen">
@@ -179,12 +235,33 @@ const ReviewScreen = (props) => {
                     index={0}
                     showAnswer={showAnswer}
                     answerFunction={handleClick}
-                    flipped={false}
+                    flipped={props.language === "japanese" ? false : true}
+                    state={
+                        lectureQuery.data?.data?.[
+                            `${props.language}_terms_data`
+                        ]?.[termId]
+                    }
                 />
                 {disappearingCards}
             </div>
             <div className="controls">
-                <p></p>
+                <TermOptionsContainer
+                    globalQuery={globalQuery}
+                    queryStatus={lectureQuery}
+                    queryData={
+                        lectureQuery.data?.data?.[
+                            `${props.language}_terms_data`
+                        ]
+                    }
+                    termData={
+                        lectureQuery.data?.data?.[
+                            `${props.language}_terms_data`
+                        ]?.[termId]
+                    }
+                    language={props.language}
+                    onIconClick={onIconClick}
+                    termId={termId}
+                />
                 <p>{feedbackMessage}</p>
                 {nextButton}
             </div>

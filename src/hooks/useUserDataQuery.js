@@ -5,27 +5,32 @@ import { AppContext } from "../context/AppContext";
 
 //query local para una leccion
 export function useLectureQuery(lectureId, enabled) {
+    // console.log("🚀 ~ useLectureQuery ~ useLectureQuery:");
     const queryClient = useQueryClient();
     const allUserData = queryClient.getQueryData("allDataForUser");
+    const initialData = findLectureData(allUserData, lectureId);
+    // console.log("🚀 ~ useLectureQuery ~ initialData:", initialData);
     return useQuery({
         enabled: enabled,
         queryKey: [`id-${lectureId}-LectureQuery`],
         queryFn: () => getLectureData(lectureId),
         retry: 1,
-        initialData: { data: findLectureData(allUserData, lectureId) },
+        // initialData: { data: initialData },
+        placeholderData: { data: initialData },
         //cacheTime: 0,
         refetchOnWindowFocus: false,
+        staleTime: Infinity,
         onSuccess: (data) => {
-            let allButChanged = [];
-            if (allUserData) {
-                allButChanged = allUserData.filter((object) => {
-                    return object.lecture_id != lectureId;
-                });
-            }
-
-            const newArray = [...allButChanged, data.data];
-
-            queryClient.setQueryData("allDataForUser", newArray);
+            //esto no deberia ser necesario ya que seria la misma informacion
+            // let allButChanged = [];
+            // if (allUserData) {
+            //     allButChanged = allUserData.filter((object) => {
+            //         return object.lecture_id != lectureId;
+            //     });
+            // }
+            // const newArray = [...allButChanged, data.data];
+            // queryClient.setQueryData("allDataForUser", newArray);
+            // console.log("setie la data global desde el success de la local");
         },
     });
 }

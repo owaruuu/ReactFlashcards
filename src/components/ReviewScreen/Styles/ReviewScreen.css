@@ -29,28 +29,47 @@
   justify-self: center;
   color: white;
   margin: 0;
-  font-size: 2rem;
+  font-size: clamp(0.5rem, 0.5rem + 3.5vw, 2rem);
   font-family: "Gidugu";
 }
+@media (min-width: 768px) {
+  .ReviewV2Screen .reviewScreenPanel {
+    max-width: 935px;
+  }
+}
 .ReviewV2Screen .controls {
+  z-index: 1;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  justify-items: center;
+  grid-template-rows: 1fr 1fr 2fr;
+  grid-template-areas: "buttons" "info" "nextButton";
   justify-content: center;
-  width: 100%;
+  width: 100vw;
 }
 .ReviewV2Screen .controls p {
   text-align: center;
   margin: auto;
 }
+.ReviewV2Screen .controls .termOptions svg {
+  filter: drop-shadow(2px 4px rgba(0, 0, 0, 0.4));
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls .termOptions button {
+    width: 62px;
+  }
+}
 @media (min-width: 768px) {
   .ReviewV2Screen .controls {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
+    width: 62vw;
+    max-width: 935px;
   }
 }
-.ReviewV2Screen .controls button {
-  padding: 10px 50px;
-  margin-right: 20px;
+.ReviewV2Screen .controls .next {
+  min-width: 200px;
+  min-height: 82px;
+  padding: 10px 40px;
   border-radius: 15px;
   border: 2px solid #ab071d;
   background-color: #f5fcff;
@@ -62,9 +81,17 @@
   font-size: 1.2rem;
 }
 @media (min-width: 768px) {
-  .ReviewV2Screen .controls button {
-    margin-right: 40px;
+  .ReviewV2Screen .controls .next {
+    margin-left: auto;
   }
+}
+.ReviewV2Screen .controls .thinking {
+  border: 2px solid #2b07ab;
+  color: #2b07ab;
+}
+.ReviewV2Screen .controls .continue {
+  border-color: #156324;
+  color: #156324;
 }
 .ReviewV2Screen .controls .continue:hover {
   background-color: #449754;
@@ -74,4 +101,25 @@
 .ReviewV2Screen .controls .close:hover {
   background-color: #ab071d;
   color: white;
+}
+.ReviewV2Screen .termCard {
+  background-color: #4f4d63;
+  color: white;
+}
+.ReviewV2Screen .termCard .divider {
+  background-color: #b9b9b9;
+}
+.ReviewV2Screen .gold {
+  border: 5px solid #ffbc00;
+}
+.ReviewV2Screen .gold .divider {
+  background-color: #ffbc00;
+}
+.ReviewV2Screen .muted {
+  border: 5px solid #7a059f;
+  background-color: #333333;
+  color: #c1c1c1;
+}
+.ReviewV2Screen .muted .divider {
+  background-color: #9b00cd;
 }/*# sourceMappingURL=ReviewScreen.css.map */

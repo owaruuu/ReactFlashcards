@@ -8,6 +8,8 @@ import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
+import { useQueryClient } from "react-query";
+
 import {
     useLectureQuery,
     useLectureMutation,
@@ -31,8 +33,8 @@ const LectureScreen = (props) => {
     const showTestButton = hasTest ? true : false;
 
     //QUERIES
+    const globalQuery = useQueryClient().getQueryState("allDataForUser");
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    // console.log("🚀 ~ LectureScreen ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
@@ -41,10 +43,6 @@ const LectureScreen = (props) => {
     const lectureSessionMutation = useSessionMutation(
         `id-${lectureId}-LectureQuery`
     );
-    // console.log(
-    //     "🚀 ~ LectureScreen ~ lectureSessionMutation:",
-    //     lectureSessionMutation
-    // );
 
     //funcion para los botoes de highlight y mute
     function onIconClick(language, termId, newValue) {
@@ -121,6 +119,7 @@ const LectureScreen = (props) => {
                     <Tab eventKey="japanese" title="Japones">
                         <TermList
                             termList={lecture.termList}
+                            globalQuery={globalQuery}
                             queryStatus={lectureQuery.status}
                             queryData={
                                 lectureQuery.data?.data?.["japanese_terms_data"]
@@ -135,11 +134,13 @@ const LectureScreen = (props) => {
                             sessionMutationStatus={
                                 lectureSessionMutation.status
                             }
+                            loggedIn={loggedIn}
                         ></TermList>
                     </Tab>
                     <Tab eventKey="spanish" title="Español">
                         <TermList
                             termList={lecture.termList}
+                            globalQuery={globalQuery}
                             queryStatus={lectureQuery.status}
                             queryData={
                                 lectureQuery.data?.data?.["spanish_terms_data"]
@@ -156,6 +157,7 @@ const LectureScreen = (props) => {
                                 lectureSessionMutation.status
                             }
                             createSessionError={createSessionError}
+                            loggedIn={loggedIn}
                         ></TermList>
                     </Tab>
                 </Tabs>

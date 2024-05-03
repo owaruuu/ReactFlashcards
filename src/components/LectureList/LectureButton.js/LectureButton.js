@@ -122,13 +122,17 @@ const LectureButton = (props) => {
             <span className="lectureButtonTitle">{props.title}</span>
             <div className="terms">
                 <span>{props.amount} Palabras</span>
-                {loggedIn && <span className="mobile"> - </span>}
-                <span>
-                    <StarAmount
-                        querySuccess={props.starQuerySuccess}
-                        starredAmount={props.starredAmount}
-                    />
-                </span>
+                {loggedIn && (
+                    <>
+                        <span className="mobile"> - </span>
+                        <span>
+                            <StarAmount
+                                querySuccess={props.starQuerySuccess}
+                                starredAmount={props.starredAmount}
+                            />
+                        </span>
+                    </>
+                )}
             </div>
             {/* <QuizQueue
                 japaneseQuizQueue={props.progress?.japaneseQuizQueue}

@@ -29,29 +29,57 @@
             justify-self: center;
             color: white;
             margin: 0;
-            font-size: 2rem;
+            font-size: clamp(0.5rem, 0.5rem + 3.5vw, 2rem);
             font-family: "Gidugu";
+        }
+
+        @media (min-width: 768px) {
+            max-width: 935px;
         }
     }
 
     .controls {
+        z-index: 1;
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
+        justify-items: center;
+        grid-template-rows: 1fr 1fr 2fr;
+        grid-template-areas:
+            "buttons"
+            "info"
+            "nextButton";
         justify-content: center;
-        width: 100%;
+        // width: 100%;
+        width: 100vw;
 
         p {
             text-align: center;
             margin: auto;
         }
 
+        .termOptions {
+            svg {
+                filter: drop-shadow(2px 4px rgb(0 0 0 / 0.4));
+            }
+
+            button {
+                @media (min-width: 768px) {
+                    width: 62px;
+                }
+            }
+        }
+
         @media (min-width: 768px) {
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr;
+            width: 62vw;
+            max-width: 935px;
         }
-        button {
-            padding: 10px 50px;
-            margin-right: 20px;
+
+        .next {
+            min-width: 200px;
+            min-height: 82px;
+            padding: 10px 40px;
+            // margin-right: 20px;
             border-radius: 15px;
             border: 2px solid #ab071d;
             background-color: #f5fcff;
@@ -65,11 +93,20 @@
             font-size: 1.2rem;
 
             @media (min-width: 768px) {
-                margin-right: 40px;
+                margin-left: auto;
+                // margin-right: 40px;
             }
         }
 
+        .thinking {
+            border: 2px solid #2b07ab;
+            color: #2b07ab;
+        }
+
         .continue {
+            // background-color: #449754;
+            border-color: #156324;
+            color: #156324;
             &:hover {
                 background-color: #449754;
                 color: white;
@@ -84,4 +121,32 @@
             }
         }
     }
+
+    .termCard {
+        background-color: #4f4d63;
+        color: white;
+
+        .divider {
+            background-color: #b9b9b9;
+        }
+    }
+
+    .gold {
+        border: 5px solid #ffbc00;
+        .divider {
+            background-color: #ffbc00;
+        }
+    }
+
+    .muted {
+        border: 5px solid #7a059f;
+        background-color: #333333;
+        color: #c1c1c1;
+        .divider {
+            background-color: #9b00cd;
+        }
+    }
+
+    //border: 5px solid #ffbc00;
+    //filter: drop-shadow(1px 3px rgb(0 0 0 / 0.4));
 }

@@ -35,8 +35,8 @@ const OptionsModal = (props) => {
                         Ocupa esta opcion para intercambiar la pregunta con la
                         respuesta. El avanze de Español y Japones es guardado
                         por separado.
-                        {languageText}
                     </p>
+                    {languageText}
                 </div>
                 <div className="form-check form-switch">
                     <input

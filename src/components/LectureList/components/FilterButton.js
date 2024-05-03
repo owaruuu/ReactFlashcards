@@ -13,7 +13,10 @@ const FilterButton = ({ name, text, state, onClick, callback }) => {
         );
 
     return (
-        <button onClick={() => onClick(name, state, callback)}>
+        <button
+            className={state !== null ? "active" : ""}
+            onClick={() => onClick(name, state, callback)}
+        >
             {arrow}
             {text}
         </button>

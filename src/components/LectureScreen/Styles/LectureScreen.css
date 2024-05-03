@@ -193,6 +193,9 @@
 .lectureScreen .termListDiv .termTab .loading {
   align-items: center;
 }
+.lectureScreen .termListDiv .termOptions {
+  font-size: 24px;
+}
 .lectureScreen .termListDiv .termList {
   display: flex;
   flex-direction: column;
@@ -215,22 +218,8 @@
   width: 100%;
   padding-bottom: 5px;
 }
-.lectureScreen .termListDiv .termList .termItem .termOptions {
-  width: 100%;
-  border-top: 1px solid grey;
-  padding: 5px 0;
-}
-.lectureScreen .termListDiv .termList .termItem .termOptions button {
-  background: 0;
-  margin: 0 10px;
-  border-radius: 100px;
-  border: none;
-}
-.lectureScreen .termListDiv .termList .termItem .termOptions button:hover {
-  background-color: #113d61;
-}
-.lectureScreen .termListDiv .termList .termItem .termOptions button:active {
-  background-color: #316fa2;
+.lectureScreen .termListDiv .termList .termItem .termDataDivider {
+  border-bottom: 1px solid grey;
 }
 .lectureScreen .termListDiv .termList .termItem .term {
   flex: 1;

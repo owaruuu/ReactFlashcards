@@ -15,7 +15,7 @@ const TermList = (props) => {
         mutedAmount(props.termList, props.queryData)
     );
     const hasSession = props.sessionData?.terms?.length > 0;
-    const lastReviewDate = hasSession
+    const lastReviewDate = props.sessionData
         ? props.sessionData.lastReviewed
         : undefined;
 
@@ -28,6 +28,7 @@ const TermList = (props) => {
         return (
             <TermItem
                 key={term.id}
+                globalQuery={props.globalQuery}
                 queryStatus={props.queryStatus}
                 queryData={props.queryData}
                 id={term.id}
@@ -37,6 +38,7 @@ const TermList = (props) => {
                 flipped={props.flipped}
                 onIconClick={props.onIconClick}
                 showControls={props.showControls}
+                loggedIn={props.loggedIn}
             ></TermItem>
         );
     });

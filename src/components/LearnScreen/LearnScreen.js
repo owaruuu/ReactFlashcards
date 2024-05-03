@@ -50,11 +50,17 @@ const LearnScreen = (props) => {
 
         setDisappearingCards([
             <DisappearingCard
-                key={uniqueKey}
-                terms={terms}
-                index={index}
                 id={uniqueKey}
                 timeStamp={now}
+                key={uniqueKey}
+                // terms={terms}
+                // index={index}
+                term={
+                    terms[index].extra
+                        ? terms[index].term + " - " + terms[index].extra
+                        : terms[index].term
+                }
+                answer={terms[index].answer}
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-right"}
@@ -84,6 +90,12 @@ const LearnScreen = (props) => {
                 index={index}
                 id={uniqueKey}
                 timeStamp={now}
+                term={
+                    terms[index].extra
+                        ? terms[index].term + " - " + terms[index].extra
+                        : terms[index].term
+                }
+                answer={terms[index].answer}
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-left"}
@@ -145,6 +157,12 @@ const LearnScreen = (props) => {
                 index={index}
                 id={uniqueKey}
                 timeStamp={now}
+                term={
+                    terms[index].extra
+                        ? terms[index].term + " - " + terms[index].extra
+                        : terms[index].term
+                }
+                answer={terms[index].answer}
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-left"}
@@ -319,8 +337,8 @@ const LearnScreen = (props) => {
                 </button>
                 <div className="termCardDiv">
                     <TermCard
-                        terms={terms}
-                        index={index}
+                        // terms={terms}
+                        // index={index}
                         //
                         term={
                             terms[index].extra

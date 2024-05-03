@@ -1,4 +1,4 @@
-import TermOptionsContainer from "./TermOptionButtons/TermOptionsContainer";
+import TermOptionsContainer from "../TermOptionButtons/TermOptionsContainer";
 
 const TermItem = (props) => {
     const term = () => {
@@ -18,7 +18,9 @@ const TermItem = (props) => {
         : "termItem";
 
     const termData = props.flipped ? (
-        <div className="termData">
+        <div
+            className={props.loggedIn ? "termData termDataDivider" : "termData"}
+        >
             <div className="answer">{props.answer}</div>
             <div className="verticalRule"></div>
             <div className="term" style={{ textAlign: "end" }}>
@@ -26,7 +28,9 @@ const TermItem = (props) => {
             </div>
         </div>
     ) : (
-        <div className="termData">
+        <div
+            className={props.loggedIn ? "termData termDataDivider" : "termData"}
+        >
             <div className="term">{term()}</div>
             <div className="verticalRule"></div>
             <div className="answer" style={{ textAlign: "end" }}>
@@ -40,6 +44,7 @@ const TermItem = (props) => {
             {termData}
             {props.showControls && (
                 <TermOptionsContainer
+                    globalQuery={props.globalQuery}
                     queryStatus={props.queryStatus}
                     queryData={props.queryData}
                     termData={props.queryData?.[props.id]}

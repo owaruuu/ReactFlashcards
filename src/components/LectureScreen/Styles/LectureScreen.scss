@@ -237,6 +237,10 @@
             }
         }
 
+        .termOptions {
+            font-size: 24px;
+        }
+
         .termList {
             display: flex;
             flex-direction: column;
@@ -262,26 +266,8 @@
                     padding-bottom: 5px;
                 }
 
-                .termOptions {
-                    width: 100%;
-                    border-top: 1px solid grey;
-                    padding: 5px 0;
-                    // background-color: #532f00;
-                    button {
-                        background: 0;
-                        margin: 0 10px;
-                        border-radius: 100px;
-                        // border: 1px solid black;
-                        border: none;
-
-                        &:hover {
-                            background-color: #113d61;
-                        }
-
-                        &:active {
-                            background-color: #316fa2;
-                        }
-                    }
+                .termDataDivider {
+                    border-bottom: 1px solid grey;
                 }
 
                 .term {

@@ -22,6 +22,13 @@ const TermCard = (props) => {
     //     <span>Guardando...</span>
     // );
 
+    let classNames =
+        props.state === "highlighted"
+            ? "termCard gold"
+            : props.state === "muted"
+            ? "termCard muted"
+            : "termCard";
+    // console.log("🚀 ~ TermCard ~ classNames:", classNames);
     let termContent, answerContent;
     let term = <span>{props.term}</span>;
     let answer = (
@@ -43,7 +50,7 @@ const TermCard = (props) => {
     fillContent();
 
     return (
-        <div className="termCard">
+        <div className={classNames}>
             <div className="term">{termContent}</div>
             <div className="divider"></div>
             <div className="answerSection">

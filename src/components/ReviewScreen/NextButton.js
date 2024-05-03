@@ -7,21 +7,21 @@ const NextButton = (props) => {
     // console.log("🚀 ~ NextButton ~ props:", props);
     if (props.loading) {
         return (
-            <button disabled>
+            <button className="next thinking" disabled>
                 <Spinner />
             </button>
         );
     }
     if (props.next) {
         return (
-            <button className="continue" onClick={props.onClick}>
+            <button className="next continue" onClick={props.onClick}>
                 Siguiente<BiSolidRightArrow></BiSolidRightArrow>
             </button>
         );
     }
 
     return (
-        <button className="close" onClick={props.onClick}>
+        <button className="next close" onClick={props.onClick}>
             Terminar sesión <PiArrowBendUpLeftFill />
         </button>
     );

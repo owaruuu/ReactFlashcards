@@ -15,21 +15,26 @@ const LectureButtons = (props) => {
     const myProgress = userQuizProgress[userId];
 
     const { lectures, loggedIn } = useContext(AppContext);
-    console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
+    // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
 
-    const userDataQuery = useQuery({
-        queryKey: ["allDataForUser"],
-        queryFn: getAllUserData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        retryOnMount: false,
-        retry: 1,
-        throwOnError: false,
-        enabled: loggedIn ? true : false,
-        onError: (error) => {
-            // console.log("🚀 ~ LectureButtons ~ error:", error);
-        },
-    });
+    const userDataQuery = useQueryClient().getQueryState("allDataForUser");
+
+    // const userDataQuery = useQuery({
+    //     queryKey: ["allDataForUser"],
+    //     queryFn: getAllUserData,
+    //     refetchOnWindowFocus: false,
+    //     refetchOnMount: false,
+    //     retryOnMount: false,
+    //     retry: 1,
+    //     throwOnError: false,
+    //     enabled: loggedIn ? true : false,
+    //     onError: (error) => {
+    //         console.log("🚀 ~ LectureButtons ~ error:", error);
+    //     },
+    //     onSuccess: (data) => {
+    //         console.log("setie la data global desde el lecture buttons");
+    //     },
+    // });
     // console.log("🚀 ~ LectureButtons ~ userDataQuery:", userDataQuery);
     const starredAmountObject =
         userDataQuery?.status === "success"
@@ -40,7 +45,7 @@ const LectureButtons = (props) => {
         userDataQuery?.status === "success"
             ? buildLectureData(userDataQuery.data)
             : {};
-    console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
+    // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
 
     const filledLectures = lectures.map((lecture) => {
         if (dataObject[lecture.lectureId]) {
@@ -66,10 +71,10 @@ const LectureButtons = (props) => {
                 lecture={lecture}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
-                starQuerySuccess={userDataQuery.status}
+                starQuerySuccess={userDataQuery?.status}
                 starredAmount={starredAmountObject?.[lecture.lectureId]}
                 userDataQueryData={dataObject}
-                userDataQueryStatus={userDataQuery.status}
+                userDataQueryStatus={userDataQuery?.status}
                 title={lecture.name}
                 progress={myProgress[lecture.lectureId]}
             />
@@ -125,23 +130,21 @@ function buildLectureData(dataArray) {
 
 function sortLectures(filterState, lectures) {
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
-    // console.log("🚀 ~ sortLectures ~ result:", result);
+    // console.log("🚀 ~ sortLectures ~ clonedLectures:", clonedLectures);
 
     switch (filterState) {
         case "dateASC":
-            console.log("Date ASC");
-            //muestra las lecciones estudiadas hace mas tiempo primero mes, semana, dia, hora, etc
+            // console.log("Date ASC");
             return clonedLectures.sort(sortByDateASC);
-
         case "dateDESC":
-            console.log("Date DESC");
+            // console.log("Date DESC");
             return clonedLectures.sort(sortByDateDESC);
-        case "nameASC":
-            console.log("Name ASC");
-            break;
-        case "nameDESC":
-            console.log("Name DESC");
-            break;
+        case "sizeASC":
+            // console.log("Name ASC");
+            return clonedLectures.sort(sortBySessionSizeASC);
+        case "sizeDESC":
+            // console.log("Name DESC");
+            return clonedLectures.sort(sortBySessionSizeDESC);
     }
 
     return clonedLectures;
@@ -182,20 +185,20 @@ function sortByDate(a, b) {
     //a is less than b by some ordering criterion
 
     if (chosenADiff && chosenBDiff) {
-        console.log(
-            "🚀 ~ sortByDateASC ~ chosenADiff && chosenBDiff:",
-            chosenADiff,
-            chosenBDiff
-        );
+        // console.log(
+        //     "🚀 ~ sortByDateASC ~ chosenADiff && chosenBDiff:",
+        //     chosenADiff,
+        //     chosenBDiff
+        // );
         if (chosenADiff < chosenBDiff) {
-            console.log("a is less than b by some ordering criterion");
-            console.log(
-                "🚀 ~ sortByDateASC ~ chosenADiff < chosenBDiff:",
-                chosenADiff < chosenBDiff
-            );
+            // console.log("a is less than b by some ordering criterion");
+            // console.log(
+            //     "🚀 ~ sortByDateASC ~ chosenADiff < chosenBDiff:",
+            //     chosenADiff < chosenBDiff
+            // );
             return 1;
         } else if (chosenADiff > chosenBDiff) {
-            console.log("a is greater than b by the ordering criterion");
+            // console.log("a is greater than b by the ordering criterion");
             //a is greater than b by the ordering criterion
             return -1;
         }
@@ -203,6 +206,51 @@ function sortByDate(a, b) {
         return 1;
     } else if (!chosenADiff && chosenBDiff) {
         return -1;
+    }
+
+    return 0;
+}
+
+function sortBySessionSizeASC(a, b) {
+    return sortBySessionSize(a, b);
+}
+
+function sortBySessionSizeDESC(a, b) {
+    return sortBySessionSize(b, a);
+}
+
+function sortBySessionSize(a, b) {
+    //aqui la logica
+    //obtener tamanio de las sesiones
+    let japaneseSessionSizeA = a["japanese_session"]?.terms.length;
+    let spanishSessionSizeA = a["spanish_session"]?.terms.length;
+    if (japaneseSessionSizeA === undefined) {
+        japaneseSessionSizeA = 0;
+    }
+
+    if (spanishSessionSizeA === undefined) {
+        spanishSessionSizeA = 0;
+    }
+
+    const aSessionSize = japaneseSessionSizeA + spanishSessionSizeA;
+
+    let japaneseSessionSizeB = b["japanese_session"]?.terms.length;
+    let spanishSessionSizeB = b["spanish_session"]?.terms.length;
+    if (japaneseSessionSizeB === undefined) {
+        japaneseSessionSizeB = 0;
+    }
+    if (spanishSessionSizeB === undefined) {
+        spanishSessionSizeB = 0;
+    }
+
+    const bSessionSize = japaneseSessionSizeB + spanishSessionSizeB;
+
+    if (aSessionSize < bSessionSize) {
+        return -1;
+    }
+
+    if (bSessionSize > aSessionSize) {
+        return 1;
     }
 
     return 0;

@@ -13,7 +13,7 @@ const LectureList = () => {
         useContext(AppContext);
 
     const [filterState, setFilterState] = useState(null);
-    console.log("🚀 ~ LectureList ~ filterState:", filterState);
+    // console.log("🚀 ~ LectureList ~ filterState:", filterState);
     const [dateButtonState, setDateButtonState] = useState(null);
     const [sizeButtonState, setSizeButtonState] = useState(null);
 

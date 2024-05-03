@@ -11,17 +11,11 @@ const DisappearingCard = (props) => {
     let classNames = "termCard";
     classNames += props.direction;
 
-    const termComp = (
-        <span>
-            {props.terms[props.index].term}
-            {props.terms[props.index].extra && " - "}
-            {props.terms[props.index].extra}
-        </span>
-    );
+    const termComp = <span>{props.term}</span>;
 
     const answerComp = (
         <div>
-            <span>{props.terms[props.index].answer}</span>
+            <span>{props.answer}</span>
         </div>
     );
 
@@ -48,7 +42,7 @@ const DisappearingCard = (props) => {
 
                 {!props.showAnswer && (
                     <div>
-                        <span>Click to reveal answer</span>
+                        <span>Haz click para ver la respuesta</span>
                     </div>
                 )}
             </div>

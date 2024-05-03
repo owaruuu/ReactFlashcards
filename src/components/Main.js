@@ -11,8 +11,28 @@ import RegisterForm from "./Forms/RegisterForm.js";
 import UserPanelScreen from "./UserPanel/UserPanelScreen.js";
 import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.js";
 
+import { useQuery } from "react-query";
+import { getAllUserData } from "../aws/userDataApi.js";
+
 const Main = () => {
-    const { appState } = useContext(AppContext);
+    const { appState, loggedIn } = useContext(AppContext);
+
+    useQuery({
+        queryKey: ["allDataForUser"],
+        queryFn: getAllUserData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        retryOnMount: false,
+        retry: 1,
+        throwOnError: false,
+        enabled: loggedIn ? true : false,
+        onError: (error) => {
+            // console.log("🚀 ~ LectureButtons ~ error:", error);
+        },
+        onSuccess: (data) => {
+            // console.log("setie la data global desde main");
+        },
+    });
 
     return (
         <main className="main">

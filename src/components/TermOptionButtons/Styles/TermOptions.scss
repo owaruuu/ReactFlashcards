@@ -1,0 +1,34 @@
+.termOptions {
+    grid-area: buttons;
+    // height: 20px;
+    // width: 100%;
+    // border-top: 1px solid grey;
+    padding: 5px 0;
+    // padding-left: 40px;
+    font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+    font-size: 20px;
+
+    // background-color: #532f00;
+    button {
+        background: 0;
+        // margin: 0 10px;
+        border-radius: 100px;
+        color: #f5fcff;
+        // border: 1px solid black;
+        border: none;
+
+        &:hover {
+            background-color: #113d61;
+        }
+
+        &:active {
+            background-color: #316fa2;
+        }
+    }
+
+    @media (min-width: 768px) {
+        width: 100%;
+        font-size: 40px;
+        // min-height: 82px;
+    }
+}

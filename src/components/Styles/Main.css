@@ -1029,6 +1029,7 @@
   margin: 10px;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: 1px 5px 17px 7px rgba(1, 1, 26, 0.71);
 }
 .termCardDiv .termCard div {
   display: grid;
