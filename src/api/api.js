@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export let URL = "https://api.owaruuu.xyz";
+export let URL = "https://service.owaruuu.xyz";
 // URL = "http://localhost:3003";
 
 export const api = axios.create({
