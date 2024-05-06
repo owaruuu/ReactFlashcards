@@ -4,10 +4,6 @@ import { api, URL } from "../api/api";
 export const connectCognito = async () => {
     try {
         const response = await api.get(`${URL}/cognito`);
-
-        if (response.data.value === -2) {
-            return { msg: "error with cognito server", value: -2 };
-        }
         return response.data;
     } catch (error) {
         return { msg: "error with app server", value: -1 };
@@ -20,7 +16,7 @@ export const confirmUser = async (email, code) => {
 
         return response;
     } catch (error) {
-        //recibo los errores de cognito o si el server esta caido
+        //recibo los errores si el server esta caido
         throw error;
     }
 };
@@ -69,7 +65,7 @@ export const getUserProgress = async (id) => {
         const response = await api.post(`${URL}/progress`, {
             id,
         });
-        // console.log("🚀 ~ getUserProgress ~ response:", response);
+        console.log("🚀 ~ getUserProgress ~ response:", response);
 
         if (response.data.value === -1) {
             return null;
@@ -119,6 +115,7 @@ export const saveUserProgress = async (currentProgress) => {
 export const getExtraPerms = async (email) => {
     try {
         const response = await api.post(`${URL}/permissions`, { email });
+        console.log("🚀 ~ getExtraPerms ~ response:", response);
         return response;
     } catch (error) {
         return error;

@@ -24,8 +24,10 @@ const LectureList = () => {
             try {
                 //consulta a los permisos
                 const userEmail = user.userName;
+                console.log("🚀 ~ getLectures ~ userEmail:", userEmail);
 
                 const perms = await getExtraPerms(userEmail);
+                console.log("🚀 ~ getLectures ~ perms:", perms);
 
                 const result = perms.data.Item ? perms.data.Item.access : [];
 

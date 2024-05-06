@@ -39,6 +39,7 @@ const LoginHeader = (props) => {
     //Reviso mi estado de login al cargar
     useEffect(() => {
         const loginStatus = async () => {
+            //intento verificar si estoy logged in
             const response = await connectCognito();
 
             //si la respuesta es -1 significa que hubo un problema con el server
@@ -48,16 +49,6 @@ const LoginHeader = (props) => {
                 dispatch({
                     type: "SET_LOGIN_CONTROL_MSG",
                     payload: "Server error, try refreshing the page.",
-                });
-                dispatch({ type: "SET_INIT", payload: true });
-                return;
-            }
-
-            if (response.value === -2) {
-                dispatch({ type: "SET_COGNITO_ERROR", payload: true });
-                dispatch({
-                    type: "SET_LOGIN_CONTROL_MSG",
-                    payload: "Cognito server error, try again later.",
                 });
                 dispatch({ type: "SET_INIT", payload: true });
                 return;
@@ -84,6 +75,7 @@ const LoginHeader = (props) => {
             const sub = response.value.sub;
 
             const progress = await getUserProgress(sub); // TODO remover sub de la funcion y obtenerlo desde las cookies
+            console.log("🚀 ~ loginStatus ~ progress:", progress);
 
             if (progress) {
                 dispatch({
