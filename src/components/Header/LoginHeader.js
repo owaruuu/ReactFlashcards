@@ -75,7 +75,7 @@ const LoginHeader = (props) => {
             const sub = response.value.sub;
 
             const progress = await getUserProgress(sub); // TODO remover sub de la funcion y obtenerlo desde las cookies
-            console.log("🚀 ~ loginStatus ~ progress:", progress);
+            // console.log("🚀 ~ loginStatus ~ progress:", progress);
 
             if (progress) {
                 dispatch({

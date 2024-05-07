@@ -3,6 +3,7 @@ export const lectures = [
     {
         lectureId: "703",
         name: "Palabras Tour Basico 2",
+        lectureGroup: "extra1",
         termList: [
             {
                 id: 0,
@@ -289,7 +290,8 @@ export const lectures = [
     },
     {
         lectureId: "702",
-        name: "Palabras Tour basico",
+        name: "Palabras Tour Basico 1",
+        lectureGroup: "extra1",
         termList: [
             {
                 id: 0,
@@ -649,6 +651,7 @@ export const lectures = [
         lectureId: "1",
         name: "Leccion 1 Minna",
         testId: "3",
+        lectureGroup: "basico1",
         termList: [
             { id: 0, term: "わたし watashi", extra: "私", answer: "Yo" },
             {
@@ -866,6 +869,7 @@ export const lectures = [
     {
         lectureId: "2",
         name: "Leccion 2 Minna",
+        lectureGroup: "basico1",
         termList: [
             { id: 0, term: "これ kore", extra: "", answer: "Este, Esta, Esto" },
             { id: 1, term: "それ sore", extra: "", answer: "Ese, Esa, Eso" },
@@ -1122,6 +1126,7 @@ export const lectures = [
     {
         lectureId: "3",
         name: "Leccion 3 Minna",
+        lectureGroup: "basico1",
         termList: [
             {
                 id: 0,
@@ -1291,6 +1296,7 @@ export const lectures = [
     {
         lectureId: "4",
         name: "Leccion 4 Minna",
+        lectureGroup: "basico1",
         termList: [
             {
                 id: 0,
@@ -1648,6 +1654,7 @@ export const lectures = [
     {
         lectureId: "5",
         name: "Leccion 5 Minna",
+        lectureGroup: "basico1",
         termList: [
             {
                 id: 0,

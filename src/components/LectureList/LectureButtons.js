@@ -14,7 +14,7 @@ const LectureButtons = (props) => {
     const userId = 123;
     const myProgress = userQuizProgress[userId];
 
-    const { lectures, loggedIn } = useContext(AppContext);
+    // const { lectures, loggedIn } = useContext(AppContext);
     // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
 
     const userDataQuery = useQueryClient().getQueryState("allDataForUser");
@@ -47,7 +47,7 @@ const LectureButtons = (props) => {
             : {};
     // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
 
-    const filledLectures = lectures.map((lecture) => {
+    const filledLectures = props.lectures.map((lecture) => {
         if (dataObject[lecture.lectureId]) {
             if (dataObject[lecture.lectureId]["japanese_session"]) {
                 lecture["japanese_session"] =
@@ -61,8 +61,25 @@ const LectureButtons = (props) => {
 
         return lecture;
     });
+    // console.log("🚀 ~ filledLectures ~ filledLectures:", filledLectures);
 
-    const sortedLectures = sortLectures(props.filterState, filledLectures);
+    let filters = [];
+
+    for (const [key, value] of Object.entries(props.filterState)) {
+        if (value) {
+            filters.push(key);
+        }
+    }
+
+    let filteredLectures = [];
+
+    if (filters.length > 0) {
+        filteredLectures = filterLectures(filters, filledLectures);
+    } else {
+        filteredLectures = filledLectures;
+    }
+
+    const sortedLectures = sortLectures(props.orderingState, filteredLectures);
 
     const lectureButtons = sortedLectures.map((lecture) => {
         return (
@@ -128,11 +145,21 @@ function buildLectureData(dataArray) {
     return result;
 }
 
-function sortLectures(filterState, lectures) {
+function filterLectures(filters, lectures) {
+    let clonedLectures = JSON.parse(JSON.stringify(lectures));
+
+    clonedLectures = clonedLectures.filter((lecture) => {
+        return filters.includes(lecture.lectureGroup);
+    });
+
+    return clonedLectures;
+}
+
+function sortLectures(orderingState, lectures) {
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
     // console.log("🚀 ~ sortLectures ~ clonedLectures:", clonedLectures);
 
-    switch (filterState) {
+    switch (orderingState) {
         case "dateASC":
             // console.log("Date ASC");
             return clonedLectures.sort(sortByDateASC);
@@ -168,7 +195,10 @@ function sortByDate(a, b) {
     if (spanishDateA) {
         spanishDataObjectA = new Date(spanishDateA);
     }
-    const chosenADiff = pickDifference(japaneseDataObjectA, spanishDataObjectA);
+    const chosenADiff = pickDifference(
+        japaneseDataObjectA,
+        spanishDataObjectA
+    )?.chosenDiff;
 
     const japaneseDateB = b["japanese_session"]?.lastReviewed;
     const spanishDateB = b["spanish_session"]?.lastReviewed;
@@ -179,7 +209,10 @@ function sortByDate(a, b) {
     if (spanishDateB) {
         spanishDataObjectB = new Date(spanishDateB);
     }
-    const chosenBDiff = pickDifference(japaneseDataObjectB, spanishDataObjectB);
+    const chosenBDiff = pickDifference(
+        japaneseDataObjectB,
+        spanishDataObjectB
+    )?.chosenDiff;
 
     // const chosenBDiff = pickDifference(bDate, aDate);
     //a is less than b by some ordering criterion

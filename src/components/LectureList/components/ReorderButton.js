@@ -2,7 +2,7 @@ import React from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { MdArrowDropUp } from "react-icons/md";
 
-const FilterButton = ({ name, text, state, onClick, callback }) => {
+const ReorderButton = ({ name, text, state, onClick, callback }) => {
     const arrow =
         state === null ? (
             <div className="emptyDiv"></div>
@@ -23,4 +23,4 @@ const FilterButton = ({ name, text, state, onClick, callback }) => {
     );
 };
 
-export default FilterButton;
+export default ReorderButton;

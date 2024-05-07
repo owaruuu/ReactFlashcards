@@ -31,6 +31,7 @@ const ReviewSessionTime = (props) => {
 
     const chosendiff = pickDifference(japaneseDateObject, spanishDateObject);
     // console.log("🚀 ~ ReviewSessionTime ~ chosendiff:", chosendiff);
+    //TODO sacar codigo viejo
     if (!chosendiff) {
         return <span>nunca.</span>;
     }

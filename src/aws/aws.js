@@ -65,7 +65,7 @@ export const getUserProgress = async (id) => {
         const response = await api.post(`${URL}/progress`, {
             id,
         });
-        console.log("🚀 ~ getUserProgress ~ response:", response);
+        // console.log("🚀 ~ getUserProgress ~ response:", response);
 
         if (response.data.value === -1) {
             return null;
@@ -77,7 +77,7 @@ export const getUserProgress = async (id) => {
 
         return response.data.value.progress;
     } catch (error) {
-        // console.log("🚀 ~ getUserProgress ~ error:", error);
+        console.log("🚀 ~ getUserProgress ~ error:", error);
         return null;
     }
 };
@@ -115,9 +115,10 @@ export const saveUserProgress = async (currentProgress) => {
 export const getExtraPerms = async (email) => {
     try {
         const response = await api.post(`${URL}/permissions`, { email });
-        console.log("🚀 ~ getExtraPerms ~ response:", response);
+        // console.log("🚀 ~ getExtraPerms ~ response:", response);
         return response;
     } catch (error) {
+        console.log("🚀 ~ getExtraPerms ~ error:", error);
         return error;
     }
 };

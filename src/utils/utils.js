@@ -159,33 +159,34 @@ export const levelOrder = [
     "master",
 ];
 
-export function showDifference(diff) {
-    const days = diff / (1000 * 60 * 60 * 24);
+export function showDifference({ chosenDiff, lang }) {
+    const days = chosenDiff / (1000 * 60 * 60 * 24);
     // console.log("🚀 ~ showDifference ~ days:", days);
-    const hours = diff / (1000 * 60 * 60);
+    const hours = chosenDiff / (1000 * 60 * 60);
 
     // console.log("🚀 ~ showDifference ~ Math.abs(days):", Math.abs(days));
     if (Math.floor(days) === 1) {
-        return `hace 1 dia.`;
+        return `hace 1 dia.${lang || ""}`;
     }
 
     if (days > 1) {
-        return `hace ${Math.round(days)} dias.`;
+        return `hace ${Math.round(days)} dias.${lang || ""}`;
     }
 
     if (hours < 1) {
-        return "hace un momento.";
+        return `hace un momento.${lang || ""}`;
     }
 
     if (hours > 0 && hours < 2) {
-        return `hace 1 hora.`;
+        return `hace 1 hora.${lang || ""}`;
     }
 
-    return `hace ${Math.round(hours)} horas.`;
+    return `hace ${Math.round(hours)} horas.${lang || ""}`;
 }
 
 export function pickDifference(japanese, spanish) {
     // console.log("🚀 ~ pickDifference ~ japanese, spanish:", japanese, spanish);
+    //
     if (japanese && spanish) {
         const japaneseDiff = Math.abs(
             japanese.getTime() - new Date().getTime()
@@ -193,15 +194,22 @@ export function pickDifference(japanese, spanish) {
 
         const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
 
-        const biggerDiff = Math.max(japaneseDiff, spanishDiff);
-        return biggerDiff;
+        if (japaneseDiff > spanishDiff) {
+            return { chosenDiff: japaneseDiff, lang: "(jpn)" };
+        } else if (spanishDiff > japaneseDiff) {
+            return { chosenDiff: spanishDiff, lang: "(esp)" };
+        }
+
+        return { chosenDiff: japaneseDiff, lang: "(jpn)" };
     } else if (japanese && !spanish) {
         const japaneseDiff = Math.abs(
             japanese.getTime() - new Date().getTime()
         );
-        return japaneseDiff;
+        return { chosenDiff: japaneseDiff, lang: "(jpn)" };
     } else if (!japanese && spanish) {
         const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
-        return spanishDiff;
+        return { chosenDiff: spanishDiff, lang: "(esp)" };
+    } else {
+        return null;
     }
 }

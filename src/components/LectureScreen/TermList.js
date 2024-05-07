@@ -119,7 +119,11 @@ const TermList = (props) => {
                     />
                     <div className="termListButtons">
                         <p className="info">
-                            Ultima sesion: {timeDifference(lastReviewDate)}
+                            Ultima sesion:{" "}
+                            {timeDifference(
+                                lastReviewDate,
+                                props.flipped ? "(esp)" : "(jpn)"
+                            )}
                         </p>
                         <button
                             disabled={!hasSession}
@@ -260,7 +264,7 @@ function mutedAmount(array, data) {
     return amount;
 }
 
-function timeDifference(date) {
+function timeDifference(date, lang) {
     if (date) {
         // console.log("🚀 ~ timeDifference ~ date:", date);
         const lastReviewDate = new Date(date);
@@ -268,7 +272,10 @@ function timeDifference(date) {
 
         const diff = Math.abs(today.getTime() - lastReviewDate.getTime());
 
-        return showDifference(diff);
+        return showDifference({
+            chosenDiff: diff,
+            lang: null,
+        });
     } else {
         return "nunca.";
     }

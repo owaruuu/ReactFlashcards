@@ -42,10 +42,11 @@
 }
 .lectureList .titleContainer {
   display: grid;
-  grid-template-areas: "title" "filter";
+  grid-template-areas: "title" "order" "filter";
   width: 85vw;
   max-width: 870px;
   justify-items: center;
+  align-items: center;
 }
 .lectureList .titleContainer .emptyDiv {
   width: 16px;
@@ -59,13 +60,33 @@
   text-decoration: underline;
   text-decoration-color: #dbb01c;
   font-size: 2.2rem;
+  margin: 0;
 }
-.lectureList .titleContainer .filter {
+.lectureList .titleContainer .ordering {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  grid-area: filter;
+  grid-area: order;
   font-size: 14px;
+}
+.lectureList .titleContainer .filtering {
+  color: white;
+  display: flex;
+  grid-area: filter;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.lectureList .titleContainer .filtering span {
+  margin-right: 20px;
+}
+.lectureList .titleContainer .filtering .checkboxes {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.lectureList .titleContainer .filtering .checkboxes div {
+  display: flex;
 }
 .lectureList .titleContainer span {
   color: white;
@@ -85,16 +106,25 @@
   .lectureList .titleContainer {
     margin: 8px 0;
     grid-template-columns: 2fr 1fr 2fr;
-    grid-template-areas: ". title filter";
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: ". title order" "filter filter filter";
   }
 }
 .lectureList .lectureButtons {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
 }
 .lectureList .lectureButtons .spinner {
   color: white;
   margin: auto;
+}
+@media (min-width: 768px) {
+  .lectureList .lectureButtons {
+    width: 100%;
+    align-items: center;
+  }
 }
 @media (min-width: 768px) {
   .lectureList {

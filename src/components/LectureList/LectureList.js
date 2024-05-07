@@ -6,28 +6,46 @@ import LectureButtons from "./LectureButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import Spinner from "react-bootstrap/Spinner";
 import DismissableBanner from "../Misc/DismissableBanner";
-import FilterButton from "./components/FilterButton";
+import ReorderButton from "./components/ReorderButton";
+import FilterContainer from "./components/FilterContainer";
 
 const LectureList = () => {
     const { loggedIn, dispatch, lectures, gotLectures, user } =
         useContext(AppContext);
 
-    const [filterState, setFilterState] = useState(null);
+    const [orderingState, setOrderingState] = useState(null);
+    const [filterState, setFilterState] = useState({
+        basico1: false,
+        basico2: false,
+        basico3: false,
+        basico4: false,
+        basico5: false,
+        basico6: false,
+        basico7: false,
+        basico8: false,
+        basico9: false,
+        basico10: false,
+        extra1: false,
+    });
     // console.log("🚀 ~ LectureList ~ filterState:", filterState);
     const [dateButtonState, setDateButtonState] = useState(null);
     const [sizeButtonState, setSizeButtonState] = useState(null);
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
+    let filters = new Set();
+    lectures.forEach((lecture) => {
+        filters.add(lecture.lectureGroup);
+    });
 
     useEffect(() => {
         const getLectures = async () => {
             try {
                 //consulta a los permisos
                 const userEmail = user.userName;
-                console.log("🚀 ~ getLectures ~ userEmail:", userEmail);
+                // console.log("🚀 ~ getLectures ~ userEmail:", userEmail);
 
                 const perms = await getExtraPerms(userEmail);
-                console.log("🚀 ~ getLectures ~ perms:", perms);
+                // console.log("🚀 ~ getLectures ~ perms:", perms);
 
                 const result = perms.data.Item ? perms.data.Item.access : [];
 
@@ -77,14 +95,20 @@ const LectureList = () => {
         setSizeButtonState(null);
         if (state === null) {
             callback("ASC");
-            setFilterState(name + "ASC");
+            setOrderingState(name + "ASC");
         } else if (state === "ASC") {
             callback("DESC");
-            setFilterState(name + "DESC");
+            setOrderingState(name + "DESC");
         } else if (state === "DESC") {
             callback(null);
-            setFilterState(null);
+            setOrderingState(null);
         }
+    }
+
+    function handleFilterClick(payload) {
+        setFilterState((prev) => {
+            return { ...prev, [payload.type]: payload.value };
+        });
     }
 
     return (
@@ -101,27 +125,40 @@ const LectureList = () => {
             )}
             <div className="titleContainer">
                 <h2 className="lectureListTitle">Lecciones</h2>
-                <div className="filter">
-                    <span>ordernar por: </span>
-                    <FilterButton
-                        name={"date"}
-                        text={"fecha sesión"}
-                        state={dateButtonState}
-                        onClick={cycleState}
-                        callback={setDateButtonState}
-                    />
-                    <FilterButton
-                        name={"size"}
-                        text={"tamaño sesión"}
-                        state={sizeButtonState}
-                        onClick={cycleState}
-                        callback={setSizeButtonState}
-                    />
-                </div>
+                {loggedIn && (
+                    <>
+                        <div className="ordering">
+                            <span>ordernar por: </span>
+                            <ReorderButton
+                                name={"date"}
+                                text={"fecha sesión"}
+                                state={dateButtonState}
+                                onClick={cycleState}
+                                callback={setDateButtonState}
+                            />
+                            <ReorderButton
+                                name={"size"}
+                                text={"tamaño sesión"}
+                                state={sizeButtonState}
+                                onClick={cycleState}
+                                callback={setSizeButtonState}
+                            />
+                        </div>
+                        <FilterContainer
+                            state={filterState}
+                            onClick={handleFilterClick}
+                            filters={filters}
+                        />
+                    </>
+                )}
             </div>
 
             <div className="lectureButtons">
-                <LectureButtons filterState={filterState} />
+                <LectureButtons
+                    orderingState={orderingState}
+                    filterState={filterState}
+                    lectures={lectures}
+                />
                 {loggedIn && !gotLectures ? (
                     <Spinner
                         className="spinner"
