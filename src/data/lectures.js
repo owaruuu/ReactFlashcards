@@ -236,7 +236,7 @@ export const lectures = [
             },
             { id: 54, term: "せき", extra: "Seki", answer: "Asiento" },
             { id: 55, term: "いす", extra: "Isu", answer: "Silla" },
-            { id: 56, term: "テーブル", extra: "Tebu-ru", answer: "Mesa" },
+            { id: 56, term: "テーブル", extra: "Te-buru", answer: "Mesa" },
             { id: 57, term: "ナイフ", extra: "Naifu", answer: "Cuchillo" },
             { id: 58, term: "フォーク", extra: "Fo-ku", answer: "Tenedor" },
             { id: 59, term: "スプーン", extra: "Supu-n", answer: "Cuchara" },

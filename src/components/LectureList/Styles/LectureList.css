@@ -70,6 +70,8 @@
   font-size: 14px;
 }
 .lectureList .titleContainer .filtering {
+  border-top: #ab071d solid 2px;
+  padding-top: 3px;
   color: white;
   display: flex;
   grid-area: filter;
