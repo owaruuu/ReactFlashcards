@@ -1,10 +1,10 @@
-import LectureButton from "./LectureButton.js/LectureButton.js";
+import LectureButton from "./LectureButton.js/LectureButton";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useQueryClient, useQuery } from "react-query";
-import { getAllUserData } from "../../aws/userDataApi.js";
+import { getAllUserData } from "../../aws/userDataApi";
 
-import { userQuizProgress } from "../../data/fake-db.js";
+import { userQuizProgress } from "../../data/fake-db";
 import { pickDifference } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {

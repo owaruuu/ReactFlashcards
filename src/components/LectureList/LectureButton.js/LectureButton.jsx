@@ -1,17 +1,17 @@
 import "./Styles/LectureButton.css";
 import { useContext, useState, useEffect } from "react";
-import { AppContext } from "../../../context/AppContext";
+import { AppContext } from "../../../context/AppContext.jsx";
 import { backToTop } from "../../../utils/utils";
 import { tests } from "../../../data/tests";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaClock } from "react-icons/fa6";
 import { PiStackOverflowLogoFill } from "react-icons/pi";
-import QuizQueue from "./QuizQueue.js";
-import ProgressBar from "./ProgressBar/ProgressBar.js";
-import StarAmount from "./components/StarAmount.js";
-import TermsReviewAmount from "./components/TermsReviewAmount.js";
-import ReviewSessionTime from "./components/ReviewSessionTime.js";
+import QuizQueue from "./QuizQueue.jsx";
+import ProgressBar from "./ProgressBar/ProgressBar.jsx";
+import StarAmount from "./components/StarAmount.jsx";
+import TermsReviewAmount from "./components/TermsReviewAmount.jsx";
+import ReviewSessionTime from "./components/ReviewSessionTime.jsx";
 import { Spinner } from "react-bootstrap";
 
 const LectureButton = (props) => {

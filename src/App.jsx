@@ -1,9 +1,9 @@
 import "./App.css";
 import "./Styles/Homepage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header/Header.js";
-import Main from "./components/Main.js";
-import Footer from "./components/Footer.js";
+import Header from "./components/Header/Header";
+import Main from "./components/Main";
+import Footer from "./components/Footer.jsx";
 import svg from "./svg/cherry-blossom-petal.svg";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AppProvider } from "./context/AppContext";
