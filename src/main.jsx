@@ -7,10 +7,14 @@ import { AppProvider } from "./context/AppContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorPage from "./error-page";
 
-import Root from "./routes/root";
-import Login from "./routes/login";
+import Root from "./routes/Root";
+import LoggedInRoute from "./routes/LoggedInRoute";
+import LoggedOutRoute from "./routes/LoggedOutRoute";
+import Login from "./routes/Login";
+
 import LectureList from "./components/LectureList/LectureList";
 import LectureScreen from "./components/LectureScreen/LectureScreen";
+import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
@@ -19,14 +23,18 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         children: [
-            { path: "/", element: <LectureList /> },
+            { index: true, element: <LectureList /> },
             {
                 path: "/login",
-                element: <Login />,
+                element: <LoggedOutRoute element={<Login />} />,
             },
             {
                 path: "/lectures/:lectureId",
                 element: <LectureScreen />,
+            },
+            {
+                path: "/profile",
+                element: <LoggedInRoute element={<UserPanelScreen />} />,
             },
         ],
     },

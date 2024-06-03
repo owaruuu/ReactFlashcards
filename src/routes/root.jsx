@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Main from "../components/Main";
 import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 
-const root = () => {
+const Root = () => {
     return (
         <div className="App">
             <Header />
@@ -22,4 +22,4 @@ const root = () => {
     );
 };
 
-export default root;
+export default Root;
