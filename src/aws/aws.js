@@ -35,7 +35,7 @@ export const registerUser = async (email, password) => {
 };
 
 //revisa si el usuario existe en el userpool de cognito
-export const aunthenticateUser = async (email, password) => {
+export const authenticateUser = async (email, password) => {
     try {
         const response = await api.post(`${URL}/login`, {
             email,

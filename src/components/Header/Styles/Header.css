@@ -1,6 +1,5 @@
 .header {
   z-index: 15;
-  position: fixed;
   display: flex;
   flex-direction: column;
   background-color: #032745;

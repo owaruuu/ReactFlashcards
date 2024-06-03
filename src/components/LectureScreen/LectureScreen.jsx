@@ -7,6 +7,7 @@ import LectureScreenButtons from "./LectureScreenButtons";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import { useParams } from "react-router-dom";
 
 import { useQueryClient } from "react-query";
 
@@ -24,7 +25,8 @@ const LectureScreen = (props) => {
 
     const [createSessionError, setCreateSessionError] = useState(false);
 
-    const lectureId = appState.currentLecture;
+    // const lectureId = appState.currentLecture;
+    const { lectureId } = useParams();
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });

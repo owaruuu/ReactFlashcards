@@ -10,7 +10,7 @@ hr {
 }
 
 h1 {
-  color: #f5fcff !important;
+  color: #f5fcff;
 }
 
 a {
@@ -132,4 +132,14 @@ footer {
   footer :first-child {
     margin-left: auto;
   }
+}
+
+#error-page {
+  height: 100vh;
+  background-color: #032745;
+  color: white;
+}
+#error-page h1 {
+  color: #ab071d;
+  font-weight: 600;
 }/*# sourceMappingURL=App.css.map */

@@ -1,19 +1,22 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const BackButton = (props) => {
     const { dispatch } = useContext(AppContext);
+    const navigate = useNavigate();
 
     return (
         <button
             className="backButton"
-            onClick={() =>
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        ...props.options,
-                    },
-                })
+            onClick={
+                () => navigate(-1)
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: {
+                //         ...props.options,
+                //     },
+                // })
             }
         >
             Volver

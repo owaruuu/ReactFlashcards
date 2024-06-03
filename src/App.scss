@@ -11,7 +11,7 @@ hr {
 }
 
 h1 {
-    color: $cloud-white !important;
+    color: $cloud-white;
 }
 
 a {
@@ -137,5 +137,16 @@ footer {
         :first-child {
             margin-left: auto;
         }
+    }
+}
+
+#error-page {
+    height: 100vh;
+    background-color: $background-blue;
+    color: white;
+
+    h1 {
+        color: $stripes-red;
+        font-weight: 600;
     }
 }

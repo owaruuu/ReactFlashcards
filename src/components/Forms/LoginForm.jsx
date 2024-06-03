@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import {
-    aunthenticateUser,
+    authenticateUser,
     connectCognito,
     getUserProgress,
 } from "../../aws/aws";
@@ -58,7 +58,7 @@ function LoginForm() {
 
         try {
             //verifico mis credenciales
-            await aunthenticateUser(email, password);
+            await authenticateUser(email, password);
 
             //obtengo informacion del idToken
             const response = await connectCognito();

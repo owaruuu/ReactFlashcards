@@ -4,6 +4,7 @@ import { logoutUser } from "../../../aws/aws";
 import { lectures } from "../../../data/lectures";
 import Spinner from "react-bootstrap/Spinner";
 import LogoutModal from "./LogoutModal";
+import { useNavigate } from "react-router-dom";
 
 const LoginControls = (props) => {
     const {
@@ -20,6 +21,8 @@ const LoginControls = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [button, setButton] = useState(null);
 
+    const navigate = useNavigate();
+
     const handleUserPanelClick = () => {
         if (isTakingTest) {
             setButton("userPanel");
@@ -30,10 +33,11 @@ const LoginControls = (props) => {
     };
 
     const changeToUserPanel = () => {
-        dispatch({
-            type: "CHANGE_SCREEN",
-            payload: { currentScreen: "userPanel" },
-        });
+        // dispatch({
+        //     type: "CHANGE_SCREEN",
+        //     payload: { currentScreen: "userPanel" },
+        // });
+        navigate("/userpanel");
         dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
     };
 
@@ -91,26 +95,28 @@ const LoginControls = (props) => {
         <>
             <button
                 className="registerButton"
-                onClick={() =>
-                    dispatch({
-                        type: "CHANGE_SCREEN",
-                        payload: {
-                            currentScreen: "register",
-                        },
-                    })
+                onClick={
+                    () => navigate("/register")
+                    // dispatch({
+                    //     type: "CHANGE_SCREEN",
+                    //     payload: {
+                    //         currentScreen: "register",
+                    //     },
+                    // })
                 }
             >
                 Register
             </button>
             <button
                 className="loginButton"
-                onClick={() =>
-                    dispatch({
-                        type: "CHANGE_SCREEN",
-                        payload: {
-                            currentScreen: "login",
-                        },
-                    })
+                onClick={
+                    () => navigate("/login")
+                    // dispatch({
+                    //     type: "CHANGE_SCREEN",
+                    //     payload: {
+                    //         currentScreen: "login",
+                    //     },
+                    // })
                 }
             >
                 Login

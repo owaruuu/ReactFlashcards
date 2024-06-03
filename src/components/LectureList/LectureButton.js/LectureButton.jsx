@@ -13,6 +13,7 @@ import StarAmount from "./components/StarAmount.jsx";
 import TermsReviewAmount from "./components/TermsReviewAmount.jsx";
 import ReviewSessionTime from "./components/ReviewSessionTime.jsx";
 import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const LectureButton = (props) => {
     const {
@@ -26,6 +27,7 @@ const LectureButton = (props) => {
     } = useContext(AppContext);
     const [percentage, setPercentage] = useState(0);
     const [japanesePercentage, setJapanesePercentage] = useState(0);
+    const navigate = useNavigate();
 
     const [hasTest] = useState(() => tests[props.id]);
 
@@ -95,13 +97,14 @@ const LectureButton = (props) => {
             className="lectureButton"
             onClick={() => {
                 backToTop();
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        currentScreen: "lecture-japanese",
-                        currentLecture: props.id,
-                    },
-                });
+                navigate(`lectures/${props.id}`);
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: {
+                //         currentScreen: "lecture-japanese",
+                //         currentLecture: props.id,
+                //     },
+                // });
             }}
         >
             {/* <div className="text">Progreso:</div>
