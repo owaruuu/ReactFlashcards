@@ -1,12 +1,11 @@
 .main {
-  margin-top: 115px;
-  color: white;
-  overflow: hidden;
-  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
+  min-height: 70vh;
+  overflow: hidden;
 }
 .main .form {
   display: flex;
@@ -941,11 +940,6 @@
 .main .userPanel .userPanelContent .infoDiv .title {
   font-weight: 600;
   font-size: 18px;
-}
-@media (min-width: 768px) {
-  .main {
-    margin-top: 80px;
-  }
 }
 
 .panel {

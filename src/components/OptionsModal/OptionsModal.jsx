@@ -1,4 +1,5 @@
 import Modal from "react-bootstrap/Modal";
+import "./Styles/OptionsModal.css";
 
 const OptionsModal = (props) => {
     const languageText = (

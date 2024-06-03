@@ -17,7 +17,7 @@ import {
     useSessionMutation,
 } from "../../hooks/useUserDataQuery";
 
-import DismissableBanner from "../Misc/DismissableBanner";
+import DismissableBanner from "../DismissableBanner/DismissableBanner";
 
 const LectureScreen = (props) => {
     const { appState, dbError, loggedIn, user, lectures, dispatch } =

@@ -5,7 +5,7 @@ import { getExtraLessons, getExtraPerms } from "../../aws/aws";
 import LectureButtons from "./LectureButtons";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import Spinner from "react-bootstrap/Spinner";
-import DismissableBanner from "../Misc/DismissableBanner";
+import DismissableBanner from "../DismissableBanner/DismissableBanner";
 import ReorderButton from "./components/ReorderButton";
 import FilterContainer from "./components/FilterContainer";
 
@@ -172,7 +172,9 @@ const LectureList = () => {
                 )}
                 <p>{extraLessonMessage}</p>
             </div>
-            <BackToTopButton />
+            <div className="backToTopDiv">
+                <BackToTopButton />
+            </div>
         </div>
     );
 };

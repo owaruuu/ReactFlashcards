@@ -17,27 +17,6 @@ a {
   color: #ff9b31 !important;
 }
 
-.dismissableBanner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.dismissableBanner p {
-  margin: 0;
-  font-size: 12px;
-}
-@media (min-width: 768px) {
-  .dismissableBanner p {
-    font-size: 16px;
-  }
-}
-.dismissableBanner button {
-  border: none;
-  margin-left: 15px;
-  font-size: 18px;
-}
-
 .modal-body {
   padding-bottom: 30px !important;
 }
@@ -58,13 +37,6 @@ a {
 }
 .modal-header button:hover {
   opacity: 1 !important;
-}
-
-.form-check .form-check-label {
-  font-weight: 500;
-}
-.form-check p {
-  padding-left: 10px;
 }
 
 .goldAccent {
@@ -118,16 +90,16 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   height: 130px;
+  text-align: center;
   color: #f5fcff;
 }
 @media (min-width: 768px) {
   footer {
     height: 100px;
     flex-direction: row;
-    padding-right: 20px;
     align-items: center;
+    padding-right: 20px;
   }
   footer :first-child {
     margin-left: auto;

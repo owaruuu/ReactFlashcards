@@ -10,7 +10,10 @@ const root = () => {
         <div className="App">
             <Header />
             {/* <Main /> */}
-            <Outlet />
+            <div className="main">
+                <Outlet />
+            </div>
+
             <div className="divider">
                 <img className="logo" src={SakuraSVG}></img>
             </div>

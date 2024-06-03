@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import DismissTimerHelper from "./DismissTimerHelper";
+import DismissTimerHelper from "../Misc/DismissTimerHelper";
+import "./styles/styles.css";
 
 const DismissableBanner = (props) => {
     const [opacity, setOpacity] = useState(1);

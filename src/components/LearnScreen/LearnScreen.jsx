@@ -8,9 +8,8 @@ import { BiSolidLeftArrow } from "react-icons/bi";
 import { BiSolidRightArrow } from "react-icons/bi";
 // import { lectures } from "../../data/lectures";
 import { shuffleArray } from "../../utils/utils";
-import OptionsModal from "./OptionsModal";
+import OptionsModal from "../OptionsModal/OptionsModal";
 import NextRedTermButton from "./NextRedTermButton";
-import DismissableBanner from "../Misc/DismissableBanner";
 
 const LearnScreen = (props) => {
     const { dispatch, appState, user, lectures } = useContext(AppContext);

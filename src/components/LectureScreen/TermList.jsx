@@ -170,7 +170,9 @@ const TermList = (props) => {
                 </div>
             )}
             <div className="termList">{termItems}</div>
-            <BackToTopButton />
+            <div className="backToTopDiv">
+                <BackToTopButton />
+            </div>
         </div>
     );
 };

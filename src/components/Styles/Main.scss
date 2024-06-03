@@ -1,14 +1,15 @@
 @import "../../Styles/Theme.scss";
 
 .main {
-    margin-top: 115px;
-    overflow: hidden;
-    min-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    // justify-content: space-evenly;
     justify-content: flex-start;
+    width: 100%;
+    min-height: 70vh;
+    overflow: hidden;
+    // margin-top: 115px;
+    // justify-content: space-evenly;
 
     .form {
         display: flex;
@@ -1131,10 +1132,6 @@
                 }
             }
         }
-    }
-
-    @media (min-width: 768px) {
-        margin-top: 80px;
     }
 }
 
