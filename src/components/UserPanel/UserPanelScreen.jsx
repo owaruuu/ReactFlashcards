@@ -11,10 +11,10 @@ const UserPanelScreen = () => {
     const [selectedSticker, setSelectedSticker] = useState(-1);
 
     const handleBackButton = () => {
-        dispatch({
-            type: "CHANGE_SCREEN",
-            payload: { currentScreen: appState.lastScreen },
-        });
+        // dispatch({
+        //     type: "CHANGE_SCREEN",
+        //     payload: { currentScreen: appState.lastScreen },
+        // });
     };
 
     const handleStickerClick = (id) => {

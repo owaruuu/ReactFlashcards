@@ -29,10 +29,10 @@ function LoginForm() {
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: { currentScreen: "main" },
-                });
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: { currentScreen: "main" },
+                // });
                 dispatch({
                     type: "SET_LOG_STATUS",
                     payload: true,
@@ -99,7 +99,7 @@ function LoginForm() {
                     },
                 });
                 dispatch({ type: "SET_SAVE_ERROR", payload: false });
-                dispatch({ type: "SET_SAVE_INFO_MSG", payload: "" });
+                // dispatch({ type: "SET_SAVE_INFO_MSG", payload: "" });
             } else {
                 dispatch({ type: "SET_DB_ERROR", payload: true });
                 dispatch({

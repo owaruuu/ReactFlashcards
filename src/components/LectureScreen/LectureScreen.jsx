@@ -60,15 +60,15 @@ const LectureScreen = (props) => {
 
     function changeToReviewScreen(language) {
         window.scrollTo(0, 0);
-        dispatch({
-            type: "CHANGE_SCREEN",
-            payload: {
-                currentScreen:
-                    language === "japanese"
-                        ? "reviewV2Japanese"
-                        : "reviewV2Spanish",
-            },
-        });
+        // dispatch({
+        //     type: "CHANGE_SCREEN",
+        //     payload: {
+        //         currentScreen:
+        //             language === "japanese"
+        //                 ? "reviewV2Japanese"
+        //                 : "reviewV2Spanish",
+        //     },
+        // });
     }
 
     async function onNewSessionCreate(language, newValue) {

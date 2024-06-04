@@ -16,7 +16,7 @@ export const AppReducer = (state, action) => {
         case "SET_LOG_STATUS":
             return { ...state, loggedIn: action.payload };
         case "SET_LOGIN_CONTROL_MSG":
-            return { ...state, LoginControlErrorMessage: action.payload };
+            return { ...state, loginControlErrorMessage: action.payload };
         case "SET_LECTURES":
             return { ...state, lectures: action.payload };
         case "SET_LECTURES_FLAG":
@@ -26,19 +26,19 @@ export const AppReducer = (state, action) => {
                 ...state,
                 user: { ...state.user, ...action.payload },
             };
-        case "CHANGE_SCREEN":
-            return {
-                ...state,
-                appState: {
-                    ...state.appState,
-                    ...action.payload,
-                    lastScreen:
-                        state.appState.currentScreen ===
-                        action.payload.currentScreen
-                            ? state.appState.lastScreen
-                            : state.appState.currentScreen,
-                },
-            };
+        // case "CHANGE_SCREEN":
+        //     return {
+        //         ...state,
+        //         appState: {
+        //             ...state.appState,
+        //             ...action.payload,
+        //             lastScreen:
+        //                 state.appState.currentScreen ===
+        //                 action.payload.currentScreen
+        //                     ? state.appState.lastScreen
+        //                     : state.appState.currentScreen,
+        //         },
+        //     };
         case "UPDATE_PROGRESS":
             return {
                 ...state,
@@ -50,16 +50,16 @@ export const AppReducer = (state, action) => {
                 ...state,
                 userData: { ...state.userData, ...action.payload },
             };
-        case "SET_SAVE_FLAG":
-            return { ...state, needToSave: action.payload };
+        // case "SET_SAVE_FLAG":
+        //     return { ...state, needToSave: action.payload };
         case "SET_IS_TAKING_TEST":
             return { ...state, isTakingTest: action.payload };
         case "SET_SAVE_TEST":
             return { ...state, savedTest: action.payload };
         case "SET_SAVE_ERROR":
             return { ...state, saveError: action.payload };
-        case "SET_SAVE_INFO_MSG":
-            return { ...state, saveInfoMessage: action.payload };
+        // case "SET_SAVE_INFO_MSG":
+        //     return { ...state, saveInfoMessage: action.payload };
         default:
             throw new Error("wrong action type: " + action.type);
     }
@@ -67,27 +67,29 @@ export const AppReducer = (state, action) => {
 
 //Crear un initial state leyendo de la base de datos o localStorage
 const initialState = {
-    init: false, //true despues de haber intentado conectarse a cognito
-    cognitoError: false, //para fallas con el servicio de cognito
-    cognito: false,
-    serverError: false, //para fallas con mi server de Render.com
-    loaded: false,
-    loggedIn: false, //true si ya confirme que tengo tokens validos
-    loginControlErrorMessage: "",
-    lectures: lectures,
-    gotLectures: false,
     user: {
         userName: "",
         currentProgress: null,
     },
     userData: { currentData: {} },
-    appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
-    needToSave: false,
+    lectures: lectures,
+
+    //app state
+    init: false, //true despues de haber intentado conectarse a cognito
+    cognitoError: false, //para fallas con el servicio de cognito
+    serverError: false, //para fallas con mi server de Render.com
+    loggedIn: false, //true si ya confirme que tengo tokens validos
+    loginControlErrorMessage: "",
+    gotLectures: false,
     isTakingTest: false,
     savedTest: false,
     saveError: false,
-    saveInfoMessage: "",
     dbError: false,
+    // cognito: false,
+    // loaded: false,
+    // appState: { currentScreen: "main", currentLecture: null, lastScreen: null }, //currentLecture es el id
+    // needToSave: false,
+    // saveInfoMessage: "",
 };
 
 export const AppContext = createContext();
@@ -98,25 +100,27 @@ export const AppProvider = (props) => {
     return (
         <AppContext.Provider
             value={{
-                init: state.init,
-                cognitoError: state.cognitoError,
-                cognito: state.cognito,
-                serverError: state.serverError,
-                loaded: state.loaded,
-                loggedIn: state.loggedIn,
-                LoginControlErrorMessage: state.LoginControlErrorMessage,
-                lectures: state.lectures,
-                gotLectures: state.gotLectures,
+                //user state
                 user: state.user,
                 userData: state.userData,
-                appState: state.appState,
-                needToSave: state.needToSave,
+                lectures: state.lectures,
+                //app state
+                init: state.init,
+                cognitoError: state.cognitoError,
+                serverError: state.serverError,
+                loggedIn: state.loggedIn,
+                loginControlErrorMessage: state.loginControlErrorMessage,
+                gotLectures: state.gotLectures,
                 isTakingTest: state.isTakingTest,
                 savedTest: state.savedTest,
                 saveError: state.saveError,
-                saveInfoMessage: state.saveInfoMessage,
                 dbError: state.dbError,
                 dispatch,
+                // saveInfoMessage: state.saveInfoMessage,
+                // appState: state.appState,
+                // cognito: state.cognito,
+                // loaded: state.loaded,
+                // needToSave: state.needToSave,
             }}
         >
             {props.children}

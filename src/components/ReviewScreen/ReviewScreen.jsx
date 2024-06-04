@@ -130,12 +130,12 @@ const ReviewScreen = (props) => {
                 // lastReviewed: new Date(),
             });
 
-            dispatch({
-                type: "CHANGE_SCREEN",
-                payload: {
-                    currentScreen: `lecture-${props.language}`,
-                },
-            });
+            // dispatch({
+            //     type: "CHANGE_SCREEN",
+            //     payload: {
+            //         currentScreen: `lecture-${props.language}`,
+            //     },
+            // });
         } catch (error) {
             // console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(

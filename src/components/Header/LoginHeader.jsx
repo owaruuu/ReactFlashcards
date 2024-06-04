@@ -10,31 +10,31 @@ import InfoHeader from "./Components/InfoHeader";
 import ConnectionErrorIcon from "./Components/ConnectionErrorIcon";
 
 const LoginHeader = (props) => {
-    const saveDelay = 5;
+    // const saveDelay = 5;
 
     const {
         dispatch,
         user,
-        needToSave,
         saveError,
         loginControlErrorMessage,
         saveInfoMessage,
+        needToSave,
     } = useContext(AppContext);
 
-    const [timeSinceLastSave, setTimeSinceLastSave] = useState(0);
+    // const [timeSinceLastSave, setTimeSinceLastSave] = useState(0);
 
     //actualizo el timer
-    const updateCounter = () => {
-        setTimeSinceLastSave((lastTime) => lastTime + 1);
-    };
+    // const updateCounter = () => {
+    //     setTimeSinceLastSave((lastTime) => lastTime + 1);
+    // };
 
     //intervalo de 1 segundo
-    useEffect(() => {
-        const interval = setInterval(updateCounter, 1000);
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const interval = setInterval(updateCounter, 1000);
+    //     return () => {
+    //         clearInterval(interval);
+    //     };
+    // }, []);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {
@@ -101,75 +101,75 @@ const LoginHeader = (props) => {
     }, []);
 
     //esto se activa cada vez que cambio el timer
-    useEffect(() => {
-        const tryToSave = async () => {
-            const response = await saveUserProgress(user.currentProgress);
+    // useEffect(() => {
+    //     const tryToSave = async () => {
+    //         const response = await saveUserProgress(user.currentProgress);
 
-            if (!response.value) {
-                dispatch({
-                    type: "SET_SAVE_INFO_MSG",
-                    payload:
-                        "Server error, trying again in a few seconds, do NOT refresh the page...",
-                });
-                dispatch({ type: "SET_SAVE_FLAG", payload: true });
-                // dispatch({ type: "SET_DB_ERROR", payload: true });
-                dispatch({ type: "SET_SAVE_ERROR", payload: true });
-                // setSaveError(true);
-                return;
-            }
+    //         if (!response.value) {
+    //             dispatch({
+    //                 type: "SET_SAVE_INFO_MSG",
+    //                 payload:
+    //                     "Server error, trying again in a few seconds, do NOT refresh the page...",
+    //             });
+    //             dispatch({ type: "SET_SAVE_FLAG", payload: true });
+    //             // dispatch({ type: "SET_DB_ERROR", payload: true });
+    //             dispatch({ type: "SET_SAVE_ERROR", payload: true });
+    //             // setSaveError(true);
+    //             return;
+    //         }
 
-            if (response.value === -2) {
-                dispatch({ type: "SET_LOG_STATUS", payload: false });
-                dispatch({
-                    type: "SET_SAVE_INFO_MSG",
-                    payload: "Credentials invalid, please login again",
-                });
+    //         if (response.value === -2) {
+    //             dispatch({ type: "SET_LOG_STATUS", payload: false });
+    //             dispatch({
+    //                 type: "SET_SAVE_INFO_MSG",
+    //                 payload: "Credentials invalid, please login again",
+    //             });
 
-                dispatch({ type: "SET_SAVE_ERROR", payload: true });
-                // setSaveError(true);
-                return;
-            }
+    //             dispatch({ type: "SET_SAVE_ERROR", payload: true });
+    //             // setSaveError(true);
+    //             return;
+    //         }
 
-            if (response.value === -1) {
-                // dispatch({ type: "SET_DB_ERROR", payload: true });
-                // setSaveError(true);
-                dispatch({ type: "SET_SAVE_ERROR", payload: true });
-                dispatch({
-                    type: "SET_SAVE_INFO_MSG",
-                    payload:
-                        "Database error, trying again in a few seconds, do NOT refresh the page...",
-                });
-                dispatch({ type: "SET_SAVE_FLAG", payload: true });
-                return;
-            }
+    //         if (response.value === -1) {
+    //             // dispatch({ type: "SET_DB_ERROR", payload: true });
+    //             // setSaveError(true);
+    //             dispatch({ type: "SET_SAVE_ERROR", payload: true });
+    //             dispatch({
+    //                 type: "SET_SAVE_INFO_MSG",
+    //                 payload:
+    //                     "Database error, trying again in a few seconds, do NOT refresh the page...",
+    //             });
+    //             dispatch({ type: "SET_SAVE_FLAG", payload: true });
+    //             return;
+    //         }
 
-            // setSaveError(false);
-            dispatch({ type: "SET_SAVE_ERROR", payload: false });
-            dispatch({
-                type: "SET_SAVE_INFO_MSG",
-                payload: "Saved",
-            });
-            dispatch({ type: "SET_SAVE_TEST", payload: true });
-        };
+    //         // setSaveError(false);
+    //         dispatch({ type: "SET_SAVE_ERROR", payload: false });
+    //         dispatch({
+    //             type: "SET_SAVE_INFO_MSG",
+    //             payload: "Saved",
+    //         });
+    //         dispatch({ type: "SET_SAVE_TEST", payload: true });
+    //     };
 
-        //need to save es cambiado por los botones de learn
-        if (timeSinceLastSave > saveDelay && needToSave) {
-            dispatch({
-                type: "SET_SAVE_INFO_MSG",
-                payload: "Saving...",
-            });
+    //     //need to save es cambiado por los botones de learn
+    //     if (timeSinceLastSave > saveDelay && needToSave) {
+    //         dispatch({
+    //             type: "SET_SAVE_INFO_MSG",
+    //             payload: "Saving...",
+    //         });
 
-            //reset timer
-            setTimeSinceLastSave(0);
-            //reset needToSave y isTakingTest
-            dispatch({ type: "SET_SAVE_FLAG", payload: false });
-            //helper para desactivar la alerta al salir de la pagina sin guardar el progreso de la prueba
-            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+    //         //reset timer
+    //         setTimeSinceLastSave(0);
+    //         //reset needToSave y isTakingTest
+    //         dispatch({ type: "SET_SAVE_FLAG", payload: false });
+    //         //helper para desactivar la alerta al salir de la pagina sin guardar el progreso de la prueba
+    //         dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
 
-            //hacer put en db
-            tryToSave();
-        }
-    }, [timeSinceLastSave]);
+    //         //hacer put en db
+    //         tryToSave();
+    //     }
+    // }, [timeSinceLastSave]);
 
     return (
         <div className="loginControls">

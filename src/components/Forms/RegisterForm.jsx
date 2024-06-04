@@ -18,10 +18,10 @@ function RegisterForm(props) {
     useEffect(() => {
         if (registered) {
             const delay = setTimeout(() => {
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: { currentScreen: "confirmation" },
-                });
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: { currentScreen: "confirmation" },
+                // });
             }, 2000);
 
             return () => clearTimeout(delay);
@@ -72,10 +72,10 @@ function RegisterForm(props) {
     };
 
     const handleCodeHelp = () => {
-        dispatch({
-            type: "CHANGE_SCREEN",
-            payload: { currentScreen: "codeHelp" },
-        });
+        // dispatch({
+        //     type: "CHANGE_SCREEN",
+        //     payload: { currentScreen: "codeHelp" },
+        // });
     };
 
     const passwordInfo =

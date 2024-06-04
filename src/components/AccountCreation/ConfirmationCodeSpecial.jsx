@@ -16,10 +16,10 @@ const ConfirmationCodeSpecial = (props) => {
     useEffect(() => {
         if (confirmed) {
             const delay = setTimeout(() => {
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: { currentScreen: "main" },
-                });
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: { currentScreen: "main" },
+                // });
             }, 2000);
 
             return () => clearTimeout(delay);

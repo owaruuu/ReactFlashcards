@@ -9,14 +9,14 @@ const LectureScreenButtons = (props) => {
     const reviewButton = (
         <button
             className="reviewButton"
-            onClick={() =>
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        currentScreen: "review",
-                    },
-                })
-            }
+            // onClick={() =>
+            //     dispatch({
+            //         type: "CHANGE_SCREEN",
+            //         payload: {
+            //             currentScreen: "review",
+            //         },
+            //     })
+            // }
         >
             Revisar
         </button>
@@ -27,14 +27,14 @@ const LectureScreenButtons = (props) => {
             className={
                 user.currentProgress ? "learnButton" : "learnButton disabled"
             }
-            onClick={() =>
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        currentScreen: "learn",
-                    },
-                })
-            }
+            // onClick={() =>
+            //     dispatch({
+            //         type: "CHANGE_SCREEN",
+            //         payload: {
+            //             currentScreen: "learn",
+            //         },
+            //     })
+            // }
             disabled={!user.currentProgress}
         >
             Memorizar
@@ -46,14 +46,14 @@ const LectureScreenButtons = (props) => {
             className={
                 user.currentProgress ? "learnButton" : "learnButton disabled"
             }
-            onClick={() =>
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        currentScreen: "test",
-                    },
-                })
-            }
+            // onClick={() =>
+            //     dispatch({
+            //         type: "CHANGE_SCREEN",
+            //         payload: {
+            //             currentScreen: "test",
+            //         },
+            //     })
+            // }
             disabled={!user.currentProgress}
         >
             <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>

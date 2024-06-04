@@ -8,12 +8,12 @@ const BackButton = (props) => {
         switch (stage) {
             case "begin":
             case "results":
-                dispatch({
-                    type: "CHANGE_SCREEN",
-                    payload: {
-                        currentScreen: "lecture-japanese",
-                    },
-                });
+                // dispatch({
+                //     type: "CHANGE_SCREEN",
+                //     payload: {
+                //         currentScreen: "lecture-japanese",
+                //     },
+                // });
                 break;
             case "last":
                 props.callback();
