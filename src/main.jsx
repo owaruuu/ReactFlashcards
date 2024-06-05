@@ -5,12 +5,16 @@ import App from "./App";
 import "./Fonts.css";
 import { AppProvider } from "./context/AppContext";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { connectCognito } from "./aws/aws";
 import ErrorPage from "./error-page";
 
 import Root from "./routes/Root";
 import LoggedInRoute from "./routes/LoggedInRoute";
 import LoggedOutRoute from "./routes/LoggedOutRoute";
 import Login from "./routes/Login";
+import SignupForm from "./routes/SignupForm";
+import Signup from "./routes/Signup";
+import ConfirmationCode from "./routes/ConfirmationCode";
 
 import LectureList from "./components/LectureList/LectureList";
 import LectureScreen from "./components/LectureScreen/LectureScreen";
@@ -27,6 +31,20 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <LoggedOutRoute element={<Login />} />,
+                loader: connectCognito,
+            },
+            {
+                path: "/register",
+                element: <LoggedOutRoute element={<Signup />} />,
+                loader: connectCognito,
+                id: "register",
+                children: [
+                    { index: true, element: <SignupForm /> },
+                    {
+                        path: "/register/confirmation",
+                        element: <ConfirmationCode />,
+                    },
+                ],
             },
             {
                 path: "/lectures/:lectureId",

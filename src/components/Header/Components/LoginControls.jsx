@@ -52,10 +52,7 @@ const LoginControls = (props) => {
     const logout = async () => {
         try {
             await logoutUser();
-            dispatch({
-                type: "CHANGE_SCREEN",
-                payload: { currentScreen: "main" },
-            });
+            navigate("/");
             dispatch({ type: "SET_LOG_STATUS", payload: false });
             dispatch({ type: "SET_USER", payload: { currentProgress: null } });
             dispatch({ type: "SET_IS_TAKING_TEST", payload: false });

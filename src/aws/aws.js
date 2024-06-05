@@ -2,11 +2,12 @@ import { api, URL } from "../api/api";
 
 //intenta revisar si estoy logeado o no
 export const connectCognito = async () => {
+    console.warn("connectCognito called ");
     try {
         const response = await api.get(`${URL}/cognito`);
         return response.data;
     } catch (error) {
-        return { msg: "error with app server", value: -1 };
+        return { error: "error with app server", value: -1 };
     }
 };
 

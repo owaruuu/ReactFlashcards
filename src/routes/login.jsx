@@ -3,19 +3,20 @@ import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { authenticateUser, connectCognito, getUserProgress } from "../aws/aws";
 import { useNavigate } from "react-router-dom";
+import { loginFormSchema, signupFormSchema } from "../schemas/schemas";
+import "../components/Forms/Styles/Forms.css";
 import Spinner from "react-bootstrap/Spinner";
+import FormInfo from "../components/Forms/FormInfo";
 
 const Login = () => {
-    //TODO zod
-    //form state
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
-    const navigate = useNavigate();
 
     const { dispatch } = useContext(AppContext);
-    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
     const [thinking, setThinking] = useState(false);
     const [login, setLogin] = useState(false);
 
@@ -29,14 +30,11 @@ const Login = () => {
         });
     }
 
+    //TODO rework
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
                 navigate("/");
-                // dispatch({
-                //     type: "CHANGE_SCREEN",
-                //     payload: { currentScreen: "main" },
-                // });
                 dispatch({
                     type: "SET_LOG_STATUS",
                     payload: true,
@@ -49,15 +47,19 @@ const Login = () => {
 
     async function handleLogin(event) {
         event.preventDefault();
-        setMessage("");
+        setMessages([]);
         setThinking(true);
 
         const { email, password } = formData;
 
-        //error handling for postman
-        if (!email || !password) {
+        const { success, error } = loginFormSchema.safeParse({
+            email,
+            password,
+        });
+
+        if (!success) {
             setThinking(false);
-            return setMessage("email or password required");
+            return setMessages(error.issues);
         }
 
         try {
@@ -66,10 +68,6 @@ const Login = () => {
 
             //obtengo informacion del idToken
             const response = await connectCognito();
-            // console.log(
-            //     "🚀 ~ file: LoginForm.js:59 ~ handleLogin ~ response:",
-            //     response
-            // );
 
             //si la respuesta es -1 significa que hubo un problema con el server de cognito
             if (response.value === -1) {
@@ -77,7 +75,7 @@ const Login = () => {
                 return;
             }
 
-            setMessage("Succesful Login");
+            setMessages([{ message: "Succesful Login" }]);
 
             //empieza el timer para cambiar de pantalla
             setLogin(true);
@@ -103,7 +101,7 @@ const Login = () => {
                     },
                 });
                 dispatch({ type: "SET_SAVE_ERROR", payload: false });
-                dispatch({ type: "SET_SAVE_INFO_MSG", payload: "" });
+                // dispatch({ type: "SET_SAVE_INFO_MSG", payload: "" });
             } else {
                 dispatch({ type: "SET_DB_ERROR", payload: true });
                 dispatch({
@@ -117,13 +115,18 @@ const Login = () => {
             // console.log("🚀 ~ handleLogin ~ error:", error);
             setThinking(false);
             if (error.code === "ERR_NETWORK") {
-                return setMessage("Server Offline, try again later");
+                return setMessages([
+                    { message: "Server Offline, try again later" },
+                ]);
             }
 
             if (error.response.data === "Incorrect username or password.") {
-                return setMessage("Email o contraseña incorrectos");
+                return setMessages([
+                    { message: "Email o contraseña incorrectos" },
+                ]);
             }
-            return setMessage(error.response.data);
+
+            return setMessages([{ message: error.response.data }]);
         }
     }
 
@@ -137,30 +140,34 @@ const Login = () => {
         <div className="form">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-                <label>Email</label>
+                <label htmlFor="email">Email:</label>
                 <input
-                    type="email"
+                    // type="email"
                     name="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
+                    // required
                     disabled={thinking}
                 ></input>
-                <label>Password</label>
+                <label htmlFor="password">Password:</label>
                 <input
                     type="password"
                     name="password"
+                    id="password"
                     value={formData.password}
                     onChange={handleChange}
-                    required
+                    // required
                     disabled={thinking}
                 ></input>
                 <button className="submitButton" disabled={thinking}>
                     Login
                 </button>
             </form>
-            {message && <p>{message}</p>}
-            {thinking && spinner}
+            <div className="messagesDiv">
+                {messages && <FormInfo data={messages}></FormInfo>}
+                {thinking && spinner}
+            </div>
         </div>
     );
 };
