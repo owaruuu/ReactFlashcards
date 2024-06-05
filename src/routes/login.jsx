@@ -142,12 +142,12 @@ const Login = () => {
             <form onSubmit={handleLogin}>
                 <label htmlFor="email">Email:</label>
                 <input
-                    // type="email"
+                    type="email"
                     name="email"
                     id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    // required
+                    required
                     disabled={thinking}
                 ></input>
                 <label htmlFor="password">Password:</label>
@@ -157,7 +157,7 @@ const Login = () => {
                     id="password"
                     value={formData.password}
                     onChange={handleChange}
-                    // required
+                    required
                     disabled={thinking}
                 ></input>
                 <button className="submitButton" disabled={thinking}>

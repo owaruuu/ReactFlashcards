@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import Spinner from "react-bootstrap/Spinner";
 import { registerUser } from "../aws/aws";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +9,13 @@ import FormInfo from "../components/Forms/FormInfo";
 
 const SignupForm = () => {
     const navigate = useNavigate();
+    const { dispatch } = useContext(AppContext);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         repeatPassword: "",
     });
 
-    // const { dispatch } = useContext(AppContext);
     const [messages, setMessages] = useState([]);
     const [thinking, setThinking] = useState(false);
     const [registered, setRegistered] = useState(false);
@@ -72,7 +73,7 @@ const SignupForm = () => {
             return;
         }
 
-        // dispatch({ type: "SET_USER", payload: { userName: email } });
+        dispatch({ type: "SET_USER", payload: { userName: email } });
         setMessages([{ message: response.data }]);
         setRegistered(true);
     };

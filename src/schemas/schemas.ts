@@ -34,3 +34,11 @@ export const signupFormSchema = z
 
         return hasNumber && hasSpecialCharacter && hasUppercase && hasLowercase;
     }, "El password debe tener al menos 1 numero, 1 caracter especial, 1 letras mayuscula y 1 letra minuscula.");
+
+export const confirmationCodeSchema = z.object({
+    email: z
+        .string()
+        .min(1, "El campo de email es necesario.")
+        .email("Por favor ingresa un email valido."),
+    code: z.string().min(1, "El campo de code es necesario."),
+});
