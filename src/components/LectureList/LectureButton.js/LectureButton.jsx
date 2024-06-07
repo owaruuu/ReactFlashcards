@@ -97,7 +97,7 @@ const LectureButton = (props) => {
             className="lectureButton"
             onClick={() => {
                 backToTop();
-                navigate(`lectures/${props.id}`);
+                navigate(`/lectures/${props.id}`);
                 // dispatch({
                 //     type: "CHANGE_SCREEN",
                 //     payload: {

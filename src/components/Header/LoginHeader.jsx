@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { useLoaderData } from "react-router-dom";
 import {
     connectCognito,
     getUserProgress,
@@ -11,6 +12,8 @@ import ConnectionErrorIcon from "./Components/ConnectionErrorIcon";
 
 const LoginHeader = (props) => {
     // const saveDelay = 5;
+    const cognito = useLoaderData();
+    console.log("🚀 ~ loginStatus ~ cognito:", cognito);
 
     const {
         dispatch,
@@ -40,10 +43,8 @@ const LoginHeader = (props) => {
     useEffect(() => {
         const loginStatus = async () => {
             //intento verificar si estoy logged in
-            const response = await connectCognito();
-
             //si la respuesta es -1 significa que hubo un problema con el server
-            if (response.value === -1) {
+            if (cognito.value === -1) {
                 // dispatch({ type: "SET_COGNITO_ERROR", payload: true });
                 dispatch({ type: "SET_SERVER_ERROR", payload: true });
                 dispatch({
@@ -55,7 +56,7 @@ const LoginHeader = (props) => {
             }
 
             //esto significa que no estoy logeado y no debo hacer nada mas
-            if (response.value === 0) {
+            if (cognito.value === 0) {
                 //console.log("no estoy logeado");
                 dispatch({ type: "SET_INIT", payload: true });
                 return;
@@ -65,14 +66,14 @@ const LoginHeader = (props) => {
             dispatch({
                 type: "SET_USER",
                 payload: {
-                    userName: response.value.email,
+                    userName: cognito.value.email,
                 },
             });
 
             dispatch({ type: "SET_LOG_STATUS", payload: true });
 
             //**obtener progreso desde db, usando el sub del token para filtrar**
-            const sub = response.value.sub;
+            const sub = cognito.value.sub;
 
             const progress = await getUserProgress(sub); // TODO remover sub de la funcion y obtenerlo desde las cookies
             // console.log("🚀 ~ loginStatus ~ progress:", progress);

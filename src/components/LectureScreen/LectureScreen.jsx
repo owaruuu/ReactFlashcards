@@ -27,6 +27,8 @@ const LectureScreen = (props) => {
 
     // const lectureId = appState.currentLecture;
     const { lectureId } = useParams();
+
+    //TODO rework
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });

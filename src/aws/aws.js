@@ -2,7 +2,6 @@ import { api, URL } from "../api/api";
 
 //intenta revisar si estoy logeado o no
 export const connectCognito = async () => {
-    console.warn("connectCognito called ");
     try {
         const response = await api.get(`${URL}/cognito`);
         return response.data;
@@ -113,10 +112,9 @@ export const saveUserProgress = async (currentProgress) => {
     }
 };
 
-export const getExtraPerms = async (email) => {
+export const getExtraPerms = async () => {
     try {
-        const response = await api.post(`${URL}/permissions`, { email });
-        // console.log("🚀 ~ getExtraPerms ~ response:", response);
+        const response = await api.get(`${URL}/permissions`);
         return response;
     } catch (error) {
         console.log("🚀 ~ getExtraPerms ~ error:", error);
@@ -125,6 +123,7 @@ export const getExtraPerms = async (email) => {
 };
 
 export const getExtraLessons = async (keys) => {
+    console.log("🚀 ~ getExtraLessons ~ keys:", keys);
     //esta funcion se encarga de traer las lecciones en la base de datos
 
     try {
@@ -135,3 +134,14 @@ export const getExtraLessons = async (keys) => {
         return error;
     }
 };
+
+//Intenta obtener una lecture desde la DB
+//necesito verificar que tengo el permiso ?
+// export const getLesson = async (id) => {
+//     try {
+//         const response =
+//     } catch (error) {
+//         console.log("🚀 ~ getLesson ~ error:", error)
+//         return error;
+//     }
+// }
