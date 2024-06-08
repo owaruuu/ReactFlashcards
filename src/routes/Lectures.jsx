@@ -3,6 +3,7 @@ import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws";
+import { freePerms } from "../data/freePerms.js";
 
 const Lectures = () => {
     const perms = useLoaderData();
@@ -108,6 +109,7 @@ const Lectures = () => {
                 cycleState,
                 filterState,
                 handleFilterClick,
+                perms: [...perms.data, ...freePerms],
             }}
         />
     );

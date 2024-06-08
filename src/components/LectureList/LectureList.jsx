@@ -39,16 +39,16 @@ const LectureList = () => {
                             <ReorderButton
                                 name={"date"}
                                 text={"fecha sesión"}
-                                state={outCtx.dateButtonState} //*
-                                onClick={outCtx.cycleState} //*
-                                callback={outCtx.setDateButtonState} //*
+                                state={outCtx.dateButtonState}
+                                onClick={outCtx.cycleState}
+                                callback={outCtx.setDateButtonState}
                             />
                             <ReorderButton
                                 name={"size"}
                                 text={"tamaño sesión"}
-                                state={outCtx.sizeButtonState} //*
-                                onClick={outCtx.cycleState} //*
-                                callback={outCtx.setSizeButtonState} //*
+                                state={outCtx.sizeButtonState}
+                                onClick={outCtx.cycleState}
+                                callback={outCtx.setSizeButtonState}
                             />
                         </div>
                         <FilterContainer

@@ -1,6 +1,9 @@
 @import "../../../Styles/Theme";
 .lectureScreen {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    color: white;
 
     .lectureTitle {
         text-align: center;

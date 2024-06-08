@@ -40,19 +40,19 @@ const router = createBrowserRouter([
                 path: "/lectures",
                 element: <Lectures />,
                 loader: getExtraPerms,
-                //al cargar componente buscar lectures
-                //guardo lectures en context
                 children: [
                     {
                         index: true,
                         element: <LectureList />,
-                        //renderizar lectures del context
                     },
                     {
                         path: "/lectures/:lectureId",
                         element: <LectureScreen />,
-                        //algun guard que verifique que tengo el permiso igual a lectureid
+                        //cargar elemento y con un query buscar
+                        //loader que verifica que existe lecture en db, solo obtiene id
+                        //algun guard que verifique que encontre el lecture y que tengo que tengo el permiso igual a lectureid
                     },
+                    // /lectures/:lectureId/#jp/review
                 ],
             },
             {

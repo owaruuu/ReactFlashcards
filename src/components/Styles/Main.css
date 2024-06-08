@@ -7,6 +7,11 @@
   min-height: 70vh;
   overflow: hidden;
 }
+.main .spinner-border {
+  text-align: center;
+  color: white;
+  margin: auto;
+}
 .main .confirmation {
   display: flex;
   flex-direction: column;

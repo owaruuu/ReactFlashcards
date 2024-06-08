@@ -3,13 +3,14 @@ import TermList from "./TermList";
 import { tests } from "../../data/tests";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { useOutletContext, useParams, Link } from "react-router-dom";
 import LectureScreenButtons from "./LectureScreenButtons";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { useParams } from "react-router-dom";
 
 import { useQueryClient } from "react-query";
+import { Spinner } from "react-bootstrap";
 
 import {
     useLectureQuery,
@@ -20,13 +21,44 @@ import {
 import DismissableBanner from "../DismissableBanner/DismissableBanner";
 
 const LectureScreen = (props) => {
-    const { appState, dbError, loggedIn, user, lectures, dispatch } =
-        useContext(AppContext);
+    const {
+        appState,
+        dbError,
+        loggedIn,
+        user,
+        lectures,
+        gotLectures,
+        dispatch,
+    } = useContext(AppContext);
+
+    const { perms } = useOutletContext();
+    console.log("🚀 ~ LectureScreen ~ perms:", perms);
+
+    const { lectureId } = useParams();
+
+    if (!perms.includes(lectureId)) {
+        console.log(
+            "no tengo permiso para ver lecture, esto tira error para las lecciones gratis"
+        );
+        return (
+            <div className="lectureScreen">
+                <p>No tienes permiso para ver esta leccion.</p>
+                <Link to="/lectures">Volver a lista de lecciones</Link>
+            </div>
+        );
+    }
+
+    if (!gotLectures) {
+        return (
+            <div className="lectureScreen">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
 
     const [createSessionError, setCreateSessionError] = useState(false);
-
-    // const lectureId = appState.currentLecture;
-    const { lectureId } = useParams();
 
     //TODO rework
     const lecture = lectures.find((lecture) => {
