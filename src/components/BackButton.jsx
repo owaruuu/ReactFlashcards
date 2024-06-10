@@ -10,7 +10,7 @@ const BackButton = (props) => {
         <button
             className="backButton"
             onClick={
-                () => navigate(-1)
+                () => navigate(props.dir)
                 // dispatch({
                 //     type: "CHANGE_SCREEN",
                 //     payload: {

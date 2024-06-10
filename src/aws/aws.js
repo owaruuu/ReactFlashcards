@@ -6,6 +6,10 @@ export const connectCognito = async () => {
         const response = await api.get(`${URL}/cognito`);
         return response.data;
     } catch (error) {
+        console.log("🚀 ~ connectCognito ~ error:", error);
+        if (error.response.status === 401) {
+            return { error: "no credentials", value: 0 };
+        }
         return { error: "error with app server", value: -1 };
     }
 };
@@ -115,8 +119,9 @@ export const saveUserProgress = async (currentProgress) => {
 export const getExtraPerms = async () => {
     try {
         const response = await api.get(`${URL}/permissions`);
-        return response;
+        return response.data;
     } catch (error) {
+        //aqui puedo llegar si es que no tengo credenciales
         console.log("🚀 ~ getExtraPerms ~ error:", error);
         return error;
     }

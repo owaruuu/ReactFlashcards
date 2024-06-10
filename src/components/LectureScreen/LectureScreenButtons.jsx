@@ -70,6 +70,7 @@ const LectureScreenButtons = (props) => {
 
             <BackButton
                 options={{ currentScreen: "main", currentLecture: null }}
+                dir="/lectures"
             />
         </div>
     );

@@ -4,13 +4,38 @@ import { AppContext } from "../context/AppContext";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws";
 import { freePerms } from "../data/freePerms.js";
+import { useQuery } from "react-query";
+import { getAllUserData } from "../aws/userDataApi";
 
 const Lectures = () => {
-    const perms = useLoaderData();
+    let perms = useLoaderData();
+
+    //si hubo un error
+    if (perms.code) {
+        perms = [];
+    }
     console.log("🚀 ~ Lectures ~ perms: 9 ", perms);
 
     const { loggedIn, dispatch, lectures, gotLectures } =
         useContext(AppContext);
+
+    useQuery({
+        queryKey: ["allDataForUser"],
+        queryFn: getAllUserData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        retryOnMount: false,
+        retry: 1,
+        throwOnError: false,
+        enabled: loggedIn ? true : false,
+        onError: (error) => {
+            // console.log("🚀 ~ LectureButtons ~ error:", error);
+        },
+        onSuccess: (data) => {
+            // console.log("setie la data global desde main");
+        },
+    });
+
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
 
     const [filterState, setFilterState] = useState({
@@ -55,7 +80,7 @@ const Lectures = () => {
     useEffect(() => {
         const getLectures = async () => {
             try {
-                if (perms.data.length === 0) {
+                if (perms.length === 0) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
                     return dispatch({
                         type: "SET_LECTURES_FLAG",
@@ -63,7 +88,7 @@ const Lectures = () => {
                     });
                 }
 
-                const response = await getExtraLessons(perms.data);
+                const response = await getExtraLessons(perms);
 
                 if (response.data.Responses.lectures.length > 0) {
                     const orderedResults =
@@ -109,7 +134,7 @@ const Lectures = () => {
                 cycleState,
                 filterState,
                 handleFilterClick,
-                perms: [...perms.data, ...freePerms],
+                perms: [...perms, ...freePerms],
             }}
         />
     );

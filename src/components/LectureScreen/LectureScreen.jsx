@@ -31,10 +31,23 @@ const LectureScreen = (props) => {
         dispatch,
     } = useContext(AppContext);
 
+    const { lectureId } = useParams();
+    const [createSessionError, setCreateSessionError] = useState(false);
+
+    //QUERIES
+    const globalQuery = useQueryClient().getQueryState("allDataForUser");
+    const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+
+    //MUTATIONS
+    const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
+    // console.log("🚀 ~ LectureScreen ~ lectureMutation:", lectureMutation);
+
+    const lectureSessionMutation = useSessionMutation(
+        `id-${lectureId}-LectureQuery`
+    );
+
     const { perms } = useOutletContext();
     console.log("🚀 ~ LectureScreen ~ perms:", perms);
-
-    const { lectureId } = useParams();
 
     if (!perms.includes(lectureId)) {
         console.log(
@@ -58,8 +71,6 @@ const LectureScreen = (props) => {
         );
     }
 
-    const [createSessionError, setCreateSessionError] = useState(false);
-
     //TODO rework
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
@@ -67,18 +78,6 @@ const LectureScreen = (props) => {
 
     const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
     const showTestButton = hasTest ? true : false;
-
-    //QUERIES
-    const globalQuery = useQueryClient().getQueryState("allDataForUser");
-    const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-
-    //MUTATIONS
-    const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
-    // console.log("🚀 ~ LectureScreen ~ lectureMutation:", lectureMutation);
-
-    const lectureSessionMutation = useSessionMutation(
-        `id-${lectureId}-LectureQuery`
-    );
 
     //funcion para los botoes de highlight y mute
     function onIconClick(language, termId, newValue) {
