@@ -1,8 +1,10 @@
 import React from "react";
 import OptionsButton from "../OptionsButton";
 import BackButton from "../BackButton";
+import { useParams } from "react-router-dom";
 
 const ReviewPanel = (props) => {
+    const { lectureId } = useParams();
     const left = props.terms.length - 1;
     const info =
         props.terms.length === 0
@@ -17,6 +19,7 @@ const ReviewPanel = (props) => {
                 <p>{info}</p>
                 <BackButton
                     options={{ currentScreen: `lecture-${props.language}` }}
+                    dir={`/lectures/${lectureId}`}
                 />
             </div>
         </div>

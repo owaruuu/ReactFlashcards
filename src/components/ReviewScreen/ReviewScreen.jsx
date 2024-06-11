@@ -1,7 +1,7 @@
 import React from "react";
 import "./Styles/ReviewScreen.css";
 import "../Styles/Main.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import ReviewOptionsModal from "./ReviewOptionsModal";
 import ReviewPanel from "./ReviewPanel";
@@ -15,28 +15,29 @@ import {
 } from "../../hooks/useUserDataQuery";
 import { useQueryClient } from "react-query";
 import TermOptionsContainer from "../TermOptionButtons/TermOptionsContainer";
+import { useParams } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 const ReviewScreen = (props) => {
-    const { dispatch, appState, user, lectures, loggedIn } =
+    const { dispatch, appState, user, lectures, gotLectures, loggedIn } =
         useContext(AppContext);
 
-    const currentLecture = lectures.find(
-        (lecture) => lecture.lectureId === appState.currentLecture
-    );
-    const lectureId = currentLecture.lectureId;
+    const { lectureId } = useParams();
 
-    const [lecture, setLecture] = useState(currentLecture);
+    const [config, setConfig] = useState(false);
+    const [lecture, setLecture] = useState({
+        lectureId: null,
+        name: "",
+        testId: null,
+        lectureGroup: "",
+        termList: [],
+    });
     const [showModal, setShowModal] = useState(false);
     const [showAnswer, setShowAnswer] = useState(false);
     const [disappearingCards, setDisappearingCards] = useState([]);
     const [feedbackMessage, setFeedbackMessage] = useState("");
-    const [termsDict, setTermsDict] = useState(() => {
-        const termsDict = {};
-        lecture["termList"].forEach((term) => {
-            termsDict[term.id] = term;
-        });
-        return termsDict;
-    });
+    const [termsDict, setTermsDict] = useState({});
+    console.log("🚀 ~ ReviewScreen ~ termsDict:", termsDict);
 
     const removeDisappearingCard = () => {
         const now = new Date().getTime();
@@ -52,21 +53,49 @@ const ReviewScreen = (props) => {
     //QUERIES
     const globalQuery = useQueryClient().getQueryState("allDataForUser");
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    // console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
+    console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
-    // console.log("🚀 ~ ReviewScreen ~ lectureMutation:", lectureMutation)
 
     const lectureSessionMutation = useSessionMutation(
         `id-${lectureId}-LectureQuery`
     );
-    // console.log(
-    //     "🚀 ~ ReviewScreen ~ lectureSessionMutation:",
-    //     lectureSessionMutation
-    // );
+
+    useEffect(() => {
+        const configLecture = () => {
+            const currentLecture = lectures.find(
+                (lecture) => lecture.lectureId === lectureId
+            );
+            setLecture(currentLecture);
+
+            const termsDict = {};
+            currentLecture["termList"].forEach((term) => {
+                termsDict[term.id] = term;
+            });
+
+            setTermsDict(termsDict);
+        };
+
+        if (!config && gotLectures) {
+            configLecture();
+            setConfig(true);
+        }
+    }, [gotLectures]);
+
+    //loading
+    if (!gotLectures || lectureQuery.isFetching || !config) {
+        return (
+            <div className="lectureScreen">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
+        );
+    }
 
     const termsIds = lectureQuery.data.data[`${props.language}_session`].terms;
+    console.log("🚀 ~ ReviewScreen ~ termsIds:", termsIds);
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
     };
@@ -137,7 +166,7 @@ const ReviewScreen = (props) => {
             //     },
             // });
         } catch (error) {
-            // console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(
                 "No se pudo terminar la sesion, intentalo otra vez."
             );
@@ -165,17 +194,16 @@ const ReviewScreen = (props) => {
         );
 
     const termId = termsIds[0];
-    // console.log("🚀 ~ ReviewScreen ~ termId:", termId);
+
     const term =
         termId !== undefined
             ? termsDict[termId].extra
                 ? termsDict[termId].term + " - " + termsDict[termId].extra
                 : termsDict[termId].term
             : "Cargando...";
-    // console.log("🚀 ~ ReviewScreen ~ term:", term);
+
     const answer =
         termId !== undefined ? termsDict[termId].answer : "Cargando...";
-    // console.log("🚀 ~ ReviewScreen ~ answer:", answer);
 
     function removeFirstTerm() {
         const clonedArray = JSON.parse(JSON.stringify(termsIds));

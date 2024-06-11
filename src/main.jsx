@@ -9,8 +9,8 @@ import { connectCognito, getExtraPerms } from "./aws/aws";
 import ErrorPage from "./error-page";
 
 import Root from "./routes/Root";
-import LoggedInRoute from "./routes/LoggedInRoute";
-import LoggedOutRoute from "./routes/LoggedOutRoute";
+import LoggedInRoute from "./routes/guards/LoggedInRoute";
+import LoggedOutRoute from "./routes/guards/LoggedOutRoute";
 import Login from "./routes/Login";
 import SignupForm from "./routes/SignupForm";
 import Signup from "./routes/Signup";
@@ -19,11 +19,13 @@ import ConfirmationCode from "./routes/ConfirmationCode";
 import Lectures from "./routes/Lectures";
 import LectureList from "./components/LectureList/LectureList";
 import LectureScreen from "./components/LectureScreen/LectureScreen";
+import ReviewScreen from "./components/ReviewScreen/ReviewScreen";
 import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
 
 import { Navigate } from "react-router-dom";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HasPermsRoute from "./routes/guards/HasPermsRoute";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -47,12 +49,21 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/lectures/:lectureId",
-                        element: <LectureScreen />,
-                        //cargar elemento y con un query buscar
-                        //loader que verifica que existe lecture en db, solo obtiene id
-                        //algun guard que verifique que encontre el lecture y que tengo que tengo el permiso igual a lectureid
+                        element: <HasPermsRoute element={<LectureScreen />} />,
+                        //cuando hago click en el boton 'repaso' ocupar el lenguaje para elegir a que direccion ir
                     },
-                    // /lectures/:lectureId/#jp/review
+                    {
+                        path: "/lectures/:lectureId/japanese-session",
+                        element: <ReviewScreen language={"japanese"} />,
+                        //que pasa cuando ingreso directamente pero no tengo sesion ?
+                    },
+                    {
+                        path: "/lectures/:lectureId/spanish-session",
+                        element: <ReviewScreen language={"spanish"} />,
+                    },
+                    // /lectures/:lectureId/jp-session
+
+                    // /lectures/:lectureId/jp-session
                 ],
             },
             {

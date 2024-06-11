@@ -3,7 +3,7 @@ import TermList from "./TermList";
 import { tests } from "../../data/tests";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useOutletContext, useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import LectureScreenButtons from "./LectureScreenButtons";
 import UpperDivider from "./UpperDivider";
 import Tab from "react-bootstrap/Tab";
@@ -21,6 +21,7 @@ import {
 import DismissableBanner from "../DismissableBanner/DismissableBanner";
 
 const LectureScreen = (props) => {
+    const navigate = useNavigate();
     const { loggedIn, lectures, gotLectures } = useContext(AppContext);
 
     const { lectureId } = useParams();
@@ -36,17 +37,6 @@ const LectureScreen = (props) => {
     const lectureSessionMutation = useSessionMutation(
         `id-${lectureId}-LectureQuery`
     );
-
-    const { perms } = useOutletContext();
-
-    if (!perms.includes(lectureId)) {
-        return (
-            <div className="lectureScreen">
-                <p>No tienes permiso para ver esta leccion.</p>
-                <Link to="/lectures">Volver a lista de lecciones</Link>
-            </div>
-        );
-    }
 
     if (!gotLectures) {
         return (
@@ -80,6 +70,8 @@ const LectureScreen = (props) => {
 
     function changeToReviewScreen(language) {
         window.scrollTo(0, 0);
+
+        navigate(`${language}-session`);
         // dispatch({
         //     type: "CHANGE_SCREEN",
         //     payload: {
