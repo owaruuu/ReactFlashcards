@@ -21,15 +21,7 @@ import {
 import DismissableBanner from "../DismissableBanner/DismissableBanner";
 
 const LectureScreen = (props) => {
-    const {
-        appState,
-        dbError,
-        loggedIn,
-        user,
-        lectures,
-        gotLectures,
-        dispatch,
-    } = useContext(AppContext);
+    const { loggedIn, lectures, gotLectures } = useContext(AppContext);
 
     const { lectureId } = useParams();
     const [createSessionError, setCreateSessionError] = useState(false);
@@ -40,19 +32,14 @@ const LectureScreen = (props) => {
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
-    // console.log("🚀 ~ LectureScreen ~ lectureMutation:", lectureMutation);
 
     const lectureSessionMutation = useSessionMutation(
         `id-${lectureId}-LectureQuery`
     );
 
     const { perms } = useOutletContext();
-    console.log("🚀 ~ LectureScreen ~ perms:", perms);
 
     if (!perms.includes(lectureId)) {
-        console.log(
-            "no tengo permiso para ver lecture, esto tira error para las lecciones gratis"
-        );
         return (
             <div className="lectureScreen">
                 <p>No tienes permiso para ver esta leccion.</p>
@@ -105,18 +92,15 @@ const LectureScreen = (props) => {
     }
 
     async function onNewSessionCreate(language, newValue) {
-        // console.log("🚀 ~ onNewSessionCreate ~ newValue:", newValue);
         try {
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
                 attributeName: `${language}_session`,
                 newValue: newValue,
             });
-            //aqui deberia cambiar de pantalla
-            // console.log("la mutacion funciono y deberia cambiar de pantalla");
             changeToReviewScreen(language);
         } catch (error) {
-            // console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setCreateSessionError(true);
         }
     }

@@ -3,6 +3,8 @@ import { api, URL } from "../api/api";
 //intenta revisar si estoy logeado o no
 export const connectCognito = async () => {
     try {
+        //intenta revisar los tokens del usuario
+        //returna el contenido del idToken si funciona
         const response = await api.get(`${URL}/cognito`);
         return response.data;
     } catch (error) {
@@ -64,22 +66,20 @@ export const logoutUser = async () => {
 
 //gets the user progress from the db using his id
 //returns the progress string or
-export const getUserProgress = async (id) => {
+export const getUserProgress = async () => {
     try {
-        const response = await api.post(`${URL}/progress`, {
-            id,
-        });
-        // console.log("🚀 ~ getUserProgress ~ response:", response);
+        const response = await api.get(`${URL}/progress`);
+        console.log("🚀 ~ getUserProgress ~ response:", response);
 
         if (response.data.value === -1) {
             return null;
         }
 
-        if (response.data.value.progress === "") {
+        if (response.data.value === "") {
             return "{}";
         }
 
-        return response.data.value.progress;
+        return response.data.value;
     } catch (error) {
         console.log("🚀 ~ getUserProgress ~ error:", error);
         return null;
@@ -116,6 +116,10 @@ export const saveUserProgress = async (currentProgress) => {
     }
 };
 
+/**
+ * Intenta obtener los ids de las lecciones a las que el usuario tiene acceso
+ * @returns Un array de numeros que representa los ids de las lecciones que puedo acceder
+ */
 export const getExtraPerms = async () => {
     try {
         const response = await api.get(`${URL}/permissions`);

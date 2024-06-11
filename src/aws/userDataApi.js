@@ -26,14 +26,11 @@ export async function postLectureData({
 
 //get data about term options
 export async function getAllUserData() {
-    // console.log("called get all user data");
     try {
         const response = await api.get(`${URL}/user-data`);
-        // console.warn("🚀 ~ getUserData ~ response:", response);
-
         return [...response.data.Items];
     } catch (error) {
-        // console.log("🚀 ~ getUserData ~ error:", error);
+        console.log("🚀 ~ getUserData ~ error:", error);
         throw error;
     }
 }

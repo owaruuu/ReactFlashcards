@@ -10,11 +10,10 @@ import { getAllUserData } from "../aws/userDataApi";
 const Lectures = () => {
     let perms = useLoaderData();
 
-    //si hubo un error
+    //Al fallar el objeto tendre un error code
     if (perms.code) {
         perms = [];
     }
-    console.log("🚀 ~ Lectures ~ perms: 9 ", perms);
 
     const { loggedIn, dispatch, lectures, gotLectures } =
         useContext(AppContext);
@@ -28,12 +27,6 @@ const Lectures = () => {
         retry: 1,
         throwOnError: false,
         enabled: loggedIn ? true : false,
-        onError: (error) => {
-            // console.log("🚀 ~ LectureButtons ~ error:", error);
-        },
-        onSuccess: (data) => {
-            // console.log("setie la data global desde main");
-        },
     });
 
     const [extraLessonMessage, setExtraLessonMessage] = useState("");

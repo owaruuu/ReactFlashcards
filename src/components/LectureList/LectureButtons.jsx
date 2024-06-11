@@ -1,41 +1,14 @@
 import LectureButton from "./LectureButton.js/LectureButton";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
-import { useQueryClient, useQuery } from "react-query";
-import { getAllUserData } from "../../aws/userDataApi";
-
-import { userQuizProgress } from "../../data/fake-db";
+import { useQueryClient } from "react-query";
 import { pickDifference } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
-    // console.log("🚀 ~ LectureButtons ~ props:", props);
-    // console.log("🚀 ~ LectureButtons ~ userDataQuery:", userDataQuery);
-
-    const userId = 123;
-    const myProgress = userQuizProgress[userId];
-
-    // const { lectures, loggedIn } = useContext(AppContext);
-    // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
+    //TODO implementar nuevo sistema de progreso
+    // const userId = 123;
+    // const myProgress = userQuizProgress[userId];
 
     const userDataQuery = useQueryClient().getQueryState("allDataForUser");
 
-    // const userDataQuery = useQuery({
-    //     queryKey: ["allDataForUser"],
-    //     queryFn: getAllUserData,
-    //     refetchOnWindowFocus: false,
-    //     refetchOnMount: false,
-    //     retryOnMount: false,
-    //     retry: 1,
-    //     throwOnError: false,
-    //     enabled: loggedIn ? true : false,
-    //     onError: (error) => {
-    //         console.log("🚀 ~ LectureButtons ~ error:", error);
-    //     },
-    //     onSuccess: (data) => {
-    //         console.log("setie la data global desde el lecture buttons");
-    //     },
-    // });
-    // console.log("🚀 ~ LectureButtons ~ userDataQuery:", userDataQuery);
     const starredAmountObject =
         userDataQuery?.status === "success"
             ? calculateStarred(userDataQuery.data)
@@ -45,7 +18,6 @@ const LectureButtons = (props) => {
         userDataQuery?.status === "success"
             ? buildLectureData(userDataQuery.data)
             : {};
-    // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
 
     const filledLectures = props.lectures.map((lecture) => {
         if (dataObject[lecture.lectureId]) {
@@ -61,7 +33,6 @@ const LectureButtons = (props) => {
 
         return lecture;
     });
-    // console.log("🚀 ~ filledLectures ~ filledLectures:", filledLectures);
 
     let filters = [];
 
@@ -93,7 +64,7 @@ const LectureButtons = (props) => {
                 userDataQueryData={dataObject}
                 userDataQueryStatus={userDataQuery?.status}
                 title={lecture.name}
-                progress={myProgress[lecture.lectureId]}
+                // progress={myProgress[lecture.lectureId]}
             />
         );
     });
@@ -157,7 +128,6 @@ function filterLectures(filters, lectures) {
 
 function sortLectures(orderingState, lectures) {
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
-    // console.log("🚀 ~ sortLectures ~ clonedLectures:", clonedLectures);
 
     switch (orderingState) {
         case "dateASC":
@@ -214,21 +184,11 @@ function sortByDate(a, b) {
         spanishDataObjectB
     )?.chosenDiff;
 
-    // const chosenBDiff = pickDifference(bDate, aDate);
     //a is less than b by some ordering criterion
 
     if (chosenADiff && chosenBDiff) {
-        // console.log(
-        //     "🚀 ~ sortByDateASC ~ chosenADiff && chosenBDiff:",
-        //     chosenADiff,
-        //     chosenBDiff
-        // );
         if (chosenADiff < chosenBDiff) {
             // console.log("a is less than b by some ordering criterion");
-            // console.log(
-            //     "🚀 ~ sortByDateASC ~ chosenADiff < chosenBDiff:",
-            //     chosenADiff < chosenBDiff
-            // );
             return 1;
         } else if (chosenADiff > chosenBDiff) {
             // console.log("a is greater than b by the ordering criterion");
@@ -253,8 +213,6 @@ function sortBySessionSizeDESC(a, b) {
 }
 
 function sortBySessionSize(a, b) {
-    //aqui la logica
-    //obtener tamanio de las sesiones
     let japaneseSessionSizeA = a["japanese_session"]?.terms.length;
     let spanishSessionSizeA = a["spanish_session"]?.terms.length;
     if (japaneseSessionSizeA === undefined) {

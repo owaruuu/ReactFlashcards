@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Root />,
         errorElement: <ErrorPage />,
-        loader: connectCognito,
+        loader: connectCognito, //intento obtener credenciales
         //loader lecciones gratis
         children: [
             {

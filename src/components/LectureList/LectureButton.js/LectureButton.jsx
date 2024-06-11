@@ -98,13 +98,6 @@ const LectureButton = (props) => {
             onClick={() => {
                 backToTop();
                 navigate(`/lectures/${props.id}`);
-                // dispatch({
-                //     type: "CHANGE_SCREEN",
-                //     payload: {
-                //         currentScreen: "lecture-japanese",
-                //         currentLecture: props.id,
-                //     },
-                // });
             }}
         >
             {/* <div className="text">Progreso:</div>
