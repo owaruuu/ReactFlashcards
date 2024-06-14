@@ -87,12 +87,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <LoggedOutRoute element={<Login />} />,
-                loader: connectCognito,
             },
             {
                 path: "/register",
                 element: <LoggedOutRoute element={<Signup />} />,
-                loader: connectCognito,
                 id: "register",
                 children: [
                     { index: true, element: <SignupForm /> },

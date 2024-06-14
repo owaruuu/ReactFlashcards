@@ -4,7 +4,7 @@ import { api, URL } from "../api/api";
 export const connectCognito = async () => {
     try {
         //intenta revisar los tokens del usuario
-        //returna el contenido del idToken si funciona
+        //retorna el contenido del idToken si funciona
         const response = await api.get(`${URL}/cognito`);
         return response.data;
     } catch (error) {
