@@ -18,7 +18,8 @@ const Lectures = () => {
     const { loggedIn, dispatch, lectures, gotLectures } =
         useContext(AppContext);
 
-    useQuery({
+    // en /lectures creo la query global para todas las lecciones
+    const userDataQuery = useQuery({
         queryKey: ["allDataForUser"],
         queryFn: getAllUserData,
         refetchOnWindowFocus: false,
@@ -110,7 +111,7 @@ const Lectures = () => {
         };
 
         if (loggedIn && !gotLectures) {
-            console.log("getting lectures");
+            // console.log("getting lectures");
             getLectures();
         }
     }, [loggedIn]);
@@ -118,6 +119,7 @@ const Lectures = () => {
     return (
         <Outlet
             context={{
+                userDataQuery,
                 extraLessonMessage,
                 orderingState,
                 dateButtonState,

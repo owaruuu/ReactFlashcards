@@ -36,9 +36,10 @@ export async function getAllUserData() {
 }
 
 export async function getLectureData(lectureId) {
-    // console.log("called get lecture data");
+    // console.warn("called get lecture data");
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
+        // console.log("🚀 ~ getLectureData ~ response:", response);
 
         let result = {
             user_id: null,
@@ -56,7 +57,7 @@ export async function getLectureData(lectureId) {
 
         return { data: result };
     } catch (error) {
-        // console.log("🚀 ~ getLectureData ~ error:", error);
+        console.log("🚀 ~ getLectureData ~ error:", error);
         throw error;
     }
 }

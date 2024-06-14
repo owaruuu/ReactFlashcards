@@ -62,6 +62,7 @@ const LectureList = () => {
 
             <div className="lectureButtons">
                 <LectureButtons
+                    userDataQuery={outCtx.userDataQuery}
                     orderingState={outCtx.orderingState}
                     filterState={outCtx.filterState}
                     lectures={lectures}

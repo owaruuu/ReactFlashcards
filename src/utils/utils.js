@@ -1,5 +1,7 @@
 import _ from "lodash";
 
+export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
+
 export const readFromLocal = (key) => {
     const local = localStorage.getItem(key);
     if (local == null) return {};

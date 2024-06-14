@@ -9,7 +9,8 @@ const TermOptionsContainer = (props) => {
     }
 
     if (props.globalQuery === undefined) {
-        if (props.queryStatus === "loading" || props.queryData === undefined) {
+        //si por alguna razon no existe la globalquery ?? preguntar por el estado de la local
+        if (props.queryIsRefetching === true || props.hasQueryData === false) {
             return (
                 <div className="termOptions">
                     <Spinner size="sm" />
@@ -18,9 +19,9 @@ const TermOptionsContainer = (props) => {
         }
     } else {
         if (
-            props.globalQuery.status !== "success" ||
-            props.queryStatus === "loading" ||
-            props.queryData === undefined
+            (props.globalQuery.status !== "success" &&
+                props.queryIsRefetching === true) ||
+            props.hasQueryData === false
         ) {
             return (
                 <div className="termOptions">
@@ -30,19 +31,17 @@ const TermOptionsContainer = (props) => {
         }
     }
 
-    let selected = props.termData;
-
     return (
         <div className="termOptions">
             <TermOptionButton
-                state={selected}
+                state={props.state}
                 termId={props.termId}
                 onIconClick={props.onIconClick}
                 language={props.language}
                 star
             />
             <TermOptionButton
-                state={selected}
+                state={props.state}
                 termId={props.termId}
                 onIconClick={props.onIconClick}
                 language={props.language}

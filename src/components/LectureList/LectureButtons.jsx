@@ -1,13 +1,9 @@
 import LectureButton from "./LectureButton.js/LectureButton";
-import { useQueryClient } from "react-query";
 import { pickDifference } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
-    //TODO implementar nuevo sistema de progreso
-    // const userId = 123;
-    // const myProgress = userQuizProgress[userId];
-
-    const userDataQuery = useQueryClient().getQueryState("allDataForUser");
+    //data de todas las lectures
+    const { userDataQuery } = props;
 
     const starredAmountObject =
         userDataQuery?.status === "success"

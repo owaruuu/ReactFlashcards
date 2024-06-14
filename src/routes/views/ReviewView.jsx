@@ -1,28 +1,29 @@
 import React from "react";
-import "./Styles/ReviewScreen.css";
-import "../Styles/Main.css";
+import "../../components/ReviewScreen/Styles/ReviewScreen.css";
+import "../../components/Styles/Main.css";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
-import ReviewOptionsModal from "./ReviewOptionsModal";
-import ReviewPanel from "./ReviewPanel";
-import TermCard from "../LearnScreen/TermCard";
-import DisappearingCard from "../LearnScreen/DisappearingCard";
-import NextButton from "./NextButton";
+import ReviewOptionsModal from "../../components/ReviewScreen/ReviewOptionsModal";
+import ReviewPanel from "../../components/ReviewScreen/ReviewPanel";
+import TermCard from "../../components/LearnScreen/TermCard";
+import DisappearingCard from "../../components/LearnScreen/DisappearingCard";
+import NextButton from "../../components/ReviewScreen/NextButton";
 import {
     useLectureMutation,
     useLectureQuery,
     useSessionMutation,
 } from "../../hooks/useUserDataQuery";
 import { useQueryClient } from "react-query";
-import TermOptionsContainer from "../TermOptionButtons/TermOptionsContainer";
+import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import { getLectureQueryString } from "../../utils/utils";
 
-const ReviewScreen = (props) => {
+const ReviewView = () => {
     const { dispatch, appState, user, lectures, gotLectures, loggedIn } =
         useContext(AppContext);
 
-    const { lectureId } = useParams();
+    const { lectureId, lang } = useParams();
 
     const [config, setConfig] = useState(false);
     const [lecture, setLecture] = useState({
@@ -37,7 +38,7 @@ const ReviewScreen = (props) => {
     const [disappearingCards, setDisappearingCards] = useState([]);
     const [feedbackMessage, setFeedbackMessage] = useState("");
     const [termsDict, setTermsDict] = useState({});
-    console.log("🚀 ~ ReviewScreen ~ termsDict:", termsDict);
+    // console.log("🚀 ~ ReviewScreen ~ termsDict:", termsDict);
 
     const removeDisappearingCard = () => {
         const now = new Date().getTime();
@@ -52,14 +53,18 @@ const ReviewScreen = (props) => {
 
     //QUERIES
     const globalQuery = useQueryClient().getQueryState("allDataForUser");
-    const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
+    const lectureQuery = useQueryClient().getQueryState(
+        getLectureQueryString(lectureId)
+    );
+    // console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
-    const lectureMutation = useLectureMutation(`id-${lectureId}-LectureQuery`);
+    const lectureMutation = useLectureMutation(
+        getLectureQueryString(lectureId)
+    );
 
     const lectureSessionMutation = useSessionMutation(
-        `id-${lectureId}-LectureQuery`
+        getLectureQueryString(lectureId)
     );
 
     useEffect(() => {
@@ -94,8 +99,8 @@ const ReviewScreen = (props) => {
         );
     }
 
-    const termsIds = lectureQuery.data.data[`${props.language}_session`].terms;
-    console.log("🚀 ~ ReviewScreen ~ termsIds:", termsIds);
+    const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
+    // console.log("🚀 ~ ReviewScreen ~ termsIds:", termsIds);
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
     };
@@ -135,7 +140,7 @@ const ReviewScreen = (props) => {
             setFeedbackMessage("Cambiando termino...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
-                attributeName: `${props.language}_session`,
+                attributeName: `${lang}_session`,
                 newValue: newValue,
             });
 
@@ -154,7 +159,7 @@ const ReviewScreen = (props) => {
             setFeedbackMessage("Terminando sesion...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
-                attributeName: `${props.language}_session`,
+                attributeName: `${lang}_session`,
                 newValue: newValue,
                 // lastReviewed: new Date(),
             });
@@ -210,8 +215,7 @@ const ReviewScreen = (props) => {
         clonedArray.shift();
 
         const newValue = {
-            options:
-                lectureQuery.data.data[`${props.language}_session`].options,
+            options: lectureQuery.data.data[`${lang}_session`].options,
             terms: clonedArray,
             lastReviewed: new Date(),
         };
@@ -233,7 +237,7 @@ const ReviewScreen = (props) => {
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-left"}
-                flipped={props.language === "japanese" ? false : true}
+                flipped={lang === "japanese" ? false : true}
             />,
             ...disappearingCards,
         ]);
@@ -246,11 +250,10 @@ const ReviewScreen = (props) => {
                 visible={showModal}
                 hideFunc={() => handleOptionsButtonClick(false)}
             />
-            <h2 className="learnScreenTitle">{lecture.name}</h2>
             <ReviewPanel
                 terms={termsIds}
                 showFunc={() => handleOptionsButtonClick(true)}
-                language={props.language}
+                language={lang}
             />
 
             <div className="termCardDiv">
@@ -263,11 +266,11 @@ const ReviewScreen = (props) => {
                     index={0}
                     showAnswer={showAnswer}
                     answerFunction={handleClick}
-                    flipped={props.language === "japanese" ? false : true}
+                    flipped={lang === "japanese" ? false : true}
                     state={
-                        lectureQuery.data?.data?.[
-                            `${props.language}_terms_data`
-                        ]?.[termId]
+                        lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
+                            termId
+                        ]
                     }
                 />
                 {disappearingCards}
@@ -276,17 +279,13 @@ const ReviewScreen = (props) => {
                 <TermOptionsContainer
                     globalQuery={globalQuery}
                     queryStatus={lectureQuery}
-                    queryData={
-                        lectureQuery.data?.data?.[
-                            `${props.language}_terms_data`
+                    queryData={lectureQuery.data?.data?.[`${lang}_terms_data`]}
+                    termData={
+                        lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
+                            termId
                         ]
                     }
-                    termData={
-                        lectureQuery.data?.data?.[
-                            `${props.language}_terms_data`
-                        ]?.[termId]
-                    }
-                    language={props.language}
+                    language={lang}
                     onIconClick={onIconClick}
                     termId={termId}
                 />
@@ -297,4 +296,4 @@ const ReviewScreen = (props) => {
     );
 };
 
-export default ReviewScreen;
+export default ReviewView;

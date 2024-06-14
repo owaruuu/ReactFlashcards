@@ -1,16 +1,18 @@
-import "./Styles/LectureScreen.css";
-import TermList from "./TermList";
+import React from "react";
+import "../../components/LectureScreen/Styles/LectureScreen.css";
+import TermList from "../../components/LectureScreen/TermList";
+import LectureScreenButtons from "../../components/LectureScreen/LectureScreenButtons";
+import UpperDivider from "../../components/LectureScreen/UpperDivider";
 import { tests } from "../../data/tests";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useParams, useNavigate } from "react-router-dom";
-import LectureScreenButtons from "./LectureScreenButtons";
-import UpperDivider from "./UpperDivider";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import { Spinner } from "react-bootstrap";
+import { getLectureQueryString } from "../../utils/utils";
 
 import {
     useLectureQuery,
@@ -18,19 +20,17 @@ import {
     useSessionMutation,
 } from "../../hooks/useUserDataQuery";
 
-import DismissableBanner from "../DismissableBanner/DismissableBanner";
-import { getLectureQueryString } from "../../utils/utils";
-
-const LectureScreen = (props) => {
+const TermListView = () => {
+    console.warn("render termlistview");
     const navigate = useNavigate();
-    const { loggedIn, lectures, gotLectures } = useContext(AppContext);
+    const { tab, setTab, lectureQuery } = useOutletContext();
+    const { loggedIn, lectures } = useContext(AppContext);
 
     const { lectureId } = useParams();
     const [createSessionError, setCreateSessionError] = useState(false);
 
     //QUERIES
-    const globalQuery = useQueryClient().getQueryState("allDataForUser");
-    const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+    const globalQuery = useQuery("allDataForUser");
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(
@@ -41,16 +41,6 @@ const LectureScreen = (props) => {
         getLectureQueryString(lectureId)
     );
 
-    if (!gotLectures) {
-        return (
-            <div className="lectureScreen">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
-        );
-    }
-
     //TODO rework
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
@@ -59,7 +49,7 @@ const LectureScreen = (props) => {
     const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
     const showTestButton = hasTest ? true : false;
 
-    //funcion para los botoes de highlight y mute
+    //funcion para los botones de highlight y mute
     function onIconClick(language, termId, newValue) {
         lectureMutation.mutate({
             lectureId: lectureId,
@@ -71,19 +61,10 @@ const LectureScreen = (props) => {
         });
     }
 
-    function changeToReviewScreen(language) {
+    function changeToReviewScreen() {
         window.scrollTo(0, 0);
 
-        navigate(`${language}-session`);
-        // dispatch({
-        //     type: "CHANGE_SCREEN",
-        //     payload: {
-        //         currentScreen:
-        //             language === "japanese"
-        //                 ? "reviewV2Japanese"
-        //                 : "reviewV2Spanish",
-        //     },
-        // });
+        navigate(`${tab}/study-session`);
     }
 
     async function onNewSessionCreate(language, newValue) {
@@ -101,27 +82,15 @@ const LectureScreen = (props) => {
     }
 
     //TEMP
-    const logData = (
-        <div style={{ color: "white", width: "100%", wordBreak: "break-all" }}>
-            {JSON.stringify(lectureQuery.data.data)}
-            {/* {JSON.stringify(spanishTermsQuery.data.data)} */}
-        </div>
-    );
+    // const logData = (
+    //     <div style={{ color: "white", width: "100%", wordBreak: "break-all" }}>
+    //         {JSON.stringify(lectureQuery.data.data)}
+    //         {/* {JSON.stringify(spanishTermsQuery.data.data)} */}
+    //     </div>
+    // );
 
     return (
         <div className="lectureScreen">
-            {!loggedIn && (
-                <DismissableBanner
-                    text={"Accede al modo Prueba o Repaso con tu cuenta."}
-                    bgColor={"#ab071d"}
-                    color={"white"}
-                    transition={1}
-                ></DismissableBanner>
-            )}
-
-            <h2 id="title" className="lectureTitle" string={lecture.name}>
-                {lecture.name}
-            </h2>
             <LectureScreenButtons test={showTestButton} />
 
             <UpperDivider />
@@ -129,12 +98,18 @@ const LectureScreen = (props) => {
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
                 {/* {logData} */}
-                <Tabs defaultActiveKey={props.defaultTab} id="lists-tab" fill>
+                <Tabs
+                    activeKey={tab}
+                    onSelect={(k) => setTab(k)}
+                    id="lists-tab"
+                    fill
+                >
                     <Tab eventKey="japanese" title="Japones">
                         <TermList
                             termList={lecture.termList}
                             globalQuery={globalQuery}
                             queryStatus={lectureQuery.status}
+                            queryIsRefetching={lectureQuery.isRefetching}
                             queryData={
                                 lectureQuery.data?.data?.["japanese_terms_data"]
                             }
@@ -156,6 +131,7 @@ const LectureScreen = (props) => {
                             termList={lecture.termList}
                             globalQuery={globalQuery}
                             queryStatus={lectureQuery.status}
+                            queryIsRefetching={lectureQuery.isRefetching}
                             queryData={
                                 lectureQuery.data?.data?.["spanish_terms_data"]
                             }
@@ -180,4 +156,4 @@ const LectureScreen = (props) => {
     );
 };
 
-export default LectureScreen;
+export default TermListView;

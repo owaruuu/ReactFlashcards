@@ -30,7 +30,9 @@ const TermList = (props) => {
                 key={term.id}
                 globalQuery={props.globalQuery}
                 queryStatus={props.queryStatus}
-                queryData={props.queryData}
+                queryIsRefetching={props.queryIsRefetching}
+                hasQueryData={props.queryData ? true : false}
+                termData={props.queryData?.[term.id]}
                 id={term.id}
                 term={term.term}
                 extra={term.extra}

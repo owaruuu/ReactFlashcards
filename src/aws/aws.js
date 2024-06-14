@@ -9,10 +9,12 @@ export const connectCognito = async () => {
         return response.data;
     } catch (error) {
         console.log("🚀 ~ connectCognito ~ error:", error);
+        if (error.code === "ERR_NETWORK") {
+            return { error: "error with app server", value: -1 };
+        }
         if (error.response.status === 401) {
             return { error: "no credentials", value: 0 };
         }
-        return { error: "error with app server", value: -1 };
     }
 };
 
@@ -69,7 +71,6 @@ export const logoutUser = async () => {
 export const getUserProgress = async () => {
     try {
         const response = await api.get(`${URL}/progress`);
-        console.log("🚀 ~ getUserProgress ~ response:", response);
 
         if (response.data.value === -1) {
             return null;

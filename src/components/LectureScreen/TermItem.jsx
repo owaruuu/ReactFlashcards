@@ -13,8 +13,8 @@ const TermItem = (props) => {
         }
     };
 
-    const classNames = props.queryData?.[props.id]
-        ? `termItem ${props.queryData?.[props.id]}`
+    const classNames = props.termData
+        ? `termItem ${props.termData}`
         : "termItem";
 
     const termData = props.flipped ? (
@@ -46,8 +46,9 @@ const TermItem = (props) => {
                 <TermOptionsContainer
                     globalQuery={props.globalQuery}
                     queryStatus={props.queryStatus}
-                    queryData={props.queryData}
-                    termData={props.queryData?.[props.id]}
+                    queryIsRefetching={props.queryIsRefetching}
+                    hasQueryData={props.hasQueryData}
+                    state={props.termData}
                     language={props.flipped ? "spanish" : "japanese"}
                     onIconClick={props.onIconClick}
                     termId={props.id}

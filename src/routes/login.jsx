@@ -3,13 +3,18 @@ import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { authenticateUser, connectCognito, getUserProgress } from "../aws/aws";
 import { useNavigate } from "react-router-dom";
-import { loginFormSchema, signupFormSchema } from "../schemas/schemas";
+import { loginFormSchema } from "../schemas/schemas";
+import { useQueryClient } from "react-query";
 import "../components/Forms/Styles/Forms.css";
 import Spinner from "react-bootstrap/Spinner";
 import FormInfo from "../components/Forms/FormInfo";
 
+import { useRevalidator } from "react-router-dom";
+
 const Login = () => {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    let revalidator = useRevalidator();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -34,6 +39,10 @@ const Login = () => {
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
+                queryClient.invalidateQueries({
+                    queryKey: ["allDataForUser"],
+                });
+                revalidator.revalidate();
                 navigate("/");
                 dispatch({
                     type: "SET_LOG_STATUS",

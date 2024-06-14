@@ -15,7 +15,7 @@ const LoginControls = (props) => {
         dbError,
         init,
         loggedIn,
-        LoginControlErrorMessage,
+        loginControlErrorMessage,
         serverError,
     } = useContext(AppContext);
     const [showModal, setShowModal] = useState(false);
@@ -33,10 +33,6 @@ const LoginControls = (props) => {
     };
 
     const changeToUserPanel = () => {
-        // dispatch({
-        //     type: "CHANGE_SCREEN",
-        //     payload: { currentScreen: "userPanel" },
-        // });
         navigate("/userpanel");
         dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
     };
@@ -92,30 +88,11 @@ const LoginControls = (props) => {
         <>
             <button
                 className="registerButton"
-                onClick={
-                    () => navigate("/register")
-                    // dispatch({
-                    //     type: "CHANGE_SCREEN",
-                    //     payload: {
-                    //         currentScreen: "register",
-                    //     },
-                    // })
-                }
+                onClick={() => navigate("/register")}
             >
                 Register
             </button>
-            <button
-                className="loginButton"
-                onClick={
-                    () => navigate("/login")
-                    // dispatch({
-                    //     type: "CHANGE_SCREEN",
-                    //     payload: {
-                    //         currentScreen: "login",
-                    //     },
-                    // })
-                }
-            >
+            <button className="loginButton" onClick={() => navigate("/login")}>
                 Login
             </button>
         </>
@@ -131,7 +108,7 @@ const LoginControls = (props) => {
         }
 
         if (serverError || dbError) {
-            return <p>{LoginControlErrorMessage}</p>;
+            return <p>{loginControlErrorMessage}</p>;
         }
 
         if (loggedIn) {

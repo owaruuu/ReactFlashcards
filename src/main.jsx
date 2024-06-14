@@ -19,13 +19,20 @@ import ConfirmationCode from "./routes/ConfirmationCode";
 import Lectures from "./routes/Lectures";
 import LectureList from "./components/LectureList/LectureList";
 import LectureScreen from "./components/LectureScreen/LectureScreen";
-import ReviewScreen from "./components/ReviewScreen/ReviewScreen";
+import ReviewScreen from "./routes/views/ReviewView";
 import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
 
 import { Navigate } from "react-router-dom";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+//Routes
+import LectureRoute from "./routes/LectureRoute";
 import HasPermsRoute from "./routes/guards/HasPermsRoute";
+import TermListView from "./routes/views/TermListView";
+import ReviewView from "./routes/views/ReviewView";
+import TestView from "./routes/views/TestView";
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -33,6 +40,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         loader: connectCognito, //intento obtener credenciales
         //loader lecciones gratis
+        //*useEffect carga mi progreso
+        //no renderizo los hijos hasta que el context cambia
         children: [
             {
                 index: true,
@@ -41,29 +50,38 @@ const router = createBrowserRouter([
             {
                 path: "/lectures",
                 element: <Lectures />,
-                loader: getExtraPerms,
+                loader: getExtraPerms, //obtiene mis permisos de lecciones extras
+                //*useEffect obtiene las lecciones extra
+                //*useQuery obtiene data de avanze en las lecciones
                 children: [
                     {
                         index: true,
                         element: <LectureList />,
+                        //ya tiene las lecciones gratis
+                        //spinner para las extras
                     },
                     {
                         path: "/lectures/:lectureId",
-                        element: <HasPermsRoute element={<LectureScreen />} />,
-                        //cuando hago click en el boton 'repaso' ocupar el lenguaje para elegir a que direccion ir
+                        element: <HasPermsRoute element={<LectureRoute />} />,
+                        //loader a userData
+                        //si tiene el permiso espera a cargar la leccion extra
+                        children: [
+                            {
+                                path: "/lectures/:lectureId",
+                                element: <TermListView />,
+                            },
+                            {
+                                path: "/lectures/:lectureId/:lang/study-session",
+                                element: <ReviewView />,
+                                //necesito una sesion activa que solo tendre despues de cargar el query
+                                //que pasa cuando ingreso directamente pero no tengo sesion de estudio ?
+                            },
+                            {
+                                path: "/lectures/:lectureId/test",
+                                element: <TestView />,
+                            },
+                        ],
                     },
-                    {
-                        path: "/lectures/:lectureId/japanese-session",
-                        element: <ReviewScreen language={"japanese"} />,
-                        //que pasa cuando ingreso directamente pero no tengo sesion ?
-                    },
-                    {
-                        path: "/lectures/:lectureId/spanish-session",
-                        element: <ReviewScreen language={"spanish"} />,
-                    },
-                    // /lectures/:lectureId/jp-session
-
-                    // /lectures/:lectureId/jp-session
                 ],
             },
             {
