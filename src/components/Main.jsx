@@ -1,7 +1,7 @@
 import "./Styles/Main.css";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import LectureList from "./LectureList/LectureList.jsx";
+import LectureListView from "./LectureList/LectureListView.jsx";
 import LectureScreen from "./LectureScreen/LectureScreen.jsx";
 import LearnScreen from "./LearnScreen/LearnScreen.jsx";
 import ReviewScreen from "../routes/views/ReviewView.jsx";

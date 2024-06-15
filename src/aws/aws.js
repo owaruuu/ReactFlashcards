@@ -124,24 +124,21 @@ export const saveUserProgress = async (currentProgress) => {
 export const getExtraPerms = async () => {
     try {
         const response = await api.get(`${URL}/permissions`);
-        return response.data;
+        return { data: response.data };
     } catch (error) {
         //aqui puedo llegar si es que no tengo credenciales
         console.log("🚀 ~ getExtraPerms ~ error:", error);
-        return error;
+        return { error, data: [] };
     }
 };
 
 export const getExtraLessons = async (keys) => {
-    console.log("🚀 ~ getExtraLessons ~ keys:", keys);
-    //esta funcion se encarga de traer las lecciones en la base de datos
-
     try {
         const response = await api.post(`${URL}/lessons`, { keys });
-
-        return response;
+        return { data: response.data.Responses.lectures };
     } catch (error) {
-        return error;
+        console.log("🚀 ~ getExtraLessons ~ error:", error);
+        return { error };
     }
 };
 

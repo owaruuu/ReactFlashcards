@@ -15,10 +15,6 @@ const LectureRoute = () => {
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    console.log(
-        "🚀 ~ LectureRoute ~ lectureQuery: all data for a certain lecture",
-        lectureQuery
-    );
 
     if (loggedIn && !gotLectures) {
         return (

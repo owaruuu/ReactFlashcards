@@ -1,19 +1,14 @@
 import React from "react";
 import { useEffect, useContext, useState } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContext.jsx";
 import { Outlet, useLoaderData } from "react-router-dom";
-import { getExtraLessons } from "../aws/aws";
+import { getExtraLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
 import { useQuery } from "react-query";
-import { getAllUserData } from "../aws/userDataApi";
+import { getAllUserData } from "../aws/userDataApi.js";
 
-const Lectures = () => {
+const LecturesRoute = () => {
     let perms = useLoaderData();
-
-    //Al fallar el objeto tendre un error code
-    if (perms.code) {
-        perms = [];
-    }
 
     const { loggedIn, dispatch, lectures, gotLectures } =
         useContext(AppContext);
@@ -30,8 +25,8 @@ const Lectures = () => {
         enabled: loggedIn ? true : false,
     });
 
+    //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
-
     const [filterState, setFilterState] = useState({
         basico1: false,
         basico2: false,
@@ -45,11 +40,11 @@ const Lectures = () => {
         basico10: false,
         extra1: false,
     });
-
     const [orderingState, setOrderingState] = useState(null);
     const [dateButtonState, setDateButtonState] = useState(null);
     const [sizeButtonState, setSizeButtonState] = useState(null);
 
+    //Functions
     function cycleState(name, state, callback) {
         setDateButtonState(null);
         setSizeButtonState(null);
@@ -64,17 +59,27 @@ const Lectures = () => {
             setOrderingState(null);
         }
     }
-
     function handleFilterClick(payload) {
         setFilterState((prev) => {
             return { ...prev, [payload.type]: payload.value };
         });
     }
 
+    //Obtener lectures extras con permisos
     useEffect(() => {
         const getLectures = async () => {
             try {
-                if (perms.length === 0) {
+                if (perms.error) {
+                    setExtraLessonMessage(
+                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                    );
+                    return dispatch({
+                        type: "SET_LECTURES_FLAG",
+                        payload: true,
+                    });
+                }
+
+                if (perms.data.length === 0) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
                     return dispatch({
                         type: "SET_LECTURES_FLAG",
@@ -82,13 +87,23 @@ const Lectures = () => {
                     });
                 }
 
-                const response = await getExtraLessons(perms);
+                const response = await getExtraLessons(perms.data);
 
-                if (response.data.Responses.lectures.length > 0) {
-                    const orderedResults =
-                        response.data.Responses.lectures.sort(
-                            (a, b) => a.orderNumber - b.orderNumber
-                        );
+                //si el query falla
+                if (response.error || response.data.length === 0) {
+                    setExtraLessonMessage(
+                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                    );
+                    return dispatch({
+                        type: "SET_LECTURES_FLAG",
+                        payload: true,
+                    });
+                }
+
+                if (response.data.length > 0) {
+                    const orderedResults = response.data.sort(
+                        (a, b) => a.orderNumber - b.orderNumber
+                    );
 
                     const extraLectures = orderedResults.map((item) => {
                         return JSON.parse(item.lecture);
@@ -111,7 +126,6 @@ const Lectures = () => {
         };
 
         if (loggedIn && !gotLectures) {
-            // console.log("getting lectures");
             getLectures();
         }
     }, [loggedIn]);
@@ -123,16 +137,16 @@ const Lectures = () => {
                 extraLessonMessage,
                 orderingState,
                 dateButtonState,
-                setDateButtonState,
                 sizeButtonState,
+                filterState,
+                perms: [...perms.data, ...freePerms],
+                setDateButtonState,
                 setSizeButtonState,
                 cycleState,
-                filterState,
                 handleFilterClick,
-                perms: [...perms, ...freePerms],
             }}
         />
     );
 };
 
-export default Lectures;
+export default LecturesRoute;

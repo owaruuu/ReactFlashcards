@@ -7,7 +7,7 @@ import { AppContext } from "../context/AppContext";
 import { getUserProgress } from "../aws/aws";
 
 const Root = () => {
-    const cognito = useLoaderData();
+    const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
     const loggedIn = cognito.value !== -1 && cognito.value !== 0;
     const { dispatch } = useContext(AppContext);
 

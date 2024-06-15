@@ -9,7 +9,7 @@ import DismissableBanner from "../DismissableBanner/DismissableBanner";
 import ReorderButton from "./components/ReorderButton";
 import FilterContainer from "./components/FilterContainer";
 
-const LectureList = () => {
+const LectureListView = () => {
     const outCtx = useOutletContext();
     const { loggedIn, lectures, gotLectures } = useContext(AppContext);
 
@@ -87,4 +87,4 @@ const LectureList = () => {
     );
 };
 
-export default LectureList;
+export default LectureListView;

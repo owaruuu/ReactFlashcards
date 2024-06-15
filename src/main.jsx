@@ -16,8 +16,8 @@ import SignupForm from "./routes/SignupForm";
 import Signup from "./routes/Signup";
 import ConfirmationCode from "./routes/ConfirmationCode";
 
-import Lectures from "./routes/Lectures";
-import LectureList from "./components/LectureList/LectureList";
+import LecturesRoute from "./routes/LecturesRoute";
+import LectureListView from "./components/LectureList/LectureListView";
 import LectureScreen from "./components/LectureScreen/LectureScreen";
 import ReviewScreen from "./routes/views/ReviewView";
 import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
@@ -49,14 +49,14 @@ const router = createBrowserRouter([
             },
             {
                 path: "/lectures",
-                element: <Lectures />,
+                element: <LecturesRoute />,
                 loader: getExtraPerms, //obtiene mis permisos de lecciones extras
                 //*useEffect obtiene las lecciones extra
                 //*useQuery obtiene data de avanze en las lecciones
                 children: [
                     {
                         index: true,
-                        element: <LectureList />,
+                        element: <LectureListView />,
                         //ya tiene las lecciones gratis
                         //spinner para las extras
                     },
