@@ -1,8 +1,27 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { getLectureData, postLectureData } from "../aws/userDataApi";
+import {
+    getLectureData,
+    postLectureData,
+    getAllUserData,
+} from "../aws/userDataApi";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { getLectureQueryString } from "../utils/utils";
+
+//query global para todas las lecciones
+export function useAllLecturesDataQuery(enabled) {
+    return useQuery({
+        queryKey: ["allDataForUser"],
+        queryFn: getAllUserData,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        retryOnMount: false,
+        retry: 1,
+        throwOnError: false,
+        enabled: enabled,
+        // staleTime: 0
+    });
+}
 
 //query local para una leccion
 export function useLectureQuery(lectureId, enabled) {

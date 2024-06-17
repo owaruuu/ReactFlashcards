@@ -6,15 +6,22 @@ import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 import { AppContext } from "../context/AppContext";
 import { getUserProgress } from "../aws/aws";
 
+import { Spinner } from "react-bootstrap";
+
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
-    const loggedIn = cognito.value !== -1 && cognito.value !== 0;
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, init } = useContext(AppContext);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {
         const loginStatus = async () => {
             dispatch({ type: "SET_INIT", payload: true });
+
+            //esto significa que no estoy logeado y no debo hacer nada mas
+            if (cognito.value === 0) {
+                return;
+            }
+
             //si la respuesta es -1 significa que hubo un problema con el server
             if (cognito.value === -1) {
                 // dispatch({ type: "SET_COGNITO_ERROR", payload: true });
@@ -23,12 +30,6 @@ const Root = () => {
                     type: "SET_LOGIN_CONTROL_MSG",
                     payload: "Server error, try refreshing the page.",
                 });
-                return;
-            }
-
-            //esto significa que no estoy logeado y no debo hacer nada mas
-            if (cognito.value === 0) {
-                //console.log("no estoy logeado");
                 return;
             }
 
@@ -67,9 +68,7 @@ const Root = () => {
     return (
         <div className="App">
             <Header />
-            <div className="main">
-                <Outlet context={{ loggedIn }} />
-            </div>
+            <div className="main">{init ? <Outlet /> : <Spinner />}</div>
             <div className="divider">
                 <img className="logo" src={SakuraSVG}></img>
             </div>

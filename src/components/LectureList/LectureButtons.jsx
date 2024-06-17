@@ -3,16 +3,16 @@ import { pickDifference } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
     //data de todas las lectures
-    const { userDataQuery } = props;
+    const { allLecturesDataQuery } = props;
 
     const starredAmountObject =
-        userDataQuery?.status === "success"
-            ? calculateStarred(userDataQuery.data)
+        allLecturesDataQuery?.status === "success"
+            ? calculateStarred(allLecturesDataQuery.data)
             : {};
 
     const dataObject =
-        userDataQuery?.status === "success"
-            ? buildLectureData(userDataQuery.data)
+        allLecturesDataQuery?.status === "success"
+            ? buildLectureData(allLecturesDataQuery.data)
             : {};
 
     const filledLectures = props.lectures.map((lecture) => {
@@ -55,10 +55,9 @@ const LectureButtons = (props) => {
                 lecture={lecture}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
-                starQuerySuccess={userDataQuery?.status}
                 starredAmount={starredAmountObject?.[lecture.lectureId]}
                 userDataQueryData={dataObject}
-                userDataQueryStatus={userDataQuery?.status}
+                allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
                 // progress={myProgress[lecture.lectureId]}
             />

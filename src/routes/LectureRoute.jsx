@@ -1,7 +1,6 @@
 import React from "react";
 import { useContext, useState } from "react";
-import { useQueryClient } from "react-query";
-import { useLectureQuery } from "../hooks/useUserDataQuery";
+import { useLectureQuery } from "../hooks/userDataQueryHook";
 import { AppContext } from "../context/AppContext";
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
@@ -16,7 +15,8 @@ const LectureRoute = () => {
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
 
-    if (loggedIn && !gotLectures) {
+    //primero espero a obtener las lectures extras
+    if (!gotLectures) {
         return (
             <div className="lectureScreen">
                 <Spinner animation="border" role="status">
@@ -26,23 +26,34 @@ const LectureRoute = () => {
         );
     }
 
+    //dentro del array de lectures busco la lecture actual
     const lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });
 
     //TODO mostrar algo en caso de falla de query
 
-    //mostrar hijos solo cuando termine de obtener la informacion del lecture
+    //mostrar hijos solo cuando termine de obtener toda la data de los lectures
+    // o termine la query local
     if (loggedIn) {
-        console.log("here");
-        return outCtx.userDataQuery.status === "success" ||
+        return outCtx.allLecturesDataQuery.status === "success" ||
             lectureQuery.isRefetching === false ? (
-            <Outlet context={{ tab, setTab, lectureQuery }} />
+            <Outlet
+                context={{
+                    tab,
+                    setTab,
+                    allLecturesDataQuery: outCtx.allLecturesDataQuery,
+                    lectureQuery,
+                    lecture,
+                    lectureId,
+                }}
+            />
         ) : (
             <Spinner />
         );
     }
 
+    //logged out simple view
     return (
         <div className="lectureScreen">
             {!loggedIn && (
@@ -57,7 +68,15 @@ const LectureRoute = () => {
                 {lecture?.name}
             </h2>
 
-            <Outlet context={{ tab, setTab, lectureQuery }} />
+            <Outlet
+                context={{
+                    tab,
+                    setTab,
+                    lectureQuery,
+                    lecture,
+                    lectureId,
+                }}
+            />
         </div>
     );
 };

@@ -4,8 +4,7 @@ import { AppContext } from "../context/AppContext.jsx";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
-import { useQuery } from "react-query";
-import { getAllUserData } from "../aws/userDataApi.js";
+import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 
 const LecturesRoute = () => {
     let perms = useLoaderData();
@@ -14,16 +13,9 @@ const LecturesRoute = () => {
         useContext(AppContext);
 
     // en /lectures creo la query global para todas las lecciones
-    const userDataQuery = useQuery({
-        queryKey: ["allDataForUser"],
-        queryFn: getAllUserData,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        retryOnMount: false,
-        retry: 1,
-        throwOnError: false,
-        enabled: loggedIn ? true : false,
-    });
+    const allLecturesDataQuery = useAllLecturesDataQuery(
+        loggedIn ? true : false
+    );
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -133,7 +125,7 @@ const LecturesRoute = () => {
     return (
         <Outlet
             context={{
-                userDataQuery,
+                allLecturesDataQuery,
                 extraLessonMessage,
                 orderingState,
                 dateButtonState,

@@ -79,14 +79,14 @@ const LectureButton = (props) => {
     );
 
     const termsAmount =
-        props.userDataQueryStatus === "loading" ? (
+        props.allLecturesDataQueryStatus === "loading" ? (
             <Spinner size="sm" />
         ) : (
             "aaaaaaaaa"
         );
 
     const lastReviewDate =
-        props.userDataQueryStatus === "loading" ? (
+        props.allLecturesDataQueryStatus === "loading" ? (
             <Spinner size="sm" />
         ) : (
             "aaaaaaaaa"
@@ -123,7 +123,7 @@ const LectureButton = (props) => {
                         <span className="mobile"> - </span>
                         <span>
                             <StarAmount
-                                querySuccess={props.starQuerySuccess}
+                                querySuccess={props.uallLecturesDataQueryStatus}
                                 starredAmount={props.starredAmount}
                             />
                         </span>
@@ -139,7 +139,7 @@ const LectureButton = (props) => {
                 <div className="amount">
                     <PiStackOverflowLogoFill /> :
                     <TermsReviewAmount
-                        status={props.userDataQueryStatus}
+                        status={props.allLecturesDataQueryStatus}
                         data={props.userDataQueryData}
                         id={props.id}
                     ></TermsReviewAmount>
@@ -150,7 +150,7 @@ const LectureButton = (props) => {
                 <div className="lastReview">
                     <FaClock /> :{" "}
                     <ReviewSessionTime
-                        status={props.userDataQueryStatus}
+                        status={props.allLecturesDataQueryStatus}
                         data={props.userDataQueryData}
                         id={props.id}
                     ></ReviewSessionTime>

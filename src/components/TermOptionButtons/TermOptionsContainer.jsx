@@ -8,27 +8,16 @@ const TermOptionsContainer = (props) => {
         return "";
     }
 
-    if (props.globalQuery === undefined) {
-        //si por alguna razon no existe la globalquery ?? preguntar por el estado de la local
-        if (props.queryIsRefetching === true || props.hasQueryData === false) {
-            return (
-                <div className="termOptions">
-                    <Spinner size="sm" />
-                </div>
-            );
-        }
-    } else {
-        if (
-            (props.globalQuery.status !== "success" &&
-                props.queryIsRefetching === true) ||
-            props.hasQueryData === false
-        ) {
-            return (
-                <div className="termOptions">
-                    <Spinner size="sm" />
-                </div>
-            );
-        }
+    if (
+        (props.globalQuery.status !== "success" &&
+            props.queryIsRefetching === true) ||
+        props.hasQueryData === false
+    ) {
+        return (
+            <div className="termOptions">
+                <Spinner size="sm" />
+            </div>
+        );
     }
 
     return (

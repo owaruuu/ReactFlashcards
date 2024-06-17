@@ -16,7 +16,7 @@ import {
     useLectureQuery,
     useLectureMutation,
     useSessionMutation,
-} from "../../hooks/useUserDataQuery";
+} from "../../hooks/userDataQueryHook";
 
 import DismissableBanner from "../DismissableBanner/DismissableBanner";
 import { getLectureQueryString } from "../../utils/utils";

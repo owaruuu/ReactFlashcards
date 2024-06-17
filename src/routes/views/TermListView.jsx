@@ -6,31 +6,30 @@ import UpperDivider from "../../components/LectureScreen/UpperDivider";
 import { tests } from "../../data/tests";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-
-import { useQueryClient, useQuery } from "react-query";
-import { Spinner } from "react-bootstrap";
 import { getLectureQueryString } from "../../utils/utils";
 
 import {
-    useLectureQuery,
     useLectureMutation,
     useSessionMutation,
-} from "../../hooks/useUserDataQuery";
+} from "../../hooks/userDataQueryHook";
 
 const TermListView = () => {
-    console.warn("render termlistview");
+    // console.warn("render termlistview");
     const navigate = useNavigate();
-    const { tab, setTab, lectureQuery } = useOutletContext();
-    const { loggedIn, lectures } = useContext(AppContext);
+    const {
+        tab,
+        setTab,
+        allLecturesDataQuery,
+        lectureQuery,
+        lecture,
+        lectureId,
+    } = useOutletContext();
+    const { loggedIn } = useContext(AppContext);
 
-    const { lectureId } = useParams();
     const [createSessionError, setCreateSessionError] = useState(false);
-
-    //QUERIES
-    const globalQuery = useQuery("allDataForUser");
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(
@@ -41,13 +40,7 @@ const TermListView = () => {
         getLectureQueryString(lectureId)
     );
 
-    //TODO rework
-    const lecture = lectures.find((lecture) => {
-        return lecture.lectureId === lectureId;
-    });
-
     const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
-    const showTestButton = hasTest ? true : false;
 
     //funcion para los botones de highlight y mute
     function onIconClick(language, termId, newValue) {
@@ -91,7 +84,7 @@ const TermListView = () => {
 
     return (
         <div className="lectureScreen">
-            <LectureScreenButtons test={showTestButton} />
+            <LectureScreenButtons hasTest={hasTest} />
 
             <UpperDivider />
 
@@ -107,7 +100,7 @@ const TermListView = () => {
                     <Tab eventKey="japanese" title="Japones">
                         <TermList
                             termList={lecture.termList}
-                            globalQuery={globalQuery}
+                            globalQuery={allLecturesDataQuery}
                             queryStatus={lectureQuery.status}
                             queryIsRefetching={lectureQuery.isRefetching}
                             queryData={
@@ -129,7 +122,7 @@ const TermListView = () => {
                     <Tab eventKey="spanish" title="Español">
                         <TermList
                             termList={lecture.termList}
-                            globalQuery={globalQuery}
+                            globalQuery={allLecturesDataQuery}
                             queryStatus={lectureQuery.status}
                             queryIsRefetching={lectureQuery.isRefetching}
                             queryData={

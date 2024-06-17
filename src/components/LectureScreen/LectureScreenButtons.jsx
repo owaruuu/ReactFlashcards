@@ -65,7 +65,7 @@ const LectureScreenButtons = (props) => {
             <div className="learningButtons">
                 {reviewButton}
                 {/* {learnButton} */}
-                {props.test && testButton}
+                {props.hasTest && testButton}
             </div>
 
             <BackButton

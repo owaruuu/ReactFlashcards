@@ -12,7 +12,7 @@ import {
     useLectureMutation,
     useLectureQuery,
     useSessionMutation,
-} from "../../hooks/useUserDataQuery";
+} from "../../hooks/userDataQueryHook";
 import { useQueryClient } from "react-query";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
