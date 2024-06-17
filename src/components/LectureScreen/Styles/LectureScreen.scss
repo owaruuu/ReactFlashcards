@@ -20,6 +20,8 @@
     .lectureScreenButtons {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        max-width: 1024px;
 
         .learningButtons {
             display: flex;
@@ -89,7 +91,7 @@
         }
 
         @media (min-width: 768px) {
-            padding: 0 10%;
+            // padding: 0 10%;
             margin-top: 8px;
             margin-bottom: 30px;
             flex-direction: row;
@@ -100,6 +102,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
 
         h2 {
             color: white;
