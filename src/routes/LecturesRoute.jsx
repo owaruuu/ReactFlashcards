@@ -120,7 +120,8 @@ const LecturesRoute = () => {
         if (loggedIn && !gotLectures) {
             getLectures();
         }
-    }, [loggedIn]);
+    }, [loggedIn]); //TODO cambiar porque ya no deberia ocupar esto
+    //esto lo ocupaba por que antes renderizaba la pagina antes de terminar el login
 
     return (
         <Outlet

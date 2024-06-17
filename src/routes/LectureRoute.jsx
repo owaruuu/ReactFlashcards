@@ -12,8 +12,41 @@ const LectureRoute = () => {
     const { loggedIn, lectures, gotLectures } = useContext(AppContext);
     const { lectureId } = useParams();
 
+    let lecture = lectures.find((lecture) => {
+        return lecture.lectureId === lectureId;
+    });
+
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+
+    if (!loggedIn) {
+        //logged out simple view
+        return (
+            <div className="lectureScreen">
+                {!loggedIn && (
+                    <DismissableBanner
+                        text={"Accede al modo Prueba o Repaso con tu cuenta."}
+                        bgColor={"#ab071d"}
+                        color={"white"}
+                        transition={1}
+                    ></DismissableBanner>
+                )}
+                <h2 id="title" className="lectureTitle" string={lecture?.name}>
+                    {lecture?.name}
+                </h2>
+
+                <Outlet
+                    context={{
+                        tab,
+                        setTab,
+                        lectureQuery,
+                        lecture,
+                        lectureId,
+                    }}
+                />
+            </div>
+        );
+    }
 
     //primero espero a obtener las lectures extras
     if (!gotLectures) {
@@ -27,7 +60,7 @@ const LectureRoute = () => {
     }
 
     //dentro del array de lectures busco la lecture actual
-    const lecture = lectures.find((lecture) => {
+    lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });
 
@@ -52,33 +85,6 @@ const LectureRoute = () => {
             <Spinner />
         );
     }
-
-    //logged out simple view
-    return (
-        <div className="lectureScreen">
-            {!loggedIn && (
-                <DismissableBanner
-                    text={"Accede al modo Prueba o Repaso con tu cuenta."}
-                    bgColor={"#ab071d"}
-                    color={"white"}
-                    transition={1}
-                ></DismissableBanner>
-            )}
-            <h2 id="title" className="lectureTitle" string={lecture?.name}>
-                {lecture?.name}
-            </h2>
-
-            <Outlet
-                context={{
-                    tab,
-                    setTab,
-                    lectureQuery,
-                    lecture,
-                    lectureId,
-                }}
-            />
-        </div>
-    );
 };
 
 export default LectureRoute;
