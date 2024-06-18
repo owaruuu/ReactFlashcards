@@ -1,7 +1,7 @@
 import React from "react";
 import { useOutletContext, useParams, Link } from "react-router-dom";
 
-const HasPermsRoute = ({ element }) => {
+const HasPermissionRoute = ({ element }) => {
     const { perms } = useOutletContext();
     const { lectureId } = useParams();
 
@@ -17,4 +17,4 @@ const HasPermsRoute = ({ element }) => {
     return element;
 };
 
-export default HasPermsRoute;
+export default HasPermissionRoute;

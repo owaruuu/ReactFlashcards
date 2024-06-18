@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+
+import "./App.css";
+import "./Styles/Homepage.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./Fonts.css";
 import { AppProvider } from "./context/AppContext";
@@ -16,21 +19,19 @@ import SignupForm from "./routes/SignupForm";
 import Signup from "./routes/Signup";
 import ConfirmationCode from "./routes/ConfirmationCode";
 
-import LecturesRoute from "./routes/LecturesRoute";
-import LectureListView from "./components/LectureList/LectureListView";
-import UserPanelView from "./routes/views/UserPanelView";
-
 import { Navigate } from "react-router-dom";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //Routes
 import LectureRoute from "./routes/LectureRoute";
-import HasPermsRoute from "./routes/guards/HasPermsRoute";
+import HasPermissionRoute from "./routes/guards/HasPermsRoute";
 import HasActiveStudySession from "./routes/guards/HasActiveStudySession";
+import LectureListView from "./components/LectureList/LectureListView";
 import TermListView from "./routes/views/TermListView";
-import ReviewView from "./routes/views/ReviewView";
+import UserPanelView from "./routes/views/UserPanelView";
 import TestView from "./routes/views/TestView";
+import GotPermissionsSuspense from "./routes/suspenses/GotPermissionsSuspense";
 
 const router = createBrowserRouter([
     {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/lectures",
-                element: <LecturesRoute />,
+                element: <GotPermissionsSuspense />,
                 loader: getExtraPerms, //obtiene mis permisos de lecciones extras
                 //*useEffect obtiene las lecciones extra
                 //*useQuery obtiene data de avanze en las lecciones
@@ -61,7 +62,9 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/lectures/:lectureId",
-                        element: <HasPermsRoute element={<LectureRoute />} />,
+                        element: (
+                            <HasPermissionRoute element={<LectureRoute />} />
+                        ),
                         //loader a userData
                         //si tiene el permiso espera a cargar la leccion extra
                         //primero obtiene la info de las lecciones y luego espera el query del user data sobre las lecciones

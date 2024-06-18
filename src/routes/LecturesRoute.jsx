@@ -1,16 +1,15 @@
 import React from "react";
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext.jsx";
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 
-const LecturesRoute = () => {
-    let perms = useLoaderData();
+const LecturesRoute = (props) => {
+    const { perms } = props;
 
-    const { loggedIn, dispatch, lectures, gotLectures } =
-        useContext(AppContext);
+    const { loggedIn, dispatch, lectures } = useContext(AppContext);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
@@ -63,7 +62,7 @@ const LecturesRoute = () => {
             try {
                 if (perms.error) {
                     setExtraLessonMessage(
-                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                        "Hubo un error obteniendo tus permisos, intentalo mas tarde."
                     );
                     return dispatch({
                         type: "SET_LECTURES_FLAG",
@@ -117,11 +116,12 @@ const LecturesRoute = () => {
             }
         };
 
-        if (loggedIn && !gotLectures) {
+        if (loggedIn) {
+            //&& !gotLectures
+            console.warn("GETTING LECTURES");
             getLectures();
         }
-    }, [loggedIn]); //TODO cambiar porque ya no deberia ocupar esto
-    //esto lo ocupaba por que antes renderizaba la pagina antes de terminar el login
+    }, []);
 
     return (
         <Outlet

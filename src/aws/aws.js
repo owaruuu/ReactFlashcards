@@ -1,3 +1,4 @@
+import { defer } from "react-router-dom";
 import { api, URL } from "../api/api";
 
 //intenta revisar si estoy logeado o no
@@ -122,14 +123,8 @@ export const saveUserProgress = async (currentProgress) => {
  * @returns Un array de numeros que representa los ids de las lecciones que puedo acceder
  */
 export const getExtraPerms = async () => {
-    try {
-        const response = await api.get(`${URL}/permissions`);
-        return { data: response.data };
-    } catch (error) {
-        //aqui puedo llegar si es que no tengo credenciales
-        console.log("🚀 ~ getExtraPerms ~ error:", error);
-        return { error, data: [] };
-    }
+    const permissionsPromise = api.get(`${URL}/permissions`);
+    return defer({ perms: permissionsPromise });
 };
 
 export const getExtraLessons = async (keys) => {

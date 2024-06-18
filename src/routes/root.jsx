@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react";
-import { Outlet, useLoaderData } from "react-router-dom";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer";
-import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 import { AppContext } from "../context/AppContext";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { getUserProgress } from "../aws/aws";
+import Footer from "../components/Footer";
+import Header from "../components/Header/Header";
+import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 
 import { Spinner } from "react-bootstrap";
 
