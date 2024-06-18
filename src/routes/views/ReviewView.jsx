@@ -1,8 +1,7 @@
 import React from "react";
 import "../../components/ReviewScreen/Styles/ReviewScreen.css";
 import "../../components/Styles/Main.css";
-import { useState, useContext, useEffect } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useState, useEffect } from "react";
 import ReviewOptionsModal from "../../components/ReviewScreen/ReviewOptionsModal";
 import ReviewPanel from "../../components/ReviewScreen/ReviewPanel";
 import TermCard from "../../components/LearnScreen/TermCard";
@@ -10,36 +9,63 @@ import DisappearingCard from "../../components/LearnScreen/DisappearingCard";
 import NextButton from "../../components/ReviewScreen/NextButton";
 import {
     useLectureMutation,
-    useLectureQuery,
     useSessionMutation,
 } from "../../hooks/userDataQueryHook";
-import { useQueryClient } from "react-query";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
 import { getLectureQueryString } from "../../utils/utils";
+import { useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ReviewView = () => {
-    const { dispatch, appState, user, lectures, gotLectures, loggedIn } =
-        useContext(AppContext);
+    //lectureQuery viene lista
+    const { setTab, allLecturesDataQuery, lectureQuery, lecture, lectureId } =
+        useOutletContext();
 
-    const { lectureId, lang } = useParams();
+    const { lang } = useParams();
+    const navigate = useNavigate();
 
-    const [config, setConfig] = useState(false);
-    const [lecture, setLecture] = useState({
-        lectureId: null,
-        name: "",
-        testId: null,
-        lectureGroup: "",
-        termList: [],
-    });
     const [showModal, setShowModal] = useState(false);
     const [showAnswer, setShowAnswer] = useState(false);
     const [disappearingCards, setDisappearingCards] = useState([]);
     const [feedbackMessage, setFeedbackMessage] = useState("");
-    const [termsDict, setTermsDict] = useState({});
-    // console.log("🚀 ~ ReviewScreen ~ termsDict:", termsDict);
 
+    //diccionario de terminos para poder acceder a los terminos en o(n)
+    const [termsDict] = useState(() => {
+        const termsDict = {};
+        lecture.termList.forEach((term) => {
+            termsDict[term.id] = term;
+        });
+
+        return termsDict;
+    });
+
+    //MUTATIONS que ocuparan los botones
+    const lectureMutation = useLectureMutation(
+        getLectureQueryString(lectureId)
+    );
+
+    const lectureSessionMutation = useSessionMutation(
+        getLectureQueryString(lectureId)
+    );
+
+    //helper para cambiar el estado de los tabs
+    useEffect(() => {
+        setTab(lang);
+    }, []);
+
+    //current sesion
+    const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
+
+    const handleOptionsButtonClick = (state) => {
+        setShowModal(state);
+    };
+
+    const handleClick = () => {
+        setShowAnswer((prevState) => !prevState);
+    };
+
+    //TODO sacar a archivo
     const removeDisappearingCard = () => {
         const now = new Date().getTime();
 
@@ -49,64 +75,6 @@ const ReviewView = () => {
                 return diff < 299;
             });
         });
-    };
-
-    //QUERIES
-    const globalQuery = useQueryClient().getQueryState("allDataForUser");
-    const lectureQuery = useQueryClient().getQueryState(
-        getLectureQueryString(lectureId)
-    );
-    // console.log("🚀 ~ ReviewScreen ~ lectureQuery:", lectureQuery);
-
-    //MUTATIONS
-    const lectureMutation = useLectureMutation(
-        getLectureQueryString(lectureId)
-    );
-
-    const lectureSessionMutation = useSessionMutation(
-        getLectureQueryString(lectureId)
-    );
-
-    useEffect(() => {
-        const configLecture = () => {
-            const currentLecture = lectures.find(
-                (lecture) => lecture.lectureId === lectureId
-            );
-            setLecture(currentLecture);
-
-            const termsDict = {};
-            currentLecture["termList"].forEach((term) => {
-                termsDict[term.id] = term;
-            });
-
-            setTermsDict(termsDict);
-        };
-
-        if (!config && gotLectures) {
-            configLecture();
-            setConfig(true);
-        }
-    }, [gotLectures]);
-
-    //loading
-    if (!gotLectures || lectureQuery.isFetching || !config) {
-        return (
-            <div className="lectureScreen">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
-        );
-    }
-
-    const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
-    // console.log("🚀 ~ ReviewScreen ~ termsIds:", termsIds);
-    const handleOptionsButtonClick = (state) => {
-        setShowModal(state);
-    };
-
-    const handleClick = () => {
-        setShowAnswer((prevState) => !prevState);
     };
 
     //funcion para los botoes de highlight y mute
@@ -155,21 +123,14 @@ const ReviewView = () => {
         const newValue = removeFirstTerm();
 
         try {
-            // createDissappearingCard();
             setFeedbackMessage("Terminando sesion...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lectureId,
                 attributeName: `${lang}_session`,
                 newValue: newValue,
-                // lastReviewed: new Date(),
             });
 
-            // dispatch({
-            //     type: "CHANGE_SCREEN",
-            //     payload: {
-            //         currentScreen: `lecture-${props.language}`,
-            //     },
-            // });
+            navigate(`/lectures/${lectureId}`);
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(
@@ -245,7 +206,9 @@ const ReviewView = () => {
 
     return (
         <div className="ReviewV2Screen">
-            {/* {props.language} */}
+            <h2 id="title" className="lectureTitle" string={lecture.name}>
+                {lecture.name}
+            </h2>
             <ReviewOptionsModal
                 visible={showModal}
                 hideFunc={() => handleOptionsButtonClick(false)}
@@ -277,14 +240,17 @@ const ReviewView = () => {
             </div>
             <div className="controls">
                 <TermOptionsContainer
-                    globalQuery={globalQuery}
-                    queryStatus={lectureQuery}
-                    queryData={lectureQuery.data?.data?.[`${lang}_terms_data`]}
-                    termData={
-                        lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
-                            termId
-                        ]
+                    globalQuery={allLecturesDataQuery}
+                    queryStatus={lectureQuery.status}
+                    queryIsRefetching={lectureQuery.isRefetching}
+                    hasQueryData={
+                        lectureQuery.data?.data?.[`${lang}_terms_data`]
+                            ? true
+                            : false
                     }
+                    state={
+                        lectureQuery.data?.data?.[`${lang}_terms_data`][termId]
+                    } //
                     language={lang}
                     onIconClick={onIconClick}
                     termId={termId}

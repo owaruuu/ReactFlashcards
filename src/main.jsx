@@ -18,8 +18,6 @@ import ConfirmationCode from "./routes/ConfirmationCode";
 
 import LecturesRoute from "./routes/LecturesRoute";
 import LectureListView from "./components/LectureList/LectureListView";
-import LectureScreen from "./components/LectureScreen/LectureScreen";
-import ReviewScreen from "./routes/views/ReviewView";
 import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
 
 import { Navigate } from "react-router-dom";
@@ -29,6 +27,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //Routes
 import LectureRoute from "./routes/LectureRoute";
 import HasPermsRoute from "./routes/guards/HasPermsRoute";
+import HasActiveStudySession from "./routes/guards/HasActiveStudySession";
 import TermListView from "./routes/views/TermListView";
 import ReviewView from "./routes/views/ReviewView";
 import TestView from "./routes/views/TestView";
@@ -65,7 +64,7 @@ const router = createBrowserRouter([
                         element: <HasPermsRoute element={<LectureRoute />} />,
                         //loader a userData
                         //si tiene el permiso espera a cargar la leccion extra
-                        //espera a tener todos los lectures renderizar outlet
+                        //primero obtiene la info de las lecciones y luego espera el query del user data sobre las lecciones
                         children: [
                             {
                                 path: "/lectures/:lectureId",
@@ -74,10 +73,10 @@ const router = createBrowserRouter([
                             {
                                 path: "/lectures/:lectureId/:lang/study-session",
                                 element: (
-                                    <LoggedInRoute element={<ReviewView />} />
+                                    <LoggedInRoute
+                                        element={<HasActiveStudySession />}
+                                    />
                                 ),
-                                //necesito una sesion activa que solo tendre despues de cargar el query
-                                //que pasa cuando ingreso directamente pero no tengo sesion de estudio ?
                             },
                             {
                                 path: "/lectures/:lectureId/test",
@@ -103,7 +102,6 @@ const router = createBrowserRouter([
                     },
                 ],
             },
-
             {
                 path: "/profile",
                 element: <LoggedInRoute element={<UserPanelScreen />} />,

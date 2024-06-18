@@ -31,9 +31,6 @@ const LectureRoute = () => {
                         transition={1}
                     ></DismissableBanner>
                 )}
-                <h2 id="title" className="lectureTitle" string={lecture?.name}>
-                    {lecture?.name}
-                </h2>
 
                 <Outlet
                     context={{
@@ -65,6 +62,13 @@ const LectureRoute = () => {
     });
 
     //TODO mostrar algo en caso de falla de query
+    if (
+        outCtx.allLecturesDataQuery.status === "error" ||
+        lectureQuery.isError
+    ) {
+        console.error("hubo un error con las queries");
+        return <h1>hubo un error con las queries</h1>;
+    }
 
     //mostrar hijos solo cuando termine de obtener toda la data de los lectures
     // o termine la query local
