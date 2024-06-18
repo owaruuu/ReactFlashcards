@@ -65,6 +65,7 @@ const router = createBrowserRouter([
                         element: <HasPermsRoute element={<LectureRoute />} />,
                         //loader a userData
                         //si tiene el permiso espera a cargar la leccion extra
+                        //espera a tener todos los lectures renderizar outlet
                         children: [
                             {
                                 path: "/lectures/:lectureId",
@@ -72,7 +73,9 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "/lectures/:lectureId/:lang/study-session",
-                                element: <ReviewView />,
+                                element: (
+                                    <LoggedInRoute element={<ReviewView />} />
+                                ),
                                 //necesito una sesion activa que solo tendre despues de cargar el query
                                 //que pasa cuando ingreso directamente pero no tengo sesion de estudio ?
                             },

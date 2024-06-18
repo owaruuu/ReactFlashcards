@@ -28,6 +28,7 @@ const TermListView = () => {
         lectureId,
     } = useOutletContext();
     const { loggedIn } = useContext(AppContext);
+    console.log("🚀 ~ TermListView ~ lecture:", lecture);
 
     const [createSessionError, setCreateSessionError] = useState(false);
 
@@ -84,6 +85,9 @@ const TermListView = () => {
 
     return (
         <div className="lectureScreen">
+            <h2 id="title" className="lectureTitle" string={lecture.name}>
+                {lecture.name}
+            </h2>
             <LectureScreenButtons hasTest={hasTest} />
 
             <UpperDivider />
