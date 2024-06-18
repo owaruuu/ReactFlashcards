@@ -33,7 +33,7 @@ const LoginControls = (props) => {
     };
 
     const changeToUserPanel = () => {
-        navigate("/userpanel");
+        navigate("/profile");
         dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
     };
 

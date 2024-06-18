@@ -8,7 +8,7 @@ import ReviewScreen from "../routes/views/ReviewView.jsx";
 import TestScreen from "./TestScreen/TestScreen.jsx";
 import LoginForm from "./Forms/LoginForm.jsx";
 import RegisterForm from "./Forms/RegisterForm.jsx";
-import UserPanelScreen from "./UserPanel/UserPanelScreen.jsx";
+import UserPanelView from "../routes/views/UserPanelView.jsx";
 import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.jsx";
 
 import { useQuery } from "react-query";

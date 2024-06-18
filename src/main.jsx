@@ -18,7 +18,7 @@ import ConfirmationCode from "./routes/ConfirmationCode";
 
 import LecturesRoute from "./routes/LecturesRoute";
 import LectureListView from "./components/LectureList/LectureListView";
-import UserPanelScreen from "./components/UserPanel/UserPanelScreen";
+import UserPanelView from "./routes/views/UserPanelView";
 
 import { Navigate } from "react-router-dom";
 
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <LoggedInRoute element={<UserPanelScreen />} />,
+                element: <LoggedInRoute element={<UserPanelView />} />,
             },
         ],
     },

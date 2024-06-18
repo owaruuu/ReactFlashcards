@@ -5,17 +5,12 @@ import { getArray, getDescription } from "../../utils/StickersUtils";
 const stickersArray = getArray();
 const gold = <span className="goldAccent">:</span>;
 
-const UserPanelScreen = () => {
-    const { dispatch, appState, user } = useContext(AppContext);
+const UserPanelView = () => {
+    const { user } = useContext(AppContext);
     const [currentSticker, setCurrentSticker] = useState(-1);
     const [selectedSticker, setSelectedSticker] = useState(-1);
 
-    const handleBackButton = () => {
-        // dispatch({
-        //     type: "CHANGE_SCREEN",
-        //     payload: { currentScreen: appState.lastScreen },
-        // });
-    };
+    const handleBackButton = () => {};
 
     const handleStickerClick = (id) => {
         setSelectedSticker(id);
@@ -54,7 +49,7 @@ const UserPanelScreen = () => {
     return (
         <div className="userPanel">
             <h3>Panel de usuario</h3>
-            <button onClick={handleBackButton}>Volver</button>
+            {/* <button onClick={handleBackButton}>Volver</button> */}
             <div className="userPanelContent">
                 <div className="stickersDiv">
                     <p>Stickers</p>
@@ -80,4 +75,4 @@ const UserPanelScreen = () => {
     );
 };
 
-export default UserPanelScreen;
+export default UserPanelView;
