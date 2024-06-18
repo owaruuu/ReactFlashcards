@@ -1,11 +1,4 @@
-.lectureScreen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  color: white;
-}
-.lectureScreen .lectureTitle {
+.lectureTitle {
   text-align: center;
   color: #f5fcff;
   font-family: "Noto Serif";
@@ -13,6 +6,14 @@
   text-decoration: underline;
   text-decoration-color: #dbb01c;
   margin: 10px 0;
+}
+
+.lectureScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: white;
 }
 .lectureScreen .lectureScreenButtons {
   display: flex;

@@ -1,21 +1,21 @@
 @import "../../../Styles/Theme";
+.lectureTitle {
+    text-align: center;
+    color: $cloud-white;
+    font-family: "Noto Serif";
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: #dbb01c;
+    margin: 10px 0;
+    // margin-top: 35px;
+}
+
 .lectureScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     color: white;
-
-    .lectureTitle {
-        text-align: center;
-        color: $cloud-white;
-        font-family: "Noto Serif";
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-color: #dbb01c;
-        margin: 10px 0;
-        // margin-top: 35px;
-    }
 
     .lectureScreenButtons {
         display: flex;
