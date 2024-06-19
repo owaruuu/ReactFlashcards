@@ -5,12 +5,18 @@ import { Spinner } from "react-bootstrap";
 
 const GotPermissionsSuspense = () => {
     let data = useLoaderData();
-    console.log("🚀 ~ GotPermissionsSuspense ~ data:", data);
+
     return (
-        <React.Suspense fallback={<Spinner />}>
+        <React.Suspense
+            fallback={
+                <>
+                    <Spinner id="spinner-main" />
+                    <p style={{ color: "white" }}>Cargando Permisos...</p>
+                </>
+            }
+        >
             <Await resolve={data.perms} errorElement={<PermsError />}>
                 {(perms) => {
-                    console.log("🚀 ~ GotPermissionsSuspense ~ perms:", perms);
                     return <LecturesRoute perms={{ data: perms.data }} />;
                 }}
             </Await>

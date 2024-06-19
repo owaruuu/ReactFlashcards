@@ -1,7 +1,9 @@
 import OptionsButton from "../OptionsButton";
 import BackButton from "../BackButton";
+import { useParams } from "react-router-dom";
 
 const LearnPanel = (props) => {
+    const { lectureId } = useParams();
     return (
         <div className="learnScreenPanel">
             <div className="panel">
@@ -9,7 +11,7 @@ const LearnPanel = (props) => {
                 <p>
                     {props.index + 1}/{props.terms.length}
                 </p>
-                <BackButton options={{ currentScreen: "lecture-japanese" }} />
+                <BackButton dir={`/lectures/${lectureId}`} />
             </div>
             <div className="info">
                 <p>

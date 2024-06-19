@@ -9,7 +9,7 @@ import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 const LecturesRoute = (props) => {
     const { perms } = props;
 
-    const { loggedIn, dispatch, lectures } = useContext(AppContext);
+    const { loggedIn, dispatch, freeLectures } = useContext(AppContext);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
@@ -100,7 +100,7 @@ const LecturesRoute = (props) => {
                         return JSON.parse(item.lecture);
                     });
 
-                    const newLectures = [...lectures, ...extraLectures];
+                    const newLectures = [...freeLectures, ...extraLectures];
 
                     dispatch({
                         type: "SET_LECTURES",

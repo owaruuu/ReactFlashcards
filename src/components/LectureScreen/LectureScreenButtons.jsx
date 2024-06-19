@@ -1,60 +1,21 @@
-import { useContext, useState } from "react";
-import { AppContext } from "../../context/AppContext";
 import BackButton from "../BackButton";
 import { HiClipboardDocumentList } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const LectureScreenButtons = (props) => {
-    const { dispatch, user } = useContext(AppContext);
+    const navigate = useNavigate();
 
     const reviewButton = (
-        <button
-            className="reviewButton"
-            // onClick={() =>
-            //     dispatch({
-            //         type: "CHANGE_SCREEN",
-            //         payload: {
-            //             currentScreen: "review",
-            //         },
-            //     })
-            // }
-        >
+        <button className="reviewButton" onClick={() => navigate("flashcards")}>
             Revisar
-        </button>
-    );
-
-    const learnButton = (
-        <button
-            className={
-                user.currentProgress ? "learnButton" : "learnButton disabled"
-            }
-            // onClick={() =>
-            //     dispatch({
-            //         type: "CHANGE_SCREEN",
-            //         payload: {
-            //             currentScreen: "learn",
-            //         },
-            //     })
-            // }
-            disabled={!user.currentProgress}
-        >
-            Memorizar
         </button>
     );
 
     const testButton = (
         <button
-            className={
-                user.currentProgress ? "learnButton" : "learnButton disabled"
-            }
-            // onClick={() =>
-            //     dispatch({
-            //         type: "CHANGE_SCREEN",
-            //         payload: {
-            //             currentScreen: "test",
-            //         },
-            //     })
-            // }
-            disabled={!user.currentProgress}
+            className={props.loggedIn ? "learnButton" : "learnButton disabled"}
+            disabled={!props.loggedIn}
+            onClick={() => navigate("test")}
         >
             <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>
         </button>
@@ -64,14 +25,10 @@ const LectureScreenButtons = (props) => {
         <div className="lectureScreenButtons">
             <div className="learningButtons">
                 {reviewButton}
-                {/* {learnButton} */}
                 {props.hasTest && testButton}
             </div>
 
-            <BackButton
-                options={{ currentScreen: "main", currentLecture: null }}
-                dir="/lectures"
-            />
+            <BackButton dir="/lectures" />
         </div>
     );
 };

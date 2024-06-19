@@ -4,7 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    // justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     min-height: 70vh;
     overflow: hidden;
@@ -14,7 +15,7 @@
     .spinner-border {
         text-align: center;
         color: white;
-        margin: auto;
+        // margin: auto;
     }
 
     .confirmation {

@@ -49,9 +49,14 @@ const LectureRoute = () => {
     if (!gotLectures) {
         return (
             <div className="lectureScreen">
-                <Spinner animation="border" role="status">
+                <Spinner
+                    id="spinner-lectureScreen"
+                    animation="border"
+                    role="status"
+                >
                     <span className="visually-hidden">Loading...</span>
                 </Spinner>
+                <p style={{ color: "white" }}>Cargando Lecciones...</p>
             </div>
         );
     }

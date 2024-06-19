@@ -68,7 +68,18 @@ const Root = () => {
     return (
         <div className="App">
             <Header />
-            <div className="main">{init ? <Outlet /> : <Spinner />}</div>
+            <div className="main">
+                {init ? (
+                    <Outlet />
+                ) : (
+                    <>
+                        <Spinner />
+                        <p style={{ color: "white" }}>
+                            Cargando Credenciales...
+                        </p>
+                    </>
+                )}
+            </div>
             <div className="divider">
                 <img className="logo" src={SakuraSVG}></img>
             </div>

@@ -25,12 +25,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //Routes
 import LectureRoute from "./routes/LectureRoute";
-import HasPermissionRoute from "./routes/guards/HasPermsRoute";
-import HasActiveStudySession from "./routes/guards/HasActiveStudySession";
 import LectureListView from "./components/LectureList/LectureListView";
+import HasPermissionRoute from "./routes/guards/HasPermsRoute";
 import TermListView from "./routes/views/TermListView";
 import UserPanelView from "./routes/views/UserPanelView";
 import TestView from "./routes/views/TestView";
+import FlashCardView from "./routes/views/FlashCardView";
+import HasActiveStudySession from "./routes/guards/HasActiveStudySession";
 import GotPermissionsSuspense from "./routes/suspenses/GotPermissionsSuspense";
 
 const router = createBrowserRouter([
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         loader: connectCognito, //intento obtener credenciales
-        //loader lecciones gratis
+        //agregar loader lecciones gratis
         //*useEffect carga mi progreso
         //no renderizo los hijos hasta que el context cambia
         children: [
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
                         //primero obtiene la info de las lecciones y luego espera el query del user data sobre las lecciones
                         children: [
                             {
+                                //index
                                 path: "/lectures/:lectureId",
                                 element: <TermListView />,
                             },
@@ -80,6 +82,10 @@ const router = createBrowserRouter([
                                         element={<HasActiveStudySession />}
                                     />
                                 ),
+                            },
+                            {
+                                path: "/lectures/:lectureId/flashcards",
+                                element: <FlashCardView />,
                             },
                             {
                                 path: "/lectures/:lectureId/test",
