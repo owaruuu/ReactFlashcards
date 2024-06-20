@@ -90,6 +90,26 @@ const router = createBrowserRouter([
                             {
                                 path: "/lectures/:lectureId/test",
                                 element: <TestView />,
+                                //ruta que contiene logica y estado, muestra pantalla con un outlet, muestra el titulo de la lecture
+                                children: [
+                                    {
+                                        //index
+                                        path: "/lectures/:lectureId/test/",
+                                        //vista que muestra el main screen de la prueba, con las informacion y botones
+                                    },
+                                    {
+                                        path: "/lectures/:lectureId/test/try",
+                                        //vista que muestra la prueba y sus pantallas
+                                    },
+                                    {
+                                        path: "/lectures/:lectureId/test/last-attempt",
+                                        //vista que muesta el ultimo intento
+                                    },
+                                    {
+                                        path: "/lectures/:lectureId/test/high-score",
+                                        //vista que muestra el highscore
+                                    },
+                                ],
                             },
                         ],
                     },
