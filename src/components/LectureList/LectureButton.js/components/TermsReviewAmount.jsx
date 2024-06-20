@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 
 const TermsReviewAmount = (props) => {
     if (props.status === "loading") {
-        return <Spinner size="sm" />;
+        return <Spinner size="sm" style={{ color: "#532f00" }} />;
     }
     // console.log("🚀 ~ TermsReviewAmount ~  props.data:", props.data);
 
