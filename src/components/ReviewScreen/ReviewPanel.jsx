@@ -18,8 +18,9 @@ const ReviewPanel = (props) => {
                 <OptionsButton showFunc={props.showFunc} disabled={true} />
                 <p>{info}</p>
                 <BackButton
-                    options={{ currentScreen: `lecture-${props.language}` }}
+                    className="backButton"
                     dir={`/lectures/${lectureId}`}
+                    content={"Volver"}
                 />
             </div>
         </div>

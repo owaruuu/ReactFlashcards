@@ -11,7 +11,11 @@ const LearnPanel = (props) => {
                 <p>
                     {props.index + 1}/{props.terms.length}
                 </p>
-                <BackButton dir={`/lectures/${lectureId}`} />
+                <BackButton
+                    className="backButton"
+                    dir={`/lectures/${lectureId}`}
+                    content={"Volver"}
+                />
             </div>
             <div className="info">
                 <p>

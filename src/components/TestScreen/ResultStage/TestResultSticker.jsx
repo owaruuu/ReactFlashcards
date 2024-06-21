@@ -18,6 +18,7 @@ const TestResultSticker = (props) => {
         </Spinner>
     );
     const stickerName = getName(props.lectureId);
+    console.log("🚀 ~ TestResultSticker ~ stickerName:", stickerName);
     const tooltipMessage = `${stickerName}, Sticker para la prueba de ${props.lectureName}`;
 
     const loaded = () => {
@@ -37,7 +38,7 @@ const TestResultSticker = (props) => {
                     >
                         <img
                             className="showOutline"
-                            src={`../img/${stickerName}-outline.png`}
+                            src={`/img/${stickerName}-outline.png`}
                             onLoad={loaded}
                             alt="sticker outline"
                         />
@@ -58,13 +59,13 @@ const TestResultSticker = (props) => {
                         )}
                         <img
                             className="showOutline"
-                            src={`../img/${stickerName}-outline.png`}
+                            src={`/img/${stickerName}-outline.png`}
                             onLoad={loaded}
                             alt="sticker outline"
                         />
                         <img
                             className="winSticker"
-                            src={`../img/${stickerName}-sticker.png`}
+                            src={`/img/${stickerName}-sticker.png`}
                             onLoad={loaded}
                             alt={`sticker de ${stickerName}`}
                         />
@@ -89,7 +90,7 @@ const TestResultSticker = (props) => {
                         )}
                         <img
                             className="showSticker"
-                            src={`../img/${stickerName}-with-shadow.png`}
+                            src={`/img/${stickerName}-with-shadow.png`}
                             onLoad={loaded}
                             alt={`sticker de ${stickerName}`}
                         />

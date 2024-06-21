@@ -273,7 +273,7 @@
         }
     }
 
-    .beginTestScreen {
+    .beginTestDiv {
         // background-color: #255277;
 
         .beginTestButton {
@@ -696,12 +696,19 @@
         }
 
         .testTitle {
+            color: #f5fcff;
+            font-family: "Noto Serif";
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-color: #dbb01c;
+            font-size: 2.2rem;
+            margin: 10px;
             // display: grid;
             // grid-template-columns: 20% 5% 50% 5% 25%;
             justify-content: center;
             align-items: center;
             // grid-template-areas: ". feedback nextButton";
-            font-size: 12px;
+            // font-size: 12px;
             width: 90vw;
 
             p {
@@ -722,7 +729,7 @@
             }
 
             @media (min-width: 768px) {
-                font-size: 24px;
+                // font-size: 24px;
                 width: 70vw;
             }
         }

@@ -28,7 +28,11 @@ const LectureScreenButtons = (props) => {
                 {props.hasTest && testButton}
             </div>
 
-            <BackButton dir="/lectures" />
+            <BackButton
+                className="backButton"
+                dir="/lectures"
+                content={"Volver"}
+            />
         </div>
     );
 };

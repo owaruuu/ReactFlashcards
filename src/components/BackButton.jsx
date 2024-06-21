@@ -4,8 +4,8 @@ const BackButton = (props) => {
     const navigate = useNavigate();
 
     return (
-        <button className="backButton" onClick={() => navigate(props.dir)}>
-            Volver
+        <button className={props.className} onClick={() => navigate(props.dir)}>
+            {props.content}
         </button>
     );
 };

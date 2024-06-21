@@ -26,6 +26,7 @@ const TermListView = () => {
         lectureQuery,
         lecture,
         lectureId,
+        hasTest,
     } = useOutletContext();
     const { loggedIn } = useContext(AppContext);
     console.log("🚀 ~ TermListView ~ lecture:", lecture);
@@ -41,7 +42,7 @@ const TermListView = () => {
         getLectureQueryString(lectureId)
     );
 
-    const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
+    // const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
 
     //funcion para los botones de highlight y mute
     function onIconClick(language, termId, newValue) {

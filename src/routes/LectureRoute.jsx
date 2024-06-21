@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useState } from "react";
 import { useLectureQuery } from "../hooks/userDataQueryHook";
 import { AppContext } from "../context/AppContext";
+import { tests } from "../data/tests";
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import DismissableBanner from "../components/DismissableBanner/DismissableBanner";
@@ -15,6 +16,9 @@ const LectureRoute = () => {
     let lecture = lectures.find((lecture) => {
         return lecture.lectureId === lectureId;
     });
+
+    const test = tests[lectureId];
+    const hasTest = test !== undefined ? true : false;
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
@@ -39,6 +43,7 @@ const LectureRoute = () => {
                         lectureQuery,
                         lecture,
                         lectureId,
+                        hasTest,
                     }}
                 />
             </div>
@@ -88,6 +93,8 @@ const LectureRoute = () => {
                     lectureQuery,
                     lecture,
                     lectureId,
+                    test,
+                    hasTest,
                 }}
             />
         ) : (

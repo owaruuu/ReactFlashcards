@@ -231,7 +231,7 @@
     padding: 20px;
   }
 }
-.main .beginTestScreen .beginTestButton {
+.main .beginTestDiv .beginTestButton {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 27px;
@@ -244,10 +244,10 @@
   width: 75%;
   margin-bottom: 20px;
 }
-.main .beginTestScreen .beginTestButton:hover {
+.main .beginTestDiv .beginTestButton:hover {
   background-color: #269719;
 }
-.main .beginTestScreen .info {
+.main .beginTestDiv .info {
   padding: 15px 0;
 }
 .main .testScreen {
@@ -578,9 +578,15 @@
   color: #20496b;
 }
 .main .testScreen .testTitle {
+  color: #f5fcff;
+  font-family: "Noto Serif";
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dbb01c;
+  font-size: 2.2rem;
+  margin: 10px;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
   width: 90vw;
 }
 .main .testScreen .testTitle p {
@@ -588,7 +594,6 @@
 }
 @media (min-width: 768px) {
   .main .testScreen .testTitle {
-    font-size: 24px;
     width: 70vw;
   }
 }

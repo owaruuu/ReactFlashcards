@@ -29,10 +29,13 @@ import LectureListView from "./components/LectureList/LectureListView";
 import HasPermissionRoute from "./routes/guards/HasPermsRoute";
 import TermListView from "./routes/views/TermListView";
 import UserPanelView from "./routes/views/UserPanelView";
-import TestView from "./routes/views/TestView";
+import TestRoute from "./routes/TestRoute";
 import FlashCardView from "./routes/views/FlashCardView";
 import HasActiveStudySession from "./routes/guards/HasActiveStudySession";
 import GotPermissionsSuspense from "./routes/suspenses/GotPermissionsSuspense";
+import TestView from "./routes/views/TestView";
+import LastResultView from "./routes/views/LastResultView";
+import HighScoreView from "./routes/views/HighScoreView";
 
 const router = createBrowserRouter([
     {
@@ -89,24 +92,30 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "/lectures/:lectureId/test",
-                                element: <TestView />,
+                                element: (
+                                    <LoggedInRoute element={<TestRoute />} />
+                                ),
                                 //ruta que contiene logica y estado, muestra pantalla con un outlet, muestra el titulo de la lecture
                                 children: [
                                     {
                                         //index
                                         path: "/lectures/:lectureId/test/",
+                                        element: <TestView />,
                                         //vista que muestra el main screen de la prueba, con las informacion y botones
                                     },
                                     {
                                         path: "/lectures/:lectureId/test/try",
+
                                         //vista que muestra la prueba y sus pantallas
                                     },
                                     {
                                         path: "/lectures/:lectureId/test/last-attempt",
+                                        element: <LastResultView />,
                                         //vista que muesta el ultimo intento
                                     },
                                     {
                                         path: "/lectures/:lectureId/test/high-score",
+                                        element: <HighScoreView />,
                                         //vista que muestra el highscore
                                     },
                                 ],
