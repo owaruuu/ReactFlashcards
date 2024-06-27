@@ -36,6 +36,7 @@ import GotPermissionsSuspense from "./routes/suspenses/GotPermissionsSuspense";
 import TestView from "./routes/views/TestView";
 import LastResultView from "./routes/views/LastResultView";
 import HighScoreView from "./routes/views/HighScoreView";
+import TryTestView from "./routes/views/TryTestView";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         loader: connectCognito, //intento obtener credenciales
+        shouldRevalidate: () => false, //preview revalidation pero puedo aun obligarlo con 'revalidator.revalidate()'
         //agregar loader lecciones gratis
         //*useEffect carga mi progreso
         //no renderizo los hijos hasta que el context cambia
@@ -105,7 +107,7 @@ const router = createBrowserRouter([
                                     },
                                     {
                                         path: "/lectures/:lectureId/test/try",
-
+                                        element: <TryTestView />,
                                         //vista que muestra la prueba y sus pantallas
                                     },
                                     {

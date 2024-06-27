@@ -7,41 +7,28 @@ import Header from "../components/Header/Header";
 import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 
 import { Spinner } from "react-bootstrap";
+import { trySetUser } from "../hooks/tempUtil";
 
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
-    const { dispatch, init } = useContext(AppContext);
+    const { dispatch, init, isTakingTest, user } = useContext(AppContext);
+    console.log("🚀 ~ Root ~ cognito:", cognito);
+    console.log("🚀 ~ Root ~ user:", user);
+    console.log("🚀 ~ Root ~ isTakingTest:", isTakingTest);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {
         const loginStatus = async () => {
+            console.log("doing loginStatus");
+            console.log("🚀 ~ loginStatus ~ cognito:", cognito);
             dispatch({ type: "SET_INIT", payload: true });
 
-            //esto significa que no estoy logeado y no debo hacer nada mas
-            if (cognito.value === 0) {
+            const result = trySetUser(cognito, dispatch);
+            console.log("🚀 ~ loginStatus ~ result:", result);
+
+            if (result === false) {
                 return;
             }
-
-            //si la respuesta es -1 significa que hubo un problema con el server
-            if (cognito.value === -1) {
-                // dispatch({ type: "SET_COGNITO_ERROR", payload: true });
-                dispatch({ type: "SET_SERVER_ERROR", payload: true });
-                dispatch({
-                    type: "SET_LOGIN_CONTROL_MSG",
-                    payload: "Server error, try refreshing the page.",
-                });
-                return;
-            }
-
-            //si llego aca significa que tengo el payload
-            dispatch({
-                type: "SET_USER",
-                payload: {
-                    userName: cognito.value.email,
-                },
-            });
-
-            dispatch({ type: "SET_LOG_STATUS", payload: true });
 
             const progress = await getUserProgress();
 

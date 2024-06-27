@@ -8,11 +8,12 @@ import {
     getRandomNumbersSimple,
 } from "../utils/utils";
 import { AppContext } from "../context/AppContext";
+import TryTestView from "./views/TryTestView";
 
 const TestRoute = () => {
-    const { user } = useContext(AppContext);
+    const { user, isTakingTest } = useContext(AppContext);
     const { test, hasTest, lectureId, lecture } = useOutletContext();
-    console.log("🚀 ~ TestRoute ~ test:", test);
+    // console.log("🚀 ~ TestRoute ~ test:", test);
 
     //State
     const [problem, setProblem] = useState(0); //en que problema vamos, ej. 1/5
@@ -134,25 +135,29 @@ const TestRoute = () => {
             <h2 className="testTitle">
                 <p>
                     Prueba - {lecture.name}{" "}
-                    {showTimer && (
+                    {/* {showTimer && (
                         <TestTimer
                             stopTimer={stopTimer}
                             updateTime={updateTestTime}
                         ></TestTimer>
-                    )}
+                    )} */}
                 </p>
             </h2>
 
-            <Outlet
-                context={{
-                    test,
-                    lastTestResults,
-                    highScore,
-                    hasWonMedal,
-                    lecture,
-                    lectureId,
-                }}
-            />
+            {isTakingTest ? (
+                <TryTestView />
+            ) : (
+                <Outlet
+                    context={{
+                        test,
+                        lastTestResults,
+                        highScore,
+                        hasWonMedal,
+                        lecture,
+                        lectureId,
+                    }}
+                />
+            )}
         </div>
     );
 };

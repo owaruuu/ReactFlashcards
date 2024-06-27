@@ -34,7 +34,7 @@ const LoginControls = (props) => {
 
     const changeToUserPanel = () => {
         navigate("/profile");
-        dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+        // dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
     };
 
     const handleLogoutClick = (state) => {
@@ -45,42 +45,24 @@ const LoginControls = (props) => {
         setShowModal(state);
     };
 
-    const logout = async () => {
-        try {
-            await logoutUser();
-            navigate("/");
-            dispatch({ type: "SET_LOG_STATUS", payload: false });
-            dispatch({ type: "SET_USER", payload: { currentProgress: null } });
-            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
-            dispatch({ type: "SET_LECTURES", payload: lectures });
-            dispatch({ type: "SET_LECTURES_FLAG", payload: false });
-        } catch (error) {
-            console.log(
-                "🚀 ~ file: LoginControls.js:23 ~ logout ~ error:",
-                error
-            );
-            alert("Logout failed, server is probably down, try again later.");
-        }
-    };
-
     const loggedInControls = (
         <div className="accountButtons">
-            <button
+            {/* <button
                 className="logoutButton"
                 onClick={() => handleLogoutClick(true)}
             >
                 logout
-            </button>
-            <div className="username" onClick={handleUserPanelClick}>
+            </button> */}
+            <div className="username" onClick={changeToUserPanel}>
                 {props.userName}
             </div>
-            <LogoutModal
+            {/* <LogoutModal
                 visible={showModal}
                 hideFunc={() => handleLogoutClick(false)}
                 logoutFunc={logout}
                 userPanelFunc={changeToUserPanel}
                 buttonClicked={button}
-            />
+            /> */}
         </div>
     );
 

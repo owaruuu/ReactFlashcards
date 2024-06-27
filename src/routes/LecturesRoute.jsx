@@ -118,7 +118,6 @@ const LecturesRoute = (props) => {
 
         if (loggedIn) {
             //&& !gotLectures
-            console.warn("GETTING LECTURES");
             getLectures();
         }
     }, []);

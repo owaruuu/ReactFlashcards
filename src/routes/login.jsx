@@ -11,6 +11,8 @@ import FormInfo from "../components/Forms/FormInfo";
 
 import { useRevalidator } from "react-router-dom";
 
+import { trySetUser } from "../hooks/tempUtil";
+
 const Login = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -39,15 +41,18 @@ const Login = () => {
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
-                queryClient.invalidateQueries({
-                    queryKey: ["allDataForUser"],
-                });
-                revalidator.revalidate();
+                queryClient.resetQueries();
+                // queryClient.invalidateQueries({
+                //     queryKey: ["allDataForUser"],
+                // });
+                revalidator.revalidate(); //force retry loaders
                 navigate("/");
-                dispatch({
-                    type: "SET_LOG_STATUS",
-                    payload: true,
-                });
+
+                //cambiar
+                // dispatch({
+                //     type: "SET_LOG_STATUS",
+                //     payload: true,
+                // });
             }, 2000);
 
             return () => clearTimeout(delay);
@@ -78,9 +83,10 @@ const Login = () => {
             //obtengo informacion del idToken
             const response = await connectCognito();
 
-            //si la respuesta es -1 significa que hubo un problema con el server de cognito
-            if (response.value === -1) {
-                dispatch({ type: "SET_COGNITO_ERROR", payload: true });
+            const result = trySetUser(response, dispatch);
+            console.log("🚀 ~ handleLogin ~ result:", result);
+
+            if (result === false) {
                 return;
             }
 
@@ -89,18 +95,7 @@ const Login = () => {
             //empieza el timer para cambiar de pantalla
             setLogin(true);
 
-            //si llego aca significa que tengo el payload
-
-            dispatch({
-                type: "SET_USER",
-                payload: {
-                    userName: response.value.email,
-                },
-            });
-
-            const sub = response.value.sub;
-
-            const progress = await getUserProgress(sub);
+            const progress = await getUserProgress();
 
             if (progress) {
                 dispatch({
@@ -121,7 +116,7 @@ const Login = () => {
 
             // setThinking(false);
         } catch (error) {
-            // console.log("🚀 ~ handleLogin ~ error:", error);
+            console.log("🚀 ~ handleLogin ~ error:", error);
             setThinking(false);
             if (error.code === "ERR_NETWORK") {
                 return setMessages([
