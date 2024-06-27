@@ -16,7 +16,7 @@ import { trySetUser } from "../hooks/tempUtil";
 const Login = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    let revalidator = useRevalidator();
+    const revalidator = useRevalidator();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -41,18 +41,13 @@ const Login = () => {
     useEffect(() => {
         if (login) {
             const delay = setTimeout(() => {
+                // console.log("login in after timeout");
                 queryClient.resetQueries();
-                // queryClient.invalidateQueries({
-                //     queryKey: ["allDataForUser"],
-                // });
                 revalidator.revalidate(); //force retry loaders
-                navigate("/");
-
-                //cambiar
-                // dispatch({
-                //     type: "SET_LOG_STATUS",
-                //     payload: true,
-                // });
+                dispatch({
+                    type: "SET_LOG_STATUS",
+                    payload: true,
+                });
             }, 2000);
 
             return () => clearTimeout(delay);
@@ -77,15 +72,19 @@ const Login = () => {
         }
 
         try {
+            // console.log("trying to login");
             //verifico mis credenciales
+            //post /login
             await authenticateUser(email, password);
 
             //obtengo informacion del idToken
             const response = await connectCognito();
 
             const result = trySetUser(response, dispatch);
-            console.log("🚀 ~ handleLogin ~ result:", result);
+            //esto cambia el estado de loggedIn lo que provoca un redirect
+            //lo que quiero es que antes de hacer el cambio de estado, hacer redirect ?
 
+            //si hubo un error con cognito
             if (result === false) {
                 return;
             }
@@ -113,8 +112,6 @@ const Login = () => {
                     payload: "Database server error try refreshing the page.",
                 });
             }
-
-            // setThinking(false);
         } catch (error) {
             console.log("🚀 ~ handleLogin ~ error:", error);
             setThinking(false);

@@ -12,23 +12,23 @@ import { trySetUser } from "../hooks/tempUtil";
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
     const { dispatch, init, isTakingTest, user } = useContext(AppContext);
-    console.log("🚀 ~ Root ~ cognito:", cognito);
-    console.log("🚀 ~ Root ~ user:", user);
-    console.log("🚀 ~ Root ~ isTakingTest:", isTakingTest);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {
         const loginStatus = async () => {
-            console.log("doing loginStatus");
-            console.log("🚀 ~ loginStatus ~ cognito:", cognito);
             dispatch({ type: "SET_INIT", payload: true });
 
             const result = trySetUser(cognito, dispatch);
-            console.log("🚀 ~ loginStatus ~ result:", result);
 
+            //si hubo un error con cognito
             if (result === false) {
                 return;
             }
+
+            dispatch({
+                type: "SET_LOG_STATUS",
+                payload: true,
+            });
 
             const progress = await getUserProgress();
 
@@ -55,6 +55,7 @@ const Root = () => {
     return (
         <div className="App">
             <Header />
+            {/* <p style={{ color: "white" }}>{JSON.stringify(cognito)}</p> */}
             <div className="main">
                 {init ? (
                     <Outlet />

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 export function trySetUser(tokenPayload, dispatch) {
-    console.log("🚀 ~ trySetUser ~ tokenPayload:", tokenPayload);
+    // console.log("🚀 ~ trySetUser ~ tokenPayload:", tokenPayload);
     // const { dispatch } = useContext(AppContext);
     if (tokenPayload.value === 0) {
         return false;
@@ -23,5 +23,6 @@ export function trySetUser(tokenPayload, dispatch) {
         },
     });
 
-    dispatch({ type: "SET_LOG_STATUS", payload: true });
+    // dispatch({ type: "SET_LOG_STATUS", payload: true });
+    return true;
 }

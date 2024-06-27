@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorPage />,
         loader: connectCognito, //intento obtener credenciales
-        shouldRevalidate: () => false, //preview revalidation pero puedo aun obligarlo con 'revalidator.revalidate()'
+        // shouldRevalidate: () => false, //preview revalidation pero puedo aun obligarlo con 'revalidator.revalidate()'
         //agregar loader lecciones gratis
         //*useEffect carga mi progreso
         //no renderizo los hijos hasta que el context cambia

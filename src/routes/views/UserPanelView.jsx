@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 import { getArray, getDescription } from "../../utils/StickersUtils";
 import { logoutUser } from "../../aws/aws";
@@ -45,15 +45,11 @@ const UserPanelView = () => {
 
     //FUNCTIONS
     function handleLogoutClick(state) {
-        // if (state) {
-        //     setButton("logout");
-        // }
-
         setShowModal(state);
     }
 
     async function logout() {
-        console.warn("loggin out");
+        //1. remover cookies
         try {
             await logoutUser();
         } catch (error) {
@@ -64,7 +60,10 @@ const UserPanelView = () => {
             alert("Logout failed, server is probably down, try again later.");
         }
 
+        //2. volver a home
         navigate("/lectures");
+
+        //3. cambiar estados
         dispatch({ type: "SET_LOG_STATUS", payload: false });
         dispatch({
             type: "SET_USER",
@@ -73,8 +72,18 @@ const UserPanelView = () => {
         dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         dispatch({ type: "SET_LECTURES", payload: freeLectures });
         dispatch({ type: "SET_LECTURES_FLAG", payload: false });
+
+        //4. invalidar
         queryClient.resetQueries();
-        // revalidator.revalidate();
+
+        //timeout para evitar problemas
+        //revalidate causa que los componentes hagan rerenders
+        //lo que causa que leyendo el estado nuevo de loggedIn la ruta de panel de usuario me mande al /login
+        //podria eliminar esto y dejar que el guard se preocupe de navegar
+        setTimeout(() => {
+            // console.log("delayedRevalidation");
+            revalidator.revalidate();
+        }, 0);
     }
 
     function handleStickerClick(id) {
