@@ -1,7 +1,8 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
-import BackButton from "../../components/TestScreen/Util/BackButton";
+import BackButton from "../../components/BackButton";
 import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
+import { TiArrowBack } from "react-icons/ti";
 
 const LastResultView = () => {
     const { test, lastTestResults, lectureId } = useOutletContext();
@@ -13,8 +14,13 @@ const LastResultView = () => {
                 <p>Fecha: {date.toLocaleDateString()}</p>
                 <p>Puntaje: {lastTestResults.score[test.version]}</p>
                 <BackButton
+                    className="testBackButton"
                     dir={`/lectures/${lectureId}/test`}
-                    text={"volver"}
+                    content={
+                        <>
+                            <TiArrowBack /> Volver
+                        </>
+                    }
                 ></BackButton>
             </div>
             <TestAnswersSummary results={lastTestResults}></TestAnswersSummary>
