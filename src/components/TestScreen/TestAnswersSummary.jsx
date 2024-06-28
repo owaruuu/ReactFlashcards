@@ -57,7 +57,7 @@ const TestAnswersSummary = (props) => {
 
     const dragComponents = props.results.drag.map((elem, index) => {
         return (
-            <div className="testAnswerComponent">
+            <div key={index} className="testAnswerComponent">
                 <p>Pregunta {index + 1}:</p>
 
                 <div>
