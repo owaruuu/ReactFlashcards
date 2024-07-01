@@ -4,11 +4,10 @@ import PromptModal from "./PromptModal";
 
 const ExitTestModal = (props) => {
     // HOOKS
-    const { blocker, setIsTakingTest } = props;
+    const { blocker } = props;
 
     // FUNCTIONS
     function handleLeaveTest() {
-        setIsTakingTest(false);
         blocker.proceed();
     }
     // COMPONENTS
