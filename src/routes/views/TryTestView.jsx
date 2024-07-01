@@ -19,7 +19,7 @@ import InteractionBlocker from "../../components/LectureScreen/InteractionBlocke
 
 const TryTestView = (props) => {
     // console.log("🚀 ~ TryTestView ~ props:", props);
-    const { test, lecture } = useOutletContext();
+    const { test, lecture, setIsTakingTest } = useOutletContext();
     const { savedTest, user, dispatch } = useContext(AppContext);
     console.log("🚀 ~ TryTestView ~ savedTest:", savedTest);
     console.log(
@@ -129,13 +129,10 @@ const TryTestView = (props) => {
     //prevenimos recargar la pagina o navegar usando la barra
     useEffect(() => {
         const handleBeforeUnload = (event) => {
-            console.log("🚀 ~ handleBeforeUnload ~ savedTest:", savedTest);
             // Perform actions before the component unloads
             if (!savedTest) {
                 event.preventDefault(); //esto previene salir/recargar la pagina
                 event.returnValue = ""; //esto es necesario al parecer
-            } else {
-                //console.log("no preveni nada porque ya salve");
             }
         };
 
@@ -146,6 +143,7 @@ const TryTestView = (props) => {
         };
     }, [savedTest]);
 
+    //cada vez que empiezo una prueba reseteo el estado global de 'saveTest'
     useEffect(() => {
         dispatch({ type: "SET_SAVE_TEST", payload: false });
     }, []);
@@ -380,7 +378,10 @@ const TryTestView = (props) => {
     return (
         <>
             {blocker.state === "blocked" ? (
-                <ExitTestModal blocker={blocker} />
+                <ExitTestModal
+                    blocker={blocker}
+                    setIsTakingTest={setIsTakingTest}
+                />
             ) : null}
             <div className="titleAndPoints">
                 <TestTimer
