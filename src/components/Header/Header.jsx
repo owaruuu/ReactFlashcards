@@ -1,12 +1,11 @@
-import LoginHeader from "./LoginHeader";
 import "./Styles/Header.css";
 import { useNavigate, useRevalidator } from "react-router-dom";
+import LoginHeader from "./LoginHeader";
 
 const Header = () => {
     const navigate = useNavigate();
     const revalidator = useRevalidator();
     const handleClick = () => {
-        // window.location.reload(false);
         navigate("/");
         // revalidator.revalidate();
     };
