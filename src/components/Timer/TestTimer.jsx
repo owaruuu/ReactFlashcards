@@ -37,16 +37,12 @@ const TestTimer = (props) => {
     const timerText = overtime ? (
         "Timer detenido"
     ) : (
-        <span>
+        <>
             <span>{pad(minutes)}</span>:<span>{pad(seconds)}</span>
-        </span>
+        </>
     );
 
-    return (
-        <span style={{ textAlign: "end", color: "white" }}>
-            <span>{timerText}</span>
-        </span>
-    );
+    return <div>{timerText}</div>;
 };
 
 export default TestTimer;
