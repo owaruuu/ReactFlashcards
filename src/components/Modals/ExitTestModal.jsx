@@ -5,11 +5,9 @@ import PromptModal from "./PromptModal";
 const ExitTestModal = (props) => {
     // HOOKS
     const { blocker, setIsTakingTest } = props;
-    const { dispatch } = useContext(AppContext);
 
     // FUNCTIONS
     function handleLeaveTest() {
-        // dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         setIsTakingTest(false);
         blocker.proceed();
     }
