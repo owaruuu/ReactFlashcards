@@ -69,7 +69,6 @@ const UserPanelView = () => {
             type: "SET_USER",
             payload: { currentProgress: null, userName: "" },
         });
-        dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         dispatch({ type: "SET_LECTURES", payload: freeLectures });
         dispatch({ type: "SET_LECTURES_FLAG", payload: false });
 

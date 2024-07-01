@@ -110,14 +110,15 @@ export function useLectureMutation(queryKey) {
 /**
  * Mutation to update the test results for an user
  */
-export function useTestMutation() {
-    const { dispatch } = useContext(AppContext);
+export function useTestMutation(onSuccessCallback) {
+    // const { dispatch } = useContext(AppContext);
     return useMutation({
         mutationFn: saveUserProgress,
         retry: true,
         onSuccess: () => {
-            dispatch({ type: "SET_SAVE_TEST", payload: true });
-            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
+            onSuccessCallback();
+            // dispatch({ type: "SET_SAVE_TEST", payload: true });
+            // dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         },
     });
 }

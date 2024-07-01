@@ -8,6 +8,7 @@ const TestRoute = () => {
 
     //State
     const [isTakingTest, setIsTakingTest] = useState(false);
+    const [savedTest, setSavedTest] = useState(false);
     console.log("🚀 ~ TestRoute ~ isTakingTest:", isTakingTest);
 
     //Vars
@@ -38,6 +39,8 @@ const TestRoute = () => {
 
     return (
         <div className="testScreen">
+            {savedTest && <p>prueba guardada</p>}
+            {!savedTest && <p>prueba no guardada</p>}
             <h2 className="testTitle">
                 <p>Prueba - {lecture.name}</p>
             </h2>
@@ -52,6 +55,8 @@ const TestRoute = () => {
                     lectureId: lecture.lectureId,
                     isTakingTest,
                     setIsTakingTest,
+                    savedTest,
+                    setSavedTest,
                 }}
             />
         </div>

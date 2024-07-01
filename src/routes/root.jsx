@@ -11,7 +11,7 @@ import { trySetUser } from "../hooks/tempUtil";
 
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
-    const { dispatch, init, isTakingTest, user } = useContext(AppContext);
+    const { dispatch, init, user } = useContext(AppContext);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {

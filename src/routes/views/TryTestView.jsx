@@ -17,10 +17,9 @@ import FeedbackText from "../../components/TestScreen/FeedbackText";
 
 import InteractionBlocker from "../../components/LectureScreen/InteractionBlocker";
 
-const TryTestView = (props) => {
-    // console.log("🚀 ~ TryTestView ~ props:", props);
-    const { test, lecture, setIsTakingTest } = useOutletContext();
-    const { savedTest, user, dispatch } = useContext(AppContext);
+const TryTestView = () => {
+    const { test, lecture, savedTest, setSavedTest } = useOutletContext();
+    const { user, dispatch } = useContext(AppContext);
     console.log("🚀 ~ TryTestView ~ savedTest:", savedTest);
     console.log(
         "🚀 ~ user.currentProgress?.[lectureId]:",
@@ -35,7 +34,7 @@ const TryTestView = (props) => {
         ({ currentLocation, nextLocation }) =>
             !savedTest && currentLocation.pathname !== nextLocation.pathname
     );
-    const testMutation = useTestMutation();
+    const testMutation = useTestMutation(() => setSavedTest(true));
     console.log("🚀 ~ TryTestView ~ testMutation:", testMutation);
     const [newRecord, setNewRecord] = useState(false);
     const randomDrag = getRandomNumbersSimple(
@@ -145,7 +144,9 @@ const TryTestView = (props) => {
 
     //cada vez que empiezo una prueba reseteo el estado global de 'saveTest'
     useEffect(() => {
-        dispatch({ type: "SET_SAVE_TEST", payload: false });
+        console.log("effect try test");
+        // dispatch({ type: "SET_SAVE_TEST", payload: false });
+        setSavedTest(false);
     }, []);
 
     // FUNCTIONS
@@ -378,10 +379,7 @@ const TryTestView = (props) => {
     return (
         <>
             {blocker.state === "blocked" ? (
-                <ExitTestModal
-                    blocker={blocker}
-                    setIsTakingTest={setIsTakingTest}
-                />
+                <ExitTestModal blocker={blocker} />
             ) : null}
             <div className="titleAndPoints">
                 <TestTimer

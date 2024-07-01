@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import BackButton from "../../components/BackButton";
@@ -6,7 +6,8 @@ import { TiArrowBack } from "react-icons/ti";
 
 const TestView = () => {
     const { user, dispatch } = useContext(AppContext);
-    const { test, lectureId, setIsTakingTest } = useOutletContext();
+    const { test, lectureId, setIsTakingTest, setSavedTest } =
+        useOutletContext();
     const navigate = useNavigate();
     console.log("🚀 ~ TestView ~ test:", test);
 
@@ -41,9 +42,14 @@ const TestView = () => {
         }
     };
 
+    //EFFECTS
+    useEffect(() => {
+        setSavedTest(false);
+        setIsTakingTest(false);
+    }, []);
+
     //FUNCTIONS
     function handleBeginTest() {
-        // dispatch({ type: "SET_IS_TAKING_TEST", payload: true });
         // navigate("try", { state: { takingTest: true } });
         setIsTakingTest(true);
         navigate("try");
