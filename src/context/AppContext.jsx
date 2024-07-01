@@ -43,7 +43,7 @@ export const AppReducer = (state, action) => {
             return {
                 ...state,
                 user: { ...state.user, ...action.payload },
-                needToSave: true,
+                // needToSave: true,
             };
         case "UPDATE_USER_DATA":
             return {

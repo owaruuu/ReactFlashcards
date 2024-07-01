@@ -5,8 +5,8 @@ import BackButton from "../../components/BackButton";
 import { TiArrowBack } from "react-icons/ti";
 
 const TestView = () => {
-    const { user, dispatch, isTakingTest } = useContext(AppContext);
-    const { test, lectureId } = useOutletContext();
+    const { user, dispatch } = useContext(AppContext);
+    const { test, lectureId, setIsTakingTest } = useOutletContext();
     const navigate = useNavigate();
     console.log("🚀 ~ TestView ~ test:", test);
 
@@ -43,8 +43,10 @@ const TestView = () => {
 
     //FUNCTIONS
     function handleBeginTest() {
-        dispatch({ type: "SET_IS_TAKING_TEST", payload: true });
+        // dispatch({ type: "SET_IS_TAKING_TEST", payload: true });
         // navigate("try", { state: { takingTest: true } });
+        setIsTakingTest(true);
+        navigate("try");
     }
 
     return (
@@ -85,9 +87,6 @@ const TestView = () => {
                         Mejor Puntacion
                     </button>
                 </div>
-
-                {/* {isTakingTest && "is taking test"} */}
-
                 <button className="beginTestButton" onClick={handleBeginTest}>
                     Comenzar
                 </button>

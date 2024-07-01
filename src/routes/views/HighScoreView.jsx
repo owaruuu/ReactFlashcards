@@ -6,8 +6,7 @@ import TestResultSticker from "../../components/TestScreen/ResultStage/TestResul
 import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
 
 const HighScoreView = () => {
-    const { highScore, test, hasWonMedal, lecture, lectureId } =
-        useOutletContext();
+    const { highScore, test, hasWonMedal, lecture } = useOutletContext();
     const date = new Date(highScore.date);
     const score = highScore.score[test.version];
     const maxScore = highScore.drag.length + highScore.multiple.length;
@@ -29,7 +28,7 @@ const HighScoreView = () => {
                 <p></p>
                 <BackButton
                     className="testBackButton"
-                    dir={`/lectures/${lectureId}/test`}
+                    dir={`/lectures/${lecture.lectureId}/test`}
                     content={
                         <>
                             <TiArrowBack /> Volver

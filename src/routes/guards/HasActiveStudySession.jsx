@@ -3,7 +3,7 @@ import { Link, useOutletContext, useParams } from "react-router-dom";
 import ReviewView from "../views/ReviewView";
 
 const HasActiveStudySession = () => {
-    const { lectureQuery, lectureId } = useOutletContext();
+    const { lectureQuery, lecture } = useOutletContext();
     const { lang } = useParams();
     const [activeStudySession, setActiveStudySession] = useState(0);
 
@@ -25,7 +25,7 @@ const HasActiveStudySession = () => {
             <p>
                 No tienes una sesion activa para esta Leccion con este lenguage
             </p>
-            <Link to={`/lectures/${lectureId}`}>Volver a Leccion.</Link>
+            <Link to={`/lectures/${lecture.lectureId}`}>Volver a Leccion.</Link>
         </div>
     ) : (
         <div>HasActiveStudySession</div>

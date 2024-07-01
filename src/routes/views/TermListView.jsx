@@ -17,7 +17,6 @@ import {
 } from "../../hooks/userDataQueryHook";
 
 const TermListView = () => {
-    // console.warn("render termlistview");
     const navigate = useNavigate();
     const {
         tab,
@@ -25,21 +24,19 @@ const TermListView = () => {
         allLecturesDataQuery,
         lectureQuery,
         lecture,
-        lectureId,
         hasTest,
     } = useOutletContext();
     const { loggedIn } = useContext(AppContext);
-    console.log("🚀 ~ TermListView ~ lecture:", lecture);
 
     const [createSessionError, setCreateSessionError] = useState(false);
 
     //MUTATIONS
     const lectureMutation = useLectureMutation(
-        getLectureQueryString(lectureId)
+        getLectureQueryString(lecture.lectureId)
     );
 
     const lectureSessionMutation = useSessionMutation(
-        getLectureQueryString(lectureId)
+        getLectureQueryString(lecture.lectureId)
     );
 
     // const hasTest = tests[lecture.lectureId] !== undefined ? true : false;
@@ -47,7 +44,7 @@ const TermListView = () => {
     //funcion para los botones de highlight y mute
     function onIconClick(language, termId, newValue) {
         lectureMutation.mutate({
-            lectureId: lectureId,
+            lectureId: lecture.lectureId,
             attributeName: `${language}_terms_data`,
             newValue: {
                 ...lectureQuery.data.data[`${language}_terms_data`],
@@ -65,7 +62,7 @@ const TermListView = () => {
     async function onNewSessionCreate(language, newValue) {
         try {
             await lectureSessionMutation.mutateAsync({
-                lectureId: lectureId,
+                lectureId: lecture.lectureId,
                 attributeName: `${language}_session`,
                 newValue: newValue,
             });

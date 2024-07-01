@@ -5,7 +5,7 @@ import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
 import { TiArrowBack } from "react-icons/ti";
 
 const LastResultView = () => {
-    const { test, lastTestResults, lectureId } = useOutletContext();
+    const { test, lastTestResults, lecture } = useOutletContext();
     const date = new Date(lastTestResults.date);
 
     return (
@@ -15,7 +15,7 @@ const LastResultView = () => {
                 <p>Puntaje: {lastTestResults.score[test.version]}</p>
                 <BackButton
                     className="testBackButton"
-                    dir={`/lectures/${lectureId}/test`}
+                    dir={`/lectures/${lecture.lectureId}/test`}
                     content={
                         <>
                             <TiArrowBack /> Volver

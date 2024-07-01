@@ -44,8 +44,8 @@ const TestTimer = (props) => {
     );
 
     return (
-        <span style={{ textAlign: "center", color: "white" }}>
-            <span>- {timerText}</span>
+        <span style={{ textAlign: "end", color: "white" }}>
+            <span>{timerText}</span>
         </span>
     );
 };
