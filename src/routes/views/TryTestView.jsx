@@ -339,9 +339,9 @@ const TryTestView = () => {
     const getInstruction = (type) => {
         switch (type) {
             case "mondai":
-                return test.mondaiTitle;
+                return <p className="title">{test.mondaiTitle}</p>;
             case "drag":
-                return test.dragTitle;
+                return <p className="title">{test.dragTitle}</p>;
             default:
                 console.error("unknown type " + type);
                 break;
@@ -357,9 +357,9 @@ const TryTestView = () => {
         ) : stage === "dragDrop" ? (
             getInstruction("drag")
         ) : stage === "manga" ? (
-            <h3>Sigue la conversacion</h3>
+            <h3 className="title">Sigue la conversacion</h3>
         ) : (
-            <h3>
+            <h3 className="title">
                 Tus resultados
                 {goldAccent}
             </h3>
@@ -402,7 +402,6 @@ const TryTestView = () => {
                     stage={stage}
                     problem={{ current: problem, max: currentMax }}
                 />
-
                 {title}
                 {stage !== "results" && pointsCounter}
             </div>

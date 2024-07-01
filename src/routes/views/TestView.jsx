@@ -44,6 +44,7 @@ const TestView = () => {
 
     //EFFECTS
     useEffect(() => {
+        scrollTo(0, 0);
         setSavedTest(false);
         setIsTakingTest(false);
     }, []);
@@ -51,6 +52,7 @@ const TestView = () => {
     //FUNCTIONS
     function handleBeginTest() {
         // navigate("try", { state: { takingTest: true } });
+        scrollBy(0, 80);
         setIsTakingTest(true);
         navigate("try");
     }
