@@ -117,7 +117,11 @@ const TermList = (props) => {
                 <div className="termListButtonContainer ">
                     <InteractionBlocker
                         error={props.createSessionError}
+                        errorMsg={
+                            "Hubo un error, lo sentimos, intenta refrescar la pagina."
+                        }
                         loading={props.sessionMutationStatus === "loading"}
+                        loadingMsg={"Creando sesion..."}
                     />
                     <div className="termListButtons">
                         <p className="info">

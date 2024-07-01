@@ -4,15 +4,16 @@ import { Spinner } from "react-bootstrap";
 const InteractionBlocker = (props) => {
     if (props.error) {
         return (
-            <div className="blockScreen error">
-                <p>Hubo un error, lo sentimos, intenta refrescar la pagina.</p>
+            <div className="interactionBlocker error">
+                <p>{props.errorMsg}</p>
             </div>
         );
     }
 
     if (props.loading) {
         return (
-            <div className="blockScreen loading">
+            <div className="interactionBlocker loading">
+                <p>{props.loadingMsg}</p>
                 <Spinner />
             </div>
         );
