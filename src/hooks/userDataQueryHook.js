@@ -7,6 +7,7 @@ import {
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { getLectureQueryString } from "../utils/utils";
+import { saveUserProgress } from "../aws/aws";
 
 //query global para todas las lecciones
 export function useAllLecturesDataQuery(enabled) {
@@ -102,6 +103,21 @@ export function useLectureMutation(queryKey) {
             // queryClient.invalidateQueries({
             //     queryKey: [queryKey],
             // });
+        },
+    });
+}
+
+/**
+ * Mutation to update the test results for an user
+ */
+export function useTestMutation() {
+    const { dispatch } = useContext(AppContext);
+    return useMutation({
+        mutationFn: saveUserProgress,
+        retry: true,
+        onSuccess: () => {
+            dispatch({ type: "SET_SAVE_TEST", payload: true });
+            dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
         },
     });
 }

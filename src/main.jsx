@@ -37,6 +37,7 @@ import TestView from "./routes/views/TestView";
 import LastResultView from "./routes/views/LastResultView";
 import HighScoreView from "./routes/views/HighScoreView";
 import TryTestView from "./routes/views/TryTestView";
+import IsTakingTest from "./routes/guards/IsTakingTest";
 
 const router = createBrowserRouter([
     {
@@ -107,7 +108,11 @@ const router = createBrowserRouter([
                                     },
                                     {
                                         path: "/lectures/:lectureId/test/try",
-                                        element: <TryTestView />,
+                                        element: (
+                                            <IsTakingTest
+                                                element={<TryTestView />}
+                                            />
+                                        ),
                                         //vista que muestra la prueba y sus pantallas
                                     },
                                     {

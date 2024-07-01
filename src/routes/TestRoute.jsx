@@ -11,12 +11,13 @@ import { AppContext } from "../context/AppContext";
 import TryTestView from "./views/TryTestView";
 
 const TestRoute = () => {
-    const { user, isTakingTest } = useContext(AppContext);
-    const { test, hasTest, lectureId, lecture } = useOutletContext();
+    const { user } = useContext(AppContext);
+    const { test, hasTest, lecture } = useOutletContext();
     // console.log("🚀 ~ TestRoute ~ test:", test);
 
     //State
-    const [problem, setProblem] = useState(0); //en que problema vamos, ej. 1/5
+    const [isTakingTest, setIsTakingTest] = useState(false);
+    console.log("🚀 ~ TestRoute ~ isTakingTest:", isTakingTest);
     const [stage, setStage] = useState("begin");
     const [score, setScore] = useState(0);
     const [stopTimer, setStopTimer] = useState(false);
@@ -44,8 +45,9 @@ const TestRoute = () => {
     });
 
     //Vars
-    const lastTestResults = user.currentProgress[lectureId]?.["lastTest"];
-    const highScore = user.currentProgress[lectureId]?.["highScore"];
+    const lastTestResults =
+        user.currentProgress[lecture.lectureId]?.["lastTest"];
+    const highScore = user.currentProgress[lecture.lectureId]?.["highScore"];
     const goldAccent = <span className="goldAccent">:</span>;
     const [hasWonMedal] = useState(() => {
         const hasMedal = user.currentProgress.stickers?.[lecture.lectureId];
@@ -125,7 +127,9 @@ const TestRoute = () => {
         return (
             <div style={{ color: "white" }}>
                 <p>Esta leccion no tiene prueba.</p>
-                <Link to={`/lectures/${lectureId}`}>Volver a Leccion.</Link>
+                <Link to={`/lectures/${lecture.lectureId}`}>
+                    Volver a Leccion.
+                </Link>
             </div>
         );
     }
@@ -144,8 +148,8 @@ const TestRoute = () => {
                 </p>
             </h2>
 
-            {isTakingTest ? (
-                <TryTestView />
+            {/* {isTakingTest ? (
+                <TryTestView test={test} lecture={lecture} />
             ) : (
                 <Outlet
                     context={{
@@ -154,10 +158,25 @@ const TestRoute = () => {
                         highScore,
                         hasWonMedal,
                         lecture,
-                        lectureId,
+                        lectureId: lecture.lectureId,
+                        isTakingTest,
+                        setIsTakingTest,
                     }}
                 />
-            )}
+            )} */}
+
+            <Outlet
+                context={{
+                    test,
+                    lastTestResults,
+                    highScore,
+                    hasWonMedal,
+                    lecture,
+                    lectureId: lecture.lectureId,
+                    isTakingTest,
+                    setIsTakingTest,
+                }}
+            />
         </div>
     );
 };

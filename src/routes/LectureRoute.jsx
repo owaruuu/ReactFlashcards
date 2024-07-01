@@ -92,7 +92,7 @@ const LectureRoute = () => {
                     allLecturesDataQuery: outCtx.allLecturesDataQuery,
                     lectureQuery,
                     lecture,
-                    lectureId,
+                    // lectureId,
                     test,
                     hasTest,
                 }}
