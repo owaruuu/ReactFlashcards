@@ -6,6 +6,7 @@
   width: 100%;
   min-height: 70vh;
   overflow: hidden;
+  margin-bottom: 125px;
 }
 .main .interactionBlocker {
   display: flex;
@@ -293,7 +294,15 @@
   display: grid;
   align-items: center;
   grid-template-columns: 15% 70% 15%;
-  grid-template-areas: ". title points";
+  grid-template-areas: "counter title points";
+}
+.main .testScreen .titleAndPoints .problemCounter {
+  grid-area: counter;
+}
+.main .testScreen .titleAndPoints .title {
+  font-size: 14px;
+  margin: 0;
+  grid-area: title;
 }
 .main .testScreen .titleAndPoints .pointsCounter {
   display: flex;
@@ -578,6 +587,9 @@
   20% {
     transform: translateY(-10px);
   }
+}
+.main .testScreen .resultContent hr {
+  margin: 20px 0;
 }
 .main .testScreen .testBackButton {
   background-color: #404040;

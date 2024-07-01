@@ -9,6 +9,7 @@
     width: 100%;
     min-height: 70vh;
     overflow: hidden;
+    margin-bottom: 125px;
     // margin-top: 115px;
     // justify-content: space-evenly;
 
@@ -348,7 +349,17 @@
             display: grid;
             align-items: center;
             grid-template-columns: 15% 70% 15%;
-            grid-template-areas: ". title points";
+            grid-template-areas: "counter title points";
+
+            .problemCounter {
+                grid-area: counter;
+            }
+
+            .title {
+                font-size: 14px;
+                margin: 0;
+                grid-area: title;
+            }
 
             .pointsCounter {
                 display: flex;
@@ -689,6 +700,10 @@
                 20% {
                     transform: translateY(-10px);
                 }
+            }
+
+            hr {
+                margin: 20px 0;
             }
         }
 
