@@ -7,7 +7,7 @@ const Header = () => {
     const revalidator = useRevalidator();
     const handleClick = () => {
         navigate("/");
-        // revalidator.revalidate();
+        revalidator.revalidate();
     };
 
     return (
