@@ -38,8 +38,7 @@ const TestTimer = (props) => {
         "Timer detenido"
     ) : (
         <span>
-            <span>{pad(hours)}</span>:<span>{pad(minutes)}</span>:
-            <span>{pad(seconds)}</span>
+            <span>{pad(minutes)}</span>:<span>{pad(seconds)}</span>
         </span>
     );
 

@@ -593,7 +593,27 @@
   margin: 0;
 }
 .main .testScreen .problemCounter {
+  display: flex;
+  justify-self: end;
+  background-color: #880000;
+  border-radius: 100px;
+  height: 40px;
+  width: 40px;
   font-size: 0.8rem;
+}
+.main .testScreen .problemCounter p {
+  margin: auto;
+  font-size: 10px;
+}
+@media (min-width: 768px) {
+  .main .testScreen .problemCounter p {
+    font-size: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .main .testScreen .problemCounter {
+    width: 75px;
+  }
 }
 .main .testScreen .upArrow {
   font-size: 1.3rem;
@@ -624,8 +644,13 @@
   margin: 0;
 }
 .main .testScreen .testFeedbackContainer {
-  width: 60%;
+  width: 100%;
   position: relative;
+}
+@media (min-width: 768px) {
+  .main .testScreen .testFeedbackContainer {
+    width: 60%;
+  }
 }
 .main .testScreen .dropContainer .dragHereText {
   position: absolute;

@@ -6,7 +6,9 @@ const ProblemCounter = (props) => {
             case "manga":
                 return (
                     <div className={props.className}>
-                        {props.problem.current + 1}/{props.problem.max}
+                        <p>
+                            {props.problem.current + 1}/{props.problem.max}
+                        </p>
                     </div>
                 );
             default:

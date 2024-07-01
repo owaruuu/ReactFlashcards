@@ -397,20 +397,20 @@ const TryTestView = () => {
                 </p>
             )}
             <div className="titleAndPoints">
-                <TestTimer
-                    stopTimer={stopTimer}
-                    updateTime={updateTestTime}
-                ></TestTimer>
-                {title}
-                {stage !== "results" && pointsCounter}
-            </div>
-            <div>
                 <ProblemCounter
                     className="problemCounter"
                     stage={stage}
                     problem={{ current: problem, max: currentMax }}
                 />
+
+                {title}
+                {stage !== "results" && pointsCounter}
             </div>
+            <TestTimer
+                stopTimer={stopTimer}
+                updateTime={updateTestTime}
+            ></TestTimer>
+
             {stage === "mondai" && (
                 <Mondai
                     mondai={fiveMondai}

@@ -714,7 +714,26 @@
         }
 
         .problemCounter {
+            display: flex;
+            justify-self: end;
+            background-color: #880000;
+            border-radius: 100px;
+            height: 40px;
+            width: 40px;
             font-size: 0.8rem;
+
+            p {
+                margin: auto;
+                font-size: 10px;
+
+                @media (min-width: 768px) {
+                    font-size: 15px;
+                }
+            }
+
+            @media (min-width: 768px) {
+                width: 75px;
+            }
         }
 
         .upArrow {
@@ -770,8 +789,12 @@
         }
 
         .testFeedbackContainer {
-            width: 60%;
+            width: 100%;
             position: relative;
+
+            @media (min-width: 768px) {
+                width: 60%;
+            }
         }
 
         .dropContainer {
