@@ -52,8 +52,6 @@ export const AppReducer = (state, action) => {
             };
         // case "SET_SAVE_FLAG":
         //     return { ...state, needToSave: action.payload };
-        case "SET_IS_TAKING_TEST":
-            return { ...state, isTakingTest: action.payload };
         case "SET_SAVE_TEST":
             return { ...state, savedTest: action.payload };
         case "SET_SAVE_ERROR":
@@ -81,7 +79,6 @@ const initialState = {
     loggedIn: false, //true si ya confirme que tengo tokens validos
     loginControlErrorMessage: "",
     gotLectures: false,
-    isTakingTest: false,
     savedTest: false,
     saveError: false,
     dbError: false,
@@ -112,7 +109,6 @@ export const AppProvider = (props) => {
                 loggedIn: state.loggedIn,
                 loginControlErrorMessage: state.loginControlErrorMessage,
                 gotLectures: state.gotLectures,
-                isTakingTest: state.isTakingTest,
                 savedTest: state.savedTest,
                 saveError: state.saveError,
                 dbError: state.dbError,
