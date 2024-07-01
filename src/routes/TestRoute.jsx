@@ -1,9 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { FaExclamationTriangle } from "react-icons/fa";
-import { ImCheckmark } from "react-icons/im";
-import { BsFillExclamationTriangleFill } from "react-icons/bs";
 
 const TestRoute = () => {
     const { user } = useContext(AppContext);
@@ -42,18 +39,6 @@ const TestRoute = () => {
 
     return (
         <div className="testScreen">
-            {!savedTest && (
-                <p style={{ fontSize: "12px" }}>
-                    Debes terminar la prueba por completo para guardar tus
-                    resultados. <FaExclamationTriangle color="yellow" />
-                </p>
-            )}
-            {!savedTest && (
-                <p style={{ fontSize: "12px" }}>
-                    Se ha guardado tu prueba.
-                    <ImCheckmark color="green" />
-                </p>
-            )}
             <h2 className="testTitle">
                 <p>Prueba - {lecture.name}</p>
             </h2>

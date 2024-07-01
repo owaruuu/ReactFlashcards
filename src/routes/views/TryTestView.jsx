@@ -17,6 +17,9 @@ import FeedbackText from "../../components/TestScreen/FeedbackText";
 
 import InteractionBlocker from "../../components/LectureScreen/InteractionBlocker";
 
+import { FaExclamationTriangle } from "react-icons/fa";
+import { ImCheckmark } from "react-icons/im";
+
 const TryTestView = () => {
     const { test, lecture, savedTest, setSavedTest } = useOutletContext();
     const { user, dispatch } = useContext(AppContext);
@@ -381,6 +384,18 @@ const TryTestView = () => {
             {blocker.state === "blocked" ? (
                 <ExitTestModal blocker={blocker} />
             ) : null}
+            {!savedTest && (
+                <p style={{ fontSize: "12px" }}>
+                    Debes terminar la prueba para guardar tus resultados.{" "}
+                    <FaExclamationTriangle color="yellow" />
+                </p>
+            )}
+            {savedTest && (
+                <p style={{ fontSize: "12px" }}>
+                    Se ha guardado tu prueba.
+                    <ImCheckmark color="green" />
+                </p>
+            )}
             <div className="titleAndPoints">
                 <TestTimer
                     stopTimer={stopTimer}
