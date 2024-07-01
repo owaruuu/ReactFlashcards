@@ -1,7 +1,8 @@
-import BackButton from "../Util/BackButton";
+import { useState } from "react";
 import TestAnswersSummary from "../TestAnswersSummary";
 import TestResultSticker from "./TestResultSticker";
-import { useState } from "react";
+import BackButton from "../../BackButton";
+import { TiArrowBack } from "react-icons/ti";
 
 const ResultStage = (props) => {
     // const percent = (props.score * 100) / props.maxScore;
@@ -61,8 +62,13 @@ const ResultStage = (props) => {
                 lectureName={props.lectureName}
             />
             <BackButton
-                text={"Volver a Leccion"}
-                stage={"results"}
+                className="testBackButton"
+                dir={`/lectures/${props.lectureId}/test`}
+                content={
+                    <>
+                        <TiArrowBack /> Volver a la leccion
+                    </>
+                }
             ></BackButton>
             <hr></hr>
             <p>
