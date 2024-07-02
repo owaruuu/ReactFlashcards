@@ -3,9 +3,16 @@ import { AppContext } from "../../../context/AppContext";
 import Spinner from "react-bootstrap/Spinner";
 import { useNavigate } from "react-router-dom";
 
-const LoginControls = (props) => {
-    const { dbError, init, loggedIn, loginControlErrorMessage, serverError } =
-        useContext(AppContext);
+const LoginControls = () => {
+    const {
+        dbError,
+        init,
+        loggedIn,
+        loginControlErrorMessage,
+        serverError,
+        user,
+    } = useContext(AppContext);
+    console.log("🚀 ~ LoginControls ~ user:", user);
 
     const navigate = useNavigate();
 
@@ -16,7 +23,7 @@ const LoginControls = (props) => {
     const loggedInControls = (
         <div className="accountButtons">
             <div className="username" onClick={changeToUserPanel}>
-                {props.userName}
+                {user.userName}
             </div>
         </div>
     );

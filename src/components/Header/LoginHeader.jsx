@@ -4,15 +4,11 @@ import LoginControls from "./Components/LoginControls";
 import ConnectionErrorIcon from "./Components/ConnectionErrorIcon";
 
 const LoginHeader = () => {
-    const { user, saveError, loginControlErrorMessage } =
-        useContext(AppContext);
+    const { saveError } = useContext(AppContext);
 
     return (
         <div className="loginControls">
-            <LoginControls
-                errorMsg={loginControlErrorMessage}
-                userName={user.userName}
-            />
+            <LoginControls />
             {saveError ? <ConnectionErrorIcon /> : ""}
         </div>
     );
