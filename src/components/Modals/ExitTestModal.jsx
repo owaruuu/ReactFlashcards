@@ -9,6 +9,7 @@ const ExitTestModal = (props) => {
     // FUNCTIONS
     function handleLeaveTest() {
         blocker.proceed();
+        scrollTo(0, 0);
     }
     // COMPONENTS
     const proceedButton = <button onClick={handleLeaveTest}>Salir</button>;
