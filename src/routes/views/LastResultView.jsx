@@ -1,11 +1,20 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
 import BackButton from "../../components/BackButton";
 import { TiArrowBack } from "react-icons/ti";
 
 const LastResultView = () => {
     const { test, lastTestResults, lecture } = useOutletContext();
+
+    if (!lastTestResults) {
+        return (
+            <div className="lastTestResume">
+                <p>Nunca has dado esta prueba.</p>
+                <Link to={`/lectures/${lecture.lectureId}/test`}>Volver.</Link>
+            </div>
+        );
+    }
     const date = new Date(lastTestResults.date);
 
     return (

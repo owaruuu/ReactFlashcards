@@ -1,5 +1,5 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import { TiArrowBack } from "react-icons/ti";
 import TestResultSticker from "../../components/TestScreen/ResultStage/TestResultSticker";
@@ -7,6 +7,16 @@ import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
 
 const HighScoreView = () => {
     const { highScore, test, hasWonMedal, lecture } = useOutletContext();
+
+    if (!highScore) {
+        return (
+            <div className="highScoreResume">
+                <p>Nunca has dado esta prueba.</p>
+                <Link to={`/lectures/${lecture.lectureId}/test`}>Volver.</Link>
+            </div>
+        );
+    }
+
     const date = new Date(highScore.date);
     const score = highScore.score[test.version];
     const maxScore = highScore.drag.length + highScore.multiple.length;
