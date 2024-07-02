@@ -207,7 +207,7 @@ export const tests = {
                     { id: 4, drag: "あなた" },
                     { id: 5, drag: "も" },
                     { id: 6, drag: "げんき" },
-                    { id: 7, drag: "です。" },
+                    { id: 7, drag: "です" },
                     { id: 8, drag: "か？" },
                 ],
             ],
