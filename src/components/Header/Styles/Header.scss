@@ -80,6 +80,7 @@
     .loginControls {
         @media (min-width: 768px) {
             margin: 0;
+            width: auto;
             // margin-bottom: 0;
             // padding: 0;
             // flex-direction: row;
@@ -89,7 +90,7 @@
                 border: none;
                 background-color: $background-blue;
                 color: $cloud-white;
-                margin-right: 15px;
+                // margin-right: 15px;
 
                 &:hover {
                     color: $border-yellow;
@@ -131,13 +132,27 @@
                 }
             }
         }
-        margin: auto;
+
+        width: 100%;
+        // margin: auto;
         display: flex;
         // flex-direction: column-reverse;
         // padding: 0 10px;
         text-align: center;
         overflow: hidden;
         // margin-bottom: 10px;
+
+        .loggedOutControlsContainer {
+            display: flex;
+            width: 100%;
+
+            .registerButton {
+                flex: 1;
+            }
+            .loginButton {
+                flex: 1;
+            }
+        }
 
         p {
             font-size: 14px;
@@ -176,7 +191,7 @@
 
         .loginButton {
             background-color: $stripes-red;
-            padding: 0 40px;
+            // padding: 0 40px;
             color: white;
             border: none;
 

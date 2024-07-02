@@ -71,7 +71,7 @@
   margin-right: auto;
 }
 .header .loginControls {
-  margin: auto;
+  width: 100%;
   display: flex;
   text-align: center;
   overflow: hidden;
@@ -79,12 +79,12 @@
 @media (min-width: 768px) {
   .header .loginControls {
     margin: 0;
+    width: auto;
   }
   .header .loginControls button {
     border: none;
     background-color: #032745;
     color: #f5fcff;
-    margin-right: 15px;
   }
   .header .loginControls button:hover {
     color: #f5b64e;
@@ -118,6 +118,16 @@
     left: 0px;
   }
 }
+.header .loginControls .loggedOutControlsContainer {
+  display: flex;
+  width: 100%;
+}
+.header .loginControls .loggedOutControlsContainer .registerButton {
+  flex: 1;
+}
+.header .loginControls .loggedOutControlsContainer .loginButton {
+  flex: 1;
+}
 .header .loginControls p {
   font-size: 14px;
 }
@@ -148,7 +158,6 @@
 }
 .header .loginControls .loginButton {
   background-color: #ab071d;
-  padding: 0 40px;
   color: white;
   border: none;
 }

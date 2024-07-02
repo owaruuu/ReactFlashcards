@@ -29,7 +29,7 @@ const LoginControls = () => {
     );
 
     const loggedOutControls = (
-        <>
+        <div className="loggedOutControlsContainer">
             <button
                 className="registerButton"
                 onClick={() => navigate("/register")}
@@ -39,7 +39,7 @@ const LoginControls = () => {
             <button className="loginButton" onClick={() => navigate("/login")}>
                 Login
             </button>
-        </>
+        </div>
     );
 
     const setupControls = () => {
