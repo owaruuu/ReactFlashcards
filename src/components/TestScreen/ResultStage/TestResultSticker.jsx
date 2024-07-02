@@ -18,7 +18,7 @@ const TestResultSticker = (props) => {
         </Spinner>
     );
     const stickerName = getName(props.lectureId);
-    console.log("🚀 ~ TestResultSticker ~ stickerName:", stickerName);
+    // console.log("🚀 ~ TestResultSticker ~ stickerName:", stickerName);
     const tooltipMessage = `${stickerName}, Sticker para la prueba de ${props.lectureName}`;
 
     const loaded = () => {

@@ -12,7 +12,7 @@ const LoginControls = () => {
         serverError,
         user,
     } = useContext(AppContext);
-    console.log("🚀 ~ LoginControls ~ user:", user);
+    // console.log("🚀 ~ LoginControls ~ user:", user);
 
     const navigate = useNavigate();
 

@@ -53,6 +53,7 @@ const DragDrop = (props) => {
     }, [problem]);
 
     const handleAnswerButton = () => {
+        // console.log("handling answer button");
         if (currentAnswer === currentCorrectAnswer) {
             handleClick({
                 prompt: currentPhrase,

@@ -3,6 +3,7 @@ import BackButton from "../Util/BackButton";
 
 const LastResultsStage = (props) => {
     const results = props.progress[props.lectureId].lastTest;
+    // console.log("🚀 ~ LastResultsStage ~ results:", results);
     const date = new Date(results.date);
 
     return (

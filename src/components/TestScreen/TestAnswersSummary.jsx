@@ -5,6 +5,7 @@ import { FaRegCircle } from "react-icons/fa6";
 import { TbPointFilled } from "react-icons/tb";
 
 const TestAnswersSummary = (props) => {
+    // console.log("🚀 ~ TestAnswersSummary ~ props:", props);
     const multipleChoiceComponents = props.results.multiple.map(
         (elem, index) => {
             return (

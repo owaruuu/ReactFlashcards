@@ -5,11 +5,10 @@ import BackButton from "../../components/BackButton";
 import { TiArrowBack } from "react-icons/ti";
 
 const TestView = () => {
-    const { user, dispatch } = useContext(AppContext);
+    const { user } = useContext(AppContext);
     const { test, lectureId, setIsTakingTest, setSavedTest } =
         useOutletContext();
     const navigate = useNavigate();
-    console.log("🚀 ~ TestView ~ test:", test);
 
     //Vars
     const mondaiQuantity =

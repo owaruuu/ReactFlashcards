@@ -9,7 +9,7 @@ const TestRoute = () => {
     //State
     const [isTakingTest, setIsTakingTest] = useState(false);
     const [savedTest, setSavedTest] = useState(false);
-    console.log("🚀 ~ TestRoute ~ isTakingTest:", isTakingTest);
+    // console.log("🚀 ~ TestRoute ~ isTakingTest:", isTakingTest);
 
     //Vars
     const lastTestResults =
