@@ -23,13 +23,13 @@ import { ImCheckmark } from "react-icons/im";
 const TryTestView = () => {
     const { test, lecture, savedTest, setSavedTest } = useOutletContext();
     const { user, dispatch } = useContext(AppContext);
-    console.log("🚀 ~ TryTestView ~ savedTest:", savedTest);
-    console.log(
-        "🚀 ~ user.currentProgress?.[lectureId]:",
-        // JSON.stringify(user.currentProgress)
-        // JSON.stringify(user.currentProgress.currentProgress)
-        user.currentProgress
-    );
+    // console.log("🚀 ~ TryTestView ~ savedTest:", savedTest);
+    // console.log(
+    //     "🚀 ~ user.currentProgress?.[lectureId]:",
+    //     // JSON.stringify(user.currentProgress)
+    //     // JSON.stringify(user.currentProgress.currentProgress)
+    //     user.currentProgress
+    // );
 
     //HOOKS
     //Bloquea la navegacion usando React Router
@@ -38,7 +38,7 @@ const TryTestView = () => {
             !savedTest && currentLocation.pathname !== nextLocation.pathname
     );
     const testMutation = useTestMutation(() => setSavedTest(true));
-    console.log("🚀 ~ TryTestView ~ testMutation:", testMutation);
+    // console.log("🚀 ~ TryTestView ~ testMutation:", testMutation);
     const [newRecord, setNewRecord] = useState(false);
     const randomDrag = getRandomNumbersSimple(
         test.dragOptions.quantity,
@@ -81,10 +81,10 @@ const TryTestView = () => {
             return 0;
         }
     });
-    console.log(
-        "🚀 ~ const[previousHighScore]=useState ~ previousHighScore:",
-        previousHighScore
-    );
+    // console.log(
+    //     "🚀 ~ const[previousHighScore]=useState ~ previousHighScore:",
+    //     previousHighScore
+    // );
     const [stage, setStage] = useState("mondai");
     const [problem, setProblem] = useState(0); //en que problema vamos, ej. 1/5
 
@@ -98,6 +98,7 @@ const TryTestView = () => {
         multiple: [],
         drag: [],
     });
+    // console.log("🚀 ~ TryTestView ~ answers:", answers);
 
     const [timerInfo, setTimerInfo] = useState({
         totalSeconds: 0,
@@ -126,6 +127,7 @@ const TryTestView = () => {
     const [incorrectDrag, setIncorrectDrag] = useState(false);
 
     const [thinking, setThinking] = useState(false);
+    const [endTest, setEndTest] = useState(false);
 
     //EFFECTS
     //prevenimos recargar la pagina o navegar usando la barra
@@ -147,10 +149,19 @@ const TryTestView = () => {
 
     //cada vez que empiezo una prueba reseteo el estado global de 'saveTest'
     useEffect(() => {
-        console.log("effect try test");
+        // console.log("effect try test");
         // dispatch({ type: "SET_SAVE_TEST", payload: false });
         setSavedTest(false);
     }, []);
+
+    useEffect(() => {
+        if (endTest) {
+            // console.log("respondi el ultimo problema");
+            // console.log("🚀 ~ TryTestView ~ answers:", answers);
+            handleSaveTestScore();
+        }
+        // console.log("answers effect");
+    }, [answers, endTest]);
 
     // FUNCTIONS
     const updateTestTime = (info) => {
@@ -183,12 +194,12 @@ const TryTestView = () => {
                 setFeedback((prev) => {
                     return { ...prev, nextButtonText: "Ver Resultados" };
                 });
-                handleSaveTestScore();
             }
         }
     };
 
     const writeAnswer = (type, info) => {
+        // console.log("writing answers");
         setAnswers({
             ...answers,
             [type]: [
@@ -270,11 +281,14 @@ const TryTestView = () => {
             setFeedback((prev) => {
                 return { ...prev, nextButtonText: "Ver Resutados" };
             });
-            handleSaveTestScore();
+            setEndTest(true);
+            // handleSaveTestScore();
         }
     };
 
     const handleSaveTestScore = () => {
+        // console.log("handling save test score");
+        // console.log("🚀 ~ handleSaveTestScore ~ answers:", answers);
         // if (dbError || !loggedIn) {
         //     //  "no tengo acceso a la db entonces no puedo salvar el testScore"
         //     return;
@@ -312,11 +326,11 @@ const TryTestView = () => {
                 score: { [test.version]: score },
                 timer: timerInfo,
             };
-            console.log("new record");
-            console.log(
-                "🚀 ~ handleSaveTestScore ~ payloadObject:",
-                payloadObject
-            );
+            // console.log("new record");
+            // console.log(
+            //     "🚀 ~ handleSaveTestScore ~ payloadObject:",
+            //     payloadObject
+            // );
             testMutation.mutate(payloadObject.currentProgress);
             dispatch({
                 type: "UPDATE_PROGRESS",
@@ -327,11 +341,11 @@ const TryTestView = () => {
                 type: "UPDATE_PROGRESS",
                 payload: payloadObject,
             });
-            console.log("no new record");
-            console.log(
-                "🚀 ~ handleSaveTestScore ~ payloadObject:",
-                payloadObject
-            );
+            // console.log("no new record");
+            // console.log(
+            //     "🚀 ~ handleSaveTestScore ~ payloadObject:",
+            //     payloadObject
+            // );
             testMutation.mutate(payloadObject.currentProgress);
         }
     };
