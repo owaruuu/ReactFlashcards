@@ -1,6 +1,12 @@
 @import "../../../Styles/Theme";
 
 .header {
+    @media (min-width: 768px) {
+        flex-direction: row;
+        padding-left: 20px;
+        justify-content: space-between;
+    }
+
     height: 80px;
     z-index: 15;
     // position: fixed;
@@ -9,7 +15,7 @@
     background-color: #032745;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
     color: $cloud-white;
     border-bottom: 4px solid $stripes-red !important;
 
@@ -72,12 +78,70 @@
     }
 
     .loginControls {
+        @media (min-width: 768px) {
+            margin: 0;
+            // margin-bottom: 0;
+            // padding: 0;
+            // flex-direction: row;
+            // flex-grow: 1;
+
+            button {
+                border: none;
+                background-color: $background-blue;
+                color: $cloud-white;
+                margin-right: 15px;
+
+                &:hover {
+                    color: $border-yellow;
+                }
+            }
+
+            .infoHeader {
+                flex: 2;
+            }
+
+            .username {
+                flex: 1;
+                background: #ab071d;
+                color: white;
+                border-style: none;
+                width: 100%;
+                padding-right: 50px;
+                padding-left: 20px;
+                align-self: center;
+            }
+
+            .yellowBar {
+                position: relative;
+                left: 400px;
+                background-color: $border-yellow;
+                height: 3px;
+                width: 100%;
+                transition: 0.4s;
+                transition-timing-function: ease;
+            }
+
+            p {
+                margin: auto;
+            }
+
+            &:hover {
+                .yellowBar {
+                    left: 0px;
+                }
+            }
+        }
+        margin: auto;
         display: flex;
-        flex-direction: column-reverse;
-        padding: 0 10px;
+        // flex-direction: column-reverse;
+        // padding: 0 10px;
         text-align: center;
         overflow: hidden;
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
+
+        p {
+            font-size: 14px;
+        }
 
         .accountButtons {
             display: flex;
@@ -131,55 +195,6 @@
             background-color: $background-blue;
             color: $cloud-white;
         }
-
-        @media (min-width: 768px) {
-            margin-bottom: 0;
-            padding: 0;
-            flex-direction: row;
-            flex-grow: 1;
-
-            button {
-                border: none;
-                background-color: $background-blue;
-                color: $cloud-white;
-                margin-right: 15px;
-
-                &:hover {
-                    color: $border-yellow;
-                }
-            }
-
-            .infoHeader {
-                flex: 2;
-            }
-
-            .username {
-                flex: 1;
-                background: #ab071d;
-                color: white;
-                border-style: none;
-                width: 100%;
-                padding-right: 50px;
-                padding-left: 20px;
-                align-self: center;
-            }
-
-            .yellowBar {
-                position: relative;
-                left: 400px;
-                background-color: $border-yellow;
-                height: 3px;
-                width: 100%;
-                transition: 0.4s;
-                transition-timing-function: ease;
-            }
-
-            &:hover {
-                .yellowBar {
-                    left: 0px;
-                }
-            }
-        }
     }
 
     .not-logged {
@@ -188,10 +203,5 @@
 
     p {
         margin: 0;
-    }
-
-    @media (min-width: 768px) {
-        flex-direction: row;
-        padding-left: 20px;
     }
 }

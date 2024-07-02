@@ -11,7 +11,7 @@ export function trySetUser(tokenPayload, dispatch) {
         dispatch({ type: "SET_SERVER_ERROR", payload: true });
         dispatch({
             type: "SET_LOGIN_CONTROL_MSG",
-            payload: "Server error, try refreshing the page.",
+            payload: "Error con el servidor, intenta refrescando la pagina.",
         });
         return false;
     }

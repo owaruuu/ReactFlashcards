@@ -6,9 +6,15 @@
   background-color: #032745;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
   color: #f5fcff;
   border-bottom: 4px solid #ab071d !important;
+}
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    padding-left: 20px;
+    justify-content: space-between;
+  }
 }
 .header #db-error-tooltip {
   z-index: 1;
@@ -65,12 +71,55 @@
   margin-right: auto;
 }
 .header .loginControls {
+  margin: auto;
   display: flex;
-  flex-direction: column-reverse;
-  padding: 0 10px;
   text-align: center;
   overflow: hidden;
-  margin-bottom: 10px;
+}
+@media (min-width: 768px) {
+  .header .loginControls {
+    margin: 0;
+  }
+  .header .loginControls button {
+    border: none;
+    background-color: #032745;
+    color: #f5fcff;
+    margin-right: 15px;
+  }
+  .header .loginControls button:hover {
+    color: #f5b64e;
+  }
+  .header .loginControls .infoHeader {
+    flex: 2;
+  }
+  .header .loginControls .username {
+    flex: 1;
+    background: #ab071d;
+    color: white;
+    border-style: none;
+    width: 100%;
+    padding-right: 50px;
+    padding-left: 20px;
+    align-self: center;
+  }
+  .header .loginControls .yellowBar {
+    position: relative;
+    left: 400px;
+    background-color: #f5b64e;
+    height: 3px;
+    width: 100%;
+    transition: 0.4s;
+    transition-timing-function: ease;
+  }
+  .header .loginControls p {
+    margin: auto;
+  }
+  .header .loginControls:hover .yellowBar {
+    left: 0px;
+  }
+}
+.header .loginControls p {
+  font-size: 14px;
 }
 .header .loginControls .accountButtons {
   display: flex;
@@ -117,57 +166,9 @@
   background-color: #032745;
   color: #f5fcff;
 }
-@media (min-width: 768px) {
-  .header .loginControls {
-    margin-bottom: 0;
-    padding: 0;
-    flex-direction: row;
-    flex-grow: 1;
-  }
-  .header .loginControls button {
-    border: none;
-    background-color: #032745;
-    color: #f5fcff;
-    margin-right: 15px;
-  }
-  .header .loginControls button:hover {
-    color: #f5b64e;
-  }
-  .header .loginControls .infoHeader {
-    flex: 2;
-  }
-  .header .loginControls .username {
-    flex: 1;
-    background: #ab071d;
-    color: white;
-    border-style: none;
-    width: 100%;
-    padding-right: 50px;
-    padding-left: 20px;
-    align-self: center;
-  }
-  .header .loginControls .yellowBar {
-    position: relative;
-    left: 400px;
-    background-color: #f5b64e;
-    height: 3px;
-    width: 100%;
-    transition: 0.4s;
-    transition-timing-function: ease;
-  }
-  .header .loginControls:hover .yellowBar {
-    left: 0px;
-  }
-}
 .header .not-logged {
   color: red;
 }
 .header p {
   margin: 0;
-}
-@media (min-width: 768px) {
-  .header {
-    flex-direction: row;
-    padding-left: 20px;
-  }
 }/*# sourceMappingURL=Header.css.map */
