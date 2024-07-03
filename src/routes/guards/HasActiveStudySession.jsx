@@ -8,15 +8,23 @@ const HasActiveStudySession = () => {
     const [activeStudySession, setActiveStudySession] = useState(0);
 
     useEffect(() => {
-        const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
-        //verificar que tengo ids en esta sesion
+        const termsIds = lectureQuery?.data?.data?.[`${lang}_session`]?.terms;
+        //verificar que tengo ids en esta sesionasdas
 
-        if (termsIds.length === 0 || !termsIds) {
+        if (!termsIds) {
+            return setActiveStudySession(-1);
+        }
+
+        if (termsIds.length === 0) {
             setActiveStudySession(-1);
         } else {
             setActiveStudySession(1);
         }
     }, []);
+
+    if (lang !== "japanese" && lang !== "spanish") {
+        throw new Error("Wrong Lang");
+    }
 
     return activeStudySession === 1 ? (
         <ReviewView />

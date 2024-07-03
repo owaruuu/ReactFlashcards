@@ -22,6 +22,7 @@ const LectureRoute = () => {
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+    // console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
 
     if (!loggedIn) {
         //logged out simple view
@@ -76,7 +77,8 @@ const LectureRoute = () => {
         outCtx.allLecturesDataQuery.status === "error" ||
         lectureQuery.isError
     ) {
-        console.error("hubo un error con las queries");
+        // console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
+        // console.error("hubo un error con las queries");
         return <h1>hubo un error con las queries</h1>;
     }
 
@@ -100,6 +102,7 @@ const LectureRoute = () => {
         ) : (
             <Spinner />
         );
+        console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
     }
 };
 

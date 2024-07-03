@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 const ReviewView = () => {
     //lectureQuery viene lista
-    const { setTab, allLecturesDataQuery, lectureQuery, lecture, lectureId } =
+    const { setTab, allLecturesDataQuery, lectureQuery, lecture } =
         useOutletContext();
 
     const { lang } = useParams();
@@ -42,11 +42,11 @@ const ReviewView = () => {
 
     //MUTATIONS que ocuparan los botones
     const lectureMutation = useLectureMutation(
-        getLectureQueryString(lectureId)
+        getLectureQueryString(lecture.lectureId)
     );
 
     const lectureSessionMutation = useSessionMutation(
-        getLectureQueryString(lectureId)
+        getLectureQueryString(lecture.lectureId)
     );
 
     //helper para cambiar el estado de los tabs
@@ -82,7 +82,7 @@ const ReviewView = () => {
         try {
             setFeedbackMessage("Modificando termino...");
             await lectureMutation.mutateAsync({
-                lectureId: lectureId,
+                lectureId: lecture.lectureId,
                 attributeName: `${language}_terms_data`,
                 newValue: {
                     ...lectureQuery.data.data[`${language}_terms_data`],
@@ -107,7 +107,7 @@ const ReviewView = () => {
             createDissappearingCard();
             setFeedbackMessage("Cambiando termino...");
             await lectureSessionMutation.mutateAsync({
-                lectureId: lectureId,
+                lectureId: lecture.lectureId,
                 attributeName: `${lang}_session`,
                 newValue: newValue,
             });
@@ -125,12 +125,12 @@ const ReviewView = () => {
         try {
             setFeedbackMessage("Terminando sesion...");
             await lectureSessionMutation.mutateAsync({
-                lectureId: lectureId,
+                lectureId: lecture.lectureId,
                 attributeName: `${lang}_session`,
                 newValue: newValue,
             });
 
-            navigate(`/lectures/${lectureId}`);
+            navigate(`/lectures/${lecture.lectureId}`);
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(
@@ -148,6 +148,7 @@ const ReviewView = () => {
                     lectureSessionMutation.status === "loading" ||
                     lectureMutation.status === "loading"
                 }
+                // loading={true}
             />
         ) : (
             <NextButton

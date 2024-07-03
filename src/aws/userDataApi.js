@@ -39,8 +39,7 @@ export async function getLectureData(lectureId) {
     // console.warn("called get lecture data");
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
-        // console.log("🚀 ~ getLectureData ~ response:", response);
-
+        //
         let result = {
             user_id: null,
             lecture_id: lectureId,

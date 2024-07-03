@@ -42,6 +42,7 @@ export function useLectureQuery(lectureId, enabled) {
 }
 
 export function useLectureMutation(queryKey) {
+    // console.log("🚀 ~ useLectureMutation ~ queryKey:", queryKey);
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
