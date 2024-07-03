@@ -25,6 +25,7 @@
         margin: 2px 0;
 
         p {
+            text-align: center;
             align-self: center;
             justify-self: center;
             color: white;
@@ -92,6 +93,10 @@
             font-family: "Noto_Serif";
             font-size: 1.2rem;
 
+            .spinner-border {
+                color: #2b07ab;
+            }
+
             @media (min-width: 768px) {
                 margin-left: auto;
                 // margin-right: 40px;
@@ -140,8 +145,8 @@
 
     .muted {
         border: 5px solid #7a059f;
-        background-color: #333333;
-        color: #c1c1c1;
+        background-color: #333333 !important;
+        color: #c1c1c1 !important;
         .divider {
             background-color: #9b00cd;
         }

@@ -25,6 +25,7 @@
   margin: 2px 0;
 }
 .ReviewV2Screen .reviewScreenPanel p {
+  text-align: center;
   align-self: center;
   justify-self: center;
   color: white;
@@ -80,6 +81,9 @@
   font-family: "Noto_Serif";
   font-size: 1.2rem;
 }
+.ReviewV2Screen .controls .next .spinner-border {
+  color: #2b07ab;
+}
 @media (min-width: 768px) {
   .ReviewV2Screen .controls .next {
     margin-left: auto;
@@ -117,8 +121,8 @@
 }
 .ReviewV2Screen .muted {
   border: 5px solid #7a059f;
-  background-color: #333333;
-  color: #c1c1c1;
+  background-color: #333333 !important;
+  color: #c1c1c1 !important;
 }
 .ReviewV2Screen .muted .divider {
   background-color: #9b00cd;
