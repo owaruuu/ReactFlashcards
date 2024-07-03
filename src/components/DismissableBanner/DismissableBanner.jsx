@@ -8,13 +8,11 @@ const DismissableBanner = (props) => {
     const [startClosing, setStartClosing] = useState(false);
 
     const handleClose = () => {
-        console.log("close banner");
         setStartClosing(true);
         setOpacity(0);
     };
 
     const hideBanner = () => {
-        console.log("calling hide");
         setDisplay("none");
     };
 

@@ -39,7 +39,6 @@ const ConfirmationCodeSpecial = (props) => {
         event.preventDefault();
         setMessage("");
         setThinking(true);
-        console.log("confirming");
 
         const { email, code } = formData;
 

@@ -19,6 +19,13 @@ import Manga from "./Manga";
 import ResultStage from "./ResultStage/ResultStage";
 
 import TestTimer from "../Timer/TestTimer";
+//THIS IS OLD CODE
+//THIS IS OLD CODE
+//THIS IS OLD CODE
+//THIS IS OLD CODE
+//THIS IS OLD CODE
+//THIS IS OLD CODE
+//THIS IS OLD CODE
 
 const TestScreen = () => {
     const { appState, dispatch, user, dbError, loggedIn, savedTest } =

@@ -102,7 +102,6 @@ const LectureRoute = () => {
         ) : (
             <Spinner />
         );
-        console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
     }
 };
 

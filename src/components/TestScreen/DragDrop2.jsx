@@ -24,10 +24,6 @@ const DragDrop2 = (props) => {
     const { test, problem, correct, incorrect, thinking, handleClick } = props;
     //el array de opciones revueltas
     const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
-    console.log(
-        "🚀 ~ file: DragDrop.js:9 ~ DragDrop ~ currentOptionsElem:",
-        currentOptionsElem
-    );
     const currentPhrase = test.dragDrop[problem][0];
 
     useEffect(() => {
