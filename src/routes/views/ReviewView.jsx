@@ -250,7 +250,9 @@ const ReviewView = () => {
                             : false
                     }
                     state={
-                        lectureQuery.data?.data?.[`${lang}_terms_data`][termId]
+                        lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
+                            termId
+                        ]
                     } //
                     language={lang}
                     onIconClick={onIconClick}
