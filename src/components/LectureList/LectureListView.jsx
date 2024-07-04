@@ -37,15 +37,22 @@ const LectureListView = () => {
                         <div className="ordering">
                             <span>ordernar por: </span>
                             <ReorderButton
-                                name={"date"}
-                                text={"fecha sesión"}
-                                state={outCtx.dateButtonState}
+                                name={"jpnDate"}
+                                text={"fecha sesión jpn"}
+                                state={outCtx.japaneseDateButtonState}
                                 onClick={outCtx.cycleState}
-                                callback={outCtx.setDateButtonState}
+                                callback={outCtx.setJapaneseDateButtonState}
+                            />
+                            <ReorderButton
+                                name={"espDate"}
+                                text={"fecha sesión esp"}
+                                state={outCtx.spanishDateButtonState}
+                                onClick={outCtx.cycleState}
+                                callback={outCtx.setSpanishDateButtonState}
                             />
                             <ReorderButton
                                 name={"size"}
-                                text={"tamaño sesión"}
+                                text={"tamaño sesión jpn"}
                                 state={outCtx.sizeButtonState}
                                 onClick={outCtx.cycleState}
                                 callback={outCtx.setSizeButtonState}

@@ -186,6 +186,14 @@ export function showDifference({ chosenDiff, lang }) {
     return `hace ${Math.round(hours)} horas.${lang || ""}`;
 }
 
+export function getDiff(timeObject) {
+    // console.log("🚀 ~ getDiff ~ timeObject:", timeObject);
+    if (!timeObject) {
+        return null;
+    }
+    return Math.abs(timeObject.getTime() - new Date().getTime());
+}
+
 export function pickDifference(japanese, spanish) {
     // console.log("🚀 ~ pickDifference ~ japanese, spanish:", japanese, spanish);
     //

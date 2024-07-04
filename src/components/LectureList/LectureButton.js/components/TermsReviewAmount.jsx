@@ -7,14 +7,14 @@ const TermsReviewAmount = (props) => {
     }
     // console.log("🚀 ~ TermsReviewAmount ~  props.data:", props.data);
 
-    let japaneseAmount =
-        props.data?.[props.id]?.japanese_session?.terms?.length;
-    let spanishAmount = props.data?.[props.id]?.spanish_session?.terms?.length;
+    // let japaneseAmount =
+    //     props.data?.[props.id]?.japanese_session?.terms?.length;
+    // let spanishAmount = props.data?.[props.id]?.spanish_session?.terms?.length;
 
-    japaneseAmount = japaneseAmount ? japaneseAmount : 0;
-    spanishAmount = spanishAmount ? spanishAmount : 0;
+    // japaneseAmount = japaneseAmount ? japaneseAmount : 0;
+    // spanishAmount = spanishAmount ? spanishAmount : 0;
 
-    return <span> {japaneseAmount + spanishAmount} terminos.</span>;
+    return <span> {props.amount ? props.amount : 0} terminos.</span>;
 };
 
 export default TermsReviewAmount;

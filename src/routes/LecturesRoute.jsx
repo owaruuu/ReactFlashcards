@@ -32,12 +32,15 @@ const LecturesRoute = (props) => {
         extra1: false,
     });
     const [orderingState, setOrderingState] = useState(null);
-    const [dateButtonState, setDateButtonState] = useState(null);
+    const [japaneseDateButtonState, setJapaneseDateButtonState] =
+        useState(null);
+    const [spanishDateButtonState, setSpanishDateButtonState] = useState(null);
     const [sizeButtonState, setSizeButtonState] = useState(null);
 
     //Functions
     function cycleState(name, state, callback) {
-        setDateButtonState(null);
+        setJapaneseDateButtonState(null);
+        setSpanishDateButtonState(null);
         setSizeButtonState(null);
         if (state === null) {
             callback("ASC");
@@ -128,11 +131,13 @@ const LecturesRoute = (props) => {
                 allLecturesDataQuery,
                 extraLessonMessage,
                 orderingState,
-                dateButtonState,
+                japaneseDateButtonState,
+                spanishDateButtonState,
                 sizeButtonState,
                 filterState,
                 perms: [...perms.data, ...freePerms],
-                setDateButtonState,
+                setJapaneseDateButtonState,
+                setSpanishDateButtonState,
                 setSizeButtonState,
                 cycleState,
                 handleFilterClick,

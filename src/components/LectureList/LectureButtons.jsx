@@ -1,5 +1,5 @@
 import LectureButton from "./LectureButton.js/LectureButton";
-import { pickDifference } from "../../utils/utils.js";
+import { pickDifference, getDiff } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
     //data de todas las lectures
@@ -125,12 +125,18 @@ function sortLectures(orderingState, lectures) {
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
 
     switch (orderingState) {
-        case "dateASC":
+        case "jpnDateASC":
             // console.log("Date ASC");
             return clonedLectures.sort(sortByDateASC);
-        case "dateDESC":
+        case "jpnDateDESC":
             // console.log("Date DESC");
             return clonedLectures.sort(sortByDateDESC);
+        case "espDateASC":
+            // console.log("Date ASC");
+            return clonedLectures.sort(sortBySpanishDateASC);
+        case "espDateDESC":
+            // console.log("Date DESC");
+            return clonedLectures.sort(sortBySpanishDateDESC);
         case "sizeASC":
             // console.log("Name ASC");
             return clonedLectures.sort(sortBySessionSizeASC);
@@ -150,49 +156,120 @@ function sortByDateDESC(a, b) {
     return sortByDate(b, a);
 }
 
+function sortBySpanishDateASC(a, b) {
+    return sortBySpanishDate(a, b);
+}
+
+function sortBySpanishDateDESC(a, b) {
+    return sortBySpanishDate(b, a);
+}
+
+//Cambiar
+//eliminar elegir, dejar solo japones
 function sortByDate(a, b) {
+    // console.log("🚀 ~ sortByDate ~ a, b:", a, b);
     const japaneseDateA = a["japanese_session"]?.lastReviewed;
-    const spanishDateA = a["spanish_session"]?.lastReviewed;
-    let japaneseDataObjectA, spanishDataObjectA;
+    // console.log("🚀 ~ sortByDate ~ japaneseDateA:", japaneseDateA);
+    // const spanishDateA = a["spanish_session"]?.lastReviewed;
+    let japaneseDataObjectA;
+    // let spanishDataObjectA;
     if (japaneseDateA) {
         japaneseDataObjectA = new Date(japaneseDateA);
     }
-    if (spanishDateA) {
-        spanishDataObjectA = new Date(spanishDateA);
-    }
-    const chosenADiff = pickDifference(
-        japaneseDataObjectA,
-        spanishDataObjectA
-    )?.chosenDiff;
+    // if (spanishDateA) {
+    //     spanishDataObjectA = new Date(spanishDateA);
+    // }
+    const aDiff = getDiff(japaneseDataObjectA);
+    // console.log("🚀 ~ sortByDate ~ aDiff:", aDiff);
+    // const chosenADiff = pickDifference(
+    //     japaneseDataObjectA,
+    //     spanishDataObjectA
+    // )?.chosenDiff;
 
     const japaneseDateB = b["japanese_session"]?.lastReviewed;
-    const spanishDateB = b["spanish_session"]?.lastReviewed;
-    let japaneseDataObjectB, spanishDataObjectB;
+    // console.log("🚀 ~ sortByDate ~ japaneseDateB:", japaneseDateB);
+    // const spanishDateB = b["spanish_session"]?.lastReviewed;
+    let japaneseDataObjectB;
+    // let spanishDataObjectB;
     if (japaneseDateB) {
         japaneseDataObjectB = new Date(japaneseDateB);
     }
-    if (spanishDateB) {
-        spanishDataObjectB = new Date(spanishDateB);
-    }
-    const chosenBDiff = pickDifference(
-        japaneseDataObjectB,
-        spanishDataObjectB
-    )?.chosenDiff;
+    // if (spanishDateB) {
+    //     spanishDataObjectB = new Date(spanishDateB);
+    // }
+    // const chosenBDiff = pickDifference(
+    //     japaneseDataObjectB,
+    //     spanishDataObjectB
+    // )?.chosenDiff;
+    const bDiff = getDiff(japaneseDataObjectB);
 
     //a is less than b by some ordering criterion
 
-    if (chosenADiff && chosenBDiff) {
-        if (chosenADiff < chosenBDiff) {
+    if (aDiff && bDiff) {
+        if (aDiff < bDiff) {
             // console.log("a is less than b by some ordering criterion");
             return 1;
-        } else if (chosenADiff > chosenBDiff) {
+        } else if (aDiff > bDiff) {
             // console.log("a is greater than b by the ordering criterion");
             //a is greater than b by the ordering criterion
             return -1;
         }
-    } else if (chosenADiff && !chosenBDiff) {
+    } else if (aDiff && !bDiff) {
         return 1;
-    } else if (!chosenADiff && chosenBDiff) {
+    } else if (!aDiff && bDiff) {
+        return -1;
+    }
+
+    return 0;
+}
+
+function sortBySpanishDate(a, b) {
+    // const japaneseDateA = a["japanese_session"]?.lastReviewed;
+    const spanishDateA = a["spanish_session"]?.lastReviewed;
+    // let japaneseDataObjectA;
+    let spanishDataObjectA;
+    // if (japaneseDateA) {
+    //     japaneseDataObjectA = new Date(japaneseDateA);
+    // }
+    if (spanishDateA) {
+        spanishDataObjectA = new Date(spanishDateA);
+    }
+    const aDiff = getDiff(spanishDataObjectA);
+    // const chosenADiff = pickDifference(
+    //     japaneseDataObjectA,
+    //     spanishDataObjectA
+    // )?.chosenDiff;
+
+    // const japaneseDateB = b["japanese_session"]?.lastReviewed;
+    const spanishDateB = b["spanish_session"]?.lastReviewed;
+    // let japaneseDataObjectB;
+    let spanishDataObjectB;
+    // if (japaneseDateB) {
+    //     japaneseDataObjectB = new Date(japaneseDateB);
+    // }
+    if (spanishDateB) {
+        spanishDataObjectB = new Date(spanishDateB);
+    }
+    // const chosenBDiff = pickDifference(
+    //     japaneseDataObjectB,
+    //     spanishDataObjectB
+    // )?.chosenDiff;
+    const bDiff = getDiff(spanishDataObjectB);
+
+    //a is less than b by some ordering criterion
+
+    if (aDiff && bDiff) {
+        if (aDiff < bDiff) {
+            // console.log("a is less than b by some ordering criterion");
+            return 1;
+        } else if (aDiff > bDiff) {
+            // console.log("a is greater than b by the ordering criterion");
+            //a is greater than b by the ordering criterion
+            return -1;
+        }
+    } else if (aDiff && !bDiff) {
+        return 1;
+    } else if (!aDiff && bDiff) {
         return -1;
     }
 

@@ -7,35 +7,35 @@ const ReviewSessionTime = (props) => {
         return <Spinner size="sm" style={{ color: "#532f00" }} />;
     }
 
-    let japaneseLastSessionTime =
-        props.data?.[props.id]?.["japanese_session"]?.lastReviewed;
-    japaneseLastSessionTime = japaneseLastSessionTime
-        ? japaneseLastSessionTime
-        : "";
+    // let japaneseLastSessionTime =
+    //     props.data?.[props.id]?.["japanese_session"]?.lastReviewed;
+    // japaneseLastSessionTime = japaneseLastSessionTime
+    //     ? japaneseLastSessionTime
+    //     : "";
 
-    let spanishLastSessionTime =
-        props.data?.[props.id]?.["spanish_session"]?.lastReviewed;
-    spanishLastSessionTime = spanishLastSessionTime
-        ? spanishLastSessionTime
-        : "";
+    // let spanishLastSessionTime =
+    //     props.data?.[props.id]?.["spanish_session"]?.lastReviewed;
+    // spanishLastSessionTime = spanishLastSessionTime
+    //     ? spanishLastSessionTime
+    //     : "";
 
-    let japaneseDateObject, spanishDateObject;
+    // let japaneseDateObject, spanishDateObject;
 
-    if (japaneseLastSessionTime) {
-        japaneseDateObject = new Date(japaneseLastSessionTime);
-    }
+    // if (japaneseLastSessionTime) {
+    //     japaneseDateObject = new Date(japaneseLastSessionTime);
+    // }
 
-    if (spanishLastSessionTime) {
-        spanishDateObject = new Date(spanishLastSessionTime);
-    }
+    // if (spanishLastSessionTime) {
+    //     spanishDateObject = new Date(spanishLastSessionTime);
+    // }
 
-    const chosendiff = pickDifference(japaneseDateObject, spanishDateObject);
-    // console.log("🚀 ~ ReviewSessionTime ~ chosendiff:", chosendiff);
-    //TODO sacar codigo viejo
-    if (!chosendiff) {
+    // const chosendiff = pickDifference(japaneseDateObject, spanishDateObject);
+    // // console.log("🚀 ~ ReviewSessionTime ~ chosendiff:", chosendiff);
+    // //TODO sacar codigo viejo
+    if (!props.diff) {
         return <span>nunca.</span>;
     }
-    return <span>{showDifference(chosendiff)}</span>;
+    return <span>{showDifference(props.diff)}</span>;
 
     if (japaneseDateObject && spanishDateObject) {
         const japaneseDiff = Math.abs(

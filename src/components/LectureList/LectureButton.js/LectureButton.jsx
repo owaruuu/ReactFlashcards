@@ -15,6 +15,8 @@ import ReviewSessionTime from "./components/ReviewSessionTime.jsx";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+import { showDifference } from "../../../utils/utils";
+
 const LectureButton = (props) => {
     const {
         dispatch,
@@ -92,6 +94,50 @@ const LectureButton = (props) => {
             "aaaaaaaaa"
         );
 
+    // VARS
+
+    const japaneseSessionTermsAmount =
+        props.userDataQueryData?.[props.id]?.japanese_session?.terms?.length;
+
+    const spanishSessionTermsAmount =
+        props.userDataQueryData?.[props.id]?.spanish_session?.terms?.length;
+
+    //string date
+    const japaneseLastSessionTime =
+        props.userDataQueryData?.[props.id]?.["japanese_session"]?.lastReviewed;
+
+    const spanishLastSessionTime =
+        props.userDataQueryData?.[props.id]?.["spanish_session"]?.lastReviewed;
+
+    // if (japaneseLastSessionTime) {
+    //     //data object
+    //     japaneseDateObject = new Date(japaneseLastSessionTime);
+    //  const japaneseDiff = Math.abs(
+    //      japaneseDateObject.getTime() - new Date().getTime()
+    //  );
+    //     return { chosenDiff: japaneseDiff, lang: "(jpn)" };
+    // }
+
+    const japaneseSessionTimeDiff = japaneseLastSessionTime
+        ? {
+              chosenDiff: Math.abs(
+                  new Date(japaneseLastSessionTime).getTime() -
+                      new Date().getTime()
+              ),
+              lang: "(jpn)",
+          }
+        : undefined;
+
+    const spanishSessionTimeDiff = spanishLastSessionTime
+        ? {
+              chosenDiff: Math.abs(
+                  new Date(spanishLastSessionTime).getTime() -
+                      new Date().getTime()
+              ),
+              lang: "(esp)",
+          }
+        : undefined;
+
     return (
         <div
             className="lectureButton"
@@ -136,25 +182,41 @@ const LectureButton = (props) => {
             /> */}
             {loggedIn && <div className="session">Sesiónes Repaso: </div>}
             {loggedIn && (
-                <div className="amount">
-                    <PiStackOverflowLogoFill /> :
-                    <TermsReviewAmount
-                        status={props.allLecturesDataQueryStatus}
-                        data={props.userDataQueryData}
-                        id={props.id}
-                    ></TermsReviewAmount>
-                </div>
+                <>
+                    <div className="amountJapanese">
+                        <PiStackOverflowLogoFill /> :
+                        <TermsReviewAmount
+                            status={props.allLecturesDataQueryStatus}
+                            amount={japaneseSessionTermsAmount}
+                        ></TermsReviewAmount>
+                    </div>
+                    <div className="amountSpanish">
+                        <PiStackOverflowLogoFill /> :
+                        <TermsReviewAmount
+                            status={props.allLecturesDataQueryStatus}
+                            amount={spanishSessionTermsAmount}
+                        ></TermsReviewAmount>
+                    </div>
+                </>
             )}
 
             {loggedIn && (
-                <div className="lastReview">
-                    <FaClock /> :{" "}
-                    <ReviewSessionTime
-                        status={props.allLecturesDataQueryStatus}
-                        data={props.userDataQueryData}
-                        id={props.id}
-                    ></ReviewSessionTime>
-                </div>
+                <>
+                    <div className="lastReviewJapanese">
+                        <FaClock /> :{" "}
+                        <ReviewSessionTime
+                            status={props.allLecturesDataQueryStatus}
+                            diff={japaneseSessionTimeDiff}
+                        ></ReviewSessionTime>
+                    </div>
+                    <div className="lastReviewSpanish">
+                        <FaClock /> :{" "}
+                        <ReviewSessionTime
+                            status={props.allLecturesDataQueryStatus}
+                            diff={spanishSessionTimeDiff}
+                        ></ReviewSessionTime>
+                    </div>
+                </>
             )}
             <div className="icons">
                 {hasTest && <HiClipboardDocumentList className="testIcon" />}

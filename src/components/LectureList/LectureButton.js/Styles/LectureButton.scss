@@ -6,7 +6,8 @@
     grid-template-areas:
         "icons terms  memo"
         "title title  title"
-        "session amount lastReview"
+        "session amountJapanese lastReviewJapanese"
+        ". amountSpanish lastReviewSpanish"
         "text bar jap-bar";
     // display: grid;
     grid-template-columns: 33% 33% 33%;
@@ -105,13 +106,23 @@
         font-size: 12px;
     }
 
-    .lastReview {
-        grid-area: lastReview;
+    .lastReviewJapanese {
+        grid-area: lastReviewJapanese;
         font-size: 12px;
     }
 
-    .amount {
-        grid-area: amount;
+    .lastReviewSpanish {
+        grid-area: lastReviewSpanish;
+        font-size: 12px;
+    }
+
+    .amountJapanese {
+        grid-area: amountJapanese;
+        font-size: 12px;
+    }
+
+    .amountSpanish {
+        grid-area: amountSpanish;
         font-size: 12px;
     }
 
@@ -140,12 +151,12 @@
     @media (min-width: 768px) {
         display: grid;
         grid-template-rows: auto;
-        grid-template-columns: 25% 50% 25%;
+        grid-template-columns: 30% 40% 15% 15%;
         // grid-template-areas: "info name extras";
         grid-template-areas:
-            "bar terms session"
-            "jap-bar title amount"
-            "memo icons lastReview";
+            "bar terms session ."
+            "jap-bar title amountJapanese amountSpanish"
+            "memo icons lastReviewJapanese lastReviewSpanish";
 
         width: 85vw;
         max-width: 870px;
