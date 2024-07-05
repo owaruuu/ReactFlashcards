@@ -5,6 +5,8 @@ import { logoutUser } from "../../aws/aws";
 import { useNavigate, useRevalidator } from "react-router-dom";
 import PromptModal from "../../components/Modals/PromptModal";
 import { useQueryClient } from "react-query";
+import { LuLogOut } from "react-icons/lu";
+import "../../components/UserPanel/Styles/UserPanelView.css";
 
 const stickersArray = getArray();
 const gold = <span className="goldAccent">:</span>;
@@ -97,9 +99,14 @@ const UserPanelView = () => {
     }
 
     //COMPONENTS
-    const proceedButton = <button onClick={logout}>Cerrar sesion.</button>;
+    const proceedButton = (
+        <button className="logoutProceedButton" onClick={logout}>
+            Cerrar Sesión <LuLogOut />
+        </button>
+    );
     const cancelButton = (
         <button
+            className="logoutCancelButton"
             onClick={() => {
                 setShowModal(false);
             }}
@@ -118,12 +125,7 @@ const UserPanelView = () => {
                 visible={showModal}
                 onHide={() => setShowModal(false)}
             />
-            <button
-                className="logoutButton"
-                onClick={() => handleLogoutClick(true)}
-            >
-                logout
-            </button>
+
             <h3>Panel de usuario</h3>
             {/* <button onClick={handleBackButton}>Volver</button> */}
             <div className="userPanelContent">
@@ -147,6 +149,12 @@ const UserPanelView = () => {
                     </div>
                 </div>
             </div>
+            <button
+                className="logoutButton"
+                onClick={() => handleLogoutClick(true)}
+            >
+                Cerrar Sesión <LuLogOut />
+            </button>
         </div>
     );
 };

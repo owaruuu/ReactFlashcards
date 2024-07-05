@@ -137,12 +137,6 @@
   flex-direction: row-reverse;
   padding: 0 5px;
 }
-.header .loginControls .accountButtons .logoutButton {
-  background-color: rgba(0, 30, 55, 0);
-  border: none;
-  color: #f5fcff;
-  font-size: 14px;
-}
 @media (min-width: 768px) {
   .header .loginControls .accountButtons {
     flex-direction: row;

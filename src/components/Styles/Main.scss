@@ -13,6 +13,20 @@
     // margin-top: 115px;
     // justify-content: space-evenly;
 
+    .logoutButton {
+        font-size: 14px;
+        color: white;
+        background-color: #ab071d;
+        /* margin-top: auto; */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+
+        &:hover {
+            background-color: #c1132a;
+        }
+    }
+
     .interactionBlocker {
         display: flex;
         // flex-direction: column;
@@ -192,12 +206,15 @@
                 @media (min-width: 768px) {
                     display: block;
 
-                    border-style: none;
+                    border-style: solid;
                     border-radius: 41px;
                     background-color: #656565;
                     color: aliceblue;
                     width: 51px;
                     transition: 0.3s;
+                    border-width: 3px;
+                    border-color: #868686;
+                    z-index: 1;
 
                     &:hover {
                         background-color: #474747;
@@ -446,11 +463,17 @@
                 margin-top: 20px;
             }
 
-            div {
-            }
             .testAnswerComponent {
                 &:nth-child(odd) {
                     background-color: #164b78;
+                    border-radius: 20px;
+                    @media (min-width: 600px) {
+                    }
+                }
+
+                &:nth-child(even) {
+                    background-color: #011c33;
+                    border-radius: 20px;
                 }
 
                 margin: 15px 0;
@@ -1068,6 +1091,7 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
+            margin-bottom: 150px;
             gap: 30px;
 
             @media (min-width: 768px) {
@@ -1271,6 +1295,7 @@
         animation-duration: 2s;
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
+        z-index: 2;
     }
 
     @keyframes disappear-right {
@@ -1297,6 +1322,7 @@
         animation-duration: 2s;
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
+        z-index: 2;
     }
 
     @keyframes disappear-left {

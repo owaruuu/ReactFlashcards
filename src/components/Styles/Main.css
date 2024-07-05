@@ -8,6 +8,18 @@
   overflow: hidden;
   margin-bottom: 125px;
 }
+.main .logoutButton {
+  font-size: 14px;
+  color: white;
+  background-color: #ab071d;
+  /* margin-top: auto; */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+}
+.main .logoutButton:hover {
+  background-color: #c1132a;
+}
 .main .interactionBlocker {
   display: flex;
   text-align: center;
@@ -160,12 +172,15 @@
 @media (min-width: 768px) {
   .main .learnScreen .termCardSection .termCardButtonDesktop {
     display: block;
-    border-style: none;
+    border-style: solid;
     border-radius: 41px;
     background-color: #656565;
     color: aliceblue;
     width: 51px;
     transition: 0.3s;
+    border-width: 3px;
+    border-color: #868686;
+    z-index: 1;
   }
   .main .learnScreen .termCardSection .termCardButtonDesktop:hover {
     background-color: #474747;
@@ -376,6 +391,11 @@
 }
 .main .testScreen .testResume .testAnswerComponent:nth-child(odd) {
   background-color: #164b78;
+  border-radius: 20px;
+}
+.main .testScreen .testResume .testAnswerComponent:nth-child(even) {
+  background-color: #011c33;
+  border-radius: 20px;
 }
 .main .testScreen .testResume .testAnswerComponent p {
   margin: 0;
@@ -873,6 +893,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  margin-bottom: 150px;
   gap: 30px;
 }
 @media (min-width: 768px) {
@@ -1057,6 +1078,7 @@
   animation-duration: 2s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
+  z-index: 2;
 }
 @keyframes disappear-right {
   10% {
@@ -1079,6 +1101,7 @@
   animation-duration: 2s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
+  z-index: 2;
 }
 @keyframes disappear-left {
   10% {

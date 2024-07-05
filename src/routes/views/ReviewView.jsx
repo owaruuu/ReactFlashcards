@@ -1,6 +1,6 @@
 import React from "react";
-import "../../components/ReviewScreen/Styles/ReviewScreen.css";
 import "../../components/Styles/Main.css";
+import "../../components/ReviewScreen/Styles/ReviewScreen.css";
 import { useState, useEffect } from "react";
 import ReviewOptionsModal from "../../components/ReviewScreen/ReviewOptionsModal";
 import ReviewPanel from "../../components/ReviewScreen/ReviewPanel";

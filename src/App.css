@@ -45,6 +45,7 @@ a {
 
 .upperDivider {
   margin-top: 9px;
+  width: 100%;
   height: 4px;
   background-color: #ab071d;
 }

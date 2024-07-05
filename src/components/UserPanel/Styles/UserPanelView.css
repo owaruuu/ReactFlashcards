@@ -1,0 +1,12 @@
+.logoutProceedButton {
+  background-color: #404040;
+  color: white;
+  margin-right: 30px;
+}
+
+.logoutCancelButton {
+  color: #404040;
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+}/*# sourceMappingURL=UserPanelView.css.map */

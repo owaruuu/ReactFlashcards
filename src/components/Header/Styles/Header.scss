@@ -164,13 +164,6 @@
             flex-direction: row-reverse;
             padding: 0 5px;
 
-            .logoutButton {
-                background-color: #001e3700;
-                border: none;
-                color: $cloud-white;
-                font-size: 14px;
-            }
-
             @media (min-width: 768px) {
                 flex-direction: row;
                 padding: 0;

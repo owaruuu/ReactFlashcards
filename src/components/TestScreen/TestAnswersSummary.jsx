@@ -101,14 +101,20 @@ const TestAnswersSummary = (props) => {
             </div>
         );
     });
+    console.log("🚀 ~ dragComponents ~ dragComponents:", dragComponents);
 
     return (
         <div className="testResume">
             <h1>Seleccion multiple:</h1>
             {multipleChoiceComponents}
-            <hr></hr>
-            <h1>Ordenar la frase:</h1>
-            {dragComponents}
+
+            {dragComponents.length > 0 && (
+                <>
+                    <hr></hr>
+                    <h1>Ordenar la frase:</h1>
+                    {dragComponents}
+                </>
+            )}
         </div>
     );
 };
