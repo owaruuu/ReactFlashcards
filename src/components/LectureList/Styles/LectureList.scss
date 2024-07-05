@@ -136,6 +136,10 @@
         .active {
             text-decoration: underline;
             text-decoration-color: $decoration-yellow;
+
+            svg {
+                font-size: 16px;
+            }
         }
 
         @media (min-width: 985px) {

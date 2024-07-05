@@ -104,6 +104,9 @@
   text-decoration: underline;
   text-decoration-color: #dbb01c;
 }
+.lectureList .titleContainer .active svg {
+  font-size: 16px;
+}
 @media (min-width: 985px) {
   .lectureList .titleContainer {
     margin: 8px 0;
