@@ -1,6 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { Outlet, useLoaderData } from "react-router-dom";
+import {
+    Outlet,
+    useLoaderData,
+    useLocation,
+    useRevalidator,
+} from "react-router-dom";
 import { getUserProgress } from "../aws/aws";
 import Footer from "../components/Footer";
 import Header from "../components/Header/Header";
@@ -12,6 +17,18 @@ import { trySetUser } from "../hooks/tempUtil";
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
     const { dispatch, init, user } = useContext(AppContext);
+
+    const location = useLocation();
+    const revalidator = useRevalidator();
+
+    // EFFECTS
+    //reviso si aprete el logo para recargar la pagina
+    useEffect(() => {
+        //only when the navigation is towards '/' and is not the first, ie the key is anything but 'default'
+        if (location.pathname === "/" && location.key !== "default") {
+            revalidator.revalidate();
+        }
+    }, [location]);
 
     //Reviso mi estado de login al cargar
     useEffect(() => {
