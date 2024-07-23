@@ -169,6 +169,7 @@ const TryTestView = () => {
     };
 
     const handleOptionClick = (info) => {
+        // console.log("handleOptionClick");
         if (info.correct) {
             writeAnswer("multiple", info);
             setCorrect(info.index);
@@ -187,9 +188,11 @@ const TryTestView = () => {
         }
 
         if (currentTest["dragDrop"].length < 1) {
+            // console.log("no hay drag");
             const index = problem + 1;
             if (index > currentTest["mondai"].length - 1) {
-                //console.log("this is the last problem");
+                // console.log("this is the last problem");
+                setEndTest(true);
                 setStopTimer(true);
                 setFeedback((prev) => {
                     return { ...prev, nextButtonText: "Ver Resultados" };
@@ -224,6 +227,7 @@ const TryTestView = () => {
                     if (test.dragDrop.length > 0) {
                         setStage("dragDrop");
                     } else {
+                        // setEndTest(true);
                         // handleSaveTestScore();
                         setStage("results");
                     }
@@ -276,10 +280,10 @@ const TryTestView = () => {
         const index = problem + 1;
 
         if (index > currentTest["dragDrop"].length - 1) {
-            //console.log("this is the last problem");
+            // console.log("this is the last problem");
             setStopTimer(true);
             setFeedback((prev) => {
-                return { ...prev, nextButtonText: "Ver Resutados" };
+                return { ...prev, nextButtonText: "Ver Resultados" };
             });
             setEndTest(true);
             // handleSaveTestScore();

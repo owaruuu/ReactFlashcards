@@ -243,8 +243,8 @@ export const lectures = [
             { id: 60, term: "はし", extra: "Hashi", answer: "Palillos" },
             {
                 id: 61,
-                term: "ナフキン",
-                extra: "Nafukin",
+                term: "ナフキン、ナプキン",
+                extra: "Nafukin, Napukin",
                 answer: "Servilleta",
             },
             { id: 62, term: "さら", extra: "Sara", answer: "Plato" },
@@ -651,6 +651,7 @@ export const lectures = [
         lectureId: "1",
         name: "Leccion 1 Minna",
         testId: "3",
+        //testId: corresponde al id autogenerado de la prueba
         lectureGroup: "basico1",
         termList: [
             { id: 0, term: "わたし watashi", extra: "私", answer: "Yo" },
@@ -1086,7 +1087,7 @@ export const lectures = [
             },
             {
                 id: 40,
-                term: "あのう anou",
+                term: "あの。。。 ano...",
                 extra: "",
                 answer: "Esto...(se usa para demostrar vacilacion)",
             },
@@ -1163,7 +1164,7 @@ export const lectures = [
             },
             {
                 id: 8,
-                term: "きゅうしつ kyuushitsu",
+                term: "きょうしつ kyoushitsu",
                 extra: "",
                 answer: "Aula, Sala de clases",
             },
