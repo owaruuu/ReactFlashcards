@@ -27,6 +27,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LectureRoute from "./routes/LectureRoute";
 import LectureListView from "./components/LectureList/LectureListView";
 import HasPermissionRoute from "./routes/guards/HasPermsRoute";
+import KanjiSetRoute from "./routes/KanjiSetRoute";
 import TermListView from "./routes/views/TermListView";
 import UserPanelView from "./routes/views/UserPanelView";
 import TestRoute from "./routes/TestRoute";
@@ -38,6 +39,8 @@ import LastResultView from "./routes/views/LastResultView";
 import HighScoreView from "./routes/views/HighScoreView";
 import TryTestView from "./routes/views/TryTestView";
 import IsTakingTest from "./routes/guards/IsTakingTest";
+import KanjiSetsListView from "./routes/views/KanjiSetsListView";
+import KanjisListView from "./routes/views/KanjisListView";
 
 const router = createBrowserRouter([
     {
@@ -56,7 +59,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/lectures",
-                element: <GotPermissionsSuspense />,
+                element: <GotPermissionsSuspense />, // return <LecturesRoute perms={{ data: perms.data }} />
                 loader: getExtraPerms, //obtiene mis permisos de lecciones extras
                 //*useEffect obtiene las lecciones extra
                 //*useQuery obtiene data de avanze en las lecciones
@@ -66,6 +69,23 @@ const router = createBrowserRouter([
                         element: <LectureListView />,
                         //ya tiene las lecciones gratis
                         //spinner para las extras
+                    },
+                    {
+                        path: "kanji",
+                        element: <LectureListView isKanjiView />,
+                        // element: <KanjiSetsListView />,
+                    },
+                    {
+                        path: "kanji/:lectureId",
+                        element: (
+                            <HasPermissionRoute element={<KanjiSetRoute />} />
+                        ),
+                        children: [
+                            {
+                                index: true,
+                                element: <KanjisListView />,
+                            },
+                        ],
                     },
                     {
                         path: "/lectures/:lectureId",
@@ -156,6 +176,8 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
+export const version = "0.3.1 kanji study function";
+console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>

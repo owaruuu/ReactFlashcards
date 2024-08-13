@@ -18,6 +18,7 @@ const LecturesRoute = (props) => {
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
+    const [extraKanjiSetMessage, setExtraKanjiSetMessage] = useState("");
     const [filterState, setFilterState] = useState({
         basico1: false,
         basico2: false,
@@ -83,6 +84,25 @@ const LecturesRoute = (props) => {
 
                 const response = await getExtraLessons(perms.data);
 
+                //si ambas queries fallan o estan vacias
+                if (
+                    response.error ||
+                    (response.data.length === 0 &&
+                        response.kanjiData.length === 0)
+                ) {
+                    setExtraLessonMessage(
+                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                    );
+
+                    setExtraKanjiSetMessage(
+                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                    );
+                    return dispatch({
+                        type: "SET_LECTURES_FLAG",
+                        payload: true,
+                    });
+                }
+
                 //si el query falla
                 if (response.error || response.data.length === 0) {
                     setExtraLessonMessage(
@@ -94,6 +114,18 @@ const LecturesRoute = (props) => {
                     });
                 }
 
+                // si falla la query de los set de kanji
+                if (response.error || response.kanjiData.length === 0) {
+                    setExtraKanjiSetMessage(
+                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                    );
+                    return dispatch({
+                        type: "SET_LECTURES_FLAG",
+                        payload: true,
+                    });
+                }
+
+                //TODO FIX
                 if (response.data.length > 0) {
                     const orderedResults = response.data.sort(
                         (a, b) => a.orderNumber - b.orderNumber
@@ -105,9 +137,20 @@ const LecturesRoute = (props) => {
 
                     const newLectures = [...freeLectures, ...extraLectures];
 
+                    const orderedKanjiSets = response.kanjiData.sort(
+                        (a, b) => a.orderNumber - b.orderNumber
+                    );
+                    const kanjiSets = orderedKanjiSets.map((item) =>
+                        JSON.parse(item.lecture)
+                    );
+
                     dispatch({
                         type: "SET_LECTURES",
                         payload: newLectures,
+                    });
+                    dispatch({
+                        type: "SET_KANJI_SETS",
+                        payload: kanjiSets,
                     });
                     dispatch({ type: "SET_LECTURES_FLAG", payload: true });
                 }
@@ -130,6 +173,7 @@ const LecturesRoute = (props) => {
             context={{
                 allLecturesDataQuery,
                 extraLessonMessage,
+                extraKanjiSetMessage,
                 orderingState,
                 japaneseDateButtonState,
                 spanishDateButtonState,

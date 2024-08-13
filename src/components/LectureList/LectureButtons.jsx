@@ -15,20 +15,11 @@ const LectureButtons = (props) => {
             ? buildLectureData(allLecturesDataQuery.data)
             : {};
 
-    const filledLectures = props.lectures.map((lecture) => {
-        if (dataObject[lecture.lectureId]) {
-            if (dataObject[lecture.lectureId]["japanese_session"]) {
-                lecture["japanese_session"] =
-                    dataObject[lecture.lectureId]["japanese_session"];
-            }
-            if (dataObject[lecture.lectureId]["spanish_session"]) {
-                lecture["spanish_session"] =
-                    dataObject[lecture.lectureId]["spanish_session"];
-            }
-        }
-
-        return lecture;
-    });
+    const filledLectures = insertSessionData(
+        props.lectures,
+        dataObject,
+        props.isKanjiView
+    );
 
     let filters = [];
 
@@ -59,12 +50,50 @@ const LectureButtons = (props) => {
                 userDataQueryData={dataObject}
                 allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
+                isKanjiView={props.isKanjiView}
                 // progress={myProgress[lecture.lectureId]}
             />
         );
     });
     return lectureButtons;
 };
+
+//FUNCTIONS
+function insertSessionData(lectures, dataObject, isKanjiView) {
+    if (isKanjiView) {
+        lectures.map((lecture) => {
+            if (dataObject[lecture.lectureId]) {
+                if (dataObject[lecture.lectureId]["recognize_session"]) {
+                    lecture["recognize_session"] =
+                        dataObject[lecture.lectureId]["recognize_session"];
+                }
+                if (dataObject[lecture.lectureId]["write_session"]) {
+                    lecture["write_session"] =
+                        dataObject[lecture.lectureId]["write_session"];
+                }
+            }
+
+            return lecture;
+        });
+    } else {
+        lectures.map((lecture) => {
+            if (dataObject[lecture.lectureId]) {
+                if (dataObject[lecture.lectureId]["japanese_session"]) {
+                    lecture["japanese_session"] =
+                        dataObject[lecture.lectureId]["japanese_session"];
+                }
+                if (dataObject[lecture.lectureId]["spanish_session"]) {
+                    lecture["spanish_session"] =
+                        dataObject[lecture.lectureId]["spanish_session"];
+                }
+            }
+
+            return lecture;
+        });
+    }
+
+    return lectures;
+}
 
 function calculateStarred(dataArray) {
     let result = {};

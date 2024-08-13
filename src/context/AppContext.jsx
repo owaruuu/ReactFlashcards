@@ -19,6 +19,8 @@ export const AppReducer = (state, action) => {
             return { ...state, loginControlErrorMessage: action.payload };
         case "SET_LECTURES":
             return { ...state, lectures: action.payload };
+        case "SET_KANJI_SETS":
+            return { ...state, kanjiSets: action.payload };
         case "SET_LECTURES_FLAG":
             return { ...state, gotLectures: action.payload };
         case "SET_USER":
@@ -71,6 +73,7 @@ const initialState = {
     },
     userData: { currentData: {} },
     lectures: lectures,
+    kanjiSets: [],
     freeLectures: lectures,
     //app state
     init: false, //true despues de haber intentado conectarse a cognito
@@ -101,6 +104,7 @@ export const AppProvider = (props) => {
                 user: state.user,
                 userData: state.userData,
                 lectures: state.lectures,
+                kanjiSets: state.kanjiSets,
                 freeLectures: state.freeLectures,
                 //app state
                 init: state.init,

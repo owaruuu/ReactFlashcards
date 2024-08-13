@@ -9,9 +9,11 @@ import DismissableBanner from "../DismissableBanner/DismissableBanner";
 import ReorderButton from "./components/ReorderButton";
 import FilterContainer from "./components/FilterContainer";
 
-const LectureListView = () => {
+const LectureListView = (props) => {
+    const { isKanjiView } = props;
     const outCtx = useOutletContext();
-    const { loggedIn, lectures, gotLectures } = useContext(AppContext);
+    const { loggedIn, lectures, kanjiSets, gotLectures } =
+        useContext(AppContext);
 
     let filters = new Set();
     lectures.forEach((lecture) => {
@@ -72,7 +74,8 @@ const LectureListView = () => {
                     allLecturesDataQuery={outCtx.allLecturesDataQuery}
                     orderingState={outCtx.orderingState}
                     filterState={outCtx.filterState}
-                    lectures={lectures}
+                    lectures={isKanjiView ? kanjiSets : lectures}
+                    isKanjiView={isKanjiView}
                 />
                 {loggedIn && !gotLectures ? (
                     <Spinner
@@ -85,7 +88,9 @@ const LectureListView = () => {
                 ) : (
                     ""
                 )}
-                <p>{outCtx.extraLessonMessage}</p>
+                <p>
+                    {outCtx.extraLessonMessage} {outCtx.extraKanjiSetMessage}
+                </p>
             </div>
             <div className="backToTopDiv">
                 <BackToTopButton />

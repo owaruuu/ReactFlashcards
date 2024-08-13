@@ -164,7 +164,7 @@ const LectureButton = (props) => {
             <span className="lectureButtonTitle">{props.title}</span>
             <div className="terms">
                 <span>{props.amount} Palabras</span>
-                {loggedIn && (
+                {/* {loggedIn && (
                     <>
                         <span className="mobile"> - </span>
                         <span>
@@ -174,7 +174,7 @@ const LectureButton = (props) => {
                             />
                         </span>
                     </>
-                )}
+                )} */}
             </div>
             {/* <QuizQueue
                 japaneseQuizQueue={props.progress?.japaneseQuizQueue}

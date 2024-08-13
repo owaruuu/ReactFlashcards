@@ -130,7 +130,11 @@ export const getExtraPerms = async () => {
 export const getExtraLessons = async (keys) => {
     try {
         const response = await api.post(`${URL}/lessons`, { keys });
-        return { data: response.data.Responses.lectures };
+        // console.log("🚀 ~ getExtraLessons ~ response:", response);
+        return {
+            data: response.data.Responses.lectures,
+            kanjiData: response.data.Responses.kanjiSets,
+        };
     } catch (error) {
         console.log("🚀 ~ getExtraLessons ~ error:", error);
         return { error };
