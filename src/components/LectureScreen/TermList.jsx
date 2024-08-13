@@ -1,4 +1,5 @@
 import TermItem from "./TermItem";
+import KanjiItem from "./KanjiItem";
 import BackToTopButton from "../Buttons/BackToTopButton";
 import InteractionBlocker from "./InteractionBlocker";
 import { shuffleArray } from "../../utils/utils";
@@ -23,30 +24,58 @@ const TermList = (props) => {
     if (props.queryData) {
         termList = reorderList(termList, props.queryData);
     }
+    // console.log("🚀 ~ TermList ~ props.isKanjiView:", props.isKanjiView);
 
-    const termItems = termList.map((term) => {
-        return (
-            <TermItem
-                key={term.id}
-                globalQuery={props.globalQuery}
-                queryStatus={props.queryStatus}
-                queryIsRefetching={props.queryIsRefetching}
-                hasQueryData={props.queryData ? true : false}
-                termData={props.queryData?.[term.id]}
-                id={term.id}
-                term={term.term}
-                extra={term.extra}
-                answer={term.answer}
-                flipped={props.flipped}
-                onIconClick={props.onIconClick}
-                showControls={props.showControls}
-                loggedIn={props.loggedIn}
-            ></TermItem>
-        );
-    });
+    const termItems = props.isKanjiView
+        ? termList.map((term) => {
+              return (
+                  <KanjiItem
+                      key={term.id}
+                      globalQuery={props.globalQuery}
+                      queryStatus={props.queryStatus}
+                      queryIsRefetching={props.queryIsRefetching}
+                      hasQueryData={props.queryData ? true : false}
+                      termData={props.queryData?.[term.id]}
+                      id={term.id}
+                      term={term.term}
+                      extra={term.extra}
+                      answer={term.answer}
+                      flipped={props.flipped}
+                      onIconClick={props.onIconClick}
+                      showControls={props.showControls}
+                      loggedIn={props.loggedIn}
+                  ></KanjiItem>
+              );
+          })
+        : termList.map((term) => {
+              return (
+                  <TermItem
+                      key={term.id}
+                      globalQuery={props.globalQuery}
+                      queryStatus={props.queryStatus}
+                      queryIsRefetching={props.queryIsRefetching}
+                      hasQueryData={props.queryData ? true : false}
+                      termData={props.queryData?.[term.id]}
+                      id={term.id}
+                      term={term.term}
+                      extra={term.extra}
+                      answer={term.answer}
+                      flipped={props.flipped}
+                      onIconClick={props.onIconClick}
+                      showControls={props.showControls}
+                      loggedIn={props.loggedIn}
+                  ></TermItem>
+              );
+          });
 
+    //FUNCTIONS
     function onNewAllSessionClick() {
-        const language = props.flipped ? "spanish" : "japanese";
+        let language;
+        if (props.isKanjiView) {
+            language = props.flipped ? "write" : "recognize";
+        } else {
+            language = props.flipped ? "spanish" : "japanese";
+        }
         const options = {
             showHighlighted: true,
             showNormal: true,
@@ -62,7 +91,12 @@ const TermList = (props) => {
     }
 
     function onAllButMutedSessionClick() {
-        const language = props.flipped ? "spanish" : "japanese";
+        let language;
+        if (props.isKanjiView) {
+            language = props.flipped ? "write" : "recognize";
+        } else {
+            language = props.flipped ? "spanish" : "japanese";
+        }
         const options = {
             showHighlighted: true,
             showNormal: true,
@@ -78,7 +112,12 @@ const TermList = (props) => {
     }
 
     function onOnlyStarredClick() {
-        const language = props.flipped ? "spanish" : "japanese";
+        let language;
+        if (props.isKanjiView) {
+            language = props.flipped ? "write" : "recognize";
+        } else {
+            language = props.flipped ? "spanish" : "japanese";
+        }
         const options = {
             showHighlighted: true,
             showNormal: false,
@@ -111,6 +150,13 @@ const TermList = (props) => {
         setMuted(mutedAmount(props.termList, props.queryData));
     }, [props.queryData]);
 
+    let language;
+    if (props.isKanjiView) {
+        language = props.flipped ? "write" : "recognize";
+    } else {
+        language = props.flipped ? "spanish" : "japanese";
+    }
+
     return (
         <div className="termTab">
             {props.showControls && (
@@ -129,11 +175,7 @@ const TermList = (props) => {
                         </p>
                         <button
                             disabled={!hasSession}
-                            onClick={
-                                props.flipped
-                                    ? () => props.onContinueClick("spanish")
-                                    : () => props.onContinueClick("japanese")
-                            }
+                            onClick={() => props.onContinueClick(language)}
                         >
                             <p>Continuar repaso </p>
                             <p>{amountInfo}</p>
@@ -179,6 +221,7 @@ const TermList = (props) => {
     );
 };
 
+//FUNCTIONS
 function reorderList(originalList, data) {
     let reorderedList = [];
     let index = 0;

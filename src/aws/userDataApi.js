@@ -47,6 +47,10 @@ export async function getLectureData(lectureId) {
             spanish_terms_data: {},
             japanese_session: {},
             spanish_session: {},
+            recognize_session: {},
+            recognize_terms_data: {},
+            write_session: {},
+            write_terms_data: {},
         };
         if (response.data.Item) {
             if (response.data.Item) {

@@ -7,22 +7,32 @@ import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import DismissableBanner from "../components/DismissableBanner/DismissableBanner";
 
-const LectureRoute = () => {
-    const [tab, setTab] = useState("japanese");
+const LectureRoute = (props) => {
     const outCtx = useOutletContext();
-    const { loggedIn, lectures, gotLectures } = useContext(AppContext);
+    const { isKanjiView } = props;
+    const [tab, setTab] = useState(isKanjiView ? "recognize" : "japanese");
+    const { loggedIn, lectures, kanjiSets, gotLectures } =
+        useContext(AppContext);
     const { lectureId } = useParams();
 
-    let lecture = lectures.find((lecture) => {
-        return lecture.lectureId === lectureId;
-    });
+    let lecture;
+
+    if (isKanjiView) {
+        lecture = kanjiSets.find((lecture) => {
+            return lecture.lectureId === lectureId;
+        });
+    } else {
+        lecture = lectures.find((lecture) => {
+            return lecture.lectureId === lectureId;
+        });
+    }
 
     const test = tests[lectureId];
-    const hasTest = test !== undefined ? true : false;
+    const hasTest = isKanjiView ? false : test !== undefined ? true : false;
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    // console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
+    console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
 
     if (!loggedIn) {
         //logged out simple view
@@ -45,6 +55,7 @@ const LectureRoute = () => {
                         lecture,
                         lectureId,
                         hasTest,
+                        isKanjiView,
                     }}
                 />
             </div>
@@ -68,9 +79,9 @@ const LectureRoute = () => {
     }
 
     //dentro del array de lectures busco la lecture actual
-    lecture = lectures.find((lecture) => {
-        return lecture.lectureId === lectureId;
-    });
+    // lecture = lectures.find((lecture) => {
+    //     return lecture.lectureId === lectureId;
+    // });
 
     //TODO mostrar algo en caso de falla de query
     if (
@@ -97,6 +108,7 @@ const LectureRoute = () => {
                     // lectureId,
                     test,
                     hasTest,
+                    isKanjiView,
                 }}
             />
         ) : (

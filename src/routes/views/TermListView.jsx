@@ -25,7 +25,9 @@ const TermListView = () => {
         lectureQuery,
         lecture,
         hasTest,
+        isKanjiView,
     } = useOutletContext();
+    // console.log("🚀 ~ TermListView ~ isKanjiView:", isKanjiView);
     const { loggedIn } = useContext(AppContext);
 
     const [createSessionError, setCreateSessionError] = useState(false);
@@ -66,7 +68,7 @@ const TermListView = () => {
                 attributeName: `${language}_session`,
                 newValue: newValue,
             });
-            changeToReviewScreen(language);
+            changeToReviewScreen();
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setCreateSessionError(true);
@@ -99,17 +101,32 @@ const TermListView = () => {
                     id="lists-tab"
                     fill
                 >
-                    <Tab eventKey="japanese" title="Japones">
+                    <Tab
+                        eventKey={isKanjiView ? "recognize" : "japanese"}
+                        title={isKanjiView ? "Reconocer" : "Japones"}
+                    >
                         <TermList
                             termList={lecture.termList}
                             globalQuery={allLecturesDataQuery}
                             queryStatus={lectureQuery.status}
                             queryIsRefetching={lectureQuery.isRefetching}
                             queryData={
-                                lectureQuery.data?.data?.["japanese_terms_data"]
+                                isKanjiView
+                                    ? lectureQuery.data?.data?.[
+                                          "recognize_terms_data"
+                                      ]
+                                    : lectureQuery.data?.data?.[
+                                          "japanese_terms_data"
+                                      ]
                             }
                             sessionData={
-                                lectureQuery.data?.data?.["japanese_session"]
+                                isKanjiView
+                                    ? lectureQuery.data?.data?.[
+                                          "recognize_session"
+                                      ]
+                                    : lectureQuery.data?.data?.[
+                                          "japanese_session"
+                                      ]
                             }
                             onIconClick={onIconClick}
                             onReviewClick={onNewSessionCreate}
@@ -119,19 +136,33 @@ const TermListView = () => {
                                 lectureSessionMutation.status
                             }
                             loggedIn={loggedIn}
+                            isKanjiView={isKanjiView}
                         ></TermList>
                     </Tab>
-                    <Tab eventKey="spanish" title="Español">
+                    <Tab
+                        eventKey={isKanjiView ? "write" : "spanish"}
+                        title={isKanjiView ? "Escribir" : "Español"}
+                    >
                         <TermList
                             termList={lecture.termList}
                             globalQuery={allLecturesDataQuery}
                             queryStatus={lectureQuery.status}
                             queryIsRefetching={lectureQuery.isRefetching}
                             queryData={
-                                lectureQuery.data?.data?.["spanish_terms_data"]
+                                isKanjiView
+                                    ? lectureQuery.data?.data?.[
+                                          "write_terms_data"
+                                      ]
+                                    : lectureQuery.data?.data?.[
+                                          "spanish_terms_data"
+                                      ]
                             }
                             sessionData={
-                                lectureQuery.data?.data?.["spanish_session"]
+                                isKanjiView
+                                    ? lectureQuery.data?.data?.["write_session"]
+                                    : lectureQuery.data?.data?.[
+                                          "spanish_session"
+                                      ]
                             }
                             onIconClick={onIconClick}
                             onReviewClick={onNewSessionCreate}
@@ -143,6 +174,7 @@ const TermListView = () => {
                             }
                             createSessionError={createSessionError}
                             loggedIn={loggedIn}
+                            isKanjiView={isKanjiView}
                         ></TermList>
                     </Tab>
                 </Tabs>

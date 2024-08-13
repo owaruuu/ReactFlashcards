@@ -137,6 +137,13 @@ const LecturesRoute = (props) => {
 
                     const newLectures = [...freeLectures, ...extraLectures];
 
+                    dispatch({
+                        type: "SET_LECTURES",
+                        payload: newLectures,
+                    });
+                }
+
+                if (response.kanjiData.length > 0) {
                     const orderedKanjiSets = response.kanjiData.sort(
                         (a, b) => a.orderNumber - b.orderNumber
                     );
@@ -145,15 +152,12 @@ const LecturesRoute = (props) => {
                     );
 
                     dispatch({
-                        type: "SET_LECTURES",
-                        payload: newLectures,
-                    });
-                    dispatch({
                         type: "SET_KANJI_SETS",
                         payload: kanjiSets,
                     });
-                    dispatch({ type: "SET_LECTURES_FLAG", payload: true });
                 }
+
+                dispatch({ type: "SET_LECTURES_FLAG", payload: true });
             } catch (error) {
                 console.log(
                     "🚀 ~ file: LectureList.js:25 ~ getLectures ~ error:",

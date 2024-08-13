@@ -16,9 +16,16 @@ const LectureListView = (props) => {
         useContext(AppContext);
 
     let filters = new Set();
-    lectures.forEach((lecture) => {
-        filters.add(lecture.lectureGroup);
-    });
+
+    if (isKanjiView) {
+        kanjiSets.forEach((lecture) => {
+            filters.add(lecture.lectureGroup);
+        });
+    } else {
+        lectures.forEach((lecture) => {
+            filters.add(lecture.lectureGroup);
+        });
+    }
 
     return (
         <div className="lectureList">

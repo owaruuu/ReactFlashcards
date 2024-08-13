@@ -143,7 +143,11 @@ const LectureButton = (props) => {
             className="lectureButton"
             onClick={() => {
                 backToTop();
-                navigate(`/lectures/${props.id}`);
+                navigate(
+                    props.isKanjiView
+                        ? `/lectures/kanji/${props.id}`
+                        : `/lectures/${props.id}`
+                );
             }}
         >
             {/* <div className="text">Progreso:</div>

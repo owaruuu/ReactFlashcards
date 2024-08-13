@@ -78,12 +78,14 @@ const router = createBrowserRouter([
                     {
                         path: "kanji/:lectureId",
                         element: (
-                            <HasPermissionRoute element={<KanjiSetRoute />} />
+                            <HasPermissionRoute
+                                element={<LectureRoute isKanjiView />}
+                            />
                         ),
                         children: [
                             {
                                 index: true,
-                                element: <KanjisListView />,
+                                element: <TermListView />,
                             },
                         ],
                     },
