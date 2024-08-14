@@ -5,11 +5,13 @@ import { Outlet } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
+import { Spinner } from "react-bootstrap";
 
 const LecturesRoute = (props) => {
     const { perms } = props;
 
-    const { loggedIn, dispatch, freeLectures } = useContext(AppContext);
+    const { loggedIn, dispatch, freeLectures, gotLectures } =
+        useContext(AppContext);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
@@ -171,6 +173,21 @@ const LecturesRoute = (props) => {
             getLectures();
         }
     }, []);
+
+    if (!gotLectures) {
+        return (
+            <div className="lectureScreen">
+                <Spinner
+                    id="spinner-lectureScreen"
+                    animation="border"
+                    role="status"
+                >
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+                <p style={{ color: "white" }}>Cargando Lecciones...</p>
+            </div>
+        );
+    }
 
     return (
         <Outlet

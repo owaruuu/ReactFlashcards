@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import { useLectureQuery } from "../hooks/userDataQueryHook";
 import { AppContext } from "../context/AppContext";
@@ -8,31 +8,18 @@ import { Spinner } from "react-bootstrap";
 import DismissableBanner from "../components/DismissableBanner/DismissableBanner";
 
 const LectureRoute = (props) => {
+    const { lecture } = props;
     const outCtx = useOutletContext();
     const { isKanjiView } = props;
     const [tab, setTab] = useState(isKanjiView ? "recognize" : "japanese");
-    const { loggedIn, lectures, kanjiSets, gotLectures } =
-        useContext(AppContext);
+    const { loggedIn } = useContext(AppContext);
     const { lectureId } = useParams();
-
-    let lecture;
-
-    if (isKanjiView) {
-        lecture = kanjiSets.find((lecture) => {
-            return lecture.lectureId === lectureId;
-        });
-    } else {
-        lecture = lectures.find((lecture) => {
-            return lecture.lectureId === lectureId;
-        });
-    }
-
-    const test = tests[lectureId];
-    const hasTest = isKanjiView ? false : test !== undefined ? true : false;
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
-    console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
+
+    const test = tests[lectureId];
+    const hasTest = isKanjiView ? false : test !== undefined ? true : false;
 
     if (!loggedIn) {
         //logged out simple view
@@ -61,27 +48,6 @@ const LectureRoute = (props) => {
             </div>
         );
     }
-
-    //primero espero a obtener las lectures extras
-    if (!gotLectures) {
-        return (
-            <div className="lectureScreen">
-                <Spinner
-                    id="spinner-lectureScreen"
-                    animation="border"
-                    role="status"
-                >
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-                <p style={{ color: "white" }}>Cargando Lecciones...</p>
-            </div>
-        );
-    }
-
-    //dentro del array de lectures busco la lecture actual
-    // lecture = lectures.find((lecture) => {
-    //     return lecture.lectureId === lectureId;
-    // });
 
     //TODO mostrar algo en caso de falla de query
     if (
@@ -112,7 +78,16 @@ const LectureRoute = (props) => {
                 }}
             />
         ) : (
-            <Spinner />
+            <div className="lectureScreen">
+                <Spinner
+                    id="spinner-lectureScreen"
+                    animation="border"
+                    role="status"
+                >
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+                <p style={{ color: "white" }}>Cargando datos...</p>
+            </div>
         );
     }
 };

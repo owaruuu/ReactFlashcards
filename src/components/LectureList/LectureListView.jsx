@@ -84,7 +84,7 @@ const LectureListView = (props) => {
                     lectures={isKanjiView ? kanjiSets : lectures}
                     isKanjiView={isKanjiView}
                 />
-                {loggedIn && !gotLectures ? (
+                {/* {loggedIn && !gotLectures ? (
                     <Spinner
                         className="spinner"
                         animation="border"
@@ -94,7 +94,7 @@ const LectureListView = (props) => {
                     </Spinner>
                 ) : (
                     ""
-                )}
+                )} */}
                 <p>
                     {outCtx.extraLessonMessage} {outCtx.extraKanjiSetMessage}
                 </p>
