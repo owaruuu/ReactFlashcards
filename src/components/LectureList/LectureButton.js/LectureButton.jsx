@@ -27,6 +27,7 @@ const LectureButton = (props) => {
         serverError,
         cognitoError,
     } = useContext(AppContext);
+    const { isKanjiView } = props;
     const [percentage, setPercentage] = useState(0);
     const [japanesePercentage, setJapanesePercentage] = useState(0);
     const navigate = useNavigate();
@@ -94,20 +95,24 @@ const LectureButton = (props) => {
             "aaaaaaaaa"
         );
 
-    // VARS
+    const type1 = isKanjiView ? "recognize" : "japanese";
+    const type2 = isKanjiView ? "write" : "spanish";
 
+    // VARS
     const japaneseSessionTermsAmount =
-        props.userDataQueryData?.[props.id]?.japanese_session?.terms?.length;
+        props.userDataQueryData?.[props.id]?.[`${type1}_session`]?.terms
+            ?.length;
 
     const spanishSessionTermsAmount =
-        props.userDataQueryData?.[props.id]?.spanish_session?.terms?.length;
+        props.userDataQueryData?.[props.id]?.[`${type2}_session`]?.terms
+            ?.length;
 
     //string date
     const japaneseLastSessionTime =
-        props.userDataQueryData?.[props.id]?.["japanese_session"]?.lastReviewed;
+        props.userDataQueryData?.[props.id]?.[`${type1}_session`]?.lastReviewed;
 
     const spanishLastSessionTime =
-        props.userDataQueryData?.[props.id]?.["spanish_session"]?.lastReviewed;
+        props.userDataQueryData?.[props.id]?.[`${type2}_session`]?.lastReviewed;
 
     // if (japaneseLastSessionTime) {
     //     //data object
