@@ -4,10 +4,8 @@ import { AppContext } from "../../context/AppContext";
 
 const HasPermissionRoute = ({ element, isKanjiView }) => {
     const { perms } = useOutletContext();
-    console.log("🚀 ~ HasPermissionRoute ~ perms:", perms);
     const { lectures, kanjiSets } = useContext(AppContext);
     const { lectureId } = useParams();
-    console.log("🚀 ~ HasPermissionRoute ~ lectureId:", lectureId);
 
     let lecture;
 
