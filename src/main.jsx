@@ -92,7 +92,11 @@ const router = createBrowserRouter([
                                 path: ":lang/study-session",
                                 element: (
                                     <LoggedInRoute
-                                        element={<HasActiveStudySession />}
+                                        element={
+                                            <HasActiveStudySession
+                                                isKanjiView
+                                            />
+                                        }
                                     />
                                 ),
                             },

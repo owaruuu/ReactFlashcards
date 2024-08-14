@@ -19,7 +19,11 @@ const ReviewPanel = (props) => {
                 <p>{info}</p>
                 <BackButton
                     className="backButton"
-                    dir={`/lectures/${lectureId}`}
+                    dir={
+                        props.isKanjiView
+                            ? `/lectures/kanji/${lectureId}`
+                            : `/lectures/${lectureId}`
+                    }
                     content={"Volver"}
                 />
             </div>

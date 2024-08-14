@@ -16,8 +16,9 @@ import { useParams } from "react-router-dom";
 import { getLectureQueryString } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
 
-const ReviewView = () => {
+const ReviewView = (props) => {
     //lectureQuery viene lista
     const { setTab, allLecturesDataQuery, lectureQuery, lecture } =
         useOutletContext();
@@ -199,7 +200,9 @@ const ReviewView = () => {
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-left"}
-                flipped={lang === "japanese" ? false : true}
+                flipped={
+                    lang === "japanese" || lang === "recognize" ? false : true
+                }
             />,
             ...disappearingCards,
         ]);
@@ -218,19 +221,23 @@ const ReviewView = () => {
                 terms={termsIds}
                 showFunc={() => handleOptionsButtonClick(true)}
                 language={lang}
+                isKanjiView={props.isKanjiView}
             />
 
             <div className="termCardDiv">
-                <TermCard
-                    termsDict={termsDict}
-                    termsIds={termsIds}
-                    //
+                <NormalTermCard
+                    // termsDict={termsDict}
+                    // termsIds={termsIds}
+                    // index={0}
                     term={term}
                     answer={answer}
-                    index={0}
                     showAnswer={showAnswer}
                     answerFunction={handleClick}
-                    flipped={lang === "japanese" ? false : true}
+                    flipped={
+                        lang === "japanese" || lang === "recognize"
+                            ? false
+                            : true
+                    }
                     state={
                         lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
                             termId
