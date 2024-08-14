@@ -134,6 +134,8 @@ function buildLectureData(dataArray) {
         result[element.lecture_id] = {
             japanese_session: element["japanese_session"],
             spanish_session: element["spanish_session"],
+            recognize_session: element["recognize_session"],
+            write_session: element["write_session"],
         };
     });
 
