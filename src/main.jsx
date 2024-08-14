@@ -79,6 +79,7 @@ const router = createBrowserRouter([
                         path: "kanji/:lectureId",
                         element: (
                             <HasPermissionRoute
+                                isKanjiView
                                 element={<LectureRoute isKanjiView />}
                             />
                         ),
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
                             {
                                 index: true,
                                 element: <TermListView />,
+                            },
+                            {
+                                path: ":lang/study-session",
+                                element: (
+                                    <LoggedInRoute
+                                        element={<HasActiveStudySession />}
+                                    />
+                                ),
                             },
                         ],
                     },
