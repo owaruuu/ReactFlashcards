@@ -22,7 +22,12 @@ const HasActiveStudySession = () => {
         }
     }, []);
 
-    if (lang !== "japanese" && lang !== "spanish") {
+    if (
+        lang !== "japanese" &&
+        lang !== "spanish" &&
+        lang !== "recognize" &&
+        lang !== "write"
+    ) {
         throw new Error("Wrong Lang");
     }
 

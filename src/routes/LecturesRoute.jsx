@@ -32,6 +32,11 @@ const LecturesRoute = (props) => {
         basico8: false,
         basico9: false,
         basico10: false,
+        jlptn5: false,
+        jlptn4: false,
+        jlptn3: false,
+        jlptn2: false,
+        jlptn1: false,
         extra1: false,
     });
     const [orderingState, setOrderingState] = useState(null);

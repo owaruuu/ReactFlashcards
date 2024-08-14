@@ -58,6 +58,16 @@ function idToLabel(id) {
             return "Básico 9";
         case "basico10":
             return "Básico 10";
+        case "jlptn5":
+            return "JLPT N5";
+        case "jlptn4":
+            return "JLPT N4";
+        case "jlptn3":
+            return "JLPT N3";
+        case "jlptn2":
+            return "JLPT N2";
+        case "jlptn1":
+            return "JLPT N1";
         case "extra1":
             return "Extra";
         default:
