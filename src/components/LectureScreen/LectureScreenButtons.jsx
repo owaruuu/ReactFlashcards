@@ -24,13 +24,14 @@ const LectureScreenButtons = (props) => {
     return (
         <div className="lectureScreenButtons">
             <div className="learningButtons">
-                {reviewButton}
+                {!props.isKanjiView && reviewButton}
                 {props.hasTest && testButton}
+                <TbSwitch3 />
             </div>
 
             <BackButton
                 className="backButton"
-                dir="/lectures"
+                dir={props.isKanjiView ? "/lectures/kanji" : "/lectures"}
                 content={"Volver"}
             />
         </div>

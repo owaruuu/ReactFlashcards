@@ -88,7 +88,11 @@ const TermListView = () => {
             <h2 id="title" className="lectureTitle" string={lecture.name}>
                 {lecture.name}
             </h2>
-            <LectureScreenButtons hasTest={hasTest} loggedIn={loggedIn} />
+            <LectureScreenButtons
+                hasTest={hasTest}
+                loggedIn={loggedIn}
+                isKanjiView={isKanjiView}
+            />
 
             <UpperDivider />
 
