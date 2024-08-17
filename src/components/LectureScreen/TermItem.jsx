@@ -1,57 +1,68 @@
 import TermOptionsContainer from "../TermOptionButtons/TermOptionsContainer";
 
 const TermItem = (props) => {
-    const term = () => {
-        if (props.extra) {
+    const {
+        id,
+        term,
+        answer,
+        extra,
+        termData,
+        flipped,
+        loggedIn,
+        globalQuery,
+        queryStatus,
+        queryIsRefetching,
+        hasQueryData,
+        onIconClick,
+    } = props;
+    const termElem = () => {
+        if (extra) {
             return (
                 <div>
-                    {props.term} ({props.extra})
+                    {term} ({extra})
                 </div>
             );
         } else {
-            return <div>{props.term}</div>;
+            return <div>{term}</div>;
         }
     };
 
-    const classNames = props.termData
-        ? `termItem ${props.termData}`
-        : "termItem";
+    const classNames = termData ? `termItem ${termData}` : "termItem";
 
-    const termData = props.flipped ? (
-        <div
-            className={props.loggedIn ? "termData termDataDivider" : "termData"}
-        >
-            <div className="answer">{props.answer}</div>
+    const termDataElem = flipped ? (
+        <div className={loggedIn ? "termData termDataDivider" : "termData"}>
+            <div className="answer">{answer}</div>
             <div className="verticalRule"></div>
             <div className="term" style={{ textAlign: "end" }}>
-                {term()}
+                {termElem()}
             </div>
         </div>
     ) : (
-        <div
-            className={props.loggedIn ? "termData termDataDivider" : "termData"}
-        >
-            <div className="term">{term()}</div>
+        <div className={loggedIn ? "termData termDataDivider" : "termData"}>
+            <div className="term">{termElem()}</div>
             <div className="verticalRule"></div>
             <div className="answer" style={{ textAlign: "end" }}>
-                {props.answer}
+                {answer}
             </div>
         </div>
     );
 
     return (
         <div className={classNames}>
-            {termData}
-            {props.showControls && (
+            <div className={loggedIn ? "termData termDataDivider" : "termData"}>
+                {termDataElem}
+            </div>
+
+            {loggedIn && (
                 <TermOptionsContainer
-                    globalQuery={props.globalQuery}
-                    queryStatus={props.queryStatus}
-                    queryIsRefetching={props.queryIsRefetching}
-                    hasQueryData={props.hasQueryData}
-                    state={props.termData}
-                    language={props.flipped ? "spanish" : "japanese"}
-                    onIconClick={props.onIconClick}
-                    termId={props.id}
+                    globalQuery={globalQuery}
+                    queryStatus={queryStatus}
+                    queryIsRefetching={queryIsRefetching}
+                    hasQueryData={hasQueryData}
+                    state={termData}
+                    language={flipped ? "spanish" : "japanese"}
+                    onIconClick={onIconClick}
+                    termId={id}
                 />
             )}
         </div>

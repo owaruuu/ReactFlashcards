@@ -223,3 +223,29 @@ export function pickDifference(japanese, spanish) {
         return null;
     }
 }
+
+export function reorderTermsList(originalList, data) {
+    let reorderedList = [];
+    let index = 0;
+    let mutedAmount = 0;
+
+    originalList.forEach((term) => {
+        if (data[term.id]) {
+            if (data[term.id] === "highlighted") {
+                reorderedList.splice(index, 0, term);
+                index += 1;
+            } else if (data[term.id] === "muted") {
+                reorderedList.push(term);
+                mutedAmount += 1;
+            }
+        } else {
+            reorderedList.splice(
+                reorderedList.length - 1 - (mutedAmount - 1),
+                0,
+                term
+            );
+        }
+    });
+
+    return reorderedList;
+}

@@ -230,6 +230,53 @@
     max-width: 1024px;
   }
 }
+.lectureScreen .termListDiv .termList .kanjiItem {
+  background-color: #001e37;
+  display: flex;
+  flex-direction: column;
+  color: #f5fcff;
+  margin: 6px 0;
+  width: 80%;
+  padding: 14px 8px 5px 8px;
+  font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+  text-align: center;
+  border: solid 2px transparent;
+  border-radius: 15px;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .termData {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .termDataDivider {
+  border-bottom: 1px solid grey;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .termOptions {
+  display: flex;
+  width: 100%;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .term {
+  flex: 1;
+  font-size: 5rem;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .horizontalRule {
+  background-color: #ab071d;
+  height: 2px;
+  width: 80%;
+}
+.lectureScreen .termListDiv .termList .kanjiItem .answer {
+  flex: 1;
+}
+.lectureScreen .termListDiv .termList .kanjiItem div {
+  align-self: center !important;
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termList .kanjiItem {
+    width: 300px;
+    max-width: 1024px;
+  }
+}
 .lectureScreen .termListDiv .termList .highlighted {
   border: gold solid 2px;
 }
@@ -251,4 +298,10 @@
     border-radius: 15px;
     padding: 15px 15px 7px 15px;
   }
+}
+.lectureScreen .termListDiv .write {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }/*# sourceMappingURL=LectureScreen.css.map */

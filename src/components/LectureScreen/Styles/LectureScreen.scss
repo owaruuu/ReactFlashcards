@@ -283,6 +283,64 @@
                 }
             }
 
+            .kanjiItem {
+                background-color: #001e37;
+                // background-color: #00370e;
+                display: flex;
+                flex-direction: column;
+                color: #f5fcff;
+                margin: 6px 0;
+                width: 80%;
+                padding: 14px 8px 5px 8px;
+                font-size: clamp(0.5rem, 0.5rem + 2vw, 1.4rem);
+                text-align: center;
+
+                border: solid 2px transparent;
+                border-radius: 15px;
+
+                .termData {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding-bottom: 5px;
+                }
+
+                .termDataDivider {
+                    border-bottom: 1px solid grey;
+                }
+
+                .termOptions {
+                    display: flex;
+                    width: 100%;
+                    // justify-content: space-evenly;
+                }
+
+                .term {
+                    flex: 1;
+                    font-size: 5rem;
+                }
+
+                .horizontalRule {
+                    background-color: $stripes-red;
+                    height: 2px;
+                    width: 80%;
+                }
+
+                .answer {
+                    // text-align: end;
+                    flex: 1;
+                }
+
+                div {
+                    align-self: center !important;
+                }
+
+                @media (min-width: 768px) {
+                    width: 300px;
+                    max-width: 1024px;
+                }
+            }
+
             .highlighted {
                 border: gold solid 2px;
 
@@ -309,6 +367,13 @@
                     padding: 15px 15px 7px 15px;
                 }
             }
+        }
+
+        .write {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
     }
 }
