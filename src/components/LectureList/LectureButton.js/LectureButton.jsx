@@ -27,9 +27,9 @@ const LectureButton = (props) => {
         serverError,
         cognitoError,
     } = useContext(AppContext);
-    const { isKanjiView } = props;
-    const [percentage, setPercentage] = useState(0);
-    const [japanesePercentage, setJapanesePercentage] = useState(0);
+    const { isKanjiView, amountKanji } = props;
+    const [percentage, setPercentage] = useState(0); //for future use
+    const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
     const navigate = useNavigate();
 
     const [hasTest] = useState(() => tests[props.id]);
@@ -173,6 +173,7 @@ const LectureButton = (props) => {
             <span className="lectureButtonTitle">{props.title}</span>
             <div className="terms">
                 <span>{props.amount} Palabras</span>
+                {isKanjiView && <span> - {amountKanji} Kanji</span>}
                 {/* {loggedIn && (
                     <>
                         <span className="mobile"> - </span>

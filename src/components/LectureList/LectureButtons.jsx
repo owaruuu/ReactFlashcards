@@ -2,6 +2,8 @@ import LectureButton from "./LectureButton.js/LectureButton";
 import { pickDifference, getDiff } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
+    const { isKanjiView } = props;
+
     //data de todas las lectures
     const { allLecturesDataQuery } = props;
 
@@ -18,7 +20,7 @@ const LectureButtons = (props) => {
     const filledLectures = insertSessionData(
         props.lectures,
         dataObject,
-        props.isKanjiView
+        isKanjiView
     );
 
     let filters = [];
@@ -46,11 +48,12 @@ const LectureButtons = (props) => {
                 lecture={lecture}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
+                amountKanji={lecture.kanjiList?.length}
                 starredAmount={starredAmountObject?.[lecture.lectureId]}
                 userDataQueryData={dataObject}
                 allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
-                isKanjiView={props.isKanjiView}
+                isKanjiView={isKanjiView}
                 // progress={myProgress[lecture.lectureId]}
             />
         );
