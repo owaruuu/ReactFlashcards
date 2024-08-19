@@ -2,15 +2,20 @@ import React from "react";
 import TermCard from "./TermCard";
 
 const NormalTermCard = (props) => {
-    let term = <span>{props.term}</span>;
-    let answer = (
-        <div>
-            <span>{props.answer}</span>
-        </div>
-    );
+    const { termId, termsDict, flipped } = props;
 
-    const termContent = props.flipped ? answer : term;
-    const answerContent = props.flipped ? term : answer;
+    const term =
+        termId !== undefined
+            ? termsDict[termId].extra
+                ? termsDict[termId].term + " - " + termsDict[termId].extra
+                : termsDict[termId].term
+            : "Cargando...";
+
+    const answer =
+        termId !== undefined ? termsDict[termId].answer : "Cargando...";
+
+    const termContent = <span>{flipped ? answer : term}</span>;
+    const answerContent = <span>{flipped ? term : answer}</span>;
 
     return <TermCard {...props} term={termContent} answer={answerContent} />;
 };

@@ -17,6 +17,8 @@ import { getLectureQueryString } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
+import RecognizeTermCard from "../../components/LearnScreen/Flashcards/RecognizeTermCard";
+import WriteKanjiCard from "../../components/LearnScreen/Flashcards/WriteKanjiCard";
 
 const ReviewView = (props) => {
     //lectureQuery viene lista
@@ -26,6 +28,11 @@ const ReviewView = (props) => {
     const { lang } = useParams();
     const navigate = useNavigate();
 
+    const isKanjiView = lang === "write" || lang === "recognize" ? true : false;
+    const lectureDir = isKanjiView
+        ? `/lectures/kanji/${lecture.lectureId}`
+        : `/lectures/${lecture.lectureId}`;
+
     const [showModal, setShowModal] = useState(false);
     const [showAnswer, setShowAnswer] = useState(false);
     const [disappearingCards, setDisappearingCards] = useState([]);
@@ -34,9 +41,15 @@ const ReviewView = (props) => {
     //diccionario de terminos para poder acceder a los terminos en o(n)
     const [termsDict] = useState(() => {
         const termsDict = {};
-        lecture.termList.forEach((term) => {
-            termsDict[term.id] = term;
-        });
+        if (lang === "write") {
+            lecture.kanjiList.forEach((term) => {
+                termsDict[term.id] = term;
+            });
+        } else {
+            lecture.termList.forEach((term) => {
+                termsDict[term.id] = term;
+            });
+        }
 
         return termsDict;
     });
@@ -131,7 +144,7 @@ const ReviewView = (props) => {
                 newValue: newValue,
             });
 
-            navigate(`/lectures/${lecture.lectureId}`);
+            navigate(lectureDir);
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage(
@@ -140,38 +153,49 @@ const ReviewView = (props) => {
         }
     }
 
-    const nextButton =
-        termsIds.length > 1 ? (
-            <NextButton
-                next={true}
-                onClick={handleNextTerm}
-                loading={
-                    lectureSessionMutation.status === "loading" ||
-                    lectureMutation.status === "loading"
-                }
-                // loading={true}
-            />
-        ) : (
-            <NextButton
-                onClick={handleEndSession}
-                loading={
-                    lectureSessionMutation.status === "loading" ||
-                    lectureMutation.status === "loading"
-                }
-            />
-        );
+    const nextButton = (
+        <NextButton
+            next={termsIds.length > 1 ? true : false}
+            onClick={termsIds.length > 1 ? handleNextTerm : handleEndSession}
+            loading={
+                lectureSessionMutation.status === "loading" ||
+                lectureMutation.status === "loading"
+            }
+        />
+    );
 
     const termId = termsIds[0];
 
-    const term =
-        termId !== undefined
-            ? termsDict[termId].extra
-                ? termsDict[termId].term + " - " + termsDict[termId].extra
-                : termsDict[termId].term
-            : "Cargando...";
+    const normalFlashCard = (
+        <NormalTermCard
+            termId={termId}
+            termsDict={termsDict}
+            showAnswer={showAnswer}
+            answerFunction={handleClick}
+            flipped={lang === "spanish"}
+            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+        />
+    );
 
-    const answer =
-        termId !== undefined ? termsDict[termId].answer : "Cargando...";
+    const recognizeFlashCard = (
+        <RecognizeTermCard
+            termId={termId}
+            termsDict={termsDict}
+            showAnswer={showAnswer}
+            answerFunction={handleClick}
+            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+        />
+    );
+
+    const writeFlashCard = (
+        <WriteKanjiCard
+            termId={termId}
+            termsDict={termsDict}
+            showAnswer={showAnswer}
+            answerFunction={handleClick}
+            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+        />
+    );
 
     function removeFirstTerm() {
         const clonedArray = JSON.parse(JSON.stringify(termsIds));
@@ -195,8 +219,8 @@ const ReviewView = (props) => {
                 id={uniqueKey}
                 timeStamp={now}
                 key={uniqueKey}
-                term={term}
-                answer={answer}
+                // term={term}
+                // answer={answer}
                 showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
                 direction={" disappear-left"}
@@ -221,29 +245,15 @@ const ReviewView = (props) => {
                 terms={termsIds}
                 showFunc={() => handleOptionsButtonClick(true)}
                 language={lang}
-                isKanjiView={props.isKanjiView}
+                isKanjiView={isKanjiView}
             />
 
             <div className="termCardDiv">
-                <NormalTermCard
-                    // termsDict={termsDict}
-                    // termsIds={termsIds}
-                    // index={0}
-                    term={term}
-                    answer={answer}
-                    showAnswer={showAnswer}
-                    answerFunction={handleClick}
-                    flipped={
-                        lang === "japanese" || lang === "recognize"
-                            ? false
-                            : true
-                    }
-                    state={
-                        lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
-                            termId
-                        ]
-                    }
-                />
+                {lang === "recognize"
+                    ? recognizeFlashCard
+                    : lang === "write"
+                    ? writeFlashCard
+                    : normalFlashCard}
                 {disappearingCards}
             </div>
             <div className="controls">

@@ -1034,6 +1034,7 @@
   left: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: #8b4500;
   background-color: #fdd2a6;
   margin: 10px;
@@ -1062,6 +1063,8 @@
   .termCardDiv .termCard .term,
   .termCardDiv .termCard .answerSection {
     font-size: clamp(1rem, 1rem + 2vw, 2rem);
+    width: 80%;
+    max-width: 500px;
   }
 }
 .termCardDiv .termCard .answerSection {

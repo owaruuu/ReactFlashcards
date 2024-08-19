@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useOutletContext, useParams } from "react-router-dom";
 import ReviewView from "../views/ReviewView";
 
-const HasActiveStudySession = (props) => {
+const HasActiveStudySession = () => {
     const { lectureQuery, lecture } = useOutletContext();
     const { lang } = useParams();
     const [activeStudySession, setActiveStudySession] = useState(0);
@@ -32,7 +32,7 @@ const HasActiveStudySession = (props) => {
     }
 
     return activeStudySession === 1 ? (
-        <ReviewView isKanjiView={props.isKanjiView ? true : false} />
+        <ReviewView />
     ) : activeStudySession === -1 ? (
         <div className="lectureScreen">
             <p>
