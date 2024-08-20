@@ -1114,31 +1114,50 @@
     max-width: 500px;
   }
 }
-.termCardDiv .termCard .canvasSection {
+.termCardDiv .termCard .kanjiSection {
+  padding: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.termCardDiv .termCard .kanjiSection .showKanjiButton {
+  border: none;
+  /* width: 100%; */
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  color: #f3f3f3;
+  background-color: #3e3c50;
+}
+.termCardDiv .termCard .kanjiSection .canvasSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
 }
-.termCardDiv .termCard .canvasSection .canvas {
-  height: 110px;
+.termCardDiv .termCard .kanjiSection .canvasSection .canvas {
+  position: absolute;
   flex: 1;
-  margin-bottom: 10px;
   cursor: crosshair;
 }
-.termCardDiv .termCard .canvasSection .canvas div {
+.termCardDiv .termCard .kanjiSection .canvasSection .canvas div {
   border-radius: 0 !important;
 }
-.termCardDiv .termCard .canvasSection .canvasControls {
+.termCardDiv .termCard .kanjiSection .canvasControls {
   display: flex;
   gap: 25px;
 }
 .termCardDiv .termCard .write {
   flex: 0;
+  padding: 10px;
 }
 .termCardDiv .termCard svg {
   height: 100%;
   width: 100%;
+}
+.termCardDiv .termCard svg g {
+  stroke: white;
 }
 .termCardDiv .termCard .kanjiBackground {
   display: flex;

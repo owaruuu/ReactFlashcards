@@ -8,7 +8,7 @@ import DashCross from "../../Misc/DashCross";
 import DayKanji from "../../temp svg/DayKanji";
 
 const WriteKanjiCard = (props) => {
-    const { termId, termsDict, state, showAnswer } = props;
+    const { termId, termsDict, state, showAnswer, answerFunction } = props;
     console.log("🚀 ~ WriteKanjiCard ~ props:", props);
 
     const [strokeColor, setStrokeColor] = useState("#a855f7");
@@ -29,9 +29,9 @@ const WriteKanjiCard = (props) => {
         canvasRef.current?.undo();
     }
 
-    function handleClearClick() {
-        canvasRef.current?.clearCanvas();
-    }
+    const handleResetClick = () => {
+        canvasRef.current?.resetCanvas();
+    };
 
     return (
         <div className={classNames}>
@@ -39,18 +39,23 @@ const WriteKanjiCard = (props) => {
                 {term?.meaning ? term.meaning : "Cargando..."}
             </div>
             <div className="divider"></div>
-            <div className="canvasSection">
-                <div className="canvas">
-                    <ReactSketchCanvas
-                        // width="100%"
-                        // height="100%"
-                        height="160px"
-                        width="160px"
-                        canvasColor="transparent"
-                        strokeColor={strokeColor}
-                        ref={canvasRef}
-                        strokeWidth={8}
-                    />
+            <div className="kanjiSection">
+                <div className="canvasSection">
+                    <div className="kanjiBackground">
+                        <DashCross />
+                        <div className="canvas">
+                            <ReactSketchCanvas
+                                // width="100%"
+                                // height="100%"
+                                height="160px"
+                                width="160px"
+                                canvasColor="transparent"
+                                strokeColor={strokeColor}
+                                ref={canvasRef}
+                                strokeWidth={8}
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div className="canvasControls">
                     <SquareIconButton
@@ -59,20 +64,26 @@ const WriteKanjiCard = (props) => {
                     ></SquareIconButton>
                     <SquareIconButton
                         icon={<MdOutlineClear />}
-                        onClick={handleClearClick}
+                        onClick={handleResetClick}
                     ></SquareIconButton>
                 </div>
-            </div>
-            <div className="kanjiBackground">
-                <DashCross />
-                <div className="character">
-                    <DayKanji />
-                    {/* {term?.kanji ? term.kanji : <Spinner />} */}
+                <div className="kanjiBackground">
+                    <DashCross />
+                    {!showAnswer ? (
+                        <button
+                            className="showKanjiButton"
+                            onClick={answerFunction}
+                        >
+                            Mostrar Kanji
+                        </button>
+                    ) : (
+                        <div className="character">
+                            <DayKanji />
+                            {/* {term?.kanji ? term.kanji : <Spinner />} */}
+                        </div>
+                    )}
                 </div>
             </div>
-            {/* <div>
-                <DashCross />
-            </div> */}
         </div>
     );
 };
