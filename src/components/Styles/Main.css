@@ -1015,6 +1015,50 @@
   }
 }
 
+.squareIconButton {
+  width: 30px;
+  height: 30px;
+}
+.squareIconButton button {
+  position: relative;
+  background-color: #38364b;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 1px 2px 1px 0px rgba(1, 1, 26, 0.53);
+}
+.squareIconButton button svg {
+  color: white;
+}
+.squareIconButton button:active {
+  top: 1px;
+}
+.squareIconButton button:hover {
+  transition-duration: 0.1s;
+  background-color: #3a3a3a;
+}
+.squareIconButton button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.3s;
+  box-shadow: 0 0 0px 5px white;
+}
+.squareIconButton button:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
 .termCardDiv {
   max-width: 935px;
   width: 80vw;
@@ -1066,6 +1110,28 @@
     width: 80%;
     max-width: 500px;
   }
+}
+.termCardDiv .termCard .canvasSection {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 10px;
+}
+.termCardDiv .termCard .canvasSection .canvas {
+  flex: 1;
+  margin-right: 5px;
+  cursor: crosshair;
+}
+.termCardDiv .termCard .canvasSection .canvas div {
+  border-radius: 0 !important;
+}
+.termCardDiv .termCard .canvasSection .canvasControls {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.termCardDiv .termCard .write {
+  flex: 0;
 }
 .termCardDiv .termCard .answerSection {
   flex: 1;
