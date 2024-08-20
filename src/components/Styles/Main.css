@@ -962,6 +962,9 @@
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: auto;
 }
+.panel p {
+  font-size: 14px;
+}
 
 .optionsButton {
   font-weight: 400;
@@ -972,7 +975,7 @@
   border: 3px solid #f5b64e;
   border-radius: 100px;
   cursor: pointer;
-  margin: 10px 20px 10px;
+  margin: 5px 20px 5px;
   align-self: center;
   justify-self: center;
 }
@@ -1001,7 +1004,7 @@
   border: 3px solid #f5b64e;
   border-radius: 100px;
   cursor: pointer;
-  margin: 10px 20px 10px;
+  margin: 5px 20px 5px;
   align-self: center;
   justify-self: center;
 }
@@ -1016,8 +1019,8 @@
 }
 
 .squareIconButton {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 .squareIconButton button {
   position: relative;
@@ -1062,7 +1065,7 @@
 .termCardDiv {
   max-width: 935px;
   width: 80vw;
-  height: 40vh;
+  height: 450px;
   position: relative;
 }
 @media (min-width: 768px) {
@@ -1113,13 +1116,14 @@
 }
 .termCardDiv .termCard .canvasSection {
   display: flex;
-  flex-direction: row;
-  height: 100%;
+  flex-direction: column;
+  align-items: center;
   padding: 10px;
 }
 .termCardDiv .termCard .canvasSection .canvas {
+  height: 110px;
   flex: 1;
-  margin-right: 5px;
+  margin-bottom: 10px;
   cursor: crosshair;
 }
 .termCardDiv .termCard .canvasSection .canvas div {
@@ -1127,11 +1131,28 @@
 }
 .termCardDiv .termCard .canvasSection .canvasControls {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  gap: 25px;
 }
 .termCardDiv .termCard .write {
   flex: 0;
+}
+.termCardDiv .termCard svg {
+  height: 100%;
+  width: 100%;
+}
+.termCardDiv .termCard .kanjiBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 160px;
+  border: 0.0625rem solid rgb(156, 156, 156);
+}
+.termCardDiv .termCard .character {
+  position: absolute;
+  font-size: 8rem;
+  width: 160px;
+  height: 160px;
 }
 .termCardDiv .termCard .answerSection {
   flex: 1;

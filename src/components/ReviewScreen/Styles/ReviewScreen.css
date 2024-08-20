@@ -30,7 +30,7 @@
   justify-self: center;
   color: white;
   margin: 0;
-  font-size: clamp(0.5rem, 0.5rem + 3.5vw, 2rem);
+  font-size: 16px;
   font-family: "Gidugu";
 }
 @media (min-width: 768px) {
@@ -41,11 +41,10 @@
 .ReviewV2Screen .controls {
   z-index: 1;
   display: grid;
-  justify-items: center;
-  grid-template-rows: 1fr 1fr 2fr;
-  grid-template-areas: "buttons" "info" "nextButton";
-  justify-content: center;
-  width: 100vw;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "buttons info" "nextButton nextButton";
+  width: 80vw;
 }
 .ReviewV2Screen .controls p {
   text-align: center;
@@ -68,8 +67,9 @@
   }
 }
 .ReviewV2Screen .controls .next {
+  grid-area: nextButton;
   min-width: 200px;
-  min-height: 82px;
+  min-height: 50px;
   padding: 10px 40px;
   border-radius: 15px;
   border: 2px solid #ab071d;

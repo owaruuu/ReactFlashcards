@@ -1169,6 +1169,10 @@
     display: grid;
     grid-template-columns: 33% 33% 33%;
     grid-template-rows: auto;
+
+    p {
+        font-size: 14px;
+    }
 }
 
 .optionsButton {
@@ -1182,7 +1186,7 @@
     border-radius: 100px;
     cursor: pointer;
 
-    margin: 10px 20px 10px;
+    margin: 5px 20px 5px;
     align-self: center;
     justify-self: center;
 
@@ -1214,7 +1218,7 @@
     border-radius: 100px;
     cursor: pointer;
 
-    margin: 10px 20px 10px;
+    margin: 5px 20px 5px;
     align-self: center;
     justify-self: center;
 
@@ -1271,14 +1275,15 @@
         }
     }
 
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .termCardDiv {
     max-width: 935px;
     width: 80vw;
-    height: 40vh;
+    // height: 40vh;
+    height: 450px;
     position: relative;
 
     @media (min-width: 768px) {
@@ -1331,13 +1336,16 @@
 
         .canvasSection {
             display: flex;
-            flex-direction: row;
-            height: 100%;
+            flex-direction: column;
+            align-items: center;
+
             padding: 10px;
 
             .canvas {
+                height: 110px;
                 flex: 1;
-                margin-right: 5px;
+                // margin-right: 5px;
+                margin-bottom: 10px;
                 cursor: crosshair;
                 div {
                     border-radius: 0 !important;
@@ -1346,13 +1354,36 @@
 
             .canvasControls {
                 display: flex;
-                flex-direction: column;
-                gap: 5px;
+                // flex-direction: column;
+                gap: 25px;
             }
         }
 
         .write {
             flex: 0;
+        }
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+
+        .kanjiBackground {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 160px;
+            height: 160px;
+            border: 0.0625rem solid rgb(156, 156, 156);
+        }
+
+        .character {
+            position: absolute;
+            font-size: 8rem;
+            width: 160px;
+            height: 160px;
+            svg {
+            }
         }
 
         .answerSection {

@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import { CgUndo } from "react-icons/cg";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { MdOutlineClear } from "react-icons/md";
 import SquareIconButton from "../../Buttons/SquareIconButton";
+import DashCross from "../../Misc/DashCross";
+import DayKanji from "../../temp svg/DayKanji";
 
 const WriteKanjiCard = (props) => {
     const { termId, termsDict, state, showAnswer } = props;
@@ -33,17 +35,21 @@ const WriteKanjiCard = (props) => {
 
     return (
         <div className={classNames}>
-            <div className="term write">{term.meaning}</div>
+            <div className="term write">
+                {term?.meaning ? term.meaning : "Cargando..."}
+            </div>
             <div className="divider"></div>
             <div className="canvasSection">
                 <div className="canvas">
                     <ReactSketchCanvas
-                        width="100%"
-                        height="100%"
+                        // width="100%"
+                        // height="100%"
+                        height="160px"
+                        width="160px"
                         canvasColor="transparent"
                         strokeColor={strokeColor}
                         ref={canvasRef}
-                        strokeWidth={10}
+                        strokeWidth={8}
                     />
                 </div>
                 <div className="canvasControls">
@@ -57,6 +63,16 @@ const WriteKanjiCard = (props) => {
                     ></SquareIconButton>
                 </div>
             </div>
+            <div className="kanjiBackground">
+                <DashCross />
+                <div className="character">
+                    <DayKanji />
+                    {/* {term?.kanji ? term.kanji : <Spinner />} */}
+                </div>
+            </div>
+            {/* <div>
+                <DashCross />
+            </div> */}
         </div>
     );
 };
