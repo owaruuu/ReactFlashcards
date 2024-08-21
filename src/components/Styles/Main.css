@@ -1152,13 +1152,6 @@
   flex: 0;
   padding: 10px;
 }
-.termCardDiv .termCard svg {
-  height: 100%;
-  width: 100%;
-}
-.termCardDiv .termCard svg g {
-  stroke: white;
-}
 .termCardDiv .termCard .kanjiBackground {
   display: flex;
   justify-content: center;
@@ -1167,11 +1160,30 @@
   height: 160px;
   border: 0.0625rem solid rgb(156, 156, 156);
 }
+.termCardDiv .termCard .kanjiBackground svg {
+  height: 100%;
+  width: 100%;
+}
 .termCardDiv .termCard .character {
   position: absolute;
   font-size: 8rem;
   width: 160px;
   height: 160px;
+}
+.termCardDiv .termCard .character svg {
+  height: 100%;
+  width: 100%;
+}
+.termCardDiv .termCard .character svg g {
+  stroke: #ffffff !important;
+  font-size: 6px;
+}
+.termCardDiv .termCard .character svg g:first-child {
+  stroke-width: 2 !important;
+}
+.termCardDiv .termCard .character svg > g:nth-child(2) {
+  fill: rgb(234, 189, 69) !important;
+  stroke-width: 0 !important;
 }
 .termCardDiv .termCard .answerSection {
   flex: 1;

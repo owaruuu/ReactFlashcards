@@ -1384,15 +1384,6 @@
             padding: 10px;
         }
 
-        svg {
-            height: 100%;
-            width: 100%;
-
-            g {
-                stroke: white;
-            }
-        }
-
         .kanjiBackground {
             display: flex;
             justify-content: center;
@@ -1400,6 +1391,11 @@
             width: 160px;
             height: 160px;
             border: 0.0625rem solid rgb(156, 156, 156);
+
+            svg {
+                height: 100%;
+                width: 100%;
+            }
         }
 
         .character {
@@ -1408,6 +1404,38 @@
             width: 160px;
             height: 160px;
             svg {
+                height: 100%;
+                width: 100%;
+
+                g {
+                    stroke: #ffffff !important;
+                    // stroke-width: 2;
+                    font-size: 6px;
+                }
+
+                g:first-child {
+                    stroke-width: 2 !important;
+                }
+
+                &:first-child {
+                }
+
+                & > g:nth-child(2) {
+                    fill: rgb(234 189 69) !important;
+                    stroke-width: 0 !important;
+                    // svg {
+                    //     g {
+                    //         fill: rgb(234 189 69);
+                    //         stroke-width: 0;
+                    //     }
+                    // }
+
+                    // stroke: white !important;
+                }
+
+                // &:nth-child(1) {
+                //     stroke: white !important;
+                // }
             }
         }
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import { CgUndo } from "react-icons/cg";
 import { Button, Spinner } from "react-bootstrap";
@@ -6,10 +6,21 @@ import { MdOutlineClear } from "react-icons/md";
 import SquareIconButton from "../../Buttons/SquareIconButton";
 import DashCross from "../../Misc/DashCross";
 import DayKanji from "../../temp svg/DayKanji";
+import { getKanjiSvgName } from "../../../utils/utils";
+import { useGetKanjiSvgDataQuery } from "../../../hooks/kanjiSvgDataQueryHook";
+import parse from "html-react-parser";
 
-const WriteKanjiCard = (props) => {
-    const { termId, termsDict, state, showAnswer, answerFunction } = props;
-    console.log("🚀 ~ WriteKanjiCard ~ props:", props);
+const WriteKanjiCard = forwardRef((props, ref) => {
+    const {
+        termId,
+        termsDict,
+        state,
+        showAnswer,
+        answerFunction,
+        handleUndo,
+        handleReset,
+    } = props;
+    // console.log("🚀 ~ WriteKanjiCard ~ props:", props);
 
     const [strokeColor, setStrokeColor] = useState("#a855f7");
     const canvasRef = useRef(null);
@@ -25,13 +36,34 @@ const WriteKanjiCard = (props) => {
     const term = termsDict[termId];
     console.log("🚀 ~ WriteKanjiCard ~ term:", term);
 
-    function handleUndoClick() {
-        canvasRef.current?.undo();
-    }
+    const tempKanjiName = term ? getKanjiSvgName(term.kanji) : "";
+    // console.log("🚀 ~ WriteKanjiCard ~ tempKanjiName:", tempKanjiName);
 
-    const handleResetClick = () => {
-        canvasRef.current?.resetCanvas();
-    };
+    const getKanjiSvgNameQuery = useGetKanjiSvgDataQuery(
+        term?.kanji,
+        tempKanjiName,
+        term ? true : false
+    );
+    console.log(
+        "🚀 ~ WriteKanjiCard ~ getKanjiSvgNameQuery:",
+        getKanjiSvgNameQuery
+    );
+
+    // const kanjiData = getKanjiSvgNameQuery?.data;
+    // console.log("🚀 ~ WriteKanjiCard ~ kanjiData:", typeof kanjiData);
+    // const wea = parse(getKanjiSvgNameQuery?.data);
+
+    // function handleUndoClick() {
+    //     canvasRef.current?.undo();
+    // }
+
+    // function handleReset() {
+    //     canvasRef.current?.resetCanvas();
+    // }
+
+    useEffect(() => {
+        console.log("buscando kanji, termId cambio...");
+    }, [termId]);
 
     return (
         <div className={classNames}>
@@ -51,7 +83,7 @@ const WriteKanjiCard = (props) => {
                                 width="160px"
                                 canvasColor="transparent"
                                 strokeColor={strokeColor}
-                                ref={canvasRef}
+                                ref={ref}
                                 strokeWidth={8}
                             />
                         </div>
@@ -60,11 +92,11 @@ const WriteKanjiCard = (props) => {
                 <div className="canvasControls">
                     <SquareIconButton
                         icon={<CgUndo />}
-                        onClick={handleUndoClick}
+                        onClick={handleUndo}
                     ></SquareIconButton>
                     <SquareIconButton
                         icon={<MdOutlineClear />}
-                        onClick={handleResetClick}
+                        onClick={handleReset}
                     ></SquareIconButton>
                 </div>
                 <div className="kanjiBackground">
@@ -78,7 +110,9 @@ const WriteKanjiCard = (props) => {
                         </button>
                     ) : (
                         <div className="character">
-                            <DayKanji />
+                            {/* <DayKanji /> */}
+                            {getKanjiSvgNameQuery.status === "success" &&
+                                parse(extractSvgTag(getKanjiSvgNameQuery.data))}
                             {/* {term?.kanji ? term.kanji : <Spinner />} */}
                         </div>
                     )}
@@ -86,6 +120,12 @@ const WriteKanjiCard = (props) => {
             </div>
         </div>
     );
-};
+});
+
+function extractSvgTag(svgString) {
+    const svgStart = svgString.indexOf("<svg");
+    const svgEnd = svgString.indexOf("</svg>") + 6;
+    return svgString.substring(svgStart, svgEnd);
+}
 
 export default WriteKanjiCard;

@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { kanjiLookup } from "../data/kanjiLookup";
 
 export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
 
@@ -248,4 +249,8 @@ export function reorderTermsList(originalList, data) {
     });
 
     return reorderedList;
+}
+
+export function getKanjiSvgName(kanji) {
+    return kanjiLookup[kanji].at(-1);
 }

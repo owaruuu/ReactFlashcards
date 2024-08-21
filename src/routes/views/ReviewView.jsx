@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "../../components/Styles/Main.css";
 import "../../components/ReviewScreen/Styles/ReviewScreen.css";
 import { useState, useEffect } from "react";
@@ -24,6 +24,8 @@ const ReviewView = (props) => {
     //lectureQuery viene lista
     const { setTab, allLecturesDataQuery, lectureQuery, lecture } =
         useOutletContext();
+
+    const childrenRef = useRef();
 
     const { lang } = useParams();
     const navigate = useNavigate();
@@ -117,6 +119,7 @@ const ReviewView = (props) => {
         const newValue = removeFirstTerm();
 
         try {
+            handleResetClick();
             setShowAnswer(false);
             createDissappearingCard();
             setFeedbackMessage("Cambiando termino...");
@@ -151,6 +154,22 @@ const ReviewView = (props) => {
                 "No se pudo terminar la sesion, intentalo otra vez."
             );
         }
+    }
+
+    // function handleUndoClick(canvasRef) {
+    //     canvasRef.current?.undo();
+    // }
+
+    // const handleResetClick = (canvasRef) => {
+    //     canvasRef.current?.resetCanvas();
+    // };
+
+    function handleUndoClick() {
+        childrenRef.current?.undo();
+    }
+
+    function handleResetClick() {
+        childrenRef.current?.resetCanvas();
     }
 
     const nextButton = (
@@ -194,6 +213,9 @@ const ReviewView = (props) => {
             showAnswer={showAnswer}
             answerFunction={handleClick}
             state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+            handleUndo={handleUndoClick}
+            handleReset={handleResetClick}
+            ref={childrenRef}
         />
     );
 
