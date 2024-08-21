@@ -26,7 +26,6 @@ const LectureScreenButtons = (props) => {
             <div className="learningButtons">
                 {!props.isKanjiView && reviewButton}
                 {props.hasTest && testButton}
-                <TbSwitch3 />
             </div>
 
             <BackButton
