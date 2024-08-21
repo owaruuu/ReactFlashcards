@@ -971,6 +971,29 @@
   }
 }
 
+.textButton {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  text-decoration: underline;
+  color: #dbb01c;
+  border: none;
+}
+.textButton:hover {
+  color: #f4cc49;
+}
+.textButton:active {
+  top: 1px;
+}
+
+.textButton small {
+  font-size: 12px;
+}
+
+.smallText {
+  font-size: 10px;
+  color: #ab071d;
+}
+
 .optionsButton {
   font-weight: 400;
   text-transform: capitalize;

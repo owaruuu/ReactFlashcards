@@ -1181,6 +1181,31 @@
     }
 }
 
+.textButton {
+    position: relative;
+    background-color: #00000000;
+    text-decoration: underline;
+    color: $decoration-yellow;
+    border: none;
+
+    &:hover {
+        color: $decoration-yellow-light;
+    }
+
+    &:active {
+        top: 1px;
+    }
+}
+
+.textButton small {
+    font-size: 12px;
+}
+
+.smallText {
+    font-size: 10px;
+    color: $stripes-red;
+}
+
 .optionsButton {
     font-weight: 400;
     text-transform: capitalize;

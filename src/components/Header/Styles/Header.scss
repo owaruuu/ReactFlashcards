@@ -2,20 +2,24 @@
 
 .header {
     @media (min-width: 768px) {
-        flex-direction: row;
+        // flex-direction: row;
+        // justify-content: space-between;
         padding-left: 20px;
-        justify-content: space-between;
+        grid-template-areas: "title kanji user";
+        grid-template-columns: auto 1fr auto;
     }
 
     height: 80px;
     z-index: 15;
-    // position: fixed;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-areas:
+        "title kanji"
+        "user user";
+    // flex-direction: column;
     background-color: #032745;
     width: 100%;
-    align-items: center;
-    // justify-content: space-between;
     color: $cloud-white;
     border-bottom: 4px solid $stripes-red !important;
 
@@ -56,6 +60,7 @@
         font-size: 34px;
         text-align: center;
         margin: 0;
+        grid-area: title;
         // font-size: clamp(0rem, 0rem + 2vw, 3rem);
         cursor: pointer;
 
@@ -75,6 +80,14 @@
     .save {
         padding-left: 5px;
         margin-right: auto;
+    }
+
+    .kanjiButton {
+        grid-area: kanji;
+
+        @media (min-width: 768px) {
+            justify-self: start;
+        }
     }
 
     .loginControls {
@@ -135,6 +148,7 @@
 
         width: 100%;
         // margin: auto;
+        grid-area: user;
         display: flex;
         justify-content: center;
         // flex-direction: column-reverse;
