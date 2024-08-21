@@ -31,6 +31,11 @@ const HasActiveStudySession = () => {
         throw new Error("Wrong Lang");
     }
 
+    const isKanjiView = lang === "recognize" || lang === "write";
+    const dir = isKanjiView
+        ? `/lectures/kanji/${lecture.lectureId}`
+        : `/lectures/${lecture.lectureId}`;
+
     return activeStudySession === 1 ? (
         <ReviewView />
     ) : activeStudySession === -1 ? (
@@ -38,7 +43,7 @@ const HasActiveStudySession = () => {
             <p>
                 No tienes una sesion activa para esta Leccion con este lenguage
             </p>
-            <Link to={`/lectures/${lecture.lectureId}`}>Volver a Leccion.</Link>
+            <Link to={dir}>Volver a Leccion.</Link>
         </div>
     ) : (
         <div>HasActiveStudySession</div>

@@ -2,7 +2,7 @@ import LectureButton from "./LectureButton.js/LectureButton";
 import { pickDifference, getDiff } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
-    const { isKanjiView } = props;
+    const { isKanjiView, orderingState } = props;
 
     //data de todas las lectures
     const { allLecturesDataQuery } = props;
@@ -39,7 +39,7 @@ const LectureButtons = (props) => {
         filteredLectures = filledLectures;
     }
 
-    const sortedLectures = sortLectures(props.orderingState, filteredLectures);
+    const sortedLectures = sortLectures(orderingState, filteredLectures);
 
     const lectureButtons = sortedLectures.map((lecture) => {
         return (
@@ -161,41 +161,115 @@ function sortLectures(orderingState, lectures) {
     switch (orderingState) {
         case "jpnDateASC":
             // console.log("Date ASC");
-            return clonedLectures.sort(sortByDateASC);
+            return clonedLectures.sort(sortJapaneseByDateASC);
         case "jpnDateDESC":
             // console.log("Date DESC");
-            return clonedLectures.sort(sortByDateDESC);
+            return clonedLectures.sort(sortJapaneseByDateDESC);
         case "espDateASC":
             // console.log("Date ASC");
-            return clonedLectures.sort(sortBySpanishDateASC);
+            return clonedLectures.sort(sortSpanishByDateASC);
         case "espDateDESC":
             // console.log("Date DESC");
-            return clonedLectures.sort(sortBySpanishDateDESC);
+            return clonedLectures.sort(sortSpanishByDateDESC);
+        case "recDateASC":
+            return clonedLectures.sort(sortRecognizeByDateASC);
+        case "recDateDESC":
+            return clonedLectures.sort(sortRecognizeByDateDESC);
+        case "wrtDateASC":
+            return clonedLectures.sort(sortWriteByDateASC);
+        case "wrtDateDESC":
+            return clonedLectures.sort(sortWriteByDateDESC);
         case "sizeASC":
             // console.log("Name ASC");
-            return clonedLectures.sort(sortBySessionSizeASC);
+            return clonedLectures.sort(sortJapaneseBySessionSizeASC);
         case "sizeDESC":
             // console.log("Name DESC");
-            return clonedLectures.sort(sortBySessionSizeDESC);
+            return clonedLectures.sort(sortJapaneseBySessionSizeDESC);
     }
 
     return clonedLectures;
 }
 
-function sortByDateASC(a, b) {
-    return sortByDate(a, b);
+function sortJapaneseByDateASC(a, b) {
+    return sortBySessionLang(a, b, "japanese");
 }
 
-function sortByDateDESC(a, b) {
-    return sortByDate(b, a);
+function sortJapaneseByDateDESC(a, b) {
+    return sortBySessionLang(b, a, "japanese");
 }
 
-function sortBySpanishDateASC(a, b) {
-    return sortBySpanishDate(a, b);
+function sortSpanishByDateASC(a, b) {
+    return sortBySessionLang(a, b, "spanish");
+}
+function sortSpanishByDateDESC(a, b) {
+    return sortBySessionLang(b, a, "spanish");
 }
 
-function sortBySpanishDateDESC(a, b) {
-    return sortBySpanishDate(b, a);
+function sortRecognizeByDateASC(a, b) {
+    return sortBySessionLang(a, b, "recognize");
+}
+
+function sortRecognizeByDateDESC(a, b) {
+    return sortBySessionLang(b, a, "recognize");
+}
+
+function sortWriteByDateASC(a, b) {
+    return sortBySessionLang(a, b, "write");
+}
+
+function sortWriteByDateDESC(a, b) {
+    return sortBySessionLang(b, a, "write");
+}
+
+// function sortByDateASC(a, b) {
+//     return sortByDate(a, b);
+// }
+
+// function sortByDateDESC(a, b) {
+//     return sortByDate(b, a);
+// }
+
+// function sortBySpanishDateASC(a, b) {
+//     return sortBySpanishDate(a, b);
+// }
+
+// function sortBySpanishDateDESC(a, b) {
+//     return sortBySpanishDate(b, a);
+// }
+
+function sortBySessionLang(a, b, lang) {
+    const japaneseDateA = a[`${lang}_session`]?.lastReviewed;
+    let japaneseDataObjectA;
+    if (japaneseDateA) {
+        japaneseDataObjectA = new Date(japaneseDateA);
+    }
+    const aDiff = getDiff(japaneseDataObjectA);
+
+    const japaneseDateB = b[`${lang}_session`]?.lastReviewed;
+    let japaneseDataObjectB;
+    if (japaneseDateB) {
+        japaneseDataObjectB = new Date(japaneseDateB);
+    }
+    const bDiff = getDiff(japaneseDataObjectB);
+
+    //a is less than b by some ordering criterion
+
+    if (aDiff && bDiff) {
+        if (aDiff < bDiff) {
+            // console.log("a is less than b by some ordering criterion");
+            return 1;
+        } else if (aDiff > bDiff) {
+            // console.log("a is greater than b by the ordering criterion");
+            //a is greater than b by the ordering criterion
+            return -1;
+        }
+    } else if (aDiff && !bDiff) {
+        return 1;
+    } else if (!aDiff && bDiff) {
+        return -1;
+    }
+
+    return 0;
 }
 
 function sortByDate(a, b) {
@@ -268,17 +342,25 @@ function sortBySpanishDate(a, b) {
     return 0;
 }
 
-function sortBySessionSizeASC(a, b) {
-    return sortBySessionSize(a, b);
+function sortJapaneseBySessionSizeASC(a, b) {
+    return sortBySessionSize(a, b, "japanese");
 }
 
-function sortBySessionSizeDESC(a, b) {
-    return sortBySessionSize(b, a);
+function sortJapaneseBySessionSizeDESC(a, b) {
+    return sortBySessionSize(b, a, "japanese");
 }
 
-function sortBySessionSize(a, b) {
-    let japaneseSessionSizeA = a["japanese_session"]?.terms.length;
-    let spanishSessionSizeA = a["spanish_session"]?.terms.length;
+function sortSpanishBySessionSizeASC(a, b) {
+    return sortBySessionSize(a, b, "spanish");
+}
+
+function sortSpanishBySessionSizeDESC(a, b) {
+    return sortBySessionSize(b, a, "spanish");
+}
+
+function sortBySessionSize(a, b, lang) {
+    let japaneseSessionSizeA = a[`${lang}_session`]?.terms.length;
+    let spanishSessionSizeA = a[`${lang}_session`]?.terms.length;
     if (japaneseSessionSizeA === undefined) {
         japaneseSessionSizeA = 0;
     }
@@ -289,8 +371,8 @@ function sortBySessionSize(a, b) {
 
     const aSessionSize = japaneseSessionSizeA + spanishSessionSizeA;
 
-    let japaneseSessionSizeB = b["japanese_session"]?.terms.length;
-    let spanishSessionSizeB = b["spanish_session"]?.terms.length;
+    let japaneseSessionSizeB = b[`${lang}_session`]?.terms.length;
+    let spanishSessionSizeB = b[`${lang}_session`]?.terms.length;
     if (japaneseSessionSizeB === undefined) {
         japaneseSessionSizeB = 0;
     }

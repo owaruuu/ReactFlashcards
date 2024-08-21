@@ -98,6 +98,9 @@ const LectureButton = (props) => {
     const type1 = isKanjiView ? "recognize" : "japanese";
     const type2 = isKanjiView ? "write" : "spanish";
 
+    const firstAbreviation = getAbreviation(type1);
+    const secondAbreviation = getAbreviation(type2);
+
     // VARS
     const japaneseSessionTermsAmount =
         props.userDataQueryData?.[props.id]?.[`${type1}_session`]?.terms
@@ -129,7 +132,7 @@ const LectureButton = (props) => {
                   new Date(japaneseLastSessionTime).getTime() -
                       new Date().getTime()
               ),
-              lang: "(jpn)",
+              lang: firstAbreviation,
           }
         : undefined;
 
@@ -139,7 +142,7 @@ const LectureButton = (props) => {
                   new Date(spanishLastSessionTime).getTime() -
                       new Date().getTime()
               ),
-              lang: "(esp)",
+              lang: secondAbreviation,
           }
         : undefined;
 
@@ -234,5 +237,20 @@ const LectureButton = (props) => {
         </div>
     );
 };
+
+function getAbreviation(type) {
+    switch (type) {
+        case "japanese":
+            return "(jpn)";
+        case "spanish":
+            return "(esp)";
+        case "recognize":
+            return "(reconocer)";
+        case "write":
+            return "(escribir)";
+        default:
+            throw new Error("wrong lang type: " + type);
+    }
+}
 
 export default LectureButton;

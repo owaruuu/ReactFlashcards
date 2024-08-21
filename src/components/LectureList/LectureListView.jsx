@@ -46,26 +46,36 @@ const LectureListView = (props) => {
                         <div className="ordering">
                             <span>ordernar por: </span>
                             <ReorderButton
-                                name={"jpnDate"}
-                                text={"fecha sesión jpn"}
+                                name={isKanjiView ? "recDate" : "jpnDate"} //Cambiar
+                                text={
+                                    isKanjiView
+                                        ? "fecha sesión reconocer"
+                                        : "fecha sesión jpn"
+                                }
                                 state={outCtx.japaneseDateButtonState}
                                 onClick={outCtx.cycleState}
                                 callback={outCtx.setJapaneseDateButtonState}
                             />
                             <ReorderButton
-                                name={"espDate"}
-                                text={"fecha sesión esp"}
+                                name={isKanjiView ? "wrtDate" : "espDate"}
+                                text={
+                                    isKanjiView
+                                        ? "fecha sesión escribir"
+                                        : "fecha sesión esp"
+                                }
                                 state={outCtx.spanishDateButtonState}
                                 onClick={outCtx.cycleState}
                                 callback={outCtx.setSpanishDateButtonState}
                             />
-                            <ReorderButton
-                                name={"size"}
-                                text={"tamaño sesión jpn"}
-                                state={outCtx.sizeButtonState}
-                                onClick={outCtx.cycleState}
-                                callback={outCtx.setSizeButtonState}
-                            />
+                            {!isKanjiView && (
+                                <ReorderButton
+                                    name={"size"}
+                                    text={"tamaño sesión jpn"}
+                                    state={outCtx.sizeButtonState}
+                                    onClick={outCtx.cycleState}
+                                    callback={outCtx.setSizeButtonState}
+                                />
+                            )}
                         </div>
                         <FilterContainer
                             state={outCtx.filterState}
