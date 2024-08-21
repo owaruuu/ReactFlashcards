@@ -20,11 +20,8 @@ const WriteKanjiCard = forwardRef((props, ref) => {
         handleUndo,
         handleReset,
     } = props;
-    // console.log("🚀 ~ WriteKanjiCard ~ props:", props);
 
-    const [strokeColor, setStrokeColor] = useState("#a855f7");
-    const canvasRef = useRef(null);
-    console.log("🚀 ~ WriteKanjiCard ~ canvasRef:", canvasRef.current);
+    const [strokeColor, setStrokeColor] = useState("#ffffff");
 
     let classNames =
         state === "highlighted"
@@ -34,36 +31,18 @@ const WriteKanjiCard = forwardRef((props, ref) => {
             : "termCard";
 
     const term = termsDict[termId];
-    console.log("🚀 ~ WriteKanjiCard ~ term:", term);
 
     const tempKanjiName = term ? getKanjiSvgName(term.kanji) : "";
-    // console.log("🚀 ~ WriteKanjiCard ~ tempKanjiName:", tempKanjiName);
 
     const getKanjiSvgNameQuery = useGetKanjiSvgDataQuery(
         term?.kanji,
         tempKanjiName,
         term ? true : false
     );
-    console.log(
-        "🚀 ~ WriteKanjiCard ~ getKanjiSvgNameQuery:",
-        getKanjiSvgNameQuery
-    );
 
-    // const kanjiData = getKanjiSvgNameQuery?.data;
-    // console.log("🚀 ~ WriteKanjiCard ~ kanjiData:", typeof kanjiData);
-    // const wea = parse(getKanjiSvgNameQuery?.data);
-
-    // function handleUndoClick() {
-    //     canvasRef.current?.undo();
-    // }
-
-    // function handleReset() {
-    //     canvasRef.current?.resetCanvas();
-    // }
-
-    useEffect(() => {
-        console.log("buscando kanji, termId cambio...");
-    }, [termId]);
+    // useEffect(() => {
+    //     console.log("buscando kanji, termId cambio...");
+    // }, [termId]);
 
     return (
         <div className={classNames}>
@@ -77,14 +56,12 @@ const WriteKanjiCard = forwardRef((props, ref) => {
                         <DashCross />
                         <div className="canvas">
                             <ReactSketchCanvas
-                                // width="100%"
-                                // height="100%"
                                 height="160px"
                                 width="160px"
                                 canvasColor="transparent"
                                 strokeColor={strokeColor}
                                 ref={ref}
-                                strokeWidth={8}
+                                strokeWidth={7}
                             />
                         </div>
                     </div>
@@ -110,7 +87,6 @@ const WriteKanjiCard = forwardRef((props, ref) => {
                         </button>
                     ) : (
                         <div className="character">
-                            {/* <DayKanji /> */}
                             {getKanjiSvgNameQuery.status === "success" &&
                                 parse(extractSvgTag(getKanjiSvgNameQuery.data))}
                             {/* {term?.kanji ? term.kanji : <Spinner />} */}
