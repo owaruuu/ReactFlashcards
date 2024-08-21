@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useOutletContext, useParams } from "react-router-dom";
+import {
+    Link,
+    useLocation,
+    useOutletContext,
+    useParams,
+} from "react-router-dom";
 import ReviewView from "../views/ReviewView";
 
 const HasActiveStudySession = () => {
     const { lectureQuery, lecture } = useOutletContext();
     const { lang } = useParams();
+    const location = useLocation();
+    const isKanjiView = location.pathname.includes("kanji");
     const [activeStudySession, setActiveStudySession] = useState(0);
 
     useEffect(() => {
@@ -31,7 +38,6 @@ const HasActiveStudySession = () => {
         throw new Error("Wrong Lang");
     }
 
-    const isKanjiView = lang === "recognize" || lang === "write";
     const dir = isKanjiView
         ? `/lectures/kanji/${lecture.lectureId}`
         : `/lectures/${lecture.lectureId}`;
