@@ -965,6 +965,11 @@
 .panel p {
   font-size: 14px;
 }
+@media (min-width: 768px) {
+  .panel p {
+    font-size: 24px;
+  }
+}
 
 .optionsButton {
   font-weight: 400;
@@ -1032,6 +1037,11 @@
 .squareIconButton button svg {
   color: white;
 }
+@media (min-width: 768px) {
+  .squareIconButton button {
+    box-shadow: 0px 3px 1px 0px rgba(1, 1, 26, 0.53);
+  }
+}
 .squareIconButton button:active {
   top: 1px;
 }
@@ -1071,6 +1081,7 @@
 @media (min-width: 768px) {
   .termCardDiv {
     width: 70vw;
+    height: 400px;
   }
 }
 .termCardDiv .termCard {
@@ -1122,6 +1133,12 @@
   align-items: center;
   justify-content: space-between;
 }
+@media (min-width: 768px) {
+  .termCardDiv .termCard .kanjiSection {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
 .termCardDiv .termCard .kanjiSection .showKanjiButton {
   border: none;
   /* width: 100%; */
@@ -1147,6 +1164,11 @@
 .termCardDiv .termCard .kanjiSection .canvasControls {
   display: flex;
   gap: 25px;
+}
+@media (min-width: 768px) {
+  .termCardDiv .termCard .kanjiSection .canvasControls {
+    flex-direction: column;
+  }
 }
 .termCardDiv .termCard .write {
   flex: 0;

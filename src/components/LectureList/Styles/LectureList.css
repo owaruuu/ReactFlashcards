@@ -48,6 +48,11 @@
   justify-items: center;
   align-items: center;
 }
+@media (min-width: 985px) {
+  .lectureList .titleContainer {
+    margin: 8px 0;
+  }
+}
 .lectureList .titleContainer .emptyDiv {
   width: 16px;
 }
@@ -106,14 +111,6 @@
 }
 .lectureList .titleContainer .active svg {
   font-size: 16px;
-}
-@media (min-width: 985px) {
-  .lectureList .titleContainer {
-    margin: 8px 0;
-    grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: ". title order" "filter filter filter";
-  }
 }
 .lectureList .lectureButtons {
   display: flex;

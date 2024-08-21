@@ -33,6 +33,10 @@
             // font-size: clamp(0.5rem, 0.5rem + 3.5vw, 2rem);
             font-size: 16px;
             font-family: "Gidugu";
+
+            @media (min-width: 768px) {
+                font-size: 24px;
+            }
         }
 
         @media (min-width: 768px) {
@@ -53,6 +57,14 @@
         // width: 100%;
         width: 80vw;
 
+        @media (min-width: 768px) {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: "buttons info nextButton";
+            width: 62vw;
+            max-width: 935px;
+        }
+
         p {
             text-align: center;
             margin: auto;
@@ -68,13 +80,6 @@
                     width: 62px;
                 }
             }
-        }
-
-        @media (min-width: 768px) {
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr;
-            width: 62vw;
-            max-width: 935px;
         }
 
         .next {
