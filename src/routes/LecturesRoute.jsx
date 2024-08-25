@@ -176,6 +176,8 @@ const LecturesRoute = (props) => {
         if (loggedIn) {
             //&& !gotLectures
             getLectures();
+        } else {
+            dispatch({ type: "SET_LECTURES_FLAG", payload: true });
         }
     }, []);
 

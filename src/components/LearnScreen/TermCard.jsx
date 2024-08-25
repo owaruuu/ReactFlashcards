@@ -8,7 +8,9 @@ const TermCard = (props) => {
 
     return (
         <div className={classNames}>
-            <div className="term">{props.term}</div>
+            <div className="term">
+                <span>{props.term}</span>
+            </div>
             <div className="divider"></div>
             <div className="answerSection">
                 {props.showAnswer && props.answer}

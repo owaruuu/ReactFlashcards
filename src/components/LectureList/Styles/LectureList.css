@@ -112,6 +112,9 @@
 .lectureList .titleContainer .active svg {
   font-size: 16px;
 }
+.lectureList .noLecturesMessage {
+  color: white;
+}
 .lectureList .lectureButtons {
   display: flex;
   flex-direction: column;

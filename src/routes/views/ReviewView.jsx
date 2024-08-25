@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
 import RecognizeTermCard from "../../components/LearnScreen/Flashcards/RecognizeTermCard";
 import WriteKanjiCard from "../../components/LearnScreen/Flashcards/WriteKanjiCard";
+import DisappearingElement from "../../components/Misc/DisappearingElement";
 
 const ReviewView = (props) => {
     //lectureQuery viene lista
@@ -121,8 +122,8 @@ const ReviewView = (props) => {
         try {
             handleResetClick();
             setShowAnswer(false);
-            createDissappearingCard();
-            setFeedbackMessage("Cambiando termino...");
+            // createDissappearingCard();
+            setFeedbackMessage("Modificando sesion...");
             await lectureSessionMutation.mutateAsync({
                 lectureId: lecture.lectureId,
                 attributeName: `${lang}_session`,
@@ -237,21 +238,40 @@ const ReviewView = (props) => {
         const uniqueKey = `0-${now}`;
 
         setDisappearingCards([
-            <DisappearingCard
+            <DisappearingElement
                 id={uniqueKey}
                 timeStamp={now}
                 key={uniqueKey}
-                // term={term}
-                // answer={answer}
-                showAnswer={showAnswer}
                 killFunc={() => removeDisappearingCard()}
-                direction={" disappear-left"}
-                flipped={
-                    lang === "japanese" || lang === "recognize" ? false : true
+                state={
+                    lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]
                 }
+                direction={" disappear-left"}
+                element={chooseCard()}
             />,
+            // <DisappearingCard
+            //     id={uniqueKey}
+            //     timeStamp={now}
+            //     key={uniqueKey}
+            //     // term={term}
+            //     // answer={answer}
+            //     showAnswer={showAnswer}
+            //     killFunc={() => removeDisappearingCard()}
+            //     direction={" disappear-left"}
+            //     flipped={
+            //         lang === "japanese" || lang === "recognize" ? false : true
+            //     }
+            // />,
             ...disappearingCards,
         ]);
+    }
+
+    function chooseCard() {
+        return lang === "recognize"
+            ? recognizeFlashCard
+            : lang === "write"
+            ? writeFlashCard
+            : normalFlashCard;
     }
 
     return (

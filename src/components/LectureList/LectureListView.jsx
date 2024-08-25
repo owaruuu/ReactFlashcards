@@ -86,18 +86,26 @@ const LectureListView = (props) => {
                 )}
             </div>
 
-            <div className="lectureButtons">
-                <LectureButtons
-                    allLecturesDataQuery={outCtx.allLecturesDataQuery}
-                    orderingState={outCtx.orderingState}
-                    filterState={outCtx.filterState}
-                    lectures={isKanjiView ? kanjiSets : lectures}
-                    isKanjiView={isKanjiView}
-                />
-                <p>
-                    {outCtx.extraLessonMessage} {outCtx.extraKanjiSetMessage}
-                </p>
-            </div>
+            {isKanjiView && !loggedIn ? (
+                <div className="noLecturesMessage">
+                    Necesitas iniciar sesion para acceder a esta pagina.
+                </div>
+            ) : (
+                <div className="lectureButtons">
+                    <LectureButtons
+                        allLecturesDataQuery={outCtx.allLecturesDataQuery}
+                        orderingState={outCtx.orderingState}
+                        filterState={outCtx.filterState}
+                        lectures={isKanjiView ? kanjiSets : lectures}
+                        isKanjiView={isKanjiView}
+                    />
+                    <p>
+                        {outCtx.extraLessonMessage}{" "}
+                        {outCtx.extraKanjiSetMessage}
+                    </p>{" "}
+                </div>
+            )}
+
             <div className="backToTopDiv">
                 <BackToTopButton />
             </div>

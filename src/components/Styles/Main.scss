@@ -1314,6 +1314,103 @@
     height: 25px;
 }
 
+.disappear-element {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // background-color: #4f4d63;
+    // margin: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    // box-shadow: 1px 5px 17px 7px rgb(1 1 26 / 71%);
+    // border: 5px solid white;
+
+    .backCard {
+        width: 100%;
+        background-color: #4f4d63;
+        padding: 10px;
+        // border-radius: 15px;
+        box-shadow: 1px 5px 17px 7px rgb(1 1 26 / 71%);
+        color: white;
+        font-size: 18px;
+        // text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+            width: 150px;
+            position: relative;
+            // margin-left: calc(50% - 42px);
+            // top: -31px;
+            filter: invert(100%);
+        }
+
+        .backCardDivider {
+            // margin-top: 50px;
+            width: 100%;
+            height: 30px;
+            border-bottom: 5px solid #040329;
+        }
+    }
+}
+
+.gold {
+    border: 5px solid #ffbc00;
+
+    .backCard {
+        .logo {
+            filter: invert(62%) sepia(97%) saturate(583%) hue-rotate(360deg)
+                brightness(104%) contrast(103%);
+        }
+    }
+}
+
+.muted {
+    border: 5px solid #7a059f;
+
+    .backCard {
+        background-color: #333333 !important;
+        .logo {
+            filter: invert(12%) sepia(84%) saturate(3585%) hue-rotate(279deg)
+                brightness(105%) contrast(116%);
+        }
+    }
+}
+
+.disappear-left {
+    animation-name: disappear-left;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    z-index: 2;
+}
+
+@keyframes disappear-left {
+    5% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 0;
+    }
+    30% {
+        transform: translateX(-400px) translateY(-100px) scale(1.05)
+            rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
+        // background-color: rgb(177, 128, 78);
+    }
+    100% {
+        transform: translateX(-400px) translateY(-100px) scale(1.02);
+
+        opacity: 0;
+    }
+}
+
 .termCardDiv {
     max-width: 935px;
     width: 80vw;
@@ -1523,30 +1620,30 @@
         }
     }
 
-    .disappear-left {
-        animation-name: disappear-left;
-        animation-duration: 2s;
-        animation-fill-mode: forwards;
-        animation-iteration-count: infinite;
-        z-index: 2;
-    }
+    // .disappear-left {
+    //     animation-name: disappear-left;
+    //     animation-duration: 2s;
+    //     animation-fill-mode: forwards;
+    //     animation-iteration-count: infinite;
+    //     z-index: 2;
+    // }
 
-    @keyframes disappear-left {
-        10% {
-            opacity: 1;
-        }
-        20% {
-            opacity: 0;
-        }
-        30% {
-            transform: translateX(-400px) translateY(-100px) scale(1.05)
-                rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
-            background-color: rgb(177, 128, 78);
-        }
-        100% {
-            transform: translateX(-400px) translateY(-100px) scale(1.02);
+    // @keyframes disappear-left {
+    //     10% {
+    //         opacity: 1;
+    //     }
+    //     20% {
+    //         opacity: 0;
+    //     }
+    //     30% {
+    //         transform: translateX(-400px) translateY(-100px) scale(1.05)
+    //             rotateZ(-5deg) rotateY(50deg) rotateX(-40deg);
+    //         background-color: rgb(177, 128, 78);
+    //     }
+    //     100% {
+    //         transform: translateX(-400px) translateY(-100px) scale(1.02);
 
-            opacity: 0;
-        }
-    }
+    //         opacity: 0;
+    //     }
+    // }
 }

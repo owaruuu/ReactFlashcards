@@ -6,6 +6,7 @@ import DisappearingCard from "../../components/LearnScreen/DisappearingCard";
 import OptionsModal from "../../components/OptionsModal/OptionsModal";
 import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import { shuffleArray } from "../../utils/utils";
+import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
 
 const FlashCardView = () => {
     //outlet context
@@ -22,6 +23,17 @@ const FlashCardView = () => {
     const [showModal, setShowModal] = useState(false);
     const [flip, setFlip] = useState(false);
     const [random, setRandom] = useState(false);
+
+    //diccionario de terminos para poder acceder a los terminos en o(n)
+    const [termsDict] = useState(() => {
+        const termsDict = {};
+
+        lecture.termList.forEach((term) => {
+            termsDict[term.id] = term;
+        });
+
+        return termsDict;
+    });
 
     //Effects
     useEffect(() => {
@@ -161,16 +173,13 @@ const FlashCardView = () => {
                     <BiSolidLeftArrow></BiSolidLeftArrow>
                 </button>
                 <div className="termCardDiv">
-                    <TermCard
-                        term={
-                            terms[index].extra
-                                ? terms[index].term + " - " + terms[index].extra
-                                : terms[index].term
-                        }
-                        answer={terms[index].answer}
+                    <NormalTermCard
+                        termId={terms[index].id}
+                        termsDict={termsDict}
                         showAnswer={showAnswer}
                         answerFunction={handleClick}
                         flipped={flip}
+                        state={null}
                     />
                     {disappearingCards}
                 </div>

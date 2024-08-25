@@ -20,8 +20,8 @@ const NormalSessionTabs = (props) => {
                     language="japanese"
                     lectureId={lecture.lectureId}
                     terms={lecture.termList}
-                    sessionData={lectureQueryData.japanese_session}
-                    termsData={lectureQueryData.japanese_terms_data}
+                    sessionData={lectureQueryData?.japanese_session}
+                    termsData={lectureQueryData?.japanese_terms_data}
                 />
             </Tab>
             <Tab eventKey="spanish" title="Español">
@@ -30,8 +30,8 @@ const NormalSessionTabs = (props) => {
                     language="spanish"
                     lectureId={lecture.lectureId}
                     terms={lecture.termList}
-                    sessionData={lectureQueryData.spanish_session}
-                    termsData={lectureQueryData.spanish_terms_data}
+                    sessionData={lectureQueryData?.spanish_session}
+                    termsData={lectureQueryData?.spanish_terms_data}
                 />
             </Tab>
         </Tabs>
