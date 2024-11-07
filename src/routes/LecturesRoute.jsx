@@ -4,6 +4,7 @@ import { AppContext } from "../context/AppContext.jsx";
 import { Outlet } from "react-router-dom";
 import { getExtraLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
+import { kanjiSetsId } from "../data/extraKanjiLessons.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 import { Spinner } from "react-bootstrap";
 
@@ -69,113 +70,127 @@ const LecturesRoute = (props) => {
 
     //Obtener lectures extras con permisos
     useEffect(() => {
-        const getLectures = async () => {
+        const fetchLessons = async () => {
+            // console.log("🚀 ~ fetchLessons ~ perms.data:", perms.data);
+            const hasNormalPerms = perms.data.some((id) => {
+                return !kanjiSetsId.includes(id);
+            });
+            const hasKanjiPerms = perms.data.some((id) => {
+                return kanjiSetsId.includes(id);
+            });
+
+            if (!hasNormalPerms === 0 && !hasKanjiPerms) {
+                setExtraLessonMessage("No tienes acceso a mas lecciones.");
+                setExtraKanjiSetMessage(
+                    "No tienes acceso a mas lecciones Kanji."
+                );
+                return dispatch({
+                    type: "SET_LECTURES_FLAG",
+                    payload: true,
+                });
+            }
+
             try {
-                if (perms.error) {
-                    setExtraLessonMessage(
-                        "Hubo un error obteniendo tus permisos, intentalo mas tarde."
-                    );
-                    return dispatch({
-                        type: "SET_LECTURES_FLAG",
-                        payload: true,
-                    });
-                }
-
-                if (perms.data.length === 0) {
-                    setExtraLessonMessage("No tienes acceso a mas lecciones.");
-                    return dispatch({
-                        type: "SET_LECTURES_FLAG",
-                        payload: true,
-                    });
-                }
-
                 const response = await getExtraLessons(perms.data);
+                // console.log("🚀 ~ fetchLessons ~ response:", response);
 
-                //si ambas queries fallan o estan vacias
-                if (
-                    response.error ||
-                    (response.data.length === 0 &&
-                        response.kanjiData.length === 0)
-                ) {
-                    setExtraLessonMessage(
-                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
-                    );
+                if (!hasNormalPerms) {
+                    setExtraLessonMessage("No tienes acceso a mas lecciones.");
+                } else {
+                    getLectures(response);
+                }
 
+                if (!hasKanjiPerms) {
                     setExtraKanjiSetMessage(
-                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                        "No tienes acceso a mas lecciones Kanji."
                     );
-                    return dispatch({
-                        type: "SET_LECTURES_FLAG",
-                        payload: true,
-                    });
+                } else {
+                    getKanjiLectures(response);
                 }
 
-                //si el query falla
-                if (response.error || response.data.length === 0) {
-                    setExtraLessonMessage(
-                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
-                    );
-                    return dispatch({
-                        type: "SET_LECTURES_FLAG",
-                        payload: true,
-                    });
-                }
-
-                // si falla la query de los set de kanji
-                if (response.error || response.kanjiData.length === 0) {
-                    setExtraKanjiSetMessage(
-                        "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
-                    );
-                    return dispatch({
-                        type: "SET_LECTURES_FLAG",
-                        payload: true,
-                    });
-                }
-
-                //TODO FIX
-                if (response.data.length > 0) {
-                    const orderedResults = response.data.sort(
-                        (a, b) => a.orderNumber - b.orderNumber
-                    );
-
-                    const extraLectures = orderedResults.map((item) => {
-                        return JSON.parse(item.lecture);
-                    });
-
-                    const newLectures = [...freeLectures, ...extraLectures];
-
-                    dispatch({
-                        type: "SET_LECTURES",
-                        payload: newLectures,
-                    });
-                }
-
-                if (response.kanjiData.length > 0) {
-                    const orderedKanjiSets = response.kanjiData.sort(
-                        (a, b) => a.orderNumber - b.orderNumber
-                    );
-                    const kanjiSets = orderedKanjiSets.map((item) =>
-                        JSON.parse(item.lecture)
-                    );
-
-                    dispatch({
-                        type: "SET_KANJI_SETS",
-                        payload: kanjiSets,
-                    });
-                }
-
-                dispatch({ type: "SET_LECTURES_FLAG", payload: true });
+                return dispatch({
+                    type: "SET_LECTURES_FLAG",
+                    payload: true,
+                });
             } catch (error) {
                 console.log(
                     "🚀 ~ file: LectureList.js:25 ~ getLectures ~ error:",
                     error
                 );
+                return "aaaaaaaaaaaaaa";
+            }
+        };
+
+        const getLectures = async (response) => {
+            // console.log("🚀 ~ getLectures ~ response:", response);
+            //si ambas queries fallan o estan vacias
+            if (response.error || response.data.length === 0) {
+                setExtraLessonMessage(
+                    "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                );
+
+                return;
+            }
+
+            //TODO FIX
+            if (response.data.length > 0) {
+                const orderedResults = response.data.sort(
+                    (a, b) => a.orderNumber - b.orderNumber
+                );
+
+                const extraLectures = orderedResults.map((item) => {
+                    return JSON.parse(item.lecture);
+                });
+
+                const newLectures = [...freeLectures, ...extraLectures];
+
+                dispatch({
+                    type: "SET_LECTURES",
+                    payload: newLectures,
+                });
+            }
+        };
+
+        const getKanjiLectures = async (response) => {
+            // console.log("🚀 ~ getKanjiLectures ~ response:", response);
+            //si ambas queries fallan o estan vacias
+            if (response.error || response.kanjiData.length === 0) {
+                setExtraKanjiSetMessage(
+                    "Hubo un error obteniendo tus lecciones, intentalo mas tarde."
+                );
+                return;
+            }
+
+            if (response.kanjiData.length > 0) {
+                const orderedKanjiSets = response.kanjiData.sort(
+                    (a, b) => a.orderNumber - b.orderNumber
+                );
+                const kanjiSets = orderedKanjiSets.map((item) =>
+                    JSON.parse(item.lecture)
+                );
+                dispatch({
+                    type: "SET_KANJI_SETS",
+                    payload: kanjiSets,
+                });
             }
         };
 
         if (loggedIn) {
             //&& !gotLectures
-            getLectures();
+            if (perms.error) {
+                setExtraLessonMessage(
+                    "Hubo un error obteniendo tus permisos, intentalo mas tarde."
+                );
+                setExtraKanjiSetMessage(
+                    "Hubo un error obteniendo tus permisos, intentalo mas tarde."
+                );
+                return dispatch({
+                    type: "SET_LECTURES_FLAG",
+                    payload: true,
+                });
+            }
+
+            fetchLessons();
         } else {
             dispatch({ type: "SET_LECTURES_FLAG", payload: true });
         }

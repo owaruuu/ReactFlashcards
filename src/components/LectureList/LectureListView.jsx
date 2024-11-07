@@ -99,10 +99,11 @@ const LectureListView = (props) => {
                         lectures={isKanjiView ? kanjiSets : lectures}
                         isKanjiView={isKanjiView}
                     />
+
                     <p>
-                        {outCtx.extraLessonMessage}{" "}
-                        {outCtx.extraKanjiSetMessage}
-                    </p>{" "}
+                        {isKanjiView && outCtx.extraKanjiSetMessage}
+                        {!isKanjiView && outCtx.extraLessonMessage}
+                    </p>
                 </div>
             )}
 

@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "0.3.1 kanji study function";
+export const version = "0.3.1.5 fix kanji sets for new people.";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
