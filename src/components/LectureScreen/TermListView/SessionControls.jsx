@@ -11,7 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const SessionControls = (props) => {
-    console.log("🚀 ~ SessionControls ~ props:", props);
+    // console.log("🚀 ~ SessionControls ~ props:", props);
     const { language, lectureId, terms, sessionData, termsData } = props;
 
     const navigate = useNavigate();

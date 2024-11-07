@@ -12,7 +12,7 @@ const WriteTermList = (props) => {
         onIconClick,
         loggedIn,
     } = props;
-    console.log("🚀 ~ WriteTermList ~ props:", props);
+    // console.log("🚀 ~ WriteTermList ~ props:", props);
 
     let termList = lecture.kanjiList;
     if (queryData) {
