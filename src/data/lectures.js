@@ -147,7 +147,7 @@ export const lectures = [
                 id: 33,
                 term: "こうちゃ",
                 extra: "Koucha",
-                answer: "Te, Te de hierbas",
+                answer: "Te negro",
             },
             {
                 id: 34,

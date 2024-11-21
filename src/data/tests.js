@@ -1205,7 +1205,7 @@ export const tests = {
                     ],
                 ],
                 [
-                    "Japones(a) te pregunto mirando estatua de sotomayor 「Sore wa nandesuka?」como puedes responder?",
+                    "Japones(a) te pregunto mirando en direccion a la estatua de sotomayor 「Sore wa nandesuka?」como puedes responder?",
                     [
                         { id: 0, phrase: "Sore wa Sotomajyo-ru hiroba desu." },
                         { id: 1, phrase: "Sore wa Zou desu." },
