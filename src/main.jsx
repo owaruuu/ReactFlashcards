@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "0.3.1.5 fix kanji sets for new people.";
+export const version = "0.3.1.6 start adding tests - 9/12/2024";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
