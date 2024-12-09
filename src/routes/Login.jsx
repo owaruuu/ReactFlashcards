@@ -75,6 +75,7 @@ const Login = () => {
             // console.log("trying to login");
             //verifico mis credenciales
             //post /login
+            //no necesito la respuesta ya que solo necesito que las cookies sean puestas
             await authenticateUser(email, password);
 
             //obtengo informacion del idToken

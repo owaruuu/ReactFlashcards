@@ -6,7 +6,6 @@ import LectureScreen from "./LectureScreen/LectureScreen.jsx";
 import LearnScreen from "./LearnScreen/LearnScreen.jsx";
 import ReviewScreen from "../routes/views/ReviewView.jsx";
 import TestScreen from "./TestScreen/TestScreen.jsx";
-import LoginForm from "./Forms/LoginForm.jsx";
 import RegisterForm from "./Forms/RegisterForm.jsx";
 import UserPanelView from "../routes/views/UserPanelView.jsx";
 import ConfirmationCodeSpecial from "./AccountCreation/ConfirmationCodeSpecial.jsx";

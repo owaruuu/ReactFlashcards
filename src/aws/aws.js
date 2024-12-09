@@ -43,7 +43,7 @@ export const registerUser = async (email, password) => {
     }
 };
 
-//revisa si el usuario existe en el userpool de cognito
+//intenta obtener tokens usando mis credenciales y las guarda en las cookies
 export const authenticateUser = async (email, password) => {
     try {
         const response = await api.post(`${URL}/login`, {
