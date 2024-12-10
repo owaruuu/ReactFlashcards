@@ -61,7 +61,8 @@ const SignupForm = () => {
 
         const { response, error: registerError } = await registerUser(
             email,
-            password
+            password,
+            repeatPassword
         );
 
         if (registerError.code === "ERR_NETWORK") {

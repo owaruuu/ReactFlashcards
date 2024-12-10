@@ -30,11 +30,12 @@ export const confirmUser = async (email, code) => {
     }
 };
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, repeatPassword) => {
     try {
         const response = await api.post(`${URL}/api/v2/auth/register`, {
             email,
             password,
+            repeatPassword,
         });
 
         return { response };
