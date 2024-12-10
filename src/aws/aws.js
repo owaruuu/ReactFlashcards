@@ -46,7 +46,7 @@ export const registerUser = async (email, password) => {
 //intenta obtener tokens usando mis credenciales y las guarda en las cookies
 export const authenticateUser = async (email, password) => {
     try {
-        const response = await api.post(`${URL}/login`, {
+        const response = await api.post(`${URL}/api/v2/auth/login`, {
             email,
             password,
         });
