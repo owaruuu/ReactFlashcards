@@ -32,14 +32,15 @@ export const confirmUser = async (email, code) => {
 
 export const registerUser = async (email, password) => {
     try {
-        const response = await api.post(`${URL}/register`, {
+        const response = await api.post(`${URL}/api/v2/auth/register`, {
             email,
             password,
         });
 
-        return response;
+        return { response };
     } catch (error) {
-        return error;
+        console.log("🚀 ~ file: aws.js:46 ~ registerUser ~ error:", error);
+        return { error, response: error.response };
     }
 };
 
@@ -60,7 +61,7 @@ export const authenticateUser = async (email, password) => {
 //intento borrar las cookies del usuario, si el servidor no esta online le aviso al usuario
 export const logoutUser = async () => {
     try {
-        const response = await api.get(`${URL}/logout`);
+        const response = await api.get(`${URL}/api/v2/auth/logout`);
         return response;
     } catch (error) {
         throw error;

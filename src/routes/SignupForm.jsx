@@ -47,7 +47,7 @@ const SignupForm = () => {
         const { email, password, repeatPassword } = formData;
 
         //validate data
-        const { success, error } = signupFormSchema.safeParse({
+        const { success, error: schemaError } = signupFormSchema.safeParse({
             email,
             password,
             confirmPassword: repeatPassword,
@@ -55,20 +55,23 @@ const SignupForm = () => {
 
         if (!success) {
             setThinking(false);
-            setMessages(error.issues);
+            setMessages(schemaError.issues);
             return;
         }
 
-        const response = await registerUser(email, password);
+        const { response, error: registerError } = await registerUser(
+            email,
+            password
+        );
 
-        if (response.code === "ERR_NETWORK") {
+        if (registerError.code === "ERR_NETWORK") {
             setMessages([{ message: "Error with server, try again later." }]);
             setThinking(false);
             return;
         }
 
-        if (response.code === "ERR_BAD_RESPONSE") {
-            setMessages([{ message: response.response.data }]);
+        if (registerError.code === "ERR_BAD_RESPONSE") {
+            setMessages([{ message: response.data }]);
             setThinking(false);
             return;
         }
