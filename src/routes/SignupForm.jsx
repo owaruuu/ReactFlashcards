@@ -82,7 +82,7 @@ const SignupForm = () => {
         }
 
         dispatch({ type: "SET_USER", payload: { userName: email } });
-        setMessages([{ message: response.data }]);
+        setMessages([{ message: response.message }]);
         setRegistered(true);
     };
 

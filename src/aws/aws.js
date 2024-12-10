@@ -32,13 +32,13 @@ export const confirmUser = async (email, code) => {
 
 export const registerUser = async (email, password, repeatPassword) => {
     try {
-        const response = await api.post(`${URL}/api/v2/auth/register`, {
+        const { data } = await api.post(`${URL}/api/v2/auth/register`, {
             email,
             password,
             repeatPassword,
         });
 
-        return { response };
+        return { response: data };
     } catch (error) {
         console.log("🚀 ~ file: aws.js:46 ~ registerUser ~ error:", error);
         return { error, response: error.response };
