@@ -65,16 +65,20 @@ const SignupForm = () => {
             repeatPassword
         );
 
-        if (registerError.code === "ERR_NETWORK") {
-            setMessages([{ message: "Error with server, try again later." }]);
-            setThinking(false);
-            return;
-        }
+        if (registerError) {
+            if (registerError.code === "ERR_NETWORK") {
+                setMessages([
+                    { message: "Error with server, try again later." },
+                ]);
+                setThinking(false);
+                return;
+            }
 
-        if (registerError.code === "ERR_BAD_RESPONSE") {
-            setMessages([{ message: response.data }]);
-            setThinking(false);
-            return;
+            if (registerError.code === "ERR_BAD_RESPONSE") {
+                setMessages([{ message: response.data }]);
+                setThinking(false);
+                return;
+            }
         }
 
         dispatch({ type: "SET_USER", payload: { userName: email } });
