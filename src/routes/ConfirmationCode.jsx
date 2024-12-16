@@ -54,15 +54,13 @@ const ConfirmationCode = (props) => {
             return setMessages(error.issues);
         }
 
-        try {
-            const response = await confirmUser(email, code);
+        const { response, error: confirmError } = await confirmUser(
+            email,
+            code
+        );
 
-            setMessages([
-                { message: response.data + ". Ya puedes iniciar sesion." },
-            ]);
-            setConfirmed(true);
-        } catch (error) {
-            if (error.code === "ERR_NETWORK") {
+        if (confirmError) {
+            if (confirmError.code === "ERR_NETWORK") {
                 setThinking(false);
                 return setMessages([
                     { message: "Network error. Please try again." },
@@ -73,15 +71,21 @@ const ConfirmationCode = (props) => {
             dispatch({ type: "SET_SERVER_ERROR", payload: false });
 
             //cualquier otro error que retorne cognito
-            if (error.code === "ERR_BAD_RESPONSE") {
+            if (confirmError.code === "ERR_BAD_RESPONSE") {
                 setThinking(false);
-                return setMessages([{ message: error.response.data }]);
+                return setMessages([{ message: response.data }]);
             }
 
             //dejo esto aqui por si hay otro errores raros que no encontre
             setThinking(false);
             alert("Hubo error con la peticion");
+            return;
         }
+
+        setMessages([
+            { message: response.data + ". Ya puedes iniciar sesion." },
+        ]);
+        setConfirmed(true);
     };
 
     const spinner = (

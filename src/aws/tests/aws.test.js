@@ -1,4 +1,9 @@
-import { authenticateUser, logoutUser, registerUser } from "../aws.js";
+import {
+    authenticateUser,
+    confirmUser,
+    logoutUser,
+    registerUser,
+} from "../aws.js";
 
 describe("try login", () => {
     it("should return a code 200 when given valid credentials", async () => {
@@ -46,5 +51,12 @@ describe("try register", () => {
         );
 
         expect(response.status).not.toBe(404);
+    });
+});
+
+describe("try to confirm user", () => {
+    it("should return a code 400 if either the email or code is not present", async () => {
+        const { error } = await confirmUser("testmail@gmail.com", "");
+        expect(error.response.status).toBe(400);
     });
 });

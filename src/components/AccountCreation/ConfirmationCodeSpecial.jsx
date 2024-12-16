@@ -47,12 +47,9 @@ const ConfirmationCodeSpecial = (props) => {
             return setMessage("Email and code required.");
         }
 
-        try {
-            const response = await confirmUser(email, code);
+        const { response, error } = await confirmUser(email, code);
 
-            setMessage(response.data + ". You can now log in.");
-            setConfirmed(true);
-        } catch (error) {
+        if (error) {
             if (error.code === "ERR_NETWORK") {
                 setThinking(false);
                 dispatch({ type: "SET_SERVER_ERROR", payload: true });
@@ -69,13 +66,17 @@ const ConfirmationCodeSpecial = (props) => {
             //cualquier otro error que retorne cognito
             if (error.code === "ERR_BAD_RESPONSE") {
                 setThinking(false);
-                return setMessage(error.response.data);
+                return setMessage(response.data);
             }
 
             //dejo esto aqui por si hay otro errores raros que no encontre
             setThinking(false);
             alert("Hubo error con la peticion");
+            return;
         }
+
+        setMessage(response.data + ". You can now log in.");
+        setConfirmed(true);
     };
 
     const spinner = (

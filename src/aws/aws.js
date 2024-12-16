@@ -21,12 +21,15 @@ export const connectCognito = async () => {
 
 export const confirmUser = async (email, code) => {
     try {
-        const response = await api.post(`${URL}/confirmUser`, { email, code });
+        const response = await api.post(`${URL}/api/v2/auth/confirm`, {
+            email,
+            code,
+        });
 
-        return response;
+        return { response, error: null };
     } catch (error) {
-        //recibo los errores si el server esta caido
-        throw error;
+        console.log("🚀 ~ file: aws.js:31 ~ confirmUser ~ error:", error);
+        return { response: error.response, error };
     }
 };
 
