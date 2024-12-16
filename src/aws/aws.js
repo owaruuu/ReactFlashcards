@@ -96,15 +96,10 @@ export const getUserProgress = async () => {
 export const saveUserProgress = async (currentProgress) => {
     try {
         //intento conectarme a mi servideor
-        const response = await api.post(`${URL}/save`, currentProgress);
-
-        //si el servidor esta vivo no tengo tokens
-        if (response.data.value === -2) {
-            return {
-                msg: "error con mi refresh token, deberia relogear",
-                value: -2,
-            };
-        }
+        const response = await api.post(
+            `${URL}/api/v2/updateProgress`,
+            currentProgress
+        );
 
         //si el servidor esta vivo pero la base de datos no lo esta
         if (response.data.value === -1) {
