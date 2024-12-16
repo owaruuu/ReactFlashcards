@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "0.3.1.6 move logout and register routes - 10/12/2024";
+export const version = "move /save route - 16/12/2024";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
