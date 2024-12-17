@@ -83,7 +83,7 @@ const ConfirmationCode = (props) => {
         }
 
         setMessages([
-            { message: response.data + ". Ya puedes iniciar sesion." },
+            { message: response.message + ". Ya puedes iniciar sesion." },
         ]);
         setConfirmed(true);
     };

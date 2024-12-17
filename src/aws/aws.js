@@ -26,7 +26,7 @@ export const confirmUser = async (email, code) => {
             code,
         });
 
-        return { response, error: null };
+        return { response: response.data, error: null };
     } catch (error) {
         console.log("🚀 ~ file: aws.js:31 ~ confirmUser ~ error:", error);
         return { response: error.response, error };

@@ -75,7 +75,7 @@ const ConfirmationCodeSpecial = (props) => {
             return;
         }
 
-        setMessage(response.data + ". You can now log in.");
+        setMessage(response.message + ". You can now log in.");
         setConfirmed(true);
     };
 
