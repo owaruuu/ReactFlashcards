@@ -51,7 +51,7 @@ const Root = () => {
             dispatch({
                 type: "SET_USER",
                 payload: {
-                    userName: cognito.value.email,
+                    userName: cognito.value,
                 },
             });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
-import { authenticateUser, getSession, getUserProgress } from "../aws/aws";
+import { authenticateUser, getUserProgress } from "../aws/aws";
 import { useNavigate } from "react-router-dom";
 import { loginFormSchema } from "../schemas/schemas";
 import { useQueryClient } from "react-query";
