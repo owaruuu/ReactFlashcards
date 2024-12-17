@@ -191,7 +191,8 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "move /save route - 16/12/2024";
+export const version =
+    "remove /cognito route, create new simpler route - 17/12/2024";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
