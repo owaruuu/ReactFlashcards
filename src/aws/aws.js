@@ -2,17 +2,21 @@ import { defer } from "react-router-dom";
 import { api, URL } from "../api/api";
 
 //intenta revisar si estoy logeado o no
-export const connectCognito = async () => {
+export const getSession = async () => {
     try {
         //intenta revisar los tokens del usuario
         //retorna el contenido del idToken si funciona
-        const response = await api.get(`${URL}/cognito`);
+        const response = await api.get(`${URL}/api/v2/auth/getSession`);
+
         return response.data;
     } catch (error) {
-        console.log("🚀 ~ connectCognito ~ error:", error);
+        console.log("🚀 ~ file: aws.js:16 ~ getSession ~ error:", error);
+
         if (error.code === "ERR_NETWORK") {
             return { error: "error with app server", value: -1 };
         }
+
+        //status code que me llega desde el auth route
         if (error.response.status === 401) {
             return { error: "no credentials", value: 0 };
         }

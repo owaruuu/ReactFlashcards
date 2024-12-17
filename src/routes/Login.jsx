@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
-import { authenticateUser, connectCognito, getUserProgress } from "../aws/aws";
+import { authenticateUser, getSession, getUserProgress } from "../aws/aws";
 import { useNavigate } from "react-router-dom";
 import { loginFormSchema } from "../schemas/schemas";
 import { useQueryClient } from "react-query";
@@ -76,19 +76,14 @@ const Login = () => {
             //verifico mis credenciales
             //post /login
             //no necesito la respuesta ya que solo necesito que las cookies sean puestas
-            await authenticateUser(email, password);
+            const authResponse = await authenticateUser(email, password);
 
-            //obtengo informacion del idToken
-            const response = await connectCognito();
-
-            const result = trySetUser(response, dispatch);
-            //esto cambia el estado de loggedIn lo que provoca un redirect
-            //lo que quiero es que antes de hacer el cambio de estado, hacer redirect ?
-
-            //si hubo un error con cognito
-            if (result === false) {
-                return;
-            }
+            dispatch({
+                type: "SET_USER",
+                payload: {
+                    userName: authResponse.data.userEmail,
+                },
+            });
 
             setMessages([{ message: "Succesful Login" }]);
 

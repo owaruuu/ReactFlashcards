@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Fonts.css";
 import { AppProvider } from "./context/AppContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { connectCognito, getExtraPerms } from "./aws/aws";
+import { getSession, getExtraPerms } from "./aws/aws";
 import ErrorPage from "./error-page";
 
 import Root from "./routes/Root";
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <Root />,
         errorElement: <ErrorPage />,
-        loader: connectCognito, //intento obtener credenciales
+        loader: getSession, //intento obtener credenciales
         // shouldRevalidate: () => false, //preview revalidation pero puedo aun obligarlo con 'revalidator.revalidate()'
         //agregar loader lecciones gratis
         //*useEffect carga mi progreso
