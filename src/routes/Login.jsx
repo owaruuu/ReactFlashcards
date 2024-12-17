@@ -11,8 +11,6 @@ import FormInfo from "../components/Forms/FormInfo";
 
 import { useRevalidator } from "react-router-dom";
 
-import { trySetUser } from "../hooks/tempUtil";
-
 const Login = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();

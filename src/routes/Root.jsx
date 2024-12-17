@@ -12,7 +12,6 @@ import Header from "../components/Header/Header";
 import SakuraSVG from "../svg/cherry-blossom-petal.svg";
 
 import { Spinner } from "react-bootstrap";
-import { trySetUser } from "../hooks/tempUtil";
 
 const Root = () => {
     const cognito = useLoaderData(); //antes de renderizar, obtengo token payload
@@ -35,12 +34,26 @@ const Root = () => {
         const loginStatus = async () => {
             dispatch({ type: "SET_INIT", payload: true });
 
-            const result = trySetUser(cognito, dispatch);
-
-            //si hubo un error con cognito
-            if (result === false) {
-                return;
+            if (cognito.value === 0) {
+                return false;
             }
+            if (cognito.value === -1) {
+                // dispatch({ type: "SET_COGNITO_ERROR", payload: true });
+                dispatch({ type: "SET_SERVER_ERROR", payload: true });
+                dispatch({
+                    type: "SET_LOGIN_CONTROL_MSG",
+                    payload:
+                        "Error con el servidor, intenta refrescando la pagina.",
+                });
+                return false;
+            }
+
+            dispatch({
+                type: "SET_USER",
+                payload: {
+                    userName: cognito.value.email,
+                },
+            });
 
             dispatch({
                 type: "SET_LOG_STATUS",
