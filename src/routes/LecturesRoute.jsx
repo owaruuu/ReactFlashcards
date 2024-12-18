@@ -33,17 +33,24 @@ const LecturesRoute = (props) => {
         basico8: false,
         basico9: false,
         basico10: false,
+        extra1: false,
+    });
+    const [kanjiFilterState, setKanjiFilterState] = useState({
         jlptn5: false,
         jlptn4: false,
         jlptn3: false,
         jlptn2: false,
         jlptn1: false,
-        extra1: false,
     });
     const [orderingState, setOrderingState] = useState(null);
+    const [kanjiOrderingState, setKanjiOrderingState] = useState(null);
     const [japaneseDateButtonState, setJapaneseDateButtonState] =
         useState(null);
     const [spanishDateButtonState, setSpanishDateButtonState] = useState(null);
+    const [recognizeDateButtonState, setRecognizeDateButtonState] =
+        useState(null);
+    const [writeDateButtonState, setWriteDateButtonState] = useState(null);
+
     const [sizeButtonState, setSizeButtonState] = useState(null);
 
     //Functions
@@ -51,6 +58,7 @@ const LecturesRoute = (props) => {
         setJapaneseDateButtonState(null);
         setSpanishDateButtonState(null);
         setSizeButtonState(null);
+
         if (state === null) {
             callback("ASC");
             setOrderingState(name + "ASC");
@@ -62,8 +70,29 @@ const LecturesRoute = (props) => {
             setOrderingState(null);
         }
     }
+
+    function cycleKanjiState(name, state, callback) {
+        setRecognizeDateButtonState(null);
+        setWriteDateButtonState(null);
+        if (state === null) {
+            callback("ASC");
+            setKanjiOrderingState(name + "ASC");
+        } else if (state === "ASC") {
+            callback("DESC");
+            setKanjiOrderingState(name + "DESC");
+        } else if (state === "DESC") {
+            callback(null);
+            setKanjiOrderingState(null);
+        }
+    }
+
     function handleFilterClick(payload) {
         setFilterState((prev) => {
+            return { ...prev, [payload.type]: payload.value };
+        });
+    }
+    function handleKanjiFilterClick(payload) {
+        setKanjiFilterState((prev) => {
             return { ...prev, [payload.type]: payload.value };
         });
     }
@@ -218,16 +247,24 @@ const LecturesRoute = (props) => {
                 extraLessonMessage,
                 extraKanjiSetMessage,
                 orderingState,
+                kanjiOrderingState,
                 japaneseDateButtonState,
                 spanishDateButtonState,
+                recognizeDateButtonState,
+                writeDateButtonState,
                 sizeButtonState,
                 filterState,
+                kanjiFilterState,
                 perms: [...perms.data, ...freePerms],
                 setJapaneseDateButtonState,
                 setSpanishDateButtonState,
+                setRecognizeDateButtonState,
+                setWriteDateButtonState,
                 setSizeButtonState,
                 cycleState,
+                cycleKanjiState,
                 handleFilterClick,
+                handleKanjiFilterClick,
             }}
         />
     );

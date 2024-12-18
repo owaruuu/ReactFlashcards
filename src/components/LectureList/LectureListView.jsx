@@ -16,10 +16,11 @@ const LectureListView = (props) => {
         useContext(AppContext);
 
     let filters = new Set();
+    let kanjiFilters = new Set();
 
     if (isKanjiView) {
         kanjiSets.forEach((lecture) => {
-            filters.add(lecture.lectureGroup);
+            kanjiFilters.add(lecture.lectureGroup);
         });
     } else {
         lectures.forEach((lecture) => {
@@ -52,9 +53,21 @@ const LectureListView = (props) => {
                                         ? "fecha sesión reconocer"
                                         : "fecha sesión jpn"
                                 }
-                                state={outCtx.japaneseDateButtonState}
-                                onClick={outCtx.cycleState}
-                                callback={outCtx.setJapaneseDateButtonState}
+                                state={
+                                    isKanjiView
+                                        ? outCtx.recognizeDateButtonState
+                                        : outCtx.japaneseDateButtonState
+                                }
+                                onClick={
+                                    isKanjiView
+                                        ? outCtx.cycleKanjiState
+                                        : outCtx.cycleState
+                                }
+                                callback={
+                                    isKanjiView
+                                        ? outCtx.setRecognizeDateButtonState
+                                        : outCtx.setJapaneseDateButtonState
+                                }
                             />
                             <ReorderButton
                                 name={isKanjiView ? "wrtDate" : "espDate"}
@@ -63,11 +76,23 @@ const LectureListView = (props) => {
                                         ? "fecha sesión escribir"
                                         : "fecha sesión esp"
                                 }
-                                state={outCtx.spanishDateButtonState}
-                                onClick={outCtx.cycleState}
-                                callback={outCtx.setSpanishDateButtonState}
+                                state={
+                                    isKanjiView
+                                        ? outCtx.writeDateButtonState
+                                        : outCtx.spanishDateButtonState
+                                }
+                                onClick={
+                                    isKanjiView
+                                        ? outCtx.cycleKanjiState
+                                        : outCtx.cycleState
+                                }
+                                callback={
+                                    isKanjiView
+                                        ? outCtx.setWriteDateButtonState
+                                        : outCtx.setSpanishDateButtonState
+                                }
                             />
-                            {!isKanjiView && (
+                            {/* {!isKanjiView && (
                                 <ReorderButton
                                     name={"size"}
                                     text={"tamaño sesión jpn"}
@@ -75,12 +100,20 @@ const LectureListView = (props) => {
                                     onClick={outCtx.cycleState}
                                     callback={outCtx.setSizeButtonState}
                                 />
-                            )}
+                            )} */}
                         </div>
                         <FilterContainer
-                            state={outCtx.filterState}
-                            onClick={outCtx.handleFilterClick}
-                            filters={filters}
+                            state={
+                                isKanjiView
+                                    ? outCtx.kanjiFilterState
+                                    : outCtx.filterState
+                            }
+                            onClick={
+                                isKanjiView
+                                    ? outCtx.handleKanjiFilterClick
+                                    : outCtx.handleFilterClick
+                            }
+                            filters={isKanjiView ? kanjiFilters : filters}
                         />
                     </>
                 )}
@@ -94,8 +127,16 @@ const LectureListView = (props) => {
                 <div className="lectureButtons">
                     <LectureButtons
                         allLecturesDataQuery={outCtx.allLecturesDataQuery}
-                        orderingState={outCtx.orderingState}
-                        filterState={outCtx.filterState}
+                        orderingState={
+                            isKanjiView
+                                ? outCtx.kanjiOrderingState
+                                : outCtx.orderingState
+                        }
+                        filterState={
+                            isKanjiView
+                                ? outCtx.kanjiFilterState
+                                : outCtx.filterState
+                        }
                         lectures={isKanjiView ? kanjiSets : lectures}
                         isKanjiView={isKanjiView}
                     />
