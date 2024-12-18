@@ -6,7 +6,7 @@ export const getSession = async () => {
     try {
         //intenta revisar los tokens del usuario
         //retorna el contenido del idToken si funciona
-        const response = await api.get(`${URL}/api/v2/auth/getSession`);
+        const response = await api.get(`${URL}/api/v2/auth/session`);
 
         return response.data;
     } catch (error) {
@@ -127,7 +127,7 @@ export const saveUserProgress = async (currentProgress) => {
  * @returns Un array de numeros que representa los ids de las lecciones que puedo acceder
  */
 export const getExtraPerms = async () => {
-    const permissionsPromise = api.get(`${URL}/permissions`);
+    const permissionsPromise = api.get(`${URL}/api/v2/permissions`);
     return defer({ perms: permissionsPromise });
 };
 
