@@ -1,1 +1,1 @@
-export const kanjiSetsId = ["20240130001", "20240130002"];
+export const kanjiSetsId = ["20240131001", "20240131002"];
