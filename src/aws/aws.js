@@ -145,6 +145,20 @@ export const getExtraLessons = async (keys) => {
     }
 };
 
+export const getFreeLessons = async (keys) => {
+    try {
+        const response = await api.post(`${URL}/free-lessons`, { keys });
+        // console.log("🚀 ~ getExtraLessons ~ response:", response);
+        return {
+            data: response.data.Responses.lectures,
+            kanjiData: response.data.Responses.kanjiSets,
+        };
+    } catch (error) {
+        console.log("🚀 ~ getExtraLessons ~ error:", error);
+        return { error };
+    }
+};
+
 //Intenta obtener una lecture desde la DB
 //necesito verificar que tengo el permiso ?
 // export const getLesson = async (id) => {

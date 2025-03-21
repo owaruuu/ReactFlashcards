@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { Outlet } from "react-router-dom";
-import { getExtraLessons } from "../aws/aws.js";
+import { getExtraLessons, getFreeLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
 import { kanjiSetsId } from "../data/extraKanjiLessons.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
@@ -127,6 +127,7 @@ const LecturesRoute = (props) => {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
                 } else {
                     getLectures(response);
+                    setLectures(response);
                 }
 
                 if (!hasKanjiPerms) {
@@ -134,7 +135,7 @@ const LecturesRoute = (props) => {
                         "No tienes acceso a mas lecciones Kanji."
                     );
                 } else {
-                    getKanjiLectures(response);
+                    setKanjiLectures(response);
                 }
 
                 return dispatch({
@@ -150,7 +151,27 @@ const LecturesRoute = (props) => {
             }
         };
 
-        const getLectures = async (response) => {
+        const fetchFreeLessons = async () => {
+            try {
+                const response = await getFreeLessons(freePerms);
+
+                //Temporal, hasta que hayan lecciones kanji libres
+                setExtraKanjiSetMessage("No tienes acceso a lecciones Kanji.");
+                setLectures(response);
+                return dispatch({
+                    type: "SET_LECTURES_FLAG",
+                    payload: true,
+                });
+            } catch (error) {
+                console.log(
+                    "🚀 ~ file: LectureList.js:25 ~ getLectures ~ error:",
+                    error
+                );
+                return "Hubo un error";
+            }
+        };
+
+        const setLectures = async (response) => {
             // console.log("🚀 ~ getLectures ~ response:", response);
             //si ambas queries fallan o estan vacias
             if (response.error || response.data.length === 0) {
@@ -180,7 +201,7 @@ const LecturesRoute = (props) => {
             }
         };
 
-        const getKanjiLectures = async (response) => {
+        const setKanjiLectures = async (response) => {
             // console.log("🚀 ~ getKanjiLectures ~ response:", response);
             //si ambas queries fallan o estan vacias
             if (response.error || response.kanjiData.length === 0) {
@@ -221,7 +242,7 @@ const LecturesRoute = (props) => {
 
             fetchLessons();
         } else {
-            dispatch({ type: "SET_LECTURES_FLAG", payload: true });
+            fetchFreeLessons();
         }
     }, []);
 
