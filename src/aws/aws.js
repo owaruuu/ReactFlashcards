@@ -10,9 +10,8 @@ export const getSession = async () => {
 
         return response.data;
     } catch (error) {
-        console.log("🚀 ~ file: aws.js:16 ~ getSession ~ error:", error);
-
         if (error.code === "ERR_NETWORK") {
+            console.log("🚀 ~ file: aws.js:16 ~ getSession ~ error:", error);
             return { error: "error with app server", value: -1 };
         }
 
