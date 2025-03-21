@@ -191,8 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version =
-    "move /permissions route, remove /lesson/:id - 18/12/2024";
+export const version = "Add Guest User, Remove hardcoded lectures - 21/03/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
