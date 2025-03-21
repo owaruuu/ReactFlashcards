@@ -34,6 +34,7 @@ const Root = () => {
         const loginStatus = async () => {
             dispatch({ type: "SET_INIT", payload: true });
 
+            //no tengo session
             if (cognito.value === 0) {
                 return false;
             }

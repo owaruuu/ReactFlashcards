@@ -126,7 +126,6 @@ const LecturesRoute = (props) => {
                 if (!hasNormalPerms) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
                 } else {
-                    getLectures(response);
                     setLectures(response);
                 }
 
