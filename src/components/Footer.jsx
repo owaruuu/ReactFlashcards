@@ -11,7 +11,7 @@ const Footer = () => {
             >
                 Josue Marquez
             </a>{" "}
-            2023-2024.
+            2023-2025.
         </span>
     );
 
