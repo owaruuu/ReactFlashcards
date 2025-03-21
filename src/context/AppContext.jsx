@@ -72,9 +72,9 @@ const initialState = {
         currentProgress: null,
     },
     userData: { currentData: {} },
-    lectures: lectures,
+    lectures: [],
     kanjiSets: [],
-    freeLectures: lectures,
+    freeLectures: [],
     //app state
     init: false, //true despues de haber intentado conectarse a cognito
     cognitoError: false, //para fallas con el servicio de cognito
