@@ -23,8 +23,6 @@ const LectureButtons = (props) => {
             : {};
 
     const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
-    // console.log("🚀 ~ LectureButtons ~ lectures DIFF:", lectures);
-    // console.log("🚀 ~ LectureButtons ~ filledLectures DIFF:", filledLectures);
 
     let filters = [];
 
@@ -49,6 +47,7 @@ const LectureButtons = (props) => {
             <LectureButton
                 key={lecture.lectureId}
                 lecture={lecture}
+                testId={lecture.testId}
                 id={lecture.lectureId}
                 amount={lecture.termList.length}
                 amountKanji={lecture.kanjiList?.length}

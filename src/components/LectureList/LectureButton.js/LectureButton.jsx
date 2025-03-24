@@ -27,23 +27,35 @@ const LectureButton = (props) => {
         serverError,
         cognitoError,
     } = useContext(AppContext);
-    const { isKanjiView, amountKanji } = props;
+    const {
+        lecture,
+        testId,
+        id,
+        amount,
+        amountKanji,
+        starredAmount,
+        userDataQueryData,
+        allLecturesDataQueryStatus,
+        title,
+        isKanjiView,
+    } = props;
     const [percentage, setPercentage] = useState(0); //for future use
     const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
     const navigate = useNavigate();
 
-    const [hasTest] = useState(() => tests[props.id]);
+    //Cambiar por leer un read en la data de la lecture en el testId
+    // const [hasTest] = useState(testId);
 
     //Listens to user change to show the progress
     useEffect(() => {
         if (user.currentProgress) {
-            const lectureProgress = user.currentProgress[props.id];
+            const lectureProgress = user.currentProgress[id];
 
             if (lectureProgress) {
                 let learnedAmount = 0;
                 let japaneseLearnedAmount = 0;
 
-                const terms = props.lecture.termList;
+                const terms = lecture.termList;
 
                 terms.forEach((term) => {
                     const id = term.id;
@@ -57,9 +69,9 @@ const LectureButton = (props) => {
                     }
                 });
 
-                setPercentage(Math.trunc((learnedAmount / props.amount) * 100));
+                setPercentage(Math.trunc((learnedAmount / amount) * 100));
                 setJapanesePercentage(
-                    Math.trunc((japaneseLearnedAmount / props.amount) * 100)
+                    Math.trunc((japaneseLearnedAmount / amount) * 100)
                 );
             } else {
                 setPercentage(0);
@@ -82,14 +94,14 @@ const LectureButton = (props) => {
     );
 
     const termsAmount =
-        props.allLecturesDataQueryStatus === "loading" ? (
+        allLecturesDataQueryStatus === "loading" ? (
             <Spinner size="sm" />
         ) : (
             "aaaaaaaaa"
         );
 
     const lastReviewDate =
-        props.allLecturesDataQueryStatus === "loading" ? (
+        allLecturesDataQueryStatus === "loading" ? (
             <Spinner size="sm" />
         ) : (
             "aaaaaaaaa"
@@ -103,19 +115,17 @@ const LectureButton = (props) => {
 
     // VARS
     const japaneseSessionTermsAmount =
-        props.userDataQueryData?.[props.id]?.[`${type1}_session`]?.terms
-            ?.length;
+        userDataQueryData?.[id]?.[`${type1}_session`]?.terms?.length;
 
     const spanishSessionTermsAmount =
-        props.userDataQueryData?.[props.id]?.[`${type2}_session`]?.terms
-            ?.length;
+        userDataQueryData?.[id]?.[`${type2}_session`]?.terms?.length;
 
     //string date
     const japaneseLastSessionTime =
-        props.userDataQueryData?.[props.id]?.[`${type1}_session`]?.lastReviewed;
+        userDataQueryData?.[id]?.[`${type1}_session`]?.lastReviewed;
 
     const spanishLastSessionTime =
-        props.userDataQueryData?.[props.id]?.[`${type2}_session`]?.lastReviewed;
+        userDataQueryData?.[id]?.[`${type2}_session`]?.lastReviewed;
 
     // if (japaneseLastSessionTime) {
     //     //data object
@@ -152,9 +162,7 @@ const LectureButton = (props) => {
             onClick={() => {
                 backToTop();
                 navigate(
-                    props.isKanjiView
-                        ? `/lectures/kanji/${props.id}`
-                        : `/lectures/${props.id}`
+                    isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`
                 );
             }}
         >
@@ -173,17 +181,17 @@ const LectureButton = (props) => {
                     amount={props.amount}
                 />
             </div> */}
-            <span className="lectureButtonTitle">{props.title}</span>
+            <span className="lectureButtonTitle">{title}</span>
             <div className="terms">
-                <span>{props.amount} Palabras</span>
+                <span>{amount} Palabras</span>
                 {isKanjiView && <span> - {amountKanji} Kanji</span>}
                 {/* {loggedIn && (
                     <>
                         <span className="mobile"> - </span>
                         <span>
                             <StarAmount
-                                querySuccess={props.uallLecturesDataQueryStatus}
-                                starredAmount={props.starredAmount}
+                                querySuccess={uallLecturesDataQueryStatus}
+                                starredAmount={starredAmount}
                             />
                         </span>
                     </>
@@ -199,14 +207,14 @@ const LectureButton = (props) => {
                     <div className="amountJapanese">
                         <PiStackOverflowLogoFill /> :
                         <TermsReviewAmount
-                            status={props.allLecturesDataQueryStatus}
+                            status={allLecturesDataQueryStatus}
                             amount={japaneseSessionTermsAmount}
                         ></TermsReviewAmount>
                     </div>
                     <div className="amountSpanish">
                         <PiStackOverflowLogoFill /> :
                         <TermsReviewAmount
-                            status={props.allLecturesDataQueryStatus}
+                            status={allLecturesDataQueryStatus}
                             amount={spanishSessionTermsAmount}
                         ></TermsReviewAmount>
                     </div>
@@ -218,21 +226,21 @@ const LectureButton = (props) => {
                     <div className="lastReviewJapanese">
                         <FaClock /> :{" "}
                         <ReviewSessionTime
-                            status={props.allLecturesDataQueryStatus}
+                            status={allLecturesDataQueryStatus}
                             diff={japaneseSessionTimeDiff}
                         ></ReviewSessionTime>
                     </div>
                     <div className="lastReviewSpanish">
                         <FaClock /> :{" "}
                         <ReviewSessionTime
-                            status={props.allLecturesDataQueryStatus}
+                            status={allLecturesDataQueryStatus}
                             diff={spanishSessionTimeDiff}
                         ></ReviewSessionTime>
                     </div>
                 </>
             )}
             <div className="icons">
-                {hasTest && <HiClipboardDocumentList className="testIcon" />}
+                {testId && <HiClipboardDocumentList className="testIcon" />}
             </div>
         </div>
     );

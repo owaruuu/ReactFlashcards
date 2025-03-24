@@ -121,7 +121,6 @@ const LecturesRoute = (props) => {
 
             try {
                 const response = await getExtraLessons(perms.data);
-                // console.log("🚀 ~ fetchLessons ~ response:", response);
 
                 if (!hasNormalPerms) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
@@ -188,7 +187,9 @@ const LecturesRoute = (props) => {
                 );
 
                 const extraLectures = orderedResults.map((item) => {
-                    return JSON.parse(item.lecture);
+                    const lecture = JSON.parse(item.lecture);
+                    lecture["testId"] = item.testId;
+                    return lecture;
                 });
 
                 const newLectures = [...freeLectures, ...extraLectures];
