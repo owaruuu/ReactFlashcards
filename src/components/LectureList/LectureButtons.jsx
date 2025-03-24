@@ -2,30 +2,33 @@ import LectureButton from "./LectureButton.js/LectureButton";
 import { pickDifference, getDiff } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
-    const { isKanjiView, orderingState } = props;
-
-    //data de todas las lectures
-    const { allLecturesDataQuery } = props;
+    const {
+        allLecturesDataQuery,
+        orderingState,
+        filterState,
+        lectures,
+        isKanjiView,
+    } = props;
+    // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
 
     const starredAmountObject =
         allLecturesDataQuery?.status === "success"
             ? calculateStarred(allLecturesDataQuery.data)
             : {};
 
+    //POR AQUIIIIIIIIIII
     const dataObject =
         allLecturesDataQuery?.status === "success"
             ? buildLectureData(allLecturesDataQuery.data)
             : {};
 
-    const filledLectures = insertSessionData(
-        props.lectures,
-        dataObject,
-        isKanjiView
-    );
+    const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
+    // console.log("🚀 ~ LectureButtons ~ lectures DIFF:", lectures);
+    // console.log("🚀 ~ LectureButtons ~ filledLectures DIFF:", filledLectures);
 
     let filters = [];
 
-    for (const [key, value] of Object.entries(props.filterState)) {
+    for (const [key, value] of Object.entries(filterState)) {
         if (value) {
             filters.push(key);
         }
@@ -62,9 +65,11 @@ const LectureButtons = (props) => {
 };
 
 //FUNCTIONS
+
 function insertSessionData(lectures, dataObject, isKanjiView) {
+    let filledLectures = JSON.parse(JSON.stringify(lectures));
     if (isKanjiView) {
-        lectures.map((lecture) => {
+        filledLectures = filledLectures.map((lecture) => {
             if (dataObject[lecture.lectureId]) {
                 if (dataObject[lecture.lectureId]["recognize_session"]) {
                     lecture["recognize_session"] =
@@ -79,7 +84,7 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
             return lecture;
         });
     } else {
-        lectures.map((lecture) => {
+        filledLectures = filledLectures.map((lecture) => {
             if (dataObject[lecture.lectureId]) {
                 if (dataObject[lecture.lectureId]["japanese_session"]) {
                     lecture["japanese_session"] =
@@ -95,7 +100,7 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
         });
     }
 
-    return lectures;
+    return filledLectures;
 }
 
 function calculateStarred(dataArray) {
