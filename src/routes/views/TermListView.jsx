@@ -15,12 +15,14 @@ import SpanishTermList from "../../components/LectureScreen/TermListView/Session
 import RecognizeTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/RecognizeTermList";
 import WriteTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/WriteTermList";
 
+// path: "/lectures/:lectureId",
 const TermListView = () => {
     const {
         tab,
         setTab,
         allLecturesDataQuery,
         lectureQuery,
+        testQuery,
         lecture,
         hasTest,
         isKanjiView,
@@ -128,6 +130,7 @@ const TermListView = () => {
                 {lecture.name}
             </h2>
             <LectureScreenButtons
+                testQuery={testQuery}
                 hasTest={hasTest}
                 loggedIn={loggedIn}
                 isKanjiView={isKanjiView}

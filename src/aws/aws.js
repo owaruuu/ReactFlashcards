@@ -130,6 +130,18 @@ export const getExtraPerms = async () => {
     return defer({ perms: permissionsPromise });
 };
 
+export async function getTestData(testId) {
+    try {
+        const response = await api.get(`${URL}/api/v2/tests/${testId}`);
+
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ getTestData ~ error:", error);
+
+        throw error;
+    }
+}
+
 export const getExtraLessons = async (keys) => {
     try {
         const response = await api.post(`${URL}/lessons`, { keys });

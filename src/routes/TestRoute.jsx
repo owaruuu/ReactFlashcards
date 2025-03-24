@@ -4,7 +4,7 @@ import { AppContext } from "../context/AppContext";
 
 const TestRoute = () => {
     const { user } = useContext(AppContext);
-    const { test, hasTest, lecture } = useOutletContext();
+    const { test, hasTest, lecture, testQuery } = useOutletContext();
 
     //State
     const [isTakingTest, setIsTakingTest] = useState(false);

@@ -7,7 +7,7 @@ import {
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { getLectureQueryString } from "../utils/utils";
-import { saveUserProgress } from "../aws/aws";
+import { getTestData, saveUserProgress } from "../aws/aws";
 
 //query global para todas las lecciones
 export function useAllLecturesDataQuery(enabled) {
@@ -35,6 +35,19 @@ export function useLectureQuery(lectureId, enabled) {
         queryFn: () => getLectureData(lectureId),
         retry: 1,
         placeholderData: { data: initialData },
+        //cacheTime: 0,
+        refetchOnWindowFocus: false,
+        staleTime: Infinity,
+    });
+}
+
+//query local para una prueba
+export function useTestQuery(testId, enabled) {
+    return useQuery({
+        enabled: enabled,
+        queryKey: [`test_${testId}_query`],
+        queryFn: () => getTestData(testId),
+        retry: 1,
         //cacheTime: 0,
         refetchOnWindowFocus: false,
         staleTime: Infinity,

@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import BackButton from "../BackButton";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,8 @@ const LectureScreenButtons = (props) => {
             disabled={!props.loggedIn}
             onClick={() => navigate("test")}
         >
-            <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>
+            <HiClipboardDocumentList className="testIcon" /> <span>Prueba</span>{" "}
+            {props.testQuery.isLoading && <Spinner size="sm"></Spinner>}
         </button>
     );
 

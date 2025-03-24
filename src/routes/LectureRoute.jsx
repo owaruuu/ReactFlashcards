@@ -1,25 +1,26 @@
 import React, { useEffect } from "react";
 import { useContext, useState } from "react";
-import { useLectureQuery } from "../hooks/userDataQueryHook";
+import { useLectureQuery, useTestQuery } from "../hooks/userDataQueryHook";
 import { AppContext } from "../context/AppContext";
 import { tests } from "../data/tests";
 import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import DismissableBanner from "../components/DismissableBanner/DismissableBanner";
 
+// path: "/lectures/:lectureId",
 const LectureRoute = (props) => {
-    const { lecture } = props;
+    const { lecture, isKanjiView } = props;
     const outCtx = useOutletContext();
-    const { isKanjiView } = props;
     const [tab, setTab] = useState(isKanjiView ? "recognize" : "japanese");
     const { loggedIn } = useContext(AppContext);
     const { lectureId } = useParams();
 
     //QUERIES
     const lectureQuery = useLectureQuery(lectureId, loggedIn ? true : false);
+    const testQuery = useTestQuery(lecture.testId, loggedIn ? true : false);
 
-    const test = tests[lectureId];
-    const hasTest = isKanjiView ? false : test !== undefined ? true : false;
+    // const test = tests[lectureId];
+    const hasTest = isKanjiView ? false : lecture.testId;
 
     if (!loggedIn) {
         //logged out simple view
@@ -39,6 +40,7 @@ const LectureRoute = (props) => {
                         tab,
                         setTab,
                         lectureQuery,
+                        testQuery,
                         lecture,
                         lectureId,
                         hasTest,
@@ -70,9 +72,10 @@ const LectureRoute = (props) => {
                     setTab,
                     allLecturesDataQuery: outCtx.allLecturesDataQuery,
                     lectureQuery,
+                    testQuery,
                     lecture,
                     // lectureId,
-                    test,
+                    // test,
                     hasTest,
                     isKanjiView,
                 }}
