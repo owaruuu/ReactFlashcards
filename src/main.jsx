@@ -103,7 +103,7 @@ const router = createBrowserRouter([
                         ],
                     },
                     {
-                        path: "/lectures/:lectureId",
+                        path: ":lectureId",
                         element: (
                             <HasPermissionRoute element={<LectureRoute />} />
                         ),
@@ -112,12 +112,12 @@ const router = createBrowserRouter([
                         //primero obtiene la info de las lecciones y luego espera el query del user data sobre las lecciones
                         children: [
                             {
-                                //index
-                                path: "/lectures/:lectureId",
+                                index: true,
+                                // path: "/lectures/:lectureId",
                                 element: <TermListView />,
                             },
                             {
-                                path: "/lectures/:lectureId/:lang/study-session",
+                                path: ":lang/study-session",
                                 element: (
                                     <LoggedInRoute
                                         element={<HasActiveStudySession />}
@@ -125,24 +125,24 @@ const router = createBrowserRouter([
                                 ),
                             },
                             {
-                                path: "/lectures/:lectureId/flashcards",
+                                path: "flashcards",
                                 element: <FlashCardView />,
                             },
                             {
-                                path: "/lectures/:lectureId/test",
+                                path: "test",
                                 element: (
                                     <LoggedInRoute element={<TestRoute />} />
                                 ),
                                 //ruta que contiene logica y estado, muestra pantalla con un outlet, muestra el titulo de la lecture
                                 children: [
                                     {
-                                        //index
-                                        path: "/lectures/:lectureId/test/",
+                                        index: true,
+                                        // path: "/lectures/:lectureId/test/",
                                         element: <TestView />,
                                         //vista que muestra el main screen de la prueba, con las informacion y botones
                                     },
                                     {
-                                        path: "/lectures/:lectureId/test/try",
+                                        path: "try",
                                         element: (
                                             <IsTakingTest
                                                 element={<TryTestView />}
@@ -151,12 +151,12 @@ const router = createBrowserRouter([
                                         //vista que muestra la prueba y sus pantallas
                                     },
                                     {
-                                        path: "/lectures/:lectureId/test/last-attempt",
+                                        path: "last-attempt",
                                         element: <LastResultView />,
                                         //vista que muesta el ultimo intento
                                     },
                                     {
-                                        path: "/lectures/:lectureId/test/high-score",
+                                        path: "high-score",
                                         element: <HighScoreView />,
                                         //vista que muestra el highscore
                                     },
@@ -177,7 +177,7 @@ const router = createBrowserRouter([
                 children: [
                     { index: true, element: <SignupForm /> },
                     {
-                        path: "/register/confirmation",
+                        path: "confirmation",
                         element: <ConfirmationCode />,
                     },
                 ],
