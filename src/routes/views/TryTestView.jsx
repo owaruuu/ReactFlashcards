@@ -3,9 +3,10 @@ import { AppContext } from "../../context/AppContext";
 import { useBlocker, useOutletContext } from "react-router-dom";
 import { useTestMutation } from "../../hooks/userDataQueryHook";
 import {
-    getRandomMondai,
+    // getRandomMondai,
     chooseThreeDrag,
     getRandomNumbersSimple,
+    getRandomQuestions,
 } from "../../utils/utils";
 import ExitTestModal from "../../components/Modals/ExitTestModal";
 import Mondai from "../../components/TestScreen/Mondai";
@@ -21,15 +22,9 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { ImCheckmark } from "react-icons/im";
 
 const TryTestView = () => {
-    const { test, lecture, savedTest, setSavedTest } = useOutletContext();
+    const { testQuery, lecture, savedTest, setSavedTest } = useOutletContext();
     const { user, dispatch } = useContext(AppContext);
-    // console.log("🚀 ~ TryTestView ~ savedTest:", savedTest);
-    // console.log(
-    //     "🚀 ~ user.currentProgress?.[lectureId]:",
-    //     // JSON.stringify(user.currentProgress)
-    //     // JSON.stringify(user.currentProgress.currentProgress)
-    //     user.currentProgress
-    // );
+    const test = testQuery.data.data.Item;
 
     //HOOKS
     //Bloquea la navegacion usando React Router
@@ -38,18 +33,37 @@ const TryTestView = () => {
             !savedTest && currentLocation.pathname !== nextLocation.pathname
     );
     const testMutation = useTestMutation(() => setSavedTest(true));
-    // console.log("🚀 ~ TryTestView ~ testMutation:", testMutation);
     const [newRecord, setNewRecord] = useState(false);
-    const randomDrag = getRandomNumbersSimple(
-        test.dragOptions.quantity,
-        test.dragDrop.length
+
+    //TODO necesito elegir drag al azar por cada dificultad
+    //Selecciona x numeros dentro de un rango, x es lo que diga la config, rango la suma de todos los drag
+    // const randomDrag = getRandomNumbersSimple(
+    //     test.dragOptions.quantity,
+    //     test.dragDrop.length
+    // );
+    const [mondai] = useState(() =>
+        getRandomQuestions(
+            test.mondai_easy,
+            test.mondai_mid,
+            test.mondai_hard,
+            test.mondai_options
+        )
     );
-    const [fiveMondai] = useState(() => getRandomMondai(test));
-    const [threeDrag] = useState(() => chooseThreeDrag(test, randomDrag));
+    console.log("🚀 ~ TryTestView ~ mondai:", mondai);
+    const [drag] = useState(() =>
+        getRandomQuestions(
+            test.drag_easy,
+            test.drag_mid,
+            test.drag_hard,
+            test.drag_options
+        )
+    );
+    console.log("🚀 ~ TryTestView ~ drag:", drag);
     const [currentTest] = useState({
-        version: test.version,
-        mondai: fiveMondai,
-        dragDrop: threeDrag,
+        // version: test.version,//
+        version: test.test_id,
+        mondai: mondai,
+        dragDrop: drag,
         manga: [],
     });
     const [score, setScore] = useState(0);
@@ -73,7 +87,8 @@ const TryTestView = () => {
             return 0;
         }
 
-        const hasHighScoreForThisTestVersion = testScore.score[test.version];
+        // const hasHighScoreForThisTestVersion = testScore.score[test.version];//
+        const hasHighScoreForThisTestVersion = testScore.score[test.test_id];
 
         if (hasHighScoreForThisTestVersion) {
             return hasHighScoreForThisTestVersion;
@@ -81,10 +96,7 @@ const TryTestView = () => {
             return 0;
         }
     });
-    // console.log(
-    //     "🚀 ~ const[previousHighScore]=useState ~ previousHighScore:",
-    //     previousHighScore
-    // );
+
     const [stage, setStage] = useState("mondai");
     const [problem, setProblem] = useState(0); //en que problema vamos, ej. 1/5
 
@@ -98,7 +110,6 @@ const TryTestView = () => {
         multiple: [],
         drag: [],
     });
-    // console.log("🚀 ~ TryTestView ~ answers:", answers);
 
     const [timerInfo, setTimerInfo] = useState({
         totalSeconds: 0,
@@ -108,10 +119,6 @@ const TryTestView = () => {
     });
     const [stopTimer, setStopTimer] = useState(false);
     const [hasWonMedal] = useState(() => {
-        // if (dbError || !loggedIn) {
-        //     return -1;
-        // }
-
         const hasMedal = user.currentProgress?.stickers?.[lecture.lectureId];
 
         if (hasMedal) {
@@ -430,7 +437,7 @@ const TryTestView = () => {
 
             {stage === "mondai" && (
                 <Mondai
-                    mondai={fiveMondai}
+                    mondai={mondai}
                     problem={problem}
                     correct={correct}
                     incorrect={incorrect}
@@ -440,7 +447,7 @@ const TryTestView = () => {
             )}
             {stage === "dragDrop" && (
                 <DragDrop
-                    drag={threeDrag}
+                    drag={drag}
                     problem={problem}
                     correct={correct}
                     incorrect={incorrectDrag}

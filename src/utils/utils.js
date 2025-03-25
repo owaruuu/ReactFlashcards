@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { map } from "lodash";
 import { kanjiLookup } from "../data/kanjiLookup";
 
 export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
@@ -48,73 +48,141 @@ export const randomInt = (lower, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
-export const getRandomMondai = (test) => {
-    const options = test.mondaiOptions;
-    const questions = test.mondai;
+//Eligo una cantidad x al azar de problemas por dificultad basado en la config
+export const getRandomQuestions = (easy, mid, hard, options) => {
+    const random = [];
+    const easyArr = Object.entries(easy);
+    const midArr = Object.entries(mid);
+    const hardArr = Object.entries(hard);
 
-    let randomArray = [];
-    let randomNumbers = [];
+    if (options.easy > 0) {
+        if (options.easy === easyArr.length) {
+            random.push(...easyArr.map((mondai) => mondai[1]));
+        } else {
+            const randomNumbers = getRandomNumbers(
+                options.easy, // eg.4
+                easyArr.length //eg. 6
+            );
 
-    const easyLimit =
-        options.easy > questions.easy.length
-            ? questions.easy.length
-            : options.easy;
-    const midLimit =
-        options.mid > questions.mid.length ? questions.mid.length : options.mid;
-    const hardLimit =
-        options.hard > questions.hard.length
-            ? questions.hard.length
-            : options.hard;
-
-    //pick questions from easy
-    while (randomNumbers.length < easyLimit) {
-        let number = randomInt(0, questions.easy.length - 1);
-
-        //si randomNumbersArray no contiene
-        if (!randomNumbers.includes(number)) {
-            randomNumbers.push(number);
+            random.push(...randomNumbers.map((index) => easyArr[index][1]));
         }
     }
 
-    randomArray = [
-        ...randomArray,
-        ...randomNumbers.map((item) => questions.easy[item]),
-    ];
-    randomNumbers = [];
+    if (options.mid > 0) {
+        if (options.mid === midArr.length) {
+            random.push(...midArr.map((mondai) => mondai[1]));
+        } else {
+            const randomNumbers = getRandomNumbers(
+                options.mid, // eg.3
+                midArr.length //eg. 5
+            );
 
-    //pick questions from mid
-    while (randomNumbers.length < midLimit) {
-        let number = randomInt(0, questions.mid.length - 1);
-
-        //si randomNumbersArray no contiene
-        if (!randomNumbers.includes(number)) {
-            randomNumbers.push(number);
+            random.push(...randomNumbers.map((index) => midArr[index][1]));
         }
     }
 
-    randomArray = [
-        ...randomArray,
-        ...randomNumbers.map((item) => questions.mid[item]),
-    ];
-    randomNumbers = [];
+    if (options.hard > 0) {
+        if (options.hard === hardArr.length) {
+            random.push(...hardArr.map((mondai) => mondai[1]));
+        } else {
+            const randomNumbers = getRandomNumbers(
+                options.hard, // eg.3
+                hardArr.length //eg. 5
+            );
 
-    //pick questions from hard
-    while (randomNumbers.length < hardLimit) {
-        let number = randomInt(0, questions.hard.length - 1);
-
-        //si randomNumbersArray no contiene
-        if (!randomNumbers.includes(number)) {
-            randomNumbers.push(number);
+            random.push(...randomNumbers.map((index) => hardArr[index][1]));
         }
     }
 
-    randomArray = [
-        ...randomArray,
-        ...randomNumbers.map((item) => questions.hard[item]),
-    ];
+    return random;
 
-    return randomArray;
+    // if (test.mondai_options.mid > 0) {
+    // }
+
+    // if (test.mondai_options.hard > 0) {
+    // }
+
+    // // const options = test.mondai_options;
+    // const questions = test.mondai;
+
+    // let randomArray = [];
+    // let randomNumbers = [];
+
+    // const easyLimit =
+    //     options.easy > questions.easy.length
+    //         ? questions.easy.length
+    //         : options.easy;
+    // const midLimit =
+    //     options.mid > questions.mid.length ? questions.mid.length : options.mid;
+    // const hardLimit =
+    //     options.hard > questions.hard.length
+    //         ? questions.hard.length
+    //         : options.hard;
+
+    // //pick questions from easy
+    // while (randomNumbers.length < easyLimit) {
+    //     let number = randomInt(0, questions.easy.length - 1);
+
+    //     //si randomNumbersArray no contiene
+    //     if (!randomNumbers.includes(number)) {
+    //         randomNumbers.push(number);
+    //     }
+    // }
+
+    // randomArray = [
+    //     ...randomArray,
+    //     ...randomNumbers.map((item) => questions.easy[item]),
+    // ];
+    // randomNumbers = [];
+
+    // //pick questions from mid
+    // while (randomNumbers.length < midLimit) {
+    //     let number = randomInt(0, questions.mid.length - 1);
+
+    //     //si randomNumbersArray no contiene
+    //     if (!randomNumbers.includes(number)) {
+    //         randomNumbers.push(number);
+    //     }
+    // }
+
+    // randomArray = [
+    //     ...randomArray,
+    //     ...randomNumbers.map((item) => questions.mid[item]),
+    // ];
+    // randomNumbers = [];
+
+    // //pick questions from hard
+    // while (randomNumbers.length < hardLimit) {
+    //     let number = randomInt(0, questions.hard.length - 1);
+
+    //     //si randomNumbersArray no contiene
+    //     if (!randomNumbers.includes(number)) {
+    //         randomNumbers.push(number);
+    //     }
+    // }
+
+    // randomArray = [
+    //     ...randomArray,
+    //     ...randomNumbers.map((item) => questions.hard[item]),
+    // ];
+
+    // return randomArray;
 };
+
+function getRandomNumbers(amount, max) {
+    let randomNumbersArray = [];
+
+    while (randomNumbersArray.length < amount) {
+        let number = randomInt(0, max - 1);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
+
+    return randomNumbersArray;
+}
 
 export const chooseFiveMondai = (test, randomNumberArray) => {
     let mondaiArray = [];
