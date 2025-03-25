@@ -42,6 +42,8 @@ const LectureButton = (props) => {
     const [percentage, setPercentage] = useState(0); //for future use
     const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
     const navigate = useNavigate();
+    // console.log("🚀 ~ LectureButton ~ testId:", testId);
+    const hasTest = testId !== "-1" && testId !== undefined;
 
     //Cambiar por leer un read en la data de la lecture en el testId
     // const [hasTest] = useState(testId);
@@ -240,7 +242,7 @@ const LectureButton = (props) => {
                 </>
             )}
             <div className="icons">
-                {testId && <HiClipboardDocumentList className="testIcon" />}
+                {hasTest && <HiClipboardDocumentList className="testIcon" />}
             </div>
         </div>
     );
