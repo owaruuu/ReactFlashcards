@@ -74,8 +74,6 @@ const LectureRoute = (props) => {
                     lectureQuery,
                     testQuery,
                     lecture,
-                    // lectureId,
-                    // test,
                     hasTest,
                     isKanjiView,
                 }}

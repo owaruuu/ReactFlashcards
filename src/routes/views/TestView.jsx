@@ -6,17 +6,19 @@ import { TiArrowBack } from "react-icons/ti";
 
 const TestView = () => {
     const { user } = useContext(AppContext);
-    const { test, lectureId, setIsTakingTest, setSavedTest } =
+    const { testQuery, lectureId, setIsTakingTest, setSavedTest } =
         useOutletContext();
     const navigate = useNavigate();
+    const test = testQuery.data.data.Item;
 
     //Vars
     const mondaiQuantity =
-        test.mondaiOptions.easy +
-        test.mondaiOptions.mid +
-        test.mondaiOptions.hard;
+        test.mondai_options.easy +
+        test.mondai_options.mid +
+        test.mondai_options.hard;
 
-    const dragQuantity = test.dragOptions.quantity;
+    const dragQuantity =
+        test.drag_options.easy + test.drag_options.mid + test.drag_options.hard;
 
     const hasLastTest = () => {
         const lastTest = user.currentProgress[lectureId]?.["lastTest"];
@@ -31,7 +33,7 @@ const TestView = () => {
         const highScore = user.currentProgress[lectureId]?.["highScore"];
         if (highScore) {
             const hasHighScoreForThisTestVersion =
-                highScore.score[test.version];
+                highScore.score[test.test_id];
 
             if (hasHighScoreForThisTestVersion) {
                 return true;
