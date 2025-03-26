@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "Add test query - 24/03/2025";
+export const version = "Read test from db - 26/03/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
