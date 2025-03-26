@@ -101,7 +101,7 @@ const TestAnswersSummary = (props) => {
             </div>
         );
     });
-    console.log("🚀 ~ dragComponents ~ dragComponents:", dragComponents);
+    // console.log("🚀 ~ dragComponents ~ dragComponents:", dragComponents);
 
     return (
         <div className="testResume">

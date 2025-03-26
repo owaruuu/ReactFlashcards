@@ -10,12 +10,19 @@ const DragDrop = (props) => {
     const [currentAnswer, setCurrentAnswer] = useState("");
     const [currentOptions, setCurrentOptions] = useState(() =>
         shuffleArray([
-            ...drag[problem][2],
+            ...drag[problem].correctOptions,
+            ...drag[problem].incorrectOptions,
             // ...test.dragDrop[problem][3],
         ])
     );
-    const currentPhrase = drag[problem][0];
-    const currentCorrectAnswer = drag[problem][1];
+    // console.log("🚀 ~ DragDrop ~ currentOptions:", currentOptions);
+    const currentPhrase = drag[problem].translation;
+    // console.log("🚀 ~ DragDrop ~ currentPhrase:", currentPhrase);
+    const answersArray = drag[problem].correctOptions.map(
+        (answer) => answer.content
+    );
+    const currentCorrectAnswer = answersArray.join("");
+    // console.log("🚀 ~ DragDrop ~ currentCorrectAnswer:", currentCorrectAnswer);
 
     const [confirm, setConfirm] = useState(false);
 
@@ -23,10 +30,10 @@ const DragDrop = (props) => {
         setChanged(true);
         setCurrentAnswer(() => {
             const firstRow = items["FirstRowAnswer"];
-            const firstRowValues = firstRow.map((elem) => elem.drag);
+            const firstRowValues = firstRow.map((elem) => elem.content);
 
             const secondRow = items["SecondRowAnswer"];
-            const secondRowValues = secondRow.map((elem) => elem.drag);
+            const secondRowValues = secondRow.map((elem) => elem.content);
 
             return `${firstRowValues.join("")}${secondRowValues.join("")}`;
         });
@@ -46,8 +53,8 @@ const DragDrop = (props) => {
 
     useEffect(() => {
         const optionsArray = shuffleArray([
-            ...drag[problem][2],
-            // ...drag[problem][3],
+            ...drag[problem].correctOptions,
+            ...drag[problem].incorrectOptions,
         ]);
         setCurrentOptions(optionsArray);
     }, [problem]);

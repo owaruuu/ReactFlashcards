@@ -49,7 +49,7 @@ const TryTestView = () => {
             test.mondai_options
         )
     );
-    console.log("🚀 ~ TryTestView ~ mondai:", mondai);
+    // console.log("🚀 ~ TryTestView ~ mondai:", mondai);
     const [drag] = useState(() =>
         getRandomQuestions(
             test.drag_easy,
@@ -58,7 +58,7 @@ const TryTestView = () => {
             test.drag_options
         )
     );
-    console.log("🚀 ~ TryTestView ~ drag:", drag);
+    // console.log("🚀 ~ TryTestView ~ drag:", drag);
     const [currentTest] = useState({
         // version: test.version,//
         version: test.test_id,
@@ -66,6 +66,7 @@ const TryTestView = () => {
         dragDrop: drag,
         manga: [],
     });
+    // console.log("🚀 ~ TryTestView ~ currentTest:", currentTest);
     const [score, setScore] = useState(0);
     const [maxScore] = useState(() => {
         let max = 0;
@@ -75,6 +76,7 @@ const TryTestView = () => {
 
         return max;
     });
+    // console.log("🚀 ~ const[maxScore]=useState ~ maxScore:", maxScore);
     const [previousHighScore] = useState(() => {
         // if (dbError || !loggedIn) {
         //     return 0;
@@ -137,6 +139,7 @@ const TryTestView = () => {
     const [endTest, setEndTest] = useState(false);
 
     //EFFECTS
+    //Handle Before Unload
     //prevenimos recargar la pagina o navegar usando la barra
     useEffect(() => {
         const handleBeforeUnload = (event) => {
@@ -161,6 +164,7 @@ const TryTestView = () => {
         setSavedTest(false);
     }, []);
 
+    //Guardar prueba cuando termino de responder la ultima pregunta
     useEffect(() => {
         if (endTest) {
             // console.log("respondi el ultimo problema");
@@ -231,7 +235,7 @@ const TryTestView = () => {
         if (index > currentTest[stage].length - 1) {
             switch (stage) {
                 case "mondai":
-                    if (test.dragDrop.length > 0) {
+                    if (currentTest.dragDrop.length > 0) {
                         setStage("dragDrop");
                     } else {
                         // setEndTest(true);
@@ -315,7 +319,8 @@ const TryTestView = () => {
                     ...user.currentProgress[lecture.lectureId],
                     lastTest: {
                         ...answers,
-                        score: { [test.version]: score },
+                        // score: { [test.version]: score },
+                        score: { [test.test_id]: score },
                         timer: timerInfo,
                     },
                 },
@@ -334,7 +339,8 @@ const TryTestView = () => {
             setNewRecord(true);
             payloadObject.currentProgress[lecture.lectureId].highScore = {
                 ...answers,
-                score: { [test.version]: score },
+                // score: { [test.version]: score },
+                score: { [test.test_id]: score },
                 timer: timerInfo,
             };
             // console.log("new record");
@@ -364,9 +370,9 @@ const TryTestView = () => {
     const getInstruction = (type) => {
         switch (type) {
             case "mondai":
-                return <p className="title">{test.mondaiTitle}</p>;
+                return <p className="title">{test.mondai_title}</p>;
             case "drag":
-                return <p className="title">{test.dragTitle}</p>;
+                return <p className="title">{test.drag_title}</p>;
             default:
                 console.error("unknown type " + type);
                 break;

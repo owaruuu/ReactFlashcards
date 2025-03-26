@@ -8,11 +8,20 @@ const Mondai = (props) => {
 
     //el array de opciones revueltas
     const [currentOptionsElem, setCurrentOptionsElem] = useState([]);
-    const currentPhrase = mondai[problem][0];
+    // console.log("🚀 ~ Mondai ~ currentOptionsElem:", currentOptionsElem);
+    const currentPhrase = mondai[problem].sentence;
 
     //al principio y cada vez que cambio de problema
     useEffect(() => {
-        setCurrentOptionsElem(shuffleArray(mondai[problem][1]));
+        setCurrentOptionsElem(
+            shuffleArray(
+                Object.values(mondai[problem].mondaiOptions).map(
+                    (option, index) => {
+                        return { id: index, phrase: option };
+                    }
+                )
+            )
+        );
     }, [problem]);
 
     //recorro el array revuelto de opciones para crear los botones
@@ -28,7 +37,7 @@ const Mondai = (props) => {
                     handleClick({
                         index: option.id,
                         prompt: currentPhrase,
-                        expected: mondai[problem][1][0].phrase,
+                        expected: mondai[problem].mondaiOptions[0],
                         answer: option.phrase,
                         correct: option.id === 0 ? true : false,
                     })

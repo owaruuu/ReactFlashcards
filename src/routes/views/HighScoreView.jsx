@@ -6,7 +6,8 @@ import TestResultSticker from "../../components/TestScreen/ResultStage/TestResul
 import TestAnswersSummary from "../../components/TestScreen/TestAnswersSummary";
 
 const HighScoreView = () => {
-    const { highScore, test, hasWonMedal, lecture } = useOutletContext();
+    const { highScore, testQuery, hasWonMedal, lecture } = useOutletContext();
+    const test = testQuery.data.data.Item;
 
     if (!highScore) {
         return (
@@ -18,7 +19,8 @@ const HighScoreView = () => {
     }
 
     const date = new Date(highScore.date);
-    const score = highScore.score[test.version];
+    // const score = highScore.score[test.version];
+    const score = highScore.score[test.test_id];
     const maxScore = highScore.drag.length + highScore.multiple.length;
 
     const showWonMedal = () => {

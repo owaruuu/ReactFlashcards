@@ -119,6 +119,7 @@ export function MultipleContainers(
         scrollable,
     }
 ) {
+    // console.log("🚀 ~ props.options:", props.options);
     const populateItems = (options) => {
         let items = {
             FirstRowAnswer: [],
@@ -130,17 +131,20 @@ export function MultipleContainers(
         let firstHalf = options.slice(0, half);
         let secondHalf = options.slice(half);
         items["FirstOptions"] = firstHalf.map((word) => {
-            return { id: word.id + 1, drag: word.drag };
+            // console.log("🚀 ~ items[]=firstHalf.map ~ word:", word);
+            return { id: word.id + 1 + word.content, content: word.content };
             //si no le sumo +1, el item con id 0 no se mueve.
         });
         items["SecondOptions"] = secondHalf.map((word) => {
-            return { id: word.id + 1, drag: word.drag };
+            return { id: word.id + 1 + word.content, content: word.content };
         });
 
         return items;
     };
 
     const [items, setItems] = useState(() => populateItems(props.options));
+    // console.log("🚀 ~ items:", items);
+
     useEffect(() => {
         setItems(populateItems(props.options));
     }, [props.options]);
@@ -248,7 +252,7 @@ export function MultipleContainers(
         let value = "";
         items[container].forEach((element) => {
             if (element.id === id) {
-                value = element.drag;
+                value = element.content;
             }
         });
 
@@ -352,7 +356,7 @@ export function MultipleContainers(
 
                     copy.forEach((element) => {
                         let optionLength =
-                            paddingSize + letterSize * element.drag.length;
+                            paddingSize + letterSize * element.content.length;
                         if (optionLength < minWidthOption) {
                             pixelLength += minWidthOption;
                         } else {
@@ -494,7 +498,7 @@ export function MultipleContainers(
                                             disabled={props.disabled}
                                             key={value.id}
                                             id={value.id}
-                                            value={value.drag}
+                                            value={value.content}
                                             index={value}
                                             handle={handle}
                                             style={getItemStyles}
@@ -532,7 +536,7 @@ export function MultipleContainers(
                                             disabled={props.disabled}
                                             key={value.id}
                                             id={value.id}
-                                            value={value.drag}
+                                            value={value.content}
                                             index={index}
                                             handle={handle}
                                             style={getItemStyles}
@@ -595,6 +599,7 @@ function SortableItem({
     getIndex,
     wrapperStyle,
 }) {
+    // console.log("🚀 ~ value:", value);
     const {
         setNodeRef,
         setActivatorNodeRef,

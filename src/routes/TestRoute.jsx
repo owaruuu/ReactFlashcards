@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap";
 const TestRoute = () => {
     const { user } = useContext(AppContext);
     const { hasTest, lecture, testQuery } = useOutletContext();
-    console.log("🚀 ~ TestRoute ~ testQuery:", testQuery);
+    // console.log("🚀 ~ TestRoute ~ testQuery:", testQuery);
 
     //State
     const [isTakingTest, setIsTakingTest] = useState(false);
