@@ -20,7 +20,11 @@ const LectureRoute = (props) => {
     const testQuery = useTestQuery(lecture.testId, loggedIn ? true : false);
 
     // const test = tests[lectureId];
-    const hasTest = isKanjiView ? false : lecture.testId;
+    const hasTest = isKanjiView
+        ? false
+        : lecture.testId !== undefined && lecture.testId !== "-1"
+        ? true
+        : false;
 
     if (!loggedIn) {
         //logged out simple view
