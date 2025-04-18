@@ -43,6 +43,10 @@ const Login = () => {
                 queryClient.resetQueries();
                 revalidator.revalidate(); //force retry loaders
                 dispatch({
+                    type: "SET_LECTURES",
+                    payload: [],
+                });
+                dispatch({
                     type: "SET_LOG_STATUS",
                     payload: true,
                 });
