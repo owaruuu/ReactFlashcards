@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { authenticateUser, getUserProgress } from "../aws/aws";
-import { useNavigate } from "react-router-dom";
 import { loginFormSchema } from "../schemas/schemas";
 import { useQueryClient } from "react-query";
 import "../components/Forms/Styles/Forms.css";
@@ -12,7 +11,6 @@ import FormInfo from "../components/Forms/FormInfo";
 import { useRevalidator } from "react-router-dom";
 
 const Login = () => {
-    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const revalidator = useRevalidator();
     const [formData, setFormData] = useState({
@@ -41,7 +39,11 @@ const Login = () => {
             const delay = setTimeout(() => {
                 // console.log("login in after timeout");
                 queryClient.resetQueries();
-                revalidator.revalidate(); //force retry loaders
+
+                dispatch({
+                    type: "SET_LECTURES_FLAG",
+                    payload: false,
+                });
                 dispatch({
                     type: "SET_LECTURES",
                     payload: [],
@@ -91,6 +93,7 @@ const Login = () => {
 
             //empieza el timer para cambiar de pantalla
             setLogin(true);
+            revalidator.revalidate(); //force retry loaders
 
             const progress = await getUserProgress();
 
