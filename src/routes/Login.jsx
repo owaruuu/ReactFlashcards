@@ -89,7 +89,7 @@ const Login = () => {
                 },
             });
 
-            setMessages([{ message: "Succesful Login" }]);
+            setMessages([{ message: "Successful Login" }]);
 
             //empieza el timer para cambiar de pantalla
             setLogin(true);

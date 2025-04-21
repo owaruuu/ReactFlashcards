@@ -1,7 +1,8 @@
 import React from "react";
+import SmallText from "../Misc/SmallText.jsx";
 
 const TextButton = (props) => {
-    const { content, small, onClick } = props;
+    const { content, small, onClick, extra = "" } = props;
 
     let classNames = "";
     if (small) {
@@ -10,9 +11,12 @@ const TextButton = (props) => {
         classNames = "textButton";
     }
     return (
-        <button className={classNames} onClick={onClick}>
-            {content}
-        </button>
+        <>
+            <button className={classNames} onClick={onClick}>
+                {content}
+            </button>
+            <SmallText content={extra} />
+        </>
     );
 };
 

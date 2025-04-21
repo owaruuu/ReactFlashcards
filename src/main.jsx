@@ -191,7 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "update server - 18/04/2025";
+export const version = "update kanji and stickers - 21/04/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

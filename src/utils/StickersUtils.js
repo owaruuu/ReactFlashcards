@@ -1,7 +1,7 @@
 const stickers = {
     1: "torii",
     702: "uchiwa",
-    703: "missing",
+    // 703: "missing",
     704: "onigiri",
     708: "shuriken",
     // 999: "one",

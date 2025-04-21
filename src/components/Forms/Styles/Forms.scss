@@ -8,7 +8,7 @@
     // margin-top: auto;
     // margin-bottom: auto;
     color: white;
-
+    // border: "1px solid green";
     form {
         display: flex;
         flex-direction: column;
@@ -62,6 +62,11 @@
                 display: none;
             }
         }
+    }
+
+    .messagesDiv {
+        // border: "1px solid white";
+        text-align: center;
     }
 
     p {

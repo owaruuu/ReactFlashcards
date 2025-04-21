@@ -2,9 +2,11 @@ import "./Styles/Header.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoginHeader from "./LoginHeader";
 import TextButton from "../Buttons/TextButton";
-import SmallText from "../Misc/SmallText";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext.jsx";
 
 const Header = () => {
+    const { loggedIn, kanjiSets } = useContext(AppContext);
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/");
@@ -27,14 +29,20 @@ const Header = () => {
                 -Renshuu-
             </h1>
             <div className="kanjiButton">
-                <TextButton
-                    small
-                    content={
-                        inKanji ? "Volver a sets normales" : "Ir a sets Kanji"
-                    }
-                    onClick={inKanji ? handleGoBack : handleGoToKanji}
-                />
-                {!inKanji && <SmallText content="Beta!" />}
+                {loggedIn & (kanjiSets.length > 1) ? (
+                    <TextButton
+                        small
+                        content={
+                            inKanji
+                                ? "Volver a sets normales"
+                                : "Ir a sets Kanji"
+                        }
+                        onClick={inKanji ? handleGoBack : handleGoToKanji}
+                        extra={!inKanji ? "Beta!" : ""}
+                    />
+                ) : (
+                    ""
+                )}
             </div>
             <LoginHeader />
         </header>

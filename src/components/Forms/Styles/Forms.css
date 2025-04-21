@@ -55,6 +55,9 @@
     display: none;
   }
 }
+.form .messagesDiv {
+  text-align: center;
+}
 .form p {
   font-size: 12px;
   margin-bottom: 0;
