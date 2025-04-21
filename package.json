@@ -40,6 +40,7 @@
         "react-sketch-canvas": "^6.2.0",
         "react-timer-hook": "^3.0.7",
         "react-tooltip": "^5.22.0",
+        "uuid": "^11.1.0",
         "zod": "^3.23.8"
     },
     "scripts": {
