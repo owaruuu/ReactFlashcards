@@ -6,7 +6,7 @@ import {
     useLocation,
     useRevalidator,
 } from "react-router-dom";
-import { getUserProgress } from "../aws/aws";
+import { getUserClass, getUserProgress } from "../aws/aws";
 import Footer from "../components/Footer";
 import Header from "../components/Header/Header";
 import SakuraSVG from "../svg/cherry-blossom-petal.svg";
@@ -46,6 +46,7 @@ const Root = () => {
                     payload:
                         "Error con el servidor, intenta refrescando la pagina.",
                 });
+
                 return false;
             }
 
@@ -62,6 +63,19 @@ const Root = () => {
             });
 
             const progress = await getUserProgress();
+            // console.log("🚀 ~ loginStatus ~ progress:", progress);
+            const userClass = await getUserClass();
+            // console.log("🚀 ~ loginStatus ~ userClass:", userClass);
+            // console.log("aaaaaaaaaaaaaaaaaaaaa");
+
+            if (userClass) {
+                dispatch({
+                    type: "SET_USER",
+                    payload: {
+                        userClass: userClass,
+                    },
+                });
+            }
 
             if (progress) {
                 dispatch({

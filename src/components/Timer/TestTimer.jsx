@@ -2,10 +2,10 @@ import { useStopwatch } from "react-timer-hook";
 import { useState, useEffect } from "react";
 
 const TestTimer = (props) => {
-    const { stopTimer } = props;
-    const { totalSeconds, seconds, minutes, hours, pause } = useStopwatch({
-        autoStart: true,
-    });
+    const { seconds, minutes, hours, pause } = props;
+    // const { totalSeconds, seconds, minutes, hours, pause } = useStopwatch({
+    //     autoStart: true,
+    // });
 
     const [overtime, setOvertime] = useState(false);
     useEffect(() => {
@@ -15,17 +15,24 @@ const TestTimer = (props) => {
         }
     }, [hours]);
 
-    useEffect(() => {
-        if (props.stopTimer) {
-            props.updateTime({
-                totalSeconds,
-                seconds,
-                minutes,
-                hours,
-            });
-            pause();
-        }
-    }, [stopTimer]);
+    // useEffect(() => {
+    //     if (stopTimer) {
+    //         updateTime({
+    //             totalSeconds,
+    //             seconds,
+    //             minutes,
+    //             hours,
+    //         });
+    //         console.log(
+    //             "🚀 ~ useEffect ~ totalSeconds, seconds,minutes,hours,:",
+    //             totalSeconds,
+    //             seconds,
+    //             minutes,
+    //             hours
+    //         );
+    //         pause();
+    //     }
+    // }, [stopTimer]);
 
     const pad = (number) => {
         return number.toLocaleString("en-US", {

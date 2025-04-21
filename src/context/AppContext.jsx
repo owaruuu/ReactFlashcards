@@ -69,7 +69,8 @@ export const AppReducer = (state, action) => {
 const initialState = {
     user: {
         userName: "",
-        currentProgress: null,
+        userClass: [],
+        currentProgress: {},
     },
     userData: { currentData: {} },
     lectures: [],

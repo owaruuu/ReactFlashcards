@@ -65,6 +65,16 @@ export const authenticateUser = async (email, password) => {
     }
 };
 
+export async function getUserClass() {
+    try {
+        const { data } = await api.get(`${URL}/api/v2/auth/getClass`);
+
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 //intento borrar las cookies del usuario, si el servidor no esta online le aviso al usuario
 export const logoutUser = async () => {
     try {
@@ -120,6 +130,32 @@ export const saveUserProgress = async (currentProgress) => {
         };
     }
 };
+
+export async function saveTestTry(payload) {
+    try {
+        //intento conectarme a mi servideor
+        const response = await api.post(`${URL}/api/v2/tests/tries`, {
+            tryData: payload.tryData,
+            progressData: payload.currentProgress,
+            date: payload.date,
+        });
+
+        //si el servidor esta vivo pero la base de datos no lo esta
+        if (response.data.value === -1) {
+            return {
+                msg: "Error trying to scan db, intentandolo mas tarde",
+                value: -1,
+            };
+        }
+
+        return { msg: "exito", value: response.data };
+    } catch (error) {
+        return {
+            msg: "Error en el servidor, intentandolo mas tarde.",
+            value: null,
+        };
+    }
+}
 
 /**
  * Intenta obtener los ids de las lecciones a las que el usuario tiene acceso

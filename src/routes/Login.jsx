@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
-import { authenticateUser, getUserProgress } from "../aws/aws";
+import { authenticateUser, getUserClass, getUserProgress } from "../aws/aws";
 import { loginFormSchema } from "../schemas/schemas";
 import { useQueryClient } from "react-query";
 import "../components/Forms/Styles/Forms.css";
@@ -81,11 +81,14 @@ const Login = () => {
             //post /login
             //no necesito la respuesta ya que solo necesito que las cookies sean puestas
             const authResponse = await authenticateUser(email, password);
+            const userInfo = await getUserClass();
+            // console.log("🚀 ~ handleLogin ~ userInfo:", userInfo);
 
             dispatch({
                 type: "SET_USER",
                 payload: {
                     userName: authResponse.data.userEmail,
+                    userClass: userInfo,
                 },
             });
 

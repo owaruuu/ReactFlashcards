@@ -15,11 +15,13 @@ import ResultStage from "../../components/TestScreen/ResultStage/ResultStage";
 import TestTimer from "../../components/Timer/TestTimer";
 import ProblemCounter from "../../components/TestScreen/ProblemCounter";
 import FeedbackText from "../../components/TestScreen/FeedbackText";
+import { v4 as uuidv4 } from "uuid";
 
 import InteractionBlocker from "../../components/LectureScreen/InteractionBlocker";
 
 import { FaExclamationTriangle } from "react-icons/fa";
 import { ImCheckmark } from "react-icons/im";
+import { useStopwatch } from "react-timer-hook";
 
 const TryTestView = () => {
     const { testQuery, lecture, savedTest, setSavedTest } = useOutletContext();
@@ -113,12 +115,16 @@ const TryTestView = () => {
         drag: [],
     });
 
-    const [timerInfo, setTimerInfo] = useState({
-        totalSeconds: 0,
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
+    // const [timerInfo, setTimerInfo] = useState({
+    //     totalSeconds: 0,
+    //     seconds: 0,
+    //     minutes: 0,
+    //     hours: 0,
+    // });
+    const { totalSeconds, seconds, minutes, hours, pause } = useStopwatch({
+        autoStart: true,
     });
+
     const [stopTimer, setStopTimer] = useState(false);
     const [hasWonMedal] = useState(() => {
         const hasMedal = user.currentProgress?.stickers?.[lecture.lectureId];
@@ -174,10 +180,24 @@ const TryTestView = () => {
         // console.log("answers effect");
     }, [answers, endTest]);
 
+    useEffect(() => {
+        if (stopTimer) {
+            // setTimerInfo({
+            //     totalSeconds,
+            //     seconds,
+            //     minutes,
+            //     hours,
+            // });
+            pause();
+        }
+    }, [stopTimer]);
+
     // FUNCTIONS
-    const updateTestTime = (info) => {
-        setTimerInfo(info);
-    };
+    // const updateTestTime = (info) => {
+    //     console.log("setting timer info ?");
+
+    //     setTimerInfo(info);
+    // };
 
     const handleOptionClick = (info) => {
         // console.log("handleOptionClick");
@@ -302,7 +322,8 @@ const TryTestView = () => {
     };
 
     const handleSaveTestScore = () => {
-        // console.log("handling save test score");
+        const try_id = uuidv4();
+        const date = new Date().toISOString();
         // console.log("🚀 ~ handleSaveTestScore ~ answers:", answers);
         // if (dbError || !loggedIn) {
         //     //  "no tengo acceso a la db entonces no puedo salvar el testScore"
@@ -321,10 +342,21 @@ const TryTestView = () => {
                         ...answers,
                         // score: { [test.version]: score },
                         score: { [test.test_id]: score },
-                        timer: timerInfo,
+                        timer: { totalSeconds, seconds, minutes, hours },
                     },
                 },
             },
+            tryData: {
+                try_id,
+                test_id: test.test_id,
+                total_time: { totalSeconds, seconds, minutes, hours },
+                user_mail: user.userName,
+                user_class: user.userClass,
+                score: score,
+                multiple: answers.multiple,
+                drag: answers.drag,
+            },
+            date,
         };
 
         if (needToUpdateSticker) {
@@ -341,14 +373,14 @@ const TryTestView = () => {
                 ...answers,
                 // score: { [test.version]: score },
                 score: { [test.test_id]: score },
-                timer: timerInfo,
+                timer: { totalSeconds, seconds, minutes, hours },
             };
             // console.log("new record");
             // console.log(
             //     "🚀 ~ handleSaveTestScore ~ payloadObject:",
             //     payloadObject
             // );
-            testMutation.mutate(payloadObject.currentProgress);
+            testMutation.mutate(payloadObject);
             dispatch({
                 type: "UPDATE_PROGRESS",
                 payload: payloadObject,
@@ -363,7 +395,7 @@ const TryTestView = () => {
             //     "🚀 ~ handleSaveTestScore ~ payloadObject:",
             //     payloadObject
             // );
-            testMutation.mutate(payloadObject.currentProgress);
+            testMutation.mutate(payloadObject);
         }
     };
 
@@ -437,8 +469,10 @@ const TryTestView = () => {
                 {stage !== "results" && pointsCounter}
             </div>
             <TestTimer
-                stopTimer={stopTimer}
-                updateTime={updateTestTime}
+                seconds={seconds}
+                minutes={minutes}
+                hours={hours}
+                pause={pause}
             ></TestTimer>
 
             {stage === "mondai" && (

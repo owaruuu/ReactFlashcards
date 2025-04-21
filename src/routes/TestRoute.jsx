@@ -5,6 +5,7 @@ import { Spinner } from "react-bootstrap";
 
 const TestRoute = () => {
     const { user } = useContext(AppContext);
+    // console.log("🚀 ~ TestRoute ~ user:", user);
     const { hasTest, lecture, testQuery } = useOutletContext();
     // console.log("🚀 ~ TestRoute ~ testQuery:", testQuery);
 
@@ -14,7 +15,7 @@ const TestRoute = () => {
 
     //Vars
     const lastTestResults =
-        user.currentProgress[lecture.lectureId]?.["lastTest"];
+        user.currentProgress?.[lecture.lectureId]?.["lastTest"];
     const highScore = user.currentProgress[lecture.lectureId]?.["highScore"];
     const [hasWonMedal] = useState(() => {
         const hasMedal = user.currentProgress.stickers?.[lecture.lectureId];
@@ -44,7 +45,7 @@ const TestRoute = () => {
                 <Spinner
                     animation="border"
                     role="status"
-                    style={{ color: "#532f00" }}
+                    style={{ color: "white" }}
                 >
                     <span className="visually-hidden">Loading...</span>
                 </Spinner>
