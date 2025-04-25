@@ -54,8 +54,8 @@ export function useTestQuery(testId, enabled) {
     });
 }
 
-export function useLectureMutation(queryKey) {
-    // console.log("🚀 ~ useLectureMutation ~ queryKey:", queryKey);
+//Cambia el mute o highlight de un termino
+export function useTermOptionsMutation(queryKey) {
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
@@ -110,32 +110,10 @@ export function useLectureMutation(queryKey) {
 
             //cambio el estado de la query global
             queryClient.setQueryData("allDataForUser", newArray);
-
             dispatch({ type: "SET_SAVE_ERROR", payload: false });
-
-            // Invalidate and refetch
-            // queryClient.invalidateQueries({
-            //     queryKey: [queryKey],
-            // });
         },
     });
 }
-
-// /**
-//  * Mutation to update the test results for an user
-//  */
-// export function useTestMutation(onSuccessCallback) {
-//     // const { dispatch } = useContext(AppContext);
-//     return useMutation({
-//         mutationFn: saveUserProgress,
-//         retry: true,
-//         onSuccess: () => {
-//             onSuccessCallback();
-//             // dispatch({ type: "SET_SAVE_TEST", payload: true });
-//             // dispatch({ type: "SET_IS_TAKING_TEST", payload: false });
-//         },
-//     });
-// }
 
 /**
  * Mutation to update the test results for an user

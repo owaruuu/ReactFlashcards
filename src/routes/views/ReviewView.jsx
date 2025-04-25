@@ -8,7 +8,7 @@ import TermCard from "../../components/LearnScreen/TermCard";
 import DisappearingCard from "../../components/LearnScreen/DisappearingCard";
 import NextButton from "../../components/ReviewScreen/NextButton";
 import {
-    useLectureMutation,
+    useTermOptionsMutation,
     useSessionMutation,
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
@@ -58,7 +58,7 @@ const ReviewView = (props) => {
     });
 
     //MUTATIONS que ocuparan los botones
-    const lectureMutation = useLectureMutation(
+    const termOptionsMutation = useTermOptionsMutation(
         getLectureQueryString(lecture.lectureId)
     );
 
@@ -95,10 +95,12 @@ const ReviewView = (props) => {
     };
 
     //funcion para los botoes de highlight y mute
+    // Va con fecha para modificar asi la fecha de la sesion???
+    //no es necesario la fecha porque luego de esto se modifica la sesion
     async function onIconClick(language, termId, newValue) {
         try {
             setFeedbackMessage("Modificando termino...");
-            await lectureMutation.mutateAsync({
+            await termOptionsMutation.mutateAsync({
                 lectureId: lecture.lectureId,
                 attributeName: `${language}_terms_data`,
                 newValue: {
@@ -116,6 +118,8 @@ const ReviewView = (props) => {
         }
     }
 
+    //funcion para cambiar al siguiente termino de la sesion
+    //Va con fecha para modificar el...
     async function handleNextTerm() {
         const newValue = removeFirstTerm();
 
@@ -128,6 +132,7 @@ const ReviewView = (props) => {
                 lectureId: lecture.lectureId,
                 attributeName: `${lang}_session`,
                 newValue: newValue,
+                lastReviewed: new Date().toISOString(),
             });
 
             setFeedbackMessage("");
@@ -179,7 +184,7 @@ const ReviewView = (props) => {
             onClick={termsIds.length > 1 ? handleNextTerm : handleEndSession}
             loading={
                 lectureSessionMutation.status === "loading" ||
-                lectureMutation.status === "loading"
+                termOptionsMutation.status === "loading"
             }
         />
     );

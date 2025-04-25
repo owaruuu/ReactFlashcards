@@ -7,7 +7,7 @@ import { AppContext } from "../../context/AppContext";
 import { useOutletContext } from "react-router-dom";
 import { getLectureQueryString } from "../../utils/utils";
 
-import { useLectureMutation } from "../../hooks/userDataQueryHook";
+import { useTermOptionsMutation } from "../../hooks/userDataQueryHook";
 import NormalSessionTabs from "../../components/LectureScreen/TermListView/SessionTabs/NormalSessionTabs";
 import KanjiSessionTabs from "../../components/LectureScreen/TermListView/SessionTabs/KanjiSessionTabs";
 import NormalTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/NormalTermList";
@@ -30,13 +30,14 @@ const TermListView = () => {
     const { loggedIn } = useContext(AppContext);
 
     //MUTATIONS
-    const lectureMutation = useLectureMutation(
+    const termOptionsMutation = useTermOptionsMutation(
         getLectureQueryString(lecture.lectureId)
     );
 
     //funcion para los botones de highlight y mute
+    //No va con fecha ya que no cuenta como estudio en si
     function onIconClick(language, termId, newValue) {
-        lectureMutation.mutate({
+        termOptionsMutation.mutate({
             lectureId: lecture.lectureId,
             attributeName: `${language}_terms_data`,
             newValue: {
