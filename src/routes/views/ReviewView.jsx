@@ -72,7 +72,20 @@ const ReviewView = (props) => {
     }, []);
 
     //current sesion
-    const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
+    const termsIds = getSessionTermIds();
+
+    function getSessionTermIds() {
+        let dbSessionTermIds = lectureQuery.data.data[`${lang}_session`].terms;
+        let validSessionIds = [];
+
+        dbSessionTermIds.forEach((id) => {
+            if (termsDict[id]) {
+                validSessionIds.push(id);
+            }
+        });
+
+        return validSessionIds;
+    }
 
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
@@ -122,6 +135,7 @@ const ReviewView = (props) => {
     //Va con fecha para modificar el...
     async function handleNextTerm() {
         const newValue = removeFirstTerm();
+        // console.log("🚀 ~ handleNextTerm ~ newValue:", newValue);
 
         try {
             handleResetClick();
@@ -189,36 +203,42 @@ const ReviewView = (props) => {
         />
     );
 
-    const termId = termsIds[0];
+    const currentTermId = termsIds[0];
 
     const normalFlashCard = (
         <NormalTermCard
-            termId={termId}
+            termId={currentTermId}
             termsDict={termsDict}
             showAnswer={showAnswer}
             answerFunction={handleClick}
             flipped={lang === "spanish"}
-            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+            state={
+                lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
+            }
         />
     );
 
     const recognizeFlashCard = (
         <RecognizeTermCard
-            termId={termId}
+            termId={currentTermId}
             termsDict={termsDict}
             showAnswer={showAnswer}
             answerFunction={handleClick}
-            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+            state={
+                lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
+            }
         />
     );
 
     const writeFlashCard = (
         <WriteKanjiCard
-            termId={termId}
+            termId={currentTermId}
             termsDict={termsDict}
             showAnswer={showAnswer}
             answerFunction={handleClick}
-            state={lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]}
+            state={
+                lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
+            }
             handleUndo={handleUndoClick}
             handleReset={handleResetClick}
             ref={childrenRef}
@@ -249,7 +269,9 @@ const ReviewView = (props) => {
                 key={uniqueKey}
                 killFunc={() => removeDisappearingCard()}
                 state={
-                    lectureQuery.data?.data?.[`${lang}_terms_data`]?.[termId]
+                    lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
+                        currentTermId
+                    ]
                 }
                 direction={" disappear-left"}
                 element={chooseCard()}
@@ -315,12 +337,12 @@ const ReviewView = (props) => {
                     }
                     state={
                         lectureQuery.data?.data?.[`${lang}_terms_data`]?.[
-                            termId
+                            currentTermId
                         ]
                     } //
                     language={lang}
                     onIconClick={onIconClick}
-                    termId={termId}
+                    termId={currentTermId}
                 />
                 <p>{feedbackMessage}</p>
                 {nextButton}
