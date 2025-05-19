@@ -132,6 +132,7 @@ export function useTestMutation(onSuccessCallback) {
     });
 }
 
+//Crea una sesion o reescribe una sesion mala
 export function useSessionMutation(queryKey) {
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
@@ -150,6 +151,65 @@ export function useSessionMutation(queryKey) {
                 data: {
                     ...previousValue.data,
                     [variables.attributeName]: variables.newValue,
+                },
+            });
+            return { previousValue };
+        },
+        onError: (err, variables, context) => {
+            // console.log("on error en session mutation");
+            dispatch({ type: "SET_SAVE_ERROR", payload: true });
+            queryClient.setQueryData([queryKey], {
+                data: context.previousValue.data,
+            });
+        },
+        onSuccess: (data, variables, context) => {
+            // console.log("on success en session mutation");
+            const globalQuery = queryClient.getQueryData("allDataForUser");
+            // console.log("🚀 ~ useSessionMutation ~ globalQuery:", globalQuery);
+
+            const allButChanged = globalQuery.filter((object) => {
+                return object.lecture_id != variables.lectureId;
+            });
+
+            const oldValue = globalQuery.filter((object) => {
+                return object.lecture_id == variables.lectureId;
+            });
+
+            const newArray = [
+                ...allButChanged,
+                {
+                    ...oldValue[0],
+                    lecture_id: variables.lectureId,
+                    [variables.attributeName]: variables.newValue,
+                },
+            ];
+
+            //cambio el estado de la query global
+            queryClient.setQueryData("allDataForUser", newArray);
+            dispatch({ type: "SET_SAVE_ERROR", payload: false });
+        },
+    });
+}
+
+export function useSessionPointsMutation(queryKey) {
+    const { dispatch } = useContext(AppContext);
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: postLectureData,
+        onMutate: async (variables) => {
+            // console.log("on mutate en mutation");
+            await queryClient.cancelQueries({
+                queryKey: [queryKey],
+            });
+
+            const previousValue = queryClient.getQueryData([queryKey]);
+
+            //optimistic update
+            queryClient.setQueryData([queryKey], {
+                data: {
+                    ...previousValue.data,
+                    [variables.attributeName]: variables.newValue,
+                    [variables.pointsAttributeName]: variables.newPoints,
                 },
             });
             return { previousValue };

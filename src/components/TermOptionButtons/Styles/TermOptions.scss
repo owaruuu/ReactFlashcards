@@ -17,11 +17,11 @@
         // border: 1px solid black;
         border: none;
 
-        &:hover {
+        &:hover:enabled {
             background-color: #113d61;
         }
 
-        &:active {
+        &:active:enabled {
             background-color: #316fa2;
         }
     }

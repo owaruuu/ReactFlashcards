@@ -10,6 +10,7 @@ import NextButton from "../../components/ReviewScreen/NextButton";
 import {
     useTermOptionsMutation,
     useSessionMutation,
+    useSessionPointsMutation,
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
@@ -20,6 +21,8 @@ import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
 import RecognizeTermCard from "../../components/LearnScreen/Flashcards/RecognizeTermCard";
 import WriteKanjiCard from "../../components/LearnScreen/Flashcards/WriteKanjiCard";
 import DisappearingElement from "../../components/Misc/DisappearingElement";
+import AnswerButtons from "../../components/ReviewView/AnswerButtons.jsx";
+import ErrorFlashCard from "../../components/LearnScreen/Flashcards/ErrorFlashCard.jsx";
 
 const ReviewView = (props) => {
     //lectureQuery viene lista
@@ -66,26 +69,63 @@ const ReviewView = (props) => {
         getLectureQueryString(lecture.lectureId)
     );
 
+    const lectureSessionAndPointsMutation = useSessionPointsMutation(
+        getLectureQueryString(lecture.lectureId)
+    );
+
     //helper para cambiar el estado de los tabs
     useEffect(() => {
         setTab(lang);
     }, []);
 
     //current sesion
-    const termsIds = getSessionTermIds();
+    // const [termsIds, setTermsIds] = useState(getSessionTermIds);
 
-    function getSessionTermIds() {
-        let dbSessionTermIds = lectureQuery.data.data[`${lang}_session`].terms;
-        let validSessionIds = [];
+    //acceder a terminos directamente
+    const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
+    // console.log("🚀 ~ ReviewView ~ termsIds:", termsIds);
 
-        dbSessionTermIds.forEach((id) => {
-            if (termsDict[id]) {
-                validSessionIds.push(id);
-            }
-        });
+    //revisa los ids, se hace cada vez que cambie el valor del query
+    //TODO revisar si la session esta vacia y navegar ?
+    // useEffect(() => {
+    //     console.log("effect de lecture query");
+    //     if (lectureQuery.data.data[`${lang}_session`].terms.length < 1) {
+    //         console.log("ya no quedan terminos");
 
-        return validSessionIds;
-    }
+    //         // navigate(lectureDir);
+    //     }
+    // }, [lectureQuery]);
+
+    // useEffect(() => {
+    //     if (termsIds.length < 1) navigate(lectureDir);
+    // }, [lectureQuery]);
+
+    //Reviso si hay discrepancias entre las ids en la sesion y las ids que existen en la sesion
+    //si hay cualquier diferencia tengo que reescribir la sesion en la DB al finalizar
+    // function checkSessionValidity() {
+    //     let dbSessionTermIds = lectureQuery.data.data[`${lang}_session`].terms;
+    //     let validSessionIds = [];
+
+    //     dbSessionTermIds.forEach((id) => {
+    //         if (termsDict[id]) {
+    //             validSessionIds.push(id);
+    //         }
+    //     });
+
+    //     //TODO si hubieron 'cambios' mandar un mutate a la sesion con los nuevos ids
+    //     if (dbSessionTermIds !== validSessionIds) {
+    //         console.warn("hay discrepancias");
+    //         console.log(
+    //             "🚀 ~ checkSessionValidity ~ dbSessionTermIds:",
+    //             dbSessionTermIds
+    //         );
+    //         console.log(
+    //             "🚀 ~ dbSessionTermIds.forEach ~ validSessionIds:",
+    //             validSessionIds
+    //         );
+    //     }
+    //     return validSessionIds;
+    // }
 
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
@@ -102,10 +142,55 @@ const ReviewView = (props) => {
         setDisappearingCards((prevCards) => {
             return prevCards.filter((card) => {
                 const diff = now - card.props.timeStamp;
+
                 return diff < 299;
             });
         });
     };
+
+    async function fixSession() {
+        let dbSessionTermIds = lectureQuery.data.data[`${lang}_session`].terms;
+        let validSessionIds = [];
+
+        dbSessionTermIds.forEach((id) => {
+            if (termsDict[id]) {
+                validSessionIds.push(id);
+            }
+        });
+
+        const newValue = {
+            options: lectureQuery.data.data[`${lang}_session`].options,
+            terms: validSessionIds,
+            lastReviewed:
+                lectureQuery.data.data[`${lang}_session`].lastReviewed,
+        };
+
+        try {
+            handleResetClick();
+
+            setFeedbackMessage("Modificando sesion...");
+
+            await lectureSessionMutation.mutateAsync(
+                {
+                    lectureId: lecture.lectureId,
+                    attributeName: `${lang}_session`,
+                    newValue: newValue,
+                },
+                {
+                    onSuccess: (data, variables, context) => {
+                        if (variables.newValue.terms.length < 1) {
+                            navigate(lectureDir);
+                        }
+                    },
+                }
+            );
+
+            setFeedbackMessage("");
+        } catch (error) {
+            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+            setFeedbackMessage("Hubo un error, intentalo otra vez.");
+        }
+    }
 
     //funcion para los botoes de highlight y mute
     // Va con fecha para modificar asi la fecha de la sesion???
@@ -121,10 +206,7 @@ const ReviewView = (props) => {
                     [termId]: newValue,
                 },
             });
-
-            setShowAnswer(false);
-
-            termsIds.length > 1 ? handleNextTerm() : handleEndSession();
+            setFeedbackMessage("");
         } catch (error) {
             console.log("🚀 ~ onIconClick ~ error:", error);
             setFeedbackMessage("Hubo un error, intentalo otra vez.");
@@ -133,48 +215,74 @@ const ReviewView = (props) => {
 
     //funcion para cambiar al siguiente termino de la sesion
     //Va con fecha para modificar el...
-    async function handleNextTerm() {
+    async function handleNextTerm(points) {
+        const newPoints = getNewPoints(points);
         const newValue = removeFirstTerm();
-        // console.log("🚀 ~ handleNextTerm ~ newValue:", newValue);
 
         try {
             handleResetClick();
             setShowAnswer(false);
             // createDissappearingCard();
-            setFeedbackMessage("Modificando sesion...");
-            await lectureSessionMutation.mutateAsync({
-                lectureId: lecture.lectureId,
-                attributeName: `${lang}_session`,
-                newValue: newValue,
-                lastReviewed: new Date().toISOString(),
-            });
+            if (termsIds.length > 1)
+                setFeedbackMessage("Modificando sesion...");
+            else {
+                setFeedbackMessage("Terminando sesion...");
+            }
+            lectureSessionAndPointsMutation.mutate(
+                {
+                    lectureId: lecture.lectureId,
+                    attributeName: `${lang}_session`,
+                    pointsAttributeName: `${lang}_terms_points`,
+                    newValue: newValue,
+                    newPoints: newPoints,
+                    lastReviewed: new Date().toISOString(),
+                },
+                {
+                    onSuccess: (data, variables, context) => {
+                        // console.log(
+                        //     "🚀 ~ handleNextTerm ~ data,variables,context:",
+                        //     data,
+                        //     variables,
+                        //     context
+                        // );
+                        // console.warn(
+                        //     "🚀 ~ useEffect ~ lectureQuery.data.data[`${lang}_session`].terms.length:",
+                        //     lectureQuery.data.data[`${lang}_session`].terms
+                        //         .length
+                        // );
+                        setFeedbackMessage("");
 
-            setFeedbackMessage("");
+                        if (variables.newValue.terms.length < 1) {
+                            navigate(lectureDir);
+                        }
+                    },
+                }
+            );
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
             setFeedbackMessage("Hubo un error, intentalo otra vez.");
         }
     }
 
-    async function handleEndSession() {
-        const newValue = removeFirstTerm();
+    // async function handleEndSession() {
+    //     const newValue = removeFirstTerm();
 
-        try {
-            setFeedbackMessage("Terminando sesion...");
-            await lectureSessionMutation.mutateAsync({
-                lectureId: lecture.lectureId,
-                attributeName: `${lang}_session`,
-                newValue: newValue,
-            });
+    //     try {
+    //         setFeedbackMessage("Terminando sesion...");
+    //         await lectureSessionMutation.mutateAsync({
+    //             lectureId: lecture.lectureId,
+    //             attributeName: `${lang}_session`,
+    //             newValue: newValue,
+    //         });
 
-            navigate(lectureDir);
-        } catch (error) {
-            console.log("🚀 ~ onNewSessionCreate ~ error:", error);
-            setFeedbackMessage(
-                "No se pudo terminar la sesion, intentalo otra vez."
-            );
-        }
-    }
+    //         navigate(lectureDir);
+    //     } catch (error) {
+    //         console.log("🚀 ~ onNewSessionCreate ~ error:", error);
+    //         setFeedbackMessage(
+    //             "No se pudo terminar la sesion, intentalo otra vez."
+    //         );
+    //     }
+    // }
 
     // function handleUndoClick(canvasRef) {
     //     canvasRef.current?.undo();
@@ -192,18 +300,22 @@ const ReviewView = (props) => {
         childrenRef.current?.resetCanvas();
     }
 
-    const nextButton = (
-        <NextButton
-            next={termsIds.length > 1 ? true : false}
-            onClick={termsIds.length > 1 ? handleNextTerm : handleEndSession}
-            loading={
-                lectureSessionMutation.status === "loading" ||
-                termOptionsMutation.status === "loading"
-            }
-        />
-    );
+    // const nextButton = (
+    //     <NextButton
+    //         next={termsIds.length > 1 ? true : false}
+    //         onClick={termsIds.length > 1 ? handleNextTerm : handleEndSession}
+    //         loading={
+    //             lectureSessionMutation.status === "loading" ||
+    //             termOptionsMutation.status === "loading"
+    //         }
+    //     />
+    // );
 
     const currentTermId = termsIds[0];
+    const validId =
+        termsIds.length > 0 ? (termsDict[currentTermId] ? true : false) : true;
+
+    const errorFlashcard = <ErrorFlashCard />;
 
     const normalFlashCard = (
         <NormalTermCard
@@ -215,6 +327,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
+            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
         />
     );
 
@@ -255,6 +368,24 @@ const ReviewView = (props) => {
             lastReviewed: new Date(),
         };
 
+        return newValue;
+    }
+
+    function getNewPoints(points) {
+        const termsQueryData = lectureQuery.data.data[`${lang}_terms_points`];
+        const termsInfo = termsQueryData ? termsQueryData : {};
+
+        const currentTermInfo = termsInfo[currentTermId]
+            ? termsInfo[currentTermId].points
+            : 0;
+        const newTermInfo = {
+            points: currentTermInfo + points,
+            date: new Date().toISOString(),
+        };
+        const newValue = {
+            ...termsInfo,
+            [currentTermId]: newTermInfo,
+        };
         return newValue;
     }
 
@@ -318,7 +449,9 @@ const ReviewView = (props) => {
             />
 
             <div className="termCardDiv">
-                {lang === "recognize"
+                {!validId
+                    ? errorFlashcard
+                    : lang === "recognize"
                     ? recognizeFlashCard
                     : lang === "write"
                     ? writeFlashCard
@@ -343,9 +476,25 @@ const ReviewView = (props) => {
                     language={lang}
                     onIconClick={onIconClick}
                     termId={currentTermId}
+                    validId={validId}
                 />
-                <p>{feedbackMessage}</p>
-                {nextButton}
+                <p className="feedback">{feedbackMessage}</p>
+                <AnswerButtons
+                    termPointsData={
+                        lectureQuery.data.data[`${lang}_terms_points`]
+                    }
+                    termsIds={termsIds}
+                    handleNextTerm={handleNextTerm}
+                    // handleEndSession={handleEndSession}
+                    onClick={handleNextTerm}
+                    fixSession={fixSession}
+                    loading={
+                        lectureSessionMutation.status === "loading" ||
+                        termOptionsMutation.status === "loading"
+                    }
+                    validId={validId}
+                />
+                {/* {nextButton} */}
             </div>
         </div>
     );

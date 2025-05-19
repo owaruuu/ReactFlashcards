@@ -15,13 +15,16 @@ const TermOptionButton = (props) => {
 
     if (props.star) {
         return (
-            <button onClick={() => onClick("highlighted")}>
+            <button
+                disabled={props.disabled}
+                onClick={() => onClick("highlighted")}
+            >
                 <TermOptionButtonIcon star id={props.id} state={props.state} />
             </button>
         );
     }
     return (
-        <button onClick={() => onClick("muted")}>
+        <button disabled={props.disabled} onClick={() => onClick("muted")}>
             <TermOptionButtonIcon id={props.id} state={props.state} />
         </button>
     );

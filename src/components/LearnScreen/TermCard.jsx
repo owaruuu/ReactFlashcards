@@ -6,9 +6,12 @@ const TermCard = (props) => {
             ? "termCard muted"
             : "termCard";
 
+    const points = props.points;
+
     return (
         <div className={classNames}>
             <div className="term">
+                {points && <div className="points">{points.points}</div>}
                 <span>{props.term}</span>
             </div>
             <div className="divider"></div>

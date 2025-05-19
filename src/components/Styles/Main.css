@@ -1196,6 +1196,12 @@
   overflow: hidden;
   box-shadow: 1px 5px 17px 7px rgba(1, 1, 26, 0.71);
 }
+.termCardDiv .termCard .error-message {
+  text-align: center;
+  margin: auto;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 .termCardDiv .termCard div {
   display: grid;
 }

@@ -2,7 +2,9 @@ import React from "react";
 import TermCard from "./TermCard";
 
 const NormalTermCard = (props) => {
-    const { termId, termsDict, flipped } = props;
+    const { termId, termsDict, flipped, pointsInfo } = props;
+    // console.log("🚀 ~ NormalTermCard ~ pointsInfo:", pointsInfo);
+    // console.log("🚀 ~ NormalTermCard ~ termId:", termId);
 
     const term =
         termId !== undefined
@@ -17,7 +19,14 @@ const NormalTermCard = (props) => {
     const termContent = <span>{flipped ? answer : term}</span>;
     const answerContent = <span>{flipped ? term : answer}</span>;
 
-    return <TermCard {...props} term={termContent} answer={answerContent} />;
+    return (
+        <TermCard
+            {...props}
+            term={termContent}
+            answer={answerContent}
+            points={pointsInfo?.[termId]}
+        />
+    );
 };
 
 export default NormalTermCard;

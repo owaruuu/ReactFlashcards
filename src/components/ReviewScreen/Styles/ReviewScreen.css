@@ -54,13 +54,14 @@
 @media (min-width: 768px) {
   .ReviewV2Screen .controls {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "buttons info nextButton";
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "info info info" " buttons answerButtons answerButtons";
     width: 62vw;
     max-width: 935px;
   }
 }
-.ReviewV2Screen .controls p {
+.ReviewV2Screen .controls .feedback {
+  grid-area: info;
   text-align: center;
   margin: auto;
 }
@@ -71,6 +72,30 @@
   .ReviewV2Screen .controls .termOptions button {
     width: 62px;
   }
+}
+.ReviewV2Screen .controls .termOptions button:disabled {
+  cursor: not-allowed;
+}
+.ReviewV2Screen .controls .termOptions button:disabled svg {
+  color: gray;
+}
+.ReviewV2Screen .controls .containerAnswerButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-area: answerButtons;
+  border: 1px solid black;
+}
+.ReviewV2Screen .controls .containerAnswerButtons button {
+  margin: 5px;
+}
+.ReviewV2Screen .controls .containerFixButton {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-area: answerButtons;
+  border: 1px solid black;
+}
+.ReviewV2Screen .controls .containerFixButton button {
+  margin: 5px;
 }
 .ReviewV2Screen .controls .next {
   grid-area: nextButton;
@@ -115,6 +140,14 @@
 .ReviewV2Screen .termCard {
   background-color: #4f4d63;
   color: white;
+}
+.ReviewV2Screen .termCard .points {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.241);
 }
 .ReviewV2Screen .termCard .divider {
   background-color: #b9b9b9;

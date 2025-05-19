@@ -1441,6 +1441,13 @@
         overflow: hidden;
         box-shadow: 1px 5px 17px 7px rgb(1 1 26 / 71%);
 
+        .error-message {
+            text-align: center;
+            margin: auto;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
         div {
             display: grid;
         }

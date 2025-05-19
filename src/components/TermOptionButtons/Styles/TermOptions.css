@@ -10,10 +10,10 @@
   color: #f5fcff;
   border: none;
 }
-.termOptions button:hover {
+.termOptions button:hover:enabled {
   background-color: #113d61;
 }
-.termOptions button:active {
+.termOptions button:active:enabled {
   background-color: #316fa2;
 }
 @media (min-width: 768px) {

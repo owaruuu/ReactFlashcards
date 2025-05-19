@@ -1,21 +1,39 @@
 import { api, URL } from "../api/api";
 
 //reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
-export async function postLectureData({
-    lectureId,
-    attributeName,
-    newValue,
-    lastReviewed,
-}) {
+export async function postLectureData({ lectureId, attributeName, newValue }) {
+    // console.log("🚀 ~ lastReviewed:", lastReviewed);
     try {
-        const response = await api.post(`${URL}/user-data`, {
+        const response = await api.post(`${URL}/user-data/session`, {
             lectureId,
             attributeName,
             newValue,
-            lastReviewed,
         });
 
-        // console.log("🚀 ~ postLectureData ~ response:", response);
+        return response;
+    } catch (error) {
+        // console.log("🚀 ~ postLectureData ~ error:", error);
+        throw error;
+    }
+}
+
+export async function postSessionPointsData({
+    lectureId,
+    attributeName,
+    pointsAttributeName,
+    newValue,
+    newPoints,
+    lastReviewed,
+}) {
+    try {
+        const response = await api.post(`${URL}/user-data/points`, {
+            lectureId,
+            attributeName,
+            pointsAttributeName,
+            newValue,
+            newPoints,
+            lastReviewed,
+        });
 
         return response;
     } catch (error) {
