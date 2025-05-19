@@ -5,7 +5,8 @@ import "./Styles/TermOptions.css";
 
 const TermOptionsContainer = (props) => {
     //reviso si viene un validId para evitar bloquear los botones del termList
-    const disabled = props.validId !== undefined ? !props.validId : false;
+    const disabled =
+        (props.validId !== undefined ? !props.validId : false) || props.loading;
 
     if (props.queryStatus === "error") {
         return "";

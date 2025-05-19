@@ -477,6 +477,11 @@ const ReviewView = (props) => {
                     onIconClick={onIconClick}
                     termId={currentTermId}
                     validId={validId}
+                    loading={
+                        lectureSessionMutation.status === "loading" ||
+                        lectureSessionAndPointsMutation.status === "loading" ||
+                        termOptionsMutation.status === "loading"
+                    }
                 />
                 <p className="feedback">{feedbackMessage}</p>
                 <AnswerButtons
@@ -490,6 +495,7 @@ const ReviewView = (props) => {
                     fixSession={fixSession}
                     loading={
                         lectureSessionMutation.status === "loading" ||
+                        lectureSessionAndPointsMutation.status === "loading" ||
                         termOptionsMutation.status === "loading"
                     }
                     validId={validId}
