@@ -120,7 +120,7 @@ const router = createBrowserRouter([
                                 path: ":lang/study-session",
                                 element: (
                                     <LoggedInRoute
-                                        element={<HasActiveStudySession />}
+                                        element={<HasActiveStudySession />} //returns ReviewView
                                     />
                                 ),
                             },
@@ -192,7 +192,7 @@ const router = createBrowserRouter([
 
 const queryClient = new QueryClient();
 export const version =
-    "fix bug with deleted flashcards in sessions - 16/05/2025";
+    "fix bug with deleted flashcards in sessions for real - 19/05/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
