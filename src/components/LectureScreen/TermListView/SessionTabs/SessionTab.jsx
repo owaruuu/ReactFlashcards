@@ -5,8 +5,15 @@ import { AppContext } from "../../../../context/AppContext";
 
 const SessionTab = (props) => {
     const { loggedIn } = useContext(AppContext);
-    const { termList, language, lectureId, terms, sessionData, termsData } =
-        props;
+    const {
+        termList,
+        language,
+        lectureId,
+        terms,
+        sessionData,
+        termsData,
+        pointsData,
+    } = props;
 
     return (
         <div className="termTab">
@@ -17,6 +24,7 @@ const SessionTab = (props) => {
                     terms={terms}
                     sessionData={sessionData}
                     termsData={termsData}
+                    pointsData={pointsData}
                 />
             )}
             {termList}

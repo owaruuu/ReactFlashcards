@@ -14,7 +14,7 @@ import {
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
-import { getLectureQueryString } from "../../utils/utils";
+import { getLectureQueryString, ONE_HOUR } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
@@ -247,10 +247,9 @@ const ReviewView = (props) => {
             return HOURS_MIN + 1;
         }
 
-        const oneHour = 1000 * 60 * 60;
         const today = new Date().getTime();
         const answerTimeMili = new Date(answerTime).getTime();
-        const hoursSinceAnswer = (today - answerTimeMili) / oneHour;
+        const hoursSinceAnswer = (today - answerTimeMili) / ONE_HOUR;
 
         return Math.trunc(hoursSinceAnswer);
     }

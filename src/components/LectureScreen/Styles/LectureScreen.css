@@ -122,9 +122,13 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  grid-template-areas: "." "." "." "." "info";
+  grid-template-areas: "." "info" "." "timeInfo" "." ".";
   justify-content: space-around;
   padding: 15px 0;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .timeInfo {
+  grid-area: timeInfo;
+  font-size: 10px;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .mobil {
   display: block;
@@ -173,13 +177,13 @@
 @media (min-width: 425px) {
   .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: ". . " ". ." "info info";
+    grid-template-areas: ". ." "info timeInfo" ". .";
   }
 }
 @media (min-width: 768px) {
   .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: ". . . ." "info . . .";
+    grid-template-areas: ". . . ." "info timeInfo . .";
   }
 }
 .lectureScreen .termListDiv .termOptions {

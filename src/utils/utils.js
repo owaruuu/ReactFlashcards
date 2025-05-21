@@ -1,6 +1,8 @@
 import _, { map } from "lodash";
 import { kanjiLookup } from "../data/kanjiLookup";
 
+export const ONE_HOUR = 1000 * 60 * 60;
+
 export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
 
 export const readFromLocal = (key) => {
