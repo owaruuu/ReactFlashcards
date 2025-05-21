@@ -5,7 +5,9 @@ const LearnButtonContent = (props) => {
     return (
         <>
             <p>{content}</p>
-            <div className="points">{points}</div>
+            <div className="points">
+                {points >= 0 ? `+${points}` : `${points.toString()}`}
+            </div>
         </>
     );
 };

@@ -6,6 +6,7 @@ import AnswerButton from "./AnswerButton.jsx";
 
 const AnswerButtons = (props) => {
     const MIN_POINTS = 5;
+    const MID_WAY_POINTS = 50;
     const {
         termPointsData,
         currentTermId,
@@ -23,21 +24,21 @@ const AnswerButtons = (props) => {
         <>
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(-2)}
+                onClick={onClick}
                 content={"Aun no"}
-                points={"-2"}
+                points={-2}
             />
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(3)}
+                onClick={onClick}
                 content={"Ya casi"}
-                points={"+3"}
+                points={3}
             />
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(7)}
+                onClick={onClick}
                 content={"Lo se"}
-                points={"+7"}
+                points={7}
             />
         </>
     );
@@ -46,28 +47,30 @@ const AnswerButtons = (props) => {
         <>
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(-7)}
+                onClick={onClick}
                 content={"Lo olvide"}
-                points={"-7"}
+                points={-7}
             />
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(+7)}
+                onClick={onClick}
                 content={"Lo se"}
-                points={"+7"}
+                points={7}
             />
             <AnswerButton
                 loading={loading}
-                onClick={() => onClick(10)}
+                onClick={onClick}
                 content={"Memorizado"}
-                points={"+10"}
+                points={10}
             />
         </>
     );
 
     return validId ? (
         <div className="containerAnswerButtons">
-            {currentTermData.points > 50 ? higherButtons : lowerButtons}
+            {currentTermData.points >= MID_WAY_POINTS
+                ? higherButtons
+                : lowerButtons}
         </div>
     ) : (
         <div className="containerFixButton">

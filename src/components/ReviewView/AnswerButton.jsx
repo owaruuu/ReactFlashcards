@@ -5,7 +5,11 @@ import { Spinner } from "react-bootstrap";
 const AnswerButton = (props) => {
     const { loading, onClick, content, points } = props;
     return (
-        <button className="answerButton" disabled={loading} onClick={onClick}>
+        <button
+            className="answerButton"
+            disabled={loading}
+            onClick={() => onClick(points)}
+        >
             {loading ? (
                 <Spinner />
             ) : (
