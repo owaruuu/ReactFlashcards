@@ -3,6 +3,7 @@ import {
     getLectureData,
     postLectureData,
     getAllUserData,
+    postSessionPointsData,
 } from "../aws/userDataApi";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
@@ -133,7 +134,7 @@ export function useTestMutation(onSuccessCallback) {
 }
 
 //Crea una sesion o reescribe una sesion mala
-export function useSessionMutation(queryKey) {
+export function useCreateSessionMutation(queryKey) {
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
@@ -191,11 +192,12 @@ export function useSessionMutation(queryKey) {
     });
 }
 
+//modifica los ids en la sesion, agrega o quita puntos a terminos y actualiza la tabla de userSessions
 export function useSessionPointsMutation(queryKey) {
     const { dispatch } = useContext(AppContext);
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: postLectureData,
+        mutationFn: postSessionPointsData,
         onMutate: async (variables) => {
             // console.log("on mutate en mutation");
             await queryClient.cancelQueries({
@@ -203,15 +205,20 @@ export function useSessionPointsMutation(queryKey) {
             });
 
             const previousValue = queryClient.getQueryData([queryKey]);
-
-            //optimistic update
-            queryClient.setQueryData([queryKey], {
+            let optimisticValue = {
                 data: {
                     ...previousValue.data,
                     [variables.attributeName]: variables.newValue,
-                    [variables.pointsAttributeName]: variables.newPoints,
                 },
-            });
+            };
+
+            if (variables.newPoints) {
+                optimisticValue.data[variables.pointsAttributeName] =
+                    variables.newPoints;
+            }
+
+            //optimistic update
+            queryClient.setQueryData([queryKey], optimisticValue);
             return { previousValue };
         },
         onError: (err, variables, context) => {

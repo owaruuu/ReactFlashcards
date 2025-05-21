@@ -55,7 +55,7 @@
   .ReviewV2Screen .controls {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    grid-template-areas: "info info info" " buttons answerButtons answerButtons";
+    grid-template-areas: "info info info" "buttons answerButtons answerButtons";
     width: 62vw;
     max-width: 935px;
   }
@@ -87,6 +87,33 @@
 }
 .ReviewV2Screen .controls .containerAnswerButtons button {
   margin: 5px;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton {
+  position: relative;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton p {
+  margin: 0;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton .points {
+  position: absolute;
+  top: 0px;
+  right: 2px;
+  font-size: 10px;
+}
+.ReviewV2Screen .controls .containerNextButton {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "info button";
+  grid-area: answerButtons;
+}
+.ReviewV2Screen .controls .containerNextButton button {
+  grid-area: button;
+  margin: 5px;
+}
+.ReviewV2Screen .controls .containerNextButton p {
+  color: rgba(255, 255, 255, 0.293);
+  margin: auto;
+  grid-area: info;
 }
 .ReviewV2Screen .controls .containerFixButton {
   display: grid;

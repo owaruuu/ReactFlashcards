@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InteractionBlocker from "../InteractionBlocker";
 import { BiSolidHide } from "react-icons/bi";
 import { HiStar } from "react-icons/hi2";
-import { useSessionMutation } from "../../../hooks/userDataQueryHook";
+import { useCreateSessionMutation } from "../../../hooks/userDataQueryHook";
 import {
     getLectureQueryString,
     showDifference,
@@ -33,7 +33,7 @@ const SessionControls = (props) => {
 
     const [createSessionError, setCreateSessionError] = useState(false);
 
-    const lectureSessionMutation = useSessionMutation(
+    const lectureSessionMutation = useCreateSessionMutation(
         getLectureQueryString(lectureId)
     );
 

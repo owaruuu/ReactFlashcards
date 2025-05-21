@@ -14,14 +14,17 @@ const NextButton = (props) => {
     }
     if (props.next) {
         return (
-            <button className="next continue" onClick={props.onClick}>
+            <button
+                className="next continue"
+                onClick={() => props.onClick(null)}
+            >
                 Siguiente<BiSolidRightArrow></BiSolidRightArrow>
             </button>
         );
     }
 
     return (
-        <button className="next close" onClick={props.onClick}>
+        <button className="next close" onClick={() => props.onClick(null)}>
             Terminar sesión <PiArrowBendUpLeftFill />
         </button>
     );

@@ -9,7 +9,7 @@ import DisappearingCard from "../../components/LearnScreen/DisappearingCard";
 import NextButton from "../../components/ReviewScreen/NextButton";
 import {
     useTermOptionsMutation,
-    useSessionMutation,
+    useCreateSessionMutation,
     useSessionPointsMutation,
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
@@ -23,6 +23,8 @@ import WriteKanjiCard from "../../components/LearnScreen/Flashcards/WriteKanjiCa
 import DisappearingElement from "../../components/Misc/DisappearingElement";
 import AnswerButtons from "../../components/ReviewView/AnswerButtons.jsx";
 import ErrorFlashCard from "../../components/LearnScreen/Flashcards/ErrorFlashCard.jsx";
+
+const HOURS_MIN = 12;
 
 const ReviewView = (props) => {
     //lectureQuery viene lista
@@ -65,7 +67,7 @@ const ReviewView = (props) => {
         getLectureQueryString(lecture.lectureId)
     );
 
-    const lectureSessionMutation = useSessionMutation(
+    const lectureCreateSessionMutation = useCreateSessionMutation(
         getLectureQueryString(lecture.lectureId)
     );
 
@@ -78,54 +80,8 @@ const ReviewView = (props) => {
         setTab(lang);
     }, []);
 
-    //current sesion
-    // const [termsIds, setTermsIds] = useState(getSessionTermIds);
-
     //acceder a terminos directamente
     const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
-    // console.log("🚀 ~ ReviewView ~ termsIds:", termsIds);
-
-    //revisa los ids, se hace cada vez que cambie el valor del query
-    //TODO revisar si la session esta vacia y navegar ?
-    // useEffect(() => {
-    //     console.log("effect de lecture query");
-    //     if (lectureQuery.data.data[`${lang}_session`].terms.length < 1) {
-    //         console.log("ya no quedan terminos");
-
-    //         // navigate(lectureDir);
-    //     }
-    // }, [lectureQuery]);
-
-    // useEffect(() => {
-    //     if (termsIds.length < 1) navigate(lectureDir);
-    // }, [lectureQuery]);
-
-    //Reviso si hay discrepancias entre las ids en la sesion y las ids que existen en la sesion
-    //si hay cualquier diferencia tengo que reescribir la sesion en la DB al finalizar
-    // function checkSessionValidity() {
-    //     let dbSessionTermIds = lectureQuery.data.data[`${lang}_session`].terms;
-    //     let validSessionIds = [];
-
-    //     dbSessionTermIds.forEach((id) => {
-    //         if (termsDict[id]) {
-    //             validSessionIds.push(id);
-    //         }
-    //     });
-
-    //     //TODO si hubieron 'cambios' mandar un mutate a la sesion con los nuevos ids
-    //     if (dbSessionTermIds !== validSessionIds) {
-    //         console.warn("hay discrepancias");
-    //         console.log(
-    //             "🚀 ~ checkSessionValidity ~ dbSessionTermIds:",
-    //             dbSessionTermIds
-    //         );
-    //         console.log(
-    //             "🚀 ~ dbSessionTermIds.forEach ~ validSessionIds:",
-    //             validSessionIds
-    //         );
-    //     }
-    //     return validSessionIds;
-    // }
 
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
@@ -170,7 +126,7 @@ const ReviewView = (props) => {
 
             setFeedbackMessage("Modificando sesion...");
 
-            await lectureSessionMutation.mutateAsync(
+            await lectureCreateSessionMutation.mutateAsync(
                 {
                     lectureId: lecture.lectureId,
                     attributeName: `${lang}_session`,
@@ -216,7 +172,7 @@ const ReviewView = (props) => {
     //funcion para cambiar al siguiente termino de la sesion
     //Va con fecha para modificar el...
     async function handleNextTerm(points) {
-        const newPoints = getNewPoints(points);
+        const newPoints = points ? getNewPoints(points) : null;
         const newValue = removeFirstTerm();
 
         try {
@@ -239,17 +195,6 @@ const ReviewView = (props) => {
                 },
                 {
                     onSuccess: (data, variables, context) => {
-                        // console.log(
-                        //     "🚀 ~ handleNextTerm ~ data,variables,context:",
-                        //     data,
-                        //     variables,
-                        //     context
-                        // );
-                        // console.warn(
-                        //     "🚀 ~ useEffect ~ lectureQuery.data.data[`${lang}_session`].terms.length:",
-                        //     lectureQuery.data.data[`${lang}_session`].terms
-                        //         .length
-                        // );
                         setFeedbackMessage("");
 
                         if (variables.newValue.terms.length < 1) {
@@ -264,34 +209,6 @@ const ReviewView = (props) => {
         }
     }
 
-    // async function handleEndSession() {
-    //     const newValue = removeFirstTerm();
-
-    //     try {
-    //         setFeedbackMessage("Terminando sesion...");
-    //         await lectureSessionMutation.mutateAsync({
-    //             lectureId: lecture.lectureId,
-    //             attributeName: `${lang}_session`,
-    //             newValue: newValue,
-    //         });
-
-    //         navigate(lectureDir);
-    //     } catch (error) {
-    //         console.log("🚀 ~ onNewSessionCreate ~ error:", error);
-    //         setFeedbackMessage(
-    //             "No se pudo terminar la sesion, intentalo otra vez."
-    //         );
-    //     }
-    // }
-
-    // function handleUndoClick(canvasRef) {
-    //     canvasRef.current?.undo();
-    // }
-
-    // const handleResetClick = (canvasRef) => {
-    //     canvasRef.current?.resetCanvas();
-    // };
-
     function handleUndoClick() {
         childrenRef.current?.undo();
     }
@@ -300,20 +217,43 @@ const ReviewView = (props) => {
         childrenRef.current?.resetCanvas();
     }
 
-    // const nextButton = (
-    //     <NextButton
-    //         next={termsIds.length > 1 ? true : false}
-    //         onClick={termsIds.length > 1 ? handleNextTerm : handleEndSession}
-    //         loading={
-    //             lectureSessionMutation.status === "loading" ||
-    //             termOptionsMutation.status === "loading"
-    //         }
-    //     />
-    // );
+    const nextButton = (
+        <div className="containerNextButton">
+            <p>Ya respondiste esta flashcard hoy</p>
+            <NextButton
+                next={termsIds.length > 1 ? true : false}
+                onClick={handleNextTerm}
+                loading={
+                    lectureCreateSessionMutation.status === "loading" ||
+                    lectureSessionAndPointsMutation.status === "loading" ||
+                    termOptionsMutation.status === "loading"
+                }
+            />
+        </div>
+    );
 
     const currentTermId = termsIds[0];
     const validId =
         termsIds.length > 0 ? (termsDict[currentTermId] ? true : false) : true;
+
+    const timeElapsedSinceLastAnswer = getHoursSinceAnswer();
+
+    function getHoursSinceAnswer() {
+        const pointsData = lectureQuery.data.data[`${lang}_terms_points`];
+        const currentTermData = pointsData ? pointsData[currentTermId] : null;
+        const answerTime = currentTermData ? currentTermData.date : null;
+
+        if (!answerTime) {
+            return HOURS_MIN + 1;
+        }
+
+        const oneHour = 1000 * 60 * 60;
+        const today = new Date().getTime();
+        const answerTimeMili = new Date(answerTime).getTime();
+        const hoursSinceAnswer = (today - answerTimeMili) / oneHour;
+
+        return Math.trunc(hoursSinceAnswer);
+    }
 
     const errorFlashcard = <ErrorFlashCard />;
 
@@ -478,29 +418,33 @@ const ReviewView = (props) => {
                     termId={currentTermId}
                     validId={validId}
                     loading={
-                        lectureSessionMutation.status === "loading" ||
+                        lectureCreateSessionMutation.status === "loading" ||
                         lectureSessionAndPointsMutation.status === "loading" ||
                         termOptionsMutation.status === "loading"
                     }
                 />
                 <p className="feedback">{feedbackMessage}</p>
-                <AnswerButtons
-                    termPointsData={
-                        lectureQuery.data.data[`${lang}_terms_points`]
-                    }
-                    termsIds={termsIds}
-                    handleNextTerm={handleNextTerm}
-                    // handleEndSession={handleEndSession}
-                    onClick={handleNextTerm}
-                    fixSession={fixSession}
-                    loading={
-                        lectureSessionMutation.status === "loading" ||
-                        lectureSessionAndPointsMutation.status === "loading" ||
-                        termOptionsMutation.status === "loading"
-                    }
-                    validId={validId}
-                />
-                {/* {nextButton} */}
+                {timeElapsedSinceLastAnswer >= 12 ? (
+                    <AnswerButtons
+                        termPointsData={
+                            lectureQuery.data.data[`${lang}_terms_points`]
+                        }
+                        currentTermId={currentTermId}
+                        termsIds={termsIds}
+                        handleNextTerm={handleNextTerm}
+                        onClick={handleNextTerm}
+                        fixSession={fixSession}
+                        loading={
+                            lectureCreateSessionMutation.status === "loading" ||
+                            lectureSessionAndPointsMutation.status ===
+                                "loading" ||
+                            termOptionsMutation.status === "loading"
+                        }
+                        validId={validId}
+                    />
+                ) : (
+                    nextButton
+                )}
             </div>
         </div>
     );

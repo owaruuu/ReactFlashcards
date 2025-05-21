@@ -1,22 +1,73 @@
 import React from "react";
 import("react").CSSProperties;
 import { Spinner } from "react-bootstrap";
+import LearnButtonContent from "./LearnButtonContent.jsx";
+import AnswerButton from "./AnswerButton.jsx";
 
 const AnswerButtons = (props) => {
-    const { termPointsData, termsIds, onClick, fixSession, loading, validId } =
-        props;
-    // console.log("🚀 ~ AnswerButtons ~ termPointsData:", termPointsData);
+    const MIN_POINTS = 5;
+    const {
+        termPointsData,
+        currentTermId,
+        termsIds,
+        onClick,
+        fixSession,
+        loading,
+        validId,
+    } = props;
+    const currentTermData = termPointsData?.[currentTermId]
+        ? termPointsData[currentTermId]
+        : { points: MIN_POINTS };
+
+    const lowerButtons = (
+        <>
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(-2)}
+                content={"Aun no"}
+                points={"-2"}
+            />
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(3)}
+                content={"Ya casi"}
+                points={"+3"}
+            />
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(7)}
+                content={"Lo se"}
+                points={"+7"}
+            />
+        </>
+    );
+
+    const higherButtons = (
+        <>
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(-7)}
+                content={"Lo olvide"}
+                points={"-7"}
+            />
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(+7)}
+                content={"Lo se"}
+                points={"+7"}
+            />
+            <AnswerButton
+                loading={loading}
+                onClick={() => onClick(10)}
+                content={"Memorizado"}
+                points={"+10"}
+            />
+        </>
+    );
+
     return validId ? (
         <div className="containerAnswerButtons">
-            <button disabled={loading} onClick={() => onClick(-1)}>
-                {loading ? <Spinner /> : "Aun no"}
-            </button>
-            <button disabled={loading} onClick={() => onClick(1)}>
-                {loading ? <Spinner /> : "Ya casi"}
-            </button>
-            <button disabled={loading} onClick={() => onClick(2)}>
-                {loading ? <Spinner /> : "Lo se"}
-            </button>
+            {currentTermData.points > 50 ? higherButtons : lowerButtons}
         </div>
     ) : (
         <div className="containerFixButton">
