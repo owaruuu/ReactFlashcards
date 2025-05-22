@@ -15,13 +15,8 @@ import { useNavigate } from "react-router-dom";
 const MAX_SESSION_SIZE = 30;
 
 const SessionControls = (props) => {
-    // console.log("🚀 ~ SessionControls ~ props:", props);
     const { language, lectureId, terms, sessionData, termsData, pointsData } =
         props;
-    // console.log("🚀 ~ SessionControls ~ terms:", terms);
-    // console.log("🚀 ~ SessionControls ~ sessionData:", sessionData);
-    // console.log("🚀 ~ SessionControls ~ termsData:", termsData);
-    // console.log("🚀 ~ SessionControls ~ pointsData:", pointsData);
 
     const navigate = useNavigate();
 
@@ -78,7 +73,6 @@ const SessionControls = (props) => {
 
     //calcula si ya han pasado las 12 horas
     function calculateTwelve(date) {
-        // console.log("🚀 ~ calculateTwelve ~ date:", date);
         if (date === undefined) {
             return true;
         }
@@ -106,7 +100,6 @@ const SessionControls = (props) => {
         terms.forEach((term) => {
             termsIds.push(term.id);
         });
-        // console.log("🚀 ~ onNewStudySession ~ termsIds:", termsIds);
 
         const newValue = {
             terms: shuffleArray(termsIds),
@@ -119,15 +112,13 @@ const SessionControls = (props) => {
 
     function filterAndOrderElements() {
         const clonedTerms = JSON.parse(JSON.stringify(terms));
-        // console.log("🚀 ~ onNewStudySession ~ clonedTerms:", clonedTerms);
-        // console.log("🚀 ~ filteredTerms ~ pointsData:", pointsData);
+
         //filtrar elementos, sacando los elementos que ya estudie 'hoy', y esten muteados
         const filteredTerms = clonedTerms.filter((term) => {
             const hasBeenTwelve = calculateTwelve(pointsData?.[term.id]?.date);
-            // console.log("🚀 ~ filteredTerms ~ hasBeenTwelve:", hasBeenTwelve);
             return termsData[term.id] !== "muted" && hasBeenTwelve;
         });
-        // console.log("🚀 ~ filteredTerms ~ filteredTerms:", filteredTerms);
+
         if (clonedTerms.length <= MAX_SESSION_SIZE) {
             return filteredTerms;
         }
@@ -135,45 +126,21 @@ const SessionControls = (props) => {
         if (!pointsData) {
             return filteredTerms;
         }
-        //ordenar elementos por fecha de estudio, dejando los elementos mas viejos primero (los que estudia hace mas tiempo)
 
+        //ordenar elementos por fecha de estudio, dejando los elementos mas viejos primero (los que estudia hace mas tiempo)
         //ordenar elementos por puntaje, dejando los elementos con menor puntaje
         const orderedTerms = JSON.parse(JSON.stringify(filteredTerms)).sort(
             sortByDateAndPoints
         );
-        // console.log(
-        //     "🚀 ~ filterAndOrderElements ~ orderedTerms:",
-        //     orderedTerms
-        // );
 
         //elegir maximo 30
         return orderedTerms.slice(0, MAX_SESSION_SIZE);
     }
 
     function sortByDateAndPoints(a, b) {
-        // console.log("🚀 ~ sortByDateAndPoints ~ a,b:", a, b);
         //ASC is default
         //1 mantiene igual el orden
         //-1 los cambia de posicion
-        // console.log("//////////////////");
-
-        // console.log(
-        //     "🚀 ~ sortByDateAndPoints ~ pointsData:",
-        //     a,
-        //     pointsData[a.id]
-        // );
-        // console.log(
-        //     "🚀 ~ sortByDateAndPoints ~ pointsData:",
-        //     b,
-        //     pointsData[b.id]
-        // );
-        // console.log("//////////////////");
-        // if ((a.id === 3 || a.id === 9) && (b.id === 3 || b.id === 9)) {
-        //     console.warn("match");
-        //     console.log("🚀 ~ sortByDateAndPoints ~ a:", a, pointsData[a.id]);
-        //     console.log("🚀 ~ sortByDateAndPoints ~ b:", b, pointsData[b.id]);
-        //     console.log("");
-        // }
 
         //No hay informacion para ambos terminos, mantengo el orden
         if (!pointsData[a.id] && !pointsData[b.id]) {
@@ -182,7 +149,7 @@ const SessionControls = (props) => {
 
         const aDate = pointsData[a.id]?.date;
         const aPoints = pointsData[a.id]?.points;
-        // const aPoints =
+
         const bDate = pointsData[b.id]?.date;
         const bPoints = pointsData[b.id]?.points;
 
@@ -202,28 +169,14 @@ const SessionControls = (props) => {
         const bDateObject = new Date(bDate);
 
         if (aPoints < bPoints) {
-            console.warn("aPoints es menor a bPoints: -1", aPoints, bPoints);
-
             return -1;
         } else if (aPoints > bPoints) {
-            console.warn("aPoints es mayor a bPoints: 1", aPoints, bPoints);
             return 1;
         }
 
         if (aDateObject < bDateObject) {
-            console.warn(
-                "fecha a es menor a fecha b: -1",
-                aDateObject,
-                bDateObject
-            );
-
             return -1;
         } else if (aDateObject > bDateObject) {
-            console.warn(
-                "fecha a es mayor a fecha b: -1",
-                aDateObject,
-                bDateObject
-            );
             return 1;
         }
 
@@ -300,7 +253,7 @@ const SessionControls = (props) => {
                     Ultima sesion: {timeDifference(lastReviewDate)}
                 </p>
                 <p className="timeInfo">
-                    terminos se refrescan despues de 12 horas
+                    *terminos se refrescan despues de 12 horas
                 </p>
                 <button disabled={!hasSession} onClick={changeToReviewScreen}>
                     <p>Continuar repaso </p>
@@ -316,18 +269,7 @@ const SessionControls = (props) => {
                     </p>
                     <p>{`(${amountReviewedToday} - ${
                         terms.length - muted
-                    } estudiados)`}</p>
-                </button>
-
-                {/* <button
-                    disabled={muted === 0}
-                    onClick={onAllButMutedSessionClick}
-                >
-                    <p>
-                        Todo menos{"  "}
-                        <BiSolidHide className="mute-checked" />
-                    </p>
-                    <p>{`(${terms.length - muted} terminos)`}</p>
+                    } estudiados*)`}</p>
                 </button>
 
                 <button disabled={starred === 0} onClick={onOnlyStarredClick}>
@@ -336,7 +278,12 @@ const SessionControls = (props) => {
                     </p>
 
                     <p>{`(${starred} terminos)`}</p>
-                </button> */}
+                </button>
+
+                <button onClick={onNewAllSessionClick}>
+                    <p>Repasar todo</p>
+                    <p>{`(${terms.length} terminos)`}</p>
+                </button>
             </div>
             <div className="info"></div>
         </div>

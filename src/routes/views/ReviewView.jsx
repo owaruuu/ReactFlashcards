@@ -422,7 +422,9 @@ const ReviewView = (props) => {
                         termOptionsMutation.status === "loading"
                     }
                 />
-                <p className="feedback">{feedbackMessage}</p>
+                <div className="feedback">
+                    <p>{feedbackMessage}</p>
+                </div>
                 {timeElapsedSinceLastAnswer >= 12 ? (
                     <AnswerButtons
                         termPointsData={

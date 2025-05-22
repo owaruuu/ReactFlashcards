@@ -166,7 +166,6 @@ export function useCreateSessionMutation(queryKey) {
         onSuccess: (data, variables, context) => {
             // console.log("on success en session mutation");
             const globalQuery = queryClient.getQueryData("allDataForUser");
-            // console.log("🚀 ~ useSessionMutation ~ globalQuery:", globalQuery);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;
@@ -199,7 +198,7 @@ export function useSessionPointsMutation(queryKey) {
     return useMutation({
         mutationFn: postSessionPointsData,
         onMutate: async (variables) => {
-            // console.log("on mutate en mutation");
+            // console.log("on mutate en session points mutation");
             await queryClient.cancelQueries({
                 queryKey: [queryKey],
             });
@@ -229,9 +228,8 @@ export function useSessionPointsMutation(queryKey) {
             });
         },
         onSuccess: (data, variables, context) => {
-            // console.log("on success en session mutation");
+            // console.log("on success en session points mutation");
             const globalQuery = queryClient.getQueryData("allDataForUser");
-            // console.log("🚀 ~ useSessionMutation ~ globalQuery:", globalQuery);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;
@@ -241,14 +239,17 @@ export function useSessionPointsMutation(queryKey) {
                 return object.lecture_id == variables.lectureId;
             });
 
-            const newArray = [
-                ...allButChanged,
-                {
-                    ...oldValue[0],
-                    lecture_id: variables.lectureId,
-                    [variables.attributeName]: variables.newValue,
-                },
-            ];
+            const newValue = {
+                ...oldValue[0],
+                lecture_id: variables.lectureId,
+                [variables.attributeName]: variables.newValue,
+            };
+
+            if (variables.newPoints) {
+                newValue[variables.pointsAttributeName] = variables.newPoints;
+            }
+
+            const newArray = [...allButChanged, newValue];
 
             //cambio el estado de la query global
             queryClient.setQueryData("allDataForUser", newArray);

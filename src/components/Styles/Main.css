@@ -1171,7 +1171,7 @@
 .termCardDiv {
   max-width: 935px;
   width: 80vw;
-  height: 450px;
+  height: 350px;
   position: relative;
 }
 @media (min-width: 768px) {

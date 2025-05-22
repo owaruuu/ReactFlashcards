@@ -47,8 +47,8 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "buttons info" "nextButton nextButton";
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas: "buttons info" "answerButtons answerButtons";
   width: 80vw;
 }
 @media (min-width: 768px) {
@@ -56,7 +56,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "info info info" "buttons answerButtons answerButtons";
-    width: 62vw;
+    width: 68vw;
     max-width: 935px;
   }
 }
@@ -64,6 +64,9 @@
   grid-area: info;
   text-align: center;
   margin: auto;
+}
+.ReviewV2Screen .controls .feedback p {
+  margin: 0;
 }
 .ReviewV2Screen .controls .termOptions svg {
   filter: drop-shadow(2px 4px rgba(0, 0, 0, 0.4));
@@ -81,14 +84,23 @@
 }
 .ReviewV2Screen .controls .containerAnswerButtons {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-area: answerButtons;
-  border: 1px solid black;
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls .containerAnswerButtons {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+  }
 }
 .ReviewV2Screen .controls .containerAnswerButtons button {
-  margin: 5px;
+  margin: 7px;
 }
 .ReviewV2Screen .controls .containerAnswerButtons .answerButton {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
   position: relative;
 }
 .ReviewV2Screen .controls .containerAnswerButtons .answerButton p {
@@ -96,15 +108,63 @@
 }
 .ReviewV2Screen .controls .containerAnswerButtons .answerButton .points {
   position: absolute;
-  top: 0px;
-  right: 2px;
-  font-size: 10px;
+  top: 3px;
+  right: 7px;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.495);
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton:hover:enabled {
+  border: white 3px solid;
+  color: white;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton:disabled {
+  background-color: gray;
+  border-color: rgb(80, 80, 80);
+}
+.ReviewV2Screen .controls .containerAnswerButtons .answerButton:disabled .spinner-border {
+  color: rgb(80, 80, 80);
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls .containerAnswerButtons .answerButton {
+    padding: 14px 10px;
+  }
+}
+.ReviewV2Screen .controls .containerAnswerButtons .darkRed {
+  border: rgb(69, 0, 0) 3px solid;
+  color: rgb(255, 255, 255);
+  background-color: rgb(129, 26, 26);
+}
+.ReviewV2Screen .controls .containerAnswerButtons .red {
+  border: rgb(145, 18, 18) 3px solid;
+  color: rgb(255, 255, 255);
+  background-color: rgb(207, 41, 41);
+}
+.ReviewV2Screen .controls .containerAnswerButtons .yellow {
+  border: #776201 3px solid;
+  color: rgb(255, 255, 255);
+  background-color: #b7980c;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .green {
+  border: rgb(13, 79, 0) 3px solid;
+  color: rgb(255, 255, 255);
+  background-color: #108110;
+}
+.ReviewV2Screen .controls .containerAnswerButtons .purple {
+  border: #220043 3px solid;
+  color: rgb(255, 255, 255);
+  background-color: #710b71;
 }
 .ReviewV2Screen .controls .containerNextButton {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "info button";
+  grid-template-columns: 1fr;
+  grid-template-areas: "info " "button";
   grid-area: answerButtons;
+}
+@media (min-width: 768px) {
+  .ReviewV2Screen .controls .containerNextButton {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "info button";
+  }
 }
 .ReviewV2Screen .controls .containerNextButton button {
   grid-area: button;
@@ -130,9 +190,9 @@
   min-height: 50px;
   padding: 10px 40px;
   border-radius: 15px;
-  border: 2px solid #ab071d;
-  background-color: #f5fcff;
-  color: #66121d;
+  border: 3px solid #ab071d;
+  background-color: #85323d;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,7 +200,7 @@
   font-size: 1.2rem;
 }
 .ReviewV2Screen .controls .next .spinner-border {
-  color: #2b07ab;
+  color: rgb(80, 80, 80);
 }
 @media (min-width: 768px) {
   .ReviewV2Screen .controls .next {
@@ -148,17 +208,17 @@
   }
 }
 .ReviewV2Screen .controls .thinking {
-  border: 2px solid #2b07ab;
-  color: #2b07ab;
+  background-color: gray;
+  border-color: rgb(80, 80, 80);
+  color: rgb(80, 80, 80);
 }
 .ReviewV2Screen .controls .continue {
-  border-color: #156324;
-  color: #156324;
+  background-color: #2e5779;
+  border-color: #00335d;
+  color: white;
 }
 .ReviewV2Screen .controls .continue:hover {
-  background-color: #449754;
-  color: white;
-  border-color: #1dcb3f;
+  border-color: #ffffff;
 }
 .ReviewV2Screen .controls .close:hover {
   background-color: #ab071d;

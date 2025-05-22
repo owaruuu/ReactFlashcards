@@ -3,15 +3,15 @@ import LearnButtonContent from "./LearnButtonContent.jsx";
 import { Spinner } from "react-bootstrap";
 
 const AnswerButton = (props) => {
-    const { loading, onClick, content, points } = props;
+    const { loading, onClick, content, points, type } = props;
     return (
         <button
-            className="answerButton"
+            className={`answerButton ${type}`}
             disabled={loading}
             onClick={() => onClick(points)}
         >
             {loading ? (
-                <Spinner />
+                <Spinner size="sm" />
             ) : (
                 <LearnButtonContent content={content} points={points} />
             )}

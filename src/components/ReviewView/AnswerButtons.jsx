@@ -27,18 +27,21 @@ const AnswerButtons = (props) => {
                 onClick={onClick}
                 content={"Aun no"}
                 points={-2}
+                type={"red"}
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Ya casi"}
                 points={3}
+                type={"yellow"}
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Lo se"}
                 points={7}
+                type={"green"}
             />
         </>
     );
@@ -50,18 +53,21 @@ const AnswerButtons = (props) => {
                 onClick={onClick}
                 content={"Lo olvide"}
                 points={-7}
+                type={"darkRed"}
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Lo se"}
                 points={7}
+                type={"green"}
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Memorizado"}
                 points={10}
+                type={"purple"}
             />
         </>
     );

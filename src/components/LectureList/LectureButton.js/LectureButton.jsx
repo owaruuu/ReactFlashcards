@@ -38,6 +38,7 @@ const LectureButton = (props) => {
         allLecturesDataQueryStatus,
         title,
         isKanjiView,
+        amountCanLearn,
     } = props;
     const [percentage, setPercentage] = useState(0); //for future use
     const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
@@ -116,11 +117,17 @@ const LectureButton = (props) => {
     const secondAbreviation = getAbreviation(type2);
 
     // VARS
-    const japaneseSessionTermsAmount =
-        userDataQueryData?.[id]?.[`${type1}_session`]?.terms?.length;
 
-    const spanishSessionTermsAmount =
-        userDataQueryData?.[id]?.[`${type2}_session`]?.terms?.length;
+    // Terminos viejos
+    // const japaneseSessionTermsAmount =
+    //     userDataQueryData?.[id]?.[`${type1}_session`]?.terms?.length;
+
+    // const spanishSessionTermsAmount =
+    //     userDataQueryData?.[id]?.[`${type2}_session`]?.terms?.length;
+
+    const japaneseSessionTermsAmount = amountCanLearn[id]?.aAmount;
+
+    const spanishSessionTermsAmount = amountCanLearn[id]?.bAmount;
 
     //string date
     const japaneseLastSessionTime =
