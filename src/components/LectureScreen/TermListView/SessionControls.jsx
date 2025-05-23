@@ -124,7 +124,7 @@ const SessionControls = (props) => {
         }
 
         if (!pointsData) {
-            return filteredTerms;
+            return filteredTerms.slice(0, MAX_SESSION_SIZE);
         }
 
         //ordenar elementos por fecha de estudio, dejando los elementos mas viejos primero (los que estudia hace mas tiempo)
