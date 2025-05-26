@@ -9,6 +9,7 @@ const LectureButtons = (props) => {
         lectures,
         isKanjiView,
     } = props;
+    // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
 
     const starredAmountObject =
         allLecturesDataQuery?.status === "success"
@@ -21,11 +22,13 @@ const LectureButtons = (props) => {
             : {};
 
     const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
+    // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
 
     const amountCanLearn =
         allLecturesDataQuery?.status === "success"
             ? calculateAmountReady(filledLectures, isKanjiView)
             : {};
+    // console.log("🚀 ~ LectureButtons ~ amountCanLearn:", amountCanLearn);
 
     let filters = [];
 
@@ -73,6 +76,21 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
     let filledLectures = JSON.parse(JSON.stringify(lectures));
     if (isKanjiView) {
         filledLectures = filledLectures.map((lecture) => {
+            //NEW agregar mapa de lectures
+            //sera un objeto
+            lecture["termListObject"] = {};
+
+            lecture.termList.map((term) => {
+                lecture["termListObject"][term.id] = term;
+            });
+
+            //NEW agregar mapa de kanjis
+            lecture["kanjiListObject"] = {};
+
+            lecture.kanjiList.map((kanji) => {
+                lecture["kanjiListObject"][kanji.id] = kanji;
+            });
+
             if (dataObject[lecture.lectureId]) {
                 if (dataObject[lecture.lectureId]["recognize_session"]) {
                     lecture["recognize_session"] =
@@ -104,6 +122,13 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
         });
     } else {
         filledLectures = filledLectures.map((lecture) => {
+            //NEW agregar mapa de lectures
+            //sera un objeto
+            lecture["termListObject"] = {};
+
+            lecture.termList.map((term) => {
+                lecture["termListObject"][term.id] = term;
+            });
             if (dataObject[lecture.lectureId]) {
                 if (dataObject[lecture.lectureId]["japanese_session"]) {
                     lecture["japanese_session"] =
@@ -172,6 +197,8 @@ function calculateStarred(dataArray) {
 
 //calcula la cantidad de terminos listos para ser estudiados por cada leccion
 function calculateAmountReady(dataArray, isKanjiView) {
+    // console.log("🚀 ~ calculateAmountReady ~ isKanjiView:", isKanjiView);
+    // console.log("🚀 ~ calculateAmountReady ~ dataArray:", dataArray);
     const amountReady = {};
 
     dataArray.forEach((lecture) => {
@@ -182,28 +209,34 @@ function calculateAmountReady(dataArray, isKanjiView) {
 
         //calcular muteados
         if (!isKanjiView) {
+            // console.warn("here ?");
+
             const japaneseData = lecture["japanese_terms_data"]
-                ? Object.values(lecture["japanese_terms_data"])
+                ? lecture["japanese_terms_data"]
                 : null;
             const spanishData = lecture["spanish_terms_data"]
-                ? Object.values(lecture["spanish_terms_data"])
+                ? lecture["spanish_terms_data"]
                 : null;
 
             const japanesePointsData = lecture["japanese_terms_points"];
             const spanishPointsData = lecture["spanish_terms_points"];
 
             if (japaneseData) {
-                japaneseData.forEach((element) => {
-                    if (element === "muted") {
-                        aMuted += 1;
+                Object.entries(japaneseData).forEach((element) => {
+                    if (lecture["termListObject"][element[0]]) {
+                        if (element[1] === "muted") {
+                            aMuted += 1;
+                        }
                     }
                 });
             }
 
             if (spanishData) {
-                spanishData.forEach((element) => {
-                    if (element === "muted") {
-                        bMuted += 1;
+                Object.entries(spanishData).forEach((element) => {
+                    if (lecture["termListObject"][element[0]]) {
+                        if (element[1] === "muted") {
+                            bMuted += 1;
+                        }
                     }
                 });
             }
@@ -224,28 +257,42 @@ function calculateAmountReady(dataArray, isKanjiView) {
                     }
                 }
             }
+
+            amountReady[lecture.lectureId] = {
+                aAmount:
+                    lecture.termList.length - aMuted - aAmountReviewedToday,
+                bAmount:
+                    lecture.termList.length - bMuted - bAmountReviewedToday,
+            };
         } else {
+            // console.warn("here");
+
             const recognizeData = lecture["recognize_terms_data"]
-                ? Object.values(lecture["recognize_terms_data"])
+                ? lecture["recognize_terms_data"]
                 : null;
             const writeData = lecture["write_terms_data"]
-                ? Object.values(lecture["write_terms_data"])
+                ? lecture["write_terms_data"]
                 : null;
             const recognizePointsData = lecture["recognize_terms_points"];
             const writePointsData = lecture["write_terms_points"];
 
+            //NEW ahora revisa que el id del muted exista en la leccion
             if (recognizeData) {
-                recognizeData.forEach((element) => {
-                    if (element === "muted") {
-                        aMuted += 1;
+                Object.entries(recognizeData).forEach((element) => {
+                    if (lecture["termListObject"][element[0]]) {
+                        if (element[1] === "muted") {
+                            aMuted += 1;
+                        }
                     }
                 });
             }
 
             if (writeData) {
-                writeData.forEach((element) => {
-                    if (element === "muted") {
-                        bMuted += 1;
+                Object.entries(writeData).forEach((element) => {
+                    if (lecture["kanjiListObject"][element[0]]) {
+                        if (element[1] === "muted") {
+                            bMuted += 1;
+                        }
                     }
                 });
             }
@@ -264,16 +311,23 @@ function calculateAmountReady(dataArray, isKanjiView) {
                 for (const [key, value] of Object.entries(writePointsData)) {
                     const moreThanTwelve = calculateTwelve(value.date);
                     if (!moreThanTwelve) {
-                        aAmountReviewedToday += 1;
+                        bAmountReviewedToday += 1;
                     }
                 }
             }
+
+            amountReady[lecture.lectureId] = {
+                aAmount:
+                    lecture.termList.length - aMuted - aAmountReviewedToday,
+                bAmount:
+                    lecture.kanjiList.length - bMuted - bAmountReviewedToday,
+            };
         }
 
-        amountReady[lecture.lectureId] = {
-            aAmount: lecture.termList.length - aMuted - aAmountReviewedToday,
-            bAmount: lecture.termList.length - bMuted - bAmountReviewedToday,
-        };
+        // amountReady[lecture.lectureId] = {
+        //     aAmount: lecture.termList.length - aMuted - aAmountReviewedToday,
+        //     bAmount: lecture.kanjiList.length - bMuted - bAmountReviewedToday,
+        // };
     });
 
     return amountReady;

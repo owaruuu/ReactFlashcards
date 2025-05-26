@@ -9,8 +9,9 @@ import DismissableBanner from "../DismissableBanner/DismissableBanner";
 import ReorderButton from "./components/ReorderButton";
 import FilterContainer from "./components/FilterContainer";
 
-const LectureListView = (props) => {
-    const { isKanjiView } = props;
+const LectureListView = ({ isKanjiView = false }) => {
+    // console.log("🚀 ~ LectureListView ~ isKanjiView:", isKanjiView);
+    // const { isKanjiView } = props;
     const outCtx = useOutletContext();
     const { loggedIn, lectures, kanjiSets, gotLectures } =
         useContext(AppContext);
