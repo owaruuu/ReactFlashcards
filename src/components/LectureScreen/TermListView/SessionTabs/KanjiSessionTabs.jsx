@@ -16,6 +16,7 @@ const KanjiSessionTabs = (props) => {
                     terms={lecture.termList}
                     sessionData={lectureQueryData?.recognize_session}
                     termsData={lectureQueryData?.recognize_terms_data}
+                    pointsData={lectureQueryData?.recognize_terms_points}
                 />
             </Tab>
             <Tab eventKey="write" title="Escribir">
@@ -26,6 +27,7 @@ const KanjiSessionTabs = (props) => {
                     terms={lecture.kanjiList}
                     sessionData={lectureQueryData?.write_session}
                     termsData={lectureQueryData?.write_terms_data}
+                    pointsData={lectureQueryData?.write_terms_points}
                 />
             </Tab>
         </Tabs>

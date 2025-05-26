@@ -8,8 +8,8 @@ import { Spinner } from "react-bootstrap";
 import DismissableBanner from "../components/DismissableBanner/DismissableBanner";
 
 // path: "/lectures/:lectureId",
-const LectureRoute = (props) => {
-    const { lecture, isKanjiView } = props;
+const LectureRoute = ({ lecture, isKanjiView = false }) => {
+    // const { lecture, isKanjiView } = props;
     const outCtx = useOutletContext();
     const [tab, setTab] = useState(isKanjiView ? "recognize" : "japanese");
     const { loggedIn } = useContext(AppContext);
