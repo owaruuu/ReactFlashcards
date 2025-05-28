@@ -17,7 +17,22 @@ const stickers = {
 const descriptions = {
     1: {
         title: "とりい(鳥居)",
-        content: `Los Torii son puertas de color rojo ligeramente amarillento (しゅいろ/朱色) que se alza a la entrada de los santuarios. Las puertas Torii representan el límite entre las zonas interiores y sagradas del santuario y las zonas exteriores, donde vive la gente. Además, también se dice que las puertas Torii sirven de "frontera" para impedir que entren cosas impuras al santuario.`,
+        content: `Torii. Son puertas de color rojo ligeramente amarillento (しゅいろ/朱色) que se alza a la entrada de los santuarios. Las puertas Torii representan el límite entre las zonas interiores y sagradas del santuario y las zonas exteriores, donde vive la gente. Además, también se dice que las puertas Torii sirven de "frontera" para impedir que entren cosas impuras al santuario.`,
+    },
+    2: {
+        title: "さくら(桜)",
+        content:
+            "Flor de cerezo. En primavera es famoso el Hanami (contemplación de las flores de cerezos), donde la gente se junta a comer con sus amigos mientras admiran las flores de cerezo. En Chile, en Septiembre-Octubre la Corporación Nikkei organiza y realiza el Hanami dentro del Jardín Botánico Viña del Mar.",
+    },
+    3: {
+        title: "ふうりん(風鈴)",
+        content:
+            "Carillón de viento o Campana de viento. Pequeñas campanas de metal, cerámica o cristal, una de las artesanías tradicionales de Japón. Antiguamente era un tipo de instrumentos de adivinación, una tira de papel colgada de la lengüeta se mueve con el viento y suena cuando la lengüeta golpea la campana. Especialmente en verano, se cuelgan de los aleros para disfrutar del sonido.",
+    },
+    4: {
+        title: "わだいこ(和太鼓)",
+        content:
+            "Tambor japonés. Instrumento de percusión con cuerpo de madera recubierto de cuero, que vibra para producir sonido. Hoy en día se usa como simple instrumento musical pero, antiguamente se utilizaban en ceremonias.",
     },
     702: {
         title: "うちわ",
