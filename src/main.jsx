@@ -191,8 +191,7 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version =
-    "add term progress in review and lecture list, fix bug with kanji mode and session numbers - 25/05/2025";
+export const version = "add new stickers - 28/05/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
