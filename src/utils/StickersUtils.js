@@ -32,7 +32,7 @@ const descriptions = {
     4: {
         title: "わだいこ(和太鼓)",
         content:
-            "Tambor japonés. Instrumento de percusión con cuerpo de madera recubierto de cuero, que vibra para producir sonido. Hoy en día se usa como simple instrumento musical pero, antiguamente se utilizaban en ceremonias.",
+            "Tambor japonés. Instrumento de percusión con cuerpo de madera recubierto de cuero. El sonido del tambor imita el sonido del trueno (la voz de los dioses), y se creía que tenía un inmenso poder espiritual y se utilizaban como objetos sagrados para dar la bienvenida a los dioses. Hoy en día se usa como simple instrumento musical. Los tambores japoneses existen desde el período Jomon , más tarde, se introdujeron los tambores desde China y finalmente llegaron a su forma actual.",
     },
     702: {
         title: "うちわ",
