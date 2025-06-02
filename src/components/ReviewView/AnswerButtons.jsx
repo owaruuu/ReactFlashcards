@@ -1,5 +1,4 @@
 import React from "react";
-import("react").CSSProperties;
 import { Spinner } from "react-bootstrap";
 import LearnButtonContent from "./LearnButtonContent.jsx";
 import AnswerButton from "./AnswerButton.jsx";
