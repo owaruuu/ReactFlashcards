@@ -213,10 +213,10 @@ function calculateAmountReady(dataArray, isKanjiView) {
 
             const japaneseData = lecture["japanese_terms_data"]
                 ? lecture["japanese_terms_data"]
-                : null;
+                : {}; //ADD default value
             const spanishData = lecture["spanish_terms_data"]
                 ? lecture["spanish_terms_data"]
-                : null;
+                : {}; //ADD default value
 
             const japanesePointsData = lecture["japanese_terms_points"];
             const spanishPointsData = lecture["spanish_terms_points"];
@@ -243,17 +243,23 @@ function calculateAmountReady(dataArray, isKanjiView) {
 
             if (japanesePointsData) {
                 for (const [key, value] of Object.entries(japanesePointsData)) {
-                    const moreThanTwelve = calculateTwelve(value.date);
-                    if (!moreThanTwelve) {
-                        aAmountReviewedToday += 1;
+                    if (japaneseData[key] !== "muted") {
+                        //ADD check for muted state
+                        const moreThanTwelve = calculateTwelve(value.date);
+                        if (!moreThanTwelve) {
+                            aAmountReviewedToday += 1;
+                        }
                     }
                 }
             }
             if (spanishPointsData) {
                 for (const [key, value] of Object.entries(spanishPointsData)) {
-                    const moreThanTwelve = calculateTwelve(value.date);
-                    if (!moreThanTwelve) {
-                        bAmountReviewedToday += 1;
+                    if (spanishData[key] !== "muted") {
+                        //ADD check for muted state
+                        const moreThanTwelve = calculateTwelve(value.date);
+                        if (!moreThanTwelve) {
+                            bAmountReviewedToday += 1;
+                        }
                     }
                 }
             }
@@ -269,10 +275,10 @@ function calculateAmountReady(dataArray, isKanjiView) {
 
             const recognizeData = lecture["recognize_terms_data"]
                 ? lecture["recognize_terms_data"]
-                : null;
+                : {}; //ADD default value
             const writeData = lecture["write_terms_data"]
                 ? lecture["write_terms_data"]
-                : null;
+                : {}; //ADD default value
             const recognizePointsData = lecture["recognize_terms_points"];
             const writePointsData = lecture["write_terms_points"];
 
@@ -301,17 +307,23 @@ function calculateAmountReady(dataArray, isKanjiView) {
                 for (const [key, value] of Object.entries(
                     recognizePointsData
                 )) {
-                    const moreThanTwelve = calculateTwelve(value.date);
-                    if (!moreThanTwelve) {
-                        aAmountReviewedToday += 1;
+                    if (recognizeData[key] !== "muted") {
+                        //ADD check for muted state
+                        const moreThanTwelve = calculateTwelve(value.date);
+                        if (!moreThanTwelve) {
+                            aAmountReviewedToday += 1;
+                        }
                     }
                 }
             }
             if (writePointsData) {
                 for (const [key, value] of Object.entries(writePointsData)) {
-                    const moreThanTwelve = calculateTwelve(value.date);
-                    if (!moreThanTwelve) {
-                        bAmountReviewedToday += 1;
+                    if (writeData[key] !== "muted") {
+                        //ADD check for muted state
+                        const moreThanTwelve = calculateTwelve(value.date);
+                        if (!moreThanTwelve) {
+                            bAmountReviewedToday += 1;
+                        }
                     }
                 }
             }

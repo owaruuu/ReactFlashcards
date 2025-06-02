@@ -14,15 +14,19 @@ import { useNavigate } from "react-router-dom";
 
 const MAX_SESSION_SIZE = 30;
 
-const SessionControls = (props) => {
-    const { language, lectureId, terms, sessionData, termsData, pointsData } =
-        props;
-
+const SessionControls = ({
+    language,
+    lectureId,
+    terms,
+    sessionData,
+    termsData = {}, //ADD default state
+    pointsData = {}, //ADD default state
+}) => {
     const navigate = useNavigate();
 
     const hasSession = sessionData?.terms?.length > 0;
     const lastReviewDate = sessionData ? sessionData.lastReviewed : undefined;
-    const amountReviewedToday = pointsData ? calculateReviewed() : 0;
+    const amountReviewedToday = calculateReviewed(); //REMOVE check for data
 
     const amountInfo = hasSession
         ? sessionData.terms.length > 1
@@ -62,9 +66,12 @@ const SessionControls = (props) => {
     function calculateReviewed() {
         let amount = 0;
         for (const [key, value] of Object.entries(pointsData)) {
-            const moreThanTwelve = calculateTwelve(value.date);
-            if (!moreThanTwelve) {
-                amount += 1;
+            //ADD check for muted state
+            if (termsData[key] !== "muted") {
+                const moreThanTwelve = calculateTwelve(value.date);
+                if (!moreThanTwelve) {
+                    amount += 1;
+                }
             }
         }
 
