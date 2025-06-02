@@ -3,6 +3,7 @@ const stickers = {
     2: "sakura",
     3: "fuurin",
     4: "taiko",
+    5: "mochitsuki",
     702: "uchiwa",
     // 703: "missing",
     704: "onigiri",
