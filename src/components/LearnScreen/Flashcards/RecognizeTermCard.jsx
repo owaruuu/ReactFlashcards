@@ -4,7 +4,7 @@ import { max, min } from "lodash";
 
 const RecognizeTermCard = (props) => {
     const ref = useRef(null);
-    const { termId, termsDict, flipped } = props;
+    const { termId, termsDict, flipped, pointsInfo } = props;
 
     const [width, setWidth] = useState(0);
 
@@ -39,7 +39,14 @@ const RecognizeTermCard = (props) => {
     );
     const answerContent = <span>{answer}</span>;
 
-    return <TermCard {...props} term={termContent} answer={answerContent} />;
+    return (
+        <TermCard
+            {...props}
+            term={termContent}
+            answer={answerContent}
+            points={pointsInfo?.[termId]}
+        />
+    );
 };
 
 export default RecognizeTermCard;

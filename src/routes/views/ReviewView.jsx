@@ -279,6 +279,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
+            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
         />
     );
 
@@ -294,6 +295,7 @@ const ReviewView = (props) => {
             handleUndo={handleUndoClick}
             handleReset={handleResetClick}
             ref={childrenRef}
+            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
         />
     );
 

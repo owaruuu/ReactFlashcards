@@ -19,6 +19,7 @@ const WriteKanjiCard = forwardRef((props, ref) => {
         answerFunction,
         handleUndo,
         handleReset,
+        pointsInfo,
     } = props;
 
     const [strokeColor, setStrokeColor] = useState("#ffffff");
@@ -44,9 +45,12 @@ const WriteKanjiCard = forwardRef((props, ref) => {
     //     console.log("buscando kanji, termId cambio...");
     // }, [termId]);
 
+    const points = pointsInfo?.[termId];
+
     return (
         <div className={classNames}>
             <div className="term write">
+                {points && <div className="points">{points.points}</div>}
                 {term?.meaning ? term.meaning : "Cargando..."}
             </div>
             <div className="divider"></div>
