@@ -21,6 +21,7 @@ const SessionControls = ({
     sessionData,
     termsData = {}, //ADD default state
     pointsData = {}, //ADD default state
+    lectureQuery, //ADD lecture query to read status
 }) => {
     const navigate = useNavigate();
 
@@ -252,8 +253,15 @@ const SessionControls = ({
                 errorMsg={
                     "Hubo un error, lo sentimos, intenta refrescar la pagina."
                 }
-                loading={lectureSessionMutation.status === "loading"}
-                loadingMsg={"Creando sesion..."}
+                loading={
+                    lectureSessionMutation.status === "loading" ||
+                    lectureQuery.isRefetching
+                }
+                loadingMsg={
+                    lectureQuery.isRefetching
+                        ? "Obteniendo datos..."
+                        : "Creando sesion..."
+                }
             />
             <div className="termListButtons">
                 <p className="info">

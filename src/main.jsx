@@ -191,7 +191,8 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version = "fix bug with studied amount - 2/06/2025";
+export const version =
+    "fix bug with studied amount, fix bug with session creation - 2/06/2025";
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

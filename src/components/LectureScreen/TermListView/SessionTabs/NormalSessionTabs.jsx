@@ -11,6 +11,7 @@ const NormalSessionTabs = (props) => {
         spanishList,
         lecture,
         lectureQueryData,
+        lectureQuery,
     } = props;
     // console.log("🚀 ~ NormalSessionTabs ~ lectureQueryData:", lectureQueryData);
     return (
@@ -24,6 +25,7 @@ const NormalSessionTabs = (props) => {
                     sessionData={lectureQueryData?.japanese_session}
                     termsData={lectureQueryData?.japanese_terms_data}
                     pointsData={lectureQueryData?.japanese_terms_points}
+                    lectureQuery={lectureQuery}
                 />
             </Tab>
             <Tab eventKey="spanish" title="Español">
@@ -35,6 +37,7 @@ const NormalSessionTabs = (props) => {
                     sessionData={lectureQueryData?.spanish_session}
                     termsData={lectureQueryData?.spanish_terms_data}
                     pointsData={lectureQueryData?.spanish_terms_points}
+                    lectureQuery={lectureQuery}
                 />
             </Tab>
         </Tabs>

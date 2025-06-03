@@ -29,10 +29,11 @@ export function useAllLecturesDataQuery(enabled) {
 export function useLectureQuery(lectureId, enabled) {
     const allUserData = useQueryClient().getQueryData("allDataForUser");
     const initialData = findLectureData(allUserData, lectureId);
+    const queryKey = getLectureQueryString(lectureId);
 
     return useQuery({
         enabled: enabled,
-        queryKey: [getLectureQueryString(lectureId)],
+        queryKey: [queryKey],
         queryFn: () => getLectureData(lectureId),
         retry: 1,
         placeholderData: { data: initialData },
@@ -145,6 +146,7 @@ export function useCreateSessionMutation(queryKey) {
                 queryKey: [queryKey],
             });
 
+            //MOD the access to this mutation is delayed until the data for the query is there
             const previousValue = queryClient.getQueryData([queryKey]);
 
             //optimistic update

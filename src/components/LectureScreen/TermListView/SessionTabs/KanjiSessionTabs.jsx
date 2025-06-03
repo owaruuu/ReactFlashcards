@@ -3,8 +3,15 @@ import { Tab, Tabs } from "react-bootstrap";
 import SessionTab from "./SessionTab";
 
 const KanjiSessionTabs = (props) => {
-    const { tab, setTab, recognizeList, writeList, lecture, lectureQueryData } =
-        props;
+    const {
+        tab,
+        setTab,
+        recognizeList,
+        writeList,
+        lecture,
+        lectureQueryData,
+        lectureQuery,
+    } = props;
 
     return (
         <Tabs activeKey={tab} onSelect={(k) => setTab(k)} id="lists-tab" fill>
@@ -17,6 +24,7 @@ const KanjiSessionTabs = (props) => {
                     sessionData={lectureQueryData?.recognize_session}
                     termsData={lectureQueryData?.recognize_terms_data}
                     pointsData={lectureQueryData?.recognize_terms_points}
+                    lectureQuery={lectureQuery}
                 />
             </Tab>
             <Tab eventKey="write" title="Escribir">
@@ -28,6 +36,7 @@ const KanjiSessionTabs = (props) => {
                     sessionData={lectureQueryData?.write_session}
                     termsData={lectureQueryData?.write_terms_data}
                     pointsData={lectureQueryData?.write_terms_points}
+                    lectureQuery={lectureQuery}
                 />
             </Tab>
         </Tabs>

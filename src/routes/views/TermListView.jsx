@@ -109,6 +109,7 @@ const TermListView = () => {
                     recognizeList={recognizeTermList}
                     writeList={writeTermList}
                     lectureQueryData={lectureQuery.data?.data}
+                    lectureQuery={lectureQuery}
                 />
             );
         } else {
@@ -120,6 +121,7 @@ const TermListView = () => {
                     japaneseList={japaneseTermList}
                     spanishList={spanishTermList}
                     lectureQueryData={lectureQuery.data?.data}
+                    lectureQuery={lectureQuery}
                 />
             );
         }
