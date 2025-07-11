@@ -1,3 +1,5 @@
+import CardAnswerSection from "./CardAnswerSection.jsx";
+
 const TermCard = (props) => {
     let classNames =
         props.state === "highlighted"
@@ -16,7 +18,13 @@ const TermCard = (props) => {
             </div>
             <div className="divider"></div>
             <div className="answerSection">
-                {props.showAnswer && props.answer}
+                {props.showAnswer && (
+                    <CardAnswerSection
+                        answerText={props.answer}
+                        japExampleSentence={props.answer}
+                        espExampleSentence={props.answer}
+                    />
+                )}
 
                 {!props.showAnswer && (
                     <div className="clickReveal" onClick={props.answerFunction}>

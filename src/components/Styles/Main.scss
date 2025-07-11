@@ -1454,13 +1454,25 @@
 
         .term,
         .answerSection {
+            // border: black solid 1px;
             font-size: clamp(1rem, 1rem + 2vw, 1rem);
+            padding-bottom: 10px;
+            grid-template-rows: 1fr;
 
             flex: 1;
             text-align: center;
 
             span {
                 align-self: center;
+            }
+
+            .exampleSentence {
+                display: block;
+                font-size: 0.8rem;
+
+                .red {
+                    color: #ffa15d;
+                }
             }
 
             .clickReveal {
@@ -1586,10 +1598,6 @@
                 //     stroke: white !important;
                 // }
             }
-        }
-
-        .answerSection {
-            flex: 1;
         }
 
         .divider {

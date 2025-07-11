@@ -1208,12 +1208,23 @@
 .termCardDiv .termCard .term,
 .termCardDiv .termCard .answerSection {
   font-size: clamp(1rem, 1rem + 2vw, 1rem);
+  padding-bottom: 10px;
+  grid-template-rows: 1fr;
   flex: 1;
   text-align: center;
 }
 .termCardDiv .termCard .term span,
 .termCardDiv .termCard .answerSection span {
   align-self: center;
+}
+.termCardDiv .termCard .term .exampleSentence,
+.termCardDiv .termCard .answerSection .exampleSentence {
+  display: block;
+  font-size: 0.8rem;
+}
+.termCardDiv .termCard .term .exampleSentence .red,
+.termCardDiv .termCard .answerSection .exampleSentence .red {
+  color: #ffa15d;
 }
 .termCardDiv .termCard .term .clickReveal,
 .termCardDiv .termCard .answerSection .clickReveal {
@@ -1308,9 +1319,6 @@
 .termCardDiv .termCard .character svg > g:nth-child(2) {
   fill: rgb(234, 189, 69) !important;
   stroke-width: 0 !important;
-}
-.termCardDiv .termCard .answerSection {
-  flex: 1;
 }
 .termCardDiv .termCard .divider {
   height: 1px;
