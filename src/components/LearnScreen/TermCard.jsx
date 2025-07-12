@@ -21,8 +21,8 @@ const TermCard = (props) => {
                 {props.showAnswer && (
                     <CardAnswerSection
                         answerText={props.answer}
-                        japExampleSentence={props.answer}
-                        espExampleSentence={props.answer}
+                        japExampleSentence={props.japSentence}
+                        espExampleSentence={props.espSentence}
                     />
                 )}
 

@@ -16,6 +16,11 @@ const NormalTermCard = (props) => {
     const answer =
         termId !== undefined ? termsDict[termId].answer : "Cargando...";
 
+    const espSentence =
+        termId !== undefined ? termsDict[termId].espSentence : "";
+    const japSentence =
+        termId !== undefined ? termsDict[termId].japSentence : "";
+
     const termContent = <span>{flipped ? answer : term}</span>;
     const answerContent = <span>{flipped ? term : answer}</span>;
 
@@ -24,6 +29,8 @@ const NormalTermCard = (props) => {
             {...props}
             term={termContent}
             answer={answerContent}
+            espSentence={espSentence}
+            japSentence={japSentence}
             points={pointsInfo?.[termId]}
         />
     );

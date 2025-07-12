@@ -41,6 +41,7 @@ import TryTestView from "./routes/views/TryTestView";
 import IsTakingTest from "./routes/guards/IsTakingTest";
 import KanjiSetsListView from "./routes/views/KanjiSetsListView";
 import KanjisListView from "./routes/views/KanjisListView";
+import { version } from "./utils/version.js";
 
 const router = createBrowserRouter([
     {
@@ -191,8 +192,8 @@ const router = createBrowserRouter([
 ]);
 
 const queryClient = new QueryClient();
-export const version =
-    "fix bug with studied amount, fix bug with session creation, add points to kanji cards - 2/06/2025";
+// export const version =
+
 console.log(`version - ${version}`);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
