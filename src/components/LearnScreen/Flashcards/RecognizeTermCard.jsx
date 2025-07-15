@@ -39,11 +39,18 @@ const RecognizeTermCard = (props) => {
     );
     const answerContent = <span>{answer}</span>;
 
+    const espSentence =
+        termId !== undefined ? termsDict[termId].espSentence : "";
+    const japSentence =
+        termId !== undefined ? termsDict[termId].japSentence : "";
+
     return (
         <TermCard
             {...props}
             term={termContent}
             answer={answerContent}
+            espSentence={espSentence}
+            japSentence={japSentence}
             points={pointsInfo?.[termId]}
         />
     );
