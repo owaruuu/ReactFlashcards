@@ -56,10 +56,14 @@ export const authenticateUser = async (email, password) => {
     console.log("ON AUTH USER");
 
     try {
-        const response = await api.post(`${URL}/api/v2/auth/login`, {
-            email,
-            password,
-        });
+        const response = await api.post(
+            `${URL}/api/v2/auth/login`,
+            {
+                email,
+                password,
+            },
+            { withCredentials: true },
+        );
         console.log("🚀 ~ authenticateUser ~ response:", response);
 
         return response;
