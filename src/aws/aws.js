@@ -53,11 +53,14 @@ export const registerUser = async (email, password, repeatPassword) => {
 
 //intenta obtener tokens usando mis credenciales y las guarda en las cookies
 export const authenticateUser = async (email, password) => {
+    console.log("ON AUTH USER");
+
     try {
         const response = await api.post(`${URL}/api/v2/auth/login`, {
             email,
             password,
         });
+        console.log("🚀 ~ authenticateUser ~ response:", response);
 
         return response;
     } catch (error) {
@@ -111,7 +114,7 @@ export const saveUserProgress = async (currentProgress) => {
         //intento conectarme a mi servideor
         const response = await api.post(
             `${URL}/api/v2/updateProgress`,
-            currentProgress
+            currentProgress,
         );
 
         //si el servidor esta vivo pero la base de datos no lo esta
