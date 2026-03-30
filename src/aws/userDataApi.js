@@ -3,6 +3,7 @@ import { api, URL } from "../api/api";
 //reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
 export async function postLectureData({ lectureId, attributeName, newValue }) {
     // console.log("🚀 ~ lastReviewed:", lastReviewed);
+    console.log("USANDO POSTLECTUREDATA");
     try {
         const response = await api.post(`${URL}/user-data/session`, {
             lectureId,
@@ -25,6 +26,7 @@ export async function postSessionPointsData({
     newPoints,
     lastReviewed,
 }) {
+    console.log("USANDO POSTSESSIONPOINTSDATA");
     try {
         const response = await api.post(`${URL}/user-data/points`, {
             lectureId,
@@ -44,6 +46,7 @@ export async function postSessionPointsData({
 
 //get data about term options
 export async function getAllUserData() {
+    console.log("USANDO GETALLUSERDATA");
     try {
         const response = await api.get(`${URL}/user-data`);
         return [...response.data.Items];
@@ -54,6 +57,7 @@ export async function getAllUserData() {
 }
 
 export async function getLectureData(lectureId) {
+    console.log("USANDO GETLECTUREDATA");
     // console.warn("called get lecture data");
     try {
         const response = await api.get(`${URL}/user-data/${lectureId}`);
