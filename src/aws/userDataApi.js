@@ -46,9 +46,9 @@ export async function postSessionPointsData({
 
 //get data about term options
 export async function getAllUserData() {
-    console.log("USANDO GETALLUSERDATA");
+    // console.log("USANDO GETALLUSERDATA");
     try {
-        const response = await api.get(`${URL}/user-data`);
+        const response = await api.get(`${URL}/api/v2/getAllUserData`);
         return [...response.data.Items];
     } catch (error) {
         console.log("🚀 ~ getUserData ~ error:", error);
