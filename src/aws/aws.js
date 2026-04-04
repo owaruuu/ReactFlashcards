@@ -96,7 +96,7 @@ export const logoutUser = async () => {
 //returns the progress string or
 export const getUserProgress = async () => {
     try {
-        const response = await api.get(`${URL}/progress`);
+        const response = await api.get(`${URL}/api/v2/progress`);
 
         if (response.data.value === -1) {
             return null;
