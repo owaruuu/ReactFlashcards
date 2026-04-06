@@ -23,8 +23,8 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
     const hasTest = isKanjiView
         ? false
         : lecture.testId !== undefined && lecture.testId !== "-1"
-        ? true
-        : false;
+          ? true
+          : false;
 
     if (!loggedIn) {
         //logged out simple view
@@ -62,7 +62,9 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
     ) {
         // console.log("🚀 ~ LectureRoute ~ lectureQuery:", lectureQuery);
         // console.error("hubo un error con las queries");
-        return <h1>hubo un error con las queries</h1>;
+        return (
+            <h1 className="query-error">hubo un error con las queries :(</h1>
+        );
     }
 
     //mostrar hijos solo cuando termine de obtener toda la data de los lectures

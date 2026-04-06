@@ -187,7 +187,7 @@ export async function getTestData(testId) {
 
 export const getExtraLessons = async (keys) => {
     try {
-        const response = await api.post(`${URL}/lessons`, { keys });
+        const response = await api.post(`${URL}/api/v2/lessons`, { keys });
         // console.log("🚀 ~ getExtraLessons ~ response:", response);
         return {
             data: response.data.Responses.lectures,

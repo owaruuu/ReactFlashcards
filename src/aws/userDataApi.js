@@ -57,10 +57,10 @@ export async function getAllUserData() {
 }
 
 export async function getLectureData(lectureId) {
-    console.log("USANDO GETLECTUREDATA");
+    // console.log("USANDO GETLECTUREDATA");
     // console.warn("called get lecture data");
     try {
-        const response = await api.get(`${URL}/user-data/${lectureId}`);
+        const response = await api.get(`${URL}/api/v2/user-data/${lectureId}`);
         //
         let result = {
             user_id: null,

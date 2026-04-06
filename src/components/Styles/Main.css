@@ -8,6 +8,13 @@
   overflow: hidden;
   margin-bottom: 125px;
 }
+.main .query-error {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 20px;
+}
 .main .logoutButton {
   font-size: 14px;
   color: white;
@@ -384,11 +391,6 @@
 .main .testScreen .testResume h1 {
   margin-top: 20px;
 }
-.main .testScreen .testResume .testAnswerComponent {
-  margin: 15px 0;
-  padding: 10px;
-  width: 100%;
-}
 .main .testScreen .testResume .testAnswerComponent:nth-child(odd) {
   background-color: #164b78;
   border-radius: 20px;
@@ -396,6 +398,11 @@
 .main .testScreen .testResume .testAnswerComponent:nth-child(even) {
   background-color: #011c33;
   border-radius: 20px;
+}
+.main .testScreen .testResume .testAnswerComponent {
+  margin: 15px 0;
+  padding: 10px;
+  width: 100%;
 }
 .main .testScreen .testResume .testAnswerComponent p {
   margin: 0;
@@ -1046,10 +1053,6 @@
   }
 }
 
-.squareIconButton {
-  width: 25px;
-  height: 25px;
-}
 .squareIconButton button {
   position: relative;
   background-color: #38364b;
@@ -1093,6 +1096,10 @@
   top: 0;
   opacity: 1;
   transition: 0s;
+}
+.squareIconButton {
+  width: 25px;
+  height: 25px;
 }
 
 .disappear-element {
