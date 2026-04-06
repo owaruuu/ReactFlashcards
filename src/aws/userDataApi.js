@@ -3,13 +3,16 @@ import { api, URL } from "../api/api";
 //reemplaza el objeto con las opciones de los terminos en espaniol o japones para una leccion
 export async function postLectureData({ lectureId, attributeName, newValue }) {
     // console.log("🚀 ~ lastReviewed:", lastReviewed);
-    console.log("USANDO POSTLECTUREDATA");
+    // console.log("USANDO POSTLECTUREDATA");
     try {
-        const response = await api.post(`${URL}/user-data/session`, {
-            lectureId,
-            attributeName,
-            newValue,
-        });
+        const response = await api.post(
+            `${URL}/api/v2/user-data/studySession`,
+            {
+                lectureId,
+                attributeName,
+                newValue,
+            },
+        );
 
         return response;
     } catch (error) {
