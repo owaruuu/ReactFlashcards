@@ -29,9 +29,9 @@ export async function postSessionPointsData({
     newPoints,
     lastReviewed,
 }) {
-    console.log("USANDO POSTSESSIONPOINTSDATA");
+    // console.log("USANDO POSTSESSIONPOINTSDATA");
     try {
-        const response = await api.post(`${URL}/user-data/points`, {
+        const response = await api.post(`${URL}/api/v2/user-data/points`, {
             lectureId,
             attributeName,
             pointsAttributeName,
