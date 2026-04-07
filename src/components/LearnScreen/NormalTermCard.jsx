@@ -2,7 +2,8 @@ import React from "react";
 import TermCard from "./TermCard";
 
 const NormalTermCard = (props) => {
-    const { termId, termsDict, flipped, pointsInfo } = props;
+    const { termId, termsDict, flipped, levelsInfo } = props;
+    // console.log("🚀 ~ NormalTermCard ~ levelsInfo:", levelsInfo);
     // console.log("🚀 ~ NormalTermCard ~ pointsInfo:", pointsInfo);
     // console.log("🚀 ~ NormalTermCard ~ termId:", termId);
 
@@ -31,7 +32,7 @@ const NormalTermCard = (props) => {
             answer={answerContent}
             espSentence={espSentence}
             japSentence={japSentence}
-            points={pointsInfo?.[termId]}
+            level={levelsInfo?.[termId]}
         />
     );
 };

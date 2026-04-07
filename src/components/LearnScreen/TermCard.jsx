@@ -5,15 +5,16 @@ const TermCard = (props) => {
         props.state === "highlighted"
             ? "termCard gold"
             : props.state === "muted"
-            ? "termCard muted"
-            : "termCard";
+              ? "termCard muted"
+              : "termCard";
 
-    const points = props.points;
+    const level = props.level;
+    // console.log("🚀 ~ TermCard ~ level:", level);
 
     return (
         <div className={classNames}>
             <div className="term">
-                {points && <div className="points">{points.points}</div>}
+                {level && <div className="points">{level.level}</div>}
                 <span>{props.term}</span>
             </div>
             <div className="divider"></div>

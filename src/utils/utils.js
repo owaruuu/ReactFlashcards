@@ -63,7 +63,7 @@ export const getRandomQuestions = (easy, mid, hard, options) => {
         } else {
             const randomNumbers = getRandomNumbers(
                 options.easy, // eg.4
-                easyArr.length //eg. 6
+                easyArr.length, //eg. 6
             );
 
             random.push(...randomNumbers.map((index) => easyArr[index][1]));
@@ -76,7 +76,7 @@ export const getRandomQuestions = (easy, mid, hard, options) => {
         } else {
             const randomNumbers = getRandomNumbers(
                 options.mid, // eg.3
-                midArr.length //eg. 5
+                midArr.length, //eg. 5
             );
 
             random.push(...randomNumbers.map((index) => midArr[index][1]));
@@ -89,7 +89,7 @@ export const getRandomQuestions = (easy, mid, hard, options) => {
         } else {
             const randomNumbers = getRandomNumbers(
                 options.hard, // eg.3
-                hardArr.length //eg. 5
+                hardArr.length, //eg. 5
             );
 
             random.push(...randomNumbers.map((index) => hardArr[index][1]));
@@ -270,7 +270,7 @@ export function pickDifference(japanese, spanish) {
     //
     if (japanese && spanish) {
         const japaneseDiff = Math.abs(
-            japanese.getTime() - new Date().getTime()
+            japanese.getTime() - new Date().getTime(),
         );
 
         const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
@@ -284,7 +284,7 @@ export function pickDifference(japanese, spanish) {
         return { chosenDiff: japaneseDiff, lang: "(jpn)" };
     } else if (japanese && !spanish) {
         const japaneseDiff = Math.abs(
-            japanese.getTime() - new Date().getTime()
+            japanese.getTime() - new Date().getTime(),
         );
         return { chosenDiff: japaneseDiff, lang: "(jpn)" };
     } else if (!japanese && spanish) {
@@ -313,7 +313,7 @@ export function reorderTermsList(originalList, data) {
             reorderedList.splice(
                 reorderedList.length - 1 - (mutedAmount - 1),
                 0,
-                term
+                term,
             );
         }
     });
@@ -323,4 +323,44 @@ export function reorderTermsList(originalList, data) {
 
 export function getKanjiSvgName(kanji) {
     return kanjiLookup[kanji].at(-1);
+}
+
+const levelToMultiplier = {
+    1: 24,
+    2: 24,
+    3: 48,
+    4: 72,
+    5: 120,
+    6: 168,
+    7: 240,
+    8: 360,
+};
+
+/**
+ *
+ * @param {int} level
+ * @returns {int} hours
+ */
+export function levelToHours(level) {
+    if (level < 1) level = 1;
+
+    console.log("🚀 ~ levelToHours ~ level:", level);
+    if (level > 8) return levelToMultiplier[8];
+
+    return levelToMultiplier[level];
+}
+
+/**
+ *
+ * @param {int} level
+ * @param {int} change
+ * @returns {int} newLevel
+ */
+export function getNewLevel(level, change) {
+    console.log("🚀 ~ getNewLevel ~ level, change:", level, change);
+    if (level + change === 0) return 1;
+
+    if (level + change > 9) return 9;
+
+    return level + change;
 }

@@ -14,7 +14,12 @@ import {
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
-import { getLectureQueryString, ONE_HOUR } from "../../utils/utils";
+import {
+    getLectureQueryString,
+    getNewLevel,
+    levelToHours,
+    ONE_HOUR,
+} from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
@@ -64,15 +69,15 @@ const ReviewView = (props) => {
 
     //MUTATIONS que ocuparan los botones
     const termOptionsMutation = useTermOptionsMutation(
-        getLectureQueryString(lecture.lectureId)
+        getLectureQueryString(lecture.lectureId),
     );
 
     const lectureCreateSessionMutation = useCreateSessionMutation(
-        getLectureQueryString(lecture.lectureId)
+        getLectureQueryString(lecture.lectureId),
     );
 
     const lectureSessionAndPointsMutation = useSessionPointsMutation(
-        getLectureQueryString(lecture.lectureId)
+        getLectureQueryString(lecture.lectureId),
     );
 
     //helper para cambiar el estado de los tabs
@@ -138,7 +143,7 @@ const ReviewView = (props) => {
                             navigate(lectureDir);
                         }
                     },
-                }
+                },
             );
 
             setFeedbackMessage("");
@@ -169,10 +174,12 @@ const ReviewView = (props) => {
         }
     }
 
-    //funcion para cambiar al siguiente termino de la sesion
-    //Va con fecha para modificar el...
-    async function handleNextTerm(points) {
-        const newPoints = points ? getNewPoints(points) : null;
+    //TODO: cambiar logica para staging
+    //necesita calcular el nivel resultante y la hora en la que estara nuevamente disponible
+    async function handleNextTerm(button) {
+        const newLevelsInfo = getNewPoints(button);
+        console.log("🚀 ~ handleNextTerm ~ newPoints:", newLevelsInfo);
+        // const newLevel = calculateNewLevel(points);
         const newValue = removeFirstTerm();
 
         try {
@@ -188,9 +195,9 @@ const ReviewView = (props) => {
                 {
                     lectureId: lecture.lectureId,
                     attributeName: `${lang}_session`,
-                    pointsAttributeName: `${lang}_terms_points`,
+                    pointsAttributeName: `${lang}_terms_levels`,
                     newValue: newValue,
-                    newPoints: newPoints,
+                    newPoints: newLevelsInfo,
                     lastReviewed: new Date().toISOString(),
                 },
                 {
@@ -201,7 +208,7 @@ const ReviewView = (props) => {
                             navigate(lectureDir);
                         }
                     },
-                }
+                },
             );
         } catch (error) {
             console.log("🚀 ~ onNewSessionCreate ~ error:", error);
@@ -266,7 +273,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
-            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
+            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
         />
     );
 
@@ -279,7 +286,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
-            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
+            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
         />
     );
 
@@ -295,7 +302,7 @@ const ReviewView = (props) => {
             handleUndo={handleUndoClick}
             handleReset={handleResetClick}
             ref={childrenRef}
-            pointsInfo={lectureQuery.data.data[`${lang}_terms_points`]}
+            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
         />
     );
 
@@ -312,17 +319,51 @@ const ReviewView = (props) => {
         return newValue;
     }
 
-    function getNewPoints(points) {
-        const termsQueryData = lectureQuery.data.data[`${lang}_terms_points`];
+    function getNewPoints(button) {
+        console.log("🚀 ~ getNewPoints ~ button:", button);
+        const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
         const termsInfo = termsQueryData ? termsQueryData : {};
 
-        const currentTermInfo = termsInfo[currentTermId]
-            ? termsInfo[currentTermId].points
-            : 0;
+        const currentTermLevel = termsInfo[currentTermId]
+            ? termsInfo[currentTermId].level
+            : 1;
+
+        const today = new Date();
+        let nextDate = new Date();
+        if (button === -1) {
+            nextDate = new Date(nextDate.setHours(nextDate.getHours() + 12));
+        } else if (button === 0) {
+            nextDate = new Date(
+                nextDate.setHours(
+                    nextDate.getHours() + levelToHours(currentTermLevel - 1),
+                ),
+            );
+        } else if (button === 1) {
+            nextDate = new Date(
+                nextDate.setHours(
+                    nextDate.getHours() + levelToHours(currentTermLevel),
+                ),
+            );
+        }
+
+        const newLevel = getNewLevel(currentTermLevel, button);
+        console.log("🚀 ~ getNewPoints ~ currentTermLevel:", currentTermLevel);
+        console.log("🚀 ~ getNewPoints ~ newLevel:", newLevel);
+
+        console.log("🚀 ~ getNewPoints ~ today:", today);
+        console.log("🚀 ~ getNewPoints ~ nextDate:", nextDate);
+        const diffHours =
+            (nextDate.getTime() - today.getTime()) / (1000 * 60 * 60);
+        console.log("🚀 ~ getNewPoints ~ diffHours:", diffHours);
+
+        //TODO: cambiar logica para staging
+        //calcular que hacer con el nivel
+        //calcular horas basado en...
         const newTermInfo = {
-            points: currentTermInfo + points,
-            date: new Date().toISOString(),
+            level: newLevel,
+            nextDate: nextDate,
         };
+
         const newValue = {
             ...termsInfo,
             [currentTermId]: newTermInfo,
@@ -369,8 +410,8 @@ const ReviewView = (props) => {
         return lang === "recognize"
             ? recognizeFlashCard
             : lang === "write"
-            ? writeFlashCard
-            : normalFlashCard;
+              ? writeFlashCard
+              : normalFlashCard;
     }
 
     return (
@@ -393,10 +434,10 @@ const ReviewView = (props) => {
                 {!validId
                     ? errorFlashcard
                     : lang === "recognize"
-                    ? recognizeFlashCard
-                    : lang === "write"
-                    ? writeFlashCard
-                    : normalFlashCard}
+                      ? recognizeFlashCard
+                      : lang === "write"
+                        ? writeFlashCard
+                        : normalFlashCard}
                 {disappearingCards}
             </div>
             <div className="controls">
@@ -427,7 +468,7 @@ const ReviewView = (props) => {
                 <div className="feedback">
                     <p>{feedbackMessage}</p>
                 </div>
-                {timeElapsedSinceLastAnswer >= 12 ? (
+                {timeElapsedSinceLastAnswer >= 12 ? ( //TODO: cambiar logica para staging
                     <AnswerButtons
                         termPointsData={
                             lectureQuery.data.data[`${lang}_terms_points`]
