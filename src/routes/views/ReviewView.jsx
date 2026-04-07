@@ -21,6 +21,7 @@ import {
     normalizeDate,
     ONE_HOUR,
     getShortTime,
+    isAvailable,
 } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -184,7 +185,6 @@ const ReviewView = (props) => {
 
         const newLevelsInfo =
             button === null ? termsInfo : getNewPoints(button);
-        console.log("🚀 ~ handleNextTerm ~ newPoints:", newLevelsInfo);
         // const newLevel = calculateNewLevel(points);
         const newValue = removeFirstTerm();
 
@@ -257,19 +257,14 @@ const ReviewView = (props) => {
 
     function getTermAvailability() {
         // const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
-        console.log("🚀 ~ isTermAvailable ~ termsQueryData:", termsQueryData);
 
         const currentTermLevel = termsQueryData
             ? termsQueryData[currentTermId]
             : null;
-        console.log(
-            "🚀 ~ isTermAvailable ~ currentTermLevel:",
-            currentTermLevel,
-        );
+
         const availableTime = currentTermLevel
             ? new Date(currentTermLevel.nextDate)
             : null;
-        console.log("🚀 ~ getTermAvailability ~ availableTime:", availableTime);
 
         const now = new Date();
         // if (availableTime) {
@@ -286,7 +281,7 @@ const ReviewView = (props) => {
         //     }
         // }
 
-        if (availableTime && now < availableTime) {
+        if (availableTime && !isAvailable(availableTime)) {
             return false;
         }
 
@@ -368,17 +363,12 @@ const ReviewView = (props) => {
     }
 
     function getNewPoints(button) {
-        console.log("🚀 ~ getNewPoints ~ button:", button);
         // const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
         const termsInfo = termsQueryData ? termsQueryData : {};
 
         const currentTermLevel = termsInfo[currentTermId]
             ? termsInfo[currentTermId].level
             : 1;
-        console.log(
-            "🚀 ~ isTermAvailable ~ currentTermLevel:",
-            currentTermLevel,
-        );
 
         const today = new Date();
         let nextDate = new Date(today);
@@ -397,16 +387,10 @@ const ReviewView = (props) => {
 
         const diffHours =
             (new Date(nextDate).getTime() - today.getTime()) / (1000 * 60 * 60);
-        console.log("🚀 ~ getNewPoints ~ diffHours:", diffHours);
 
         nextDate = normalizeDate(nextDate);
 
         const newLevel = getNewLevel(currentTermLevel, button);
-        console.log("🚀 ~ getNewPoints ~ currentTermLevel:", currentTermLevel);
-        console.log("🚀 ~ getNewPoints ~ newLevel:", newLevel);
-
-        console.log("🚀 ~ getNewPoints ~ today:", today);
-        console.log("🚀 ~ getNewPoints ~ nextDate:", new Date(nextDate));
 
         //TODO: cambiar logica para staging
         //calcular que hacer con el nivel

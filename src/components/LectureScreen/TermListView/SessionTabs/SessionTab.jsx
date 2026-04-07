@@ -12,7 +12,7 @@ const SessionTab = (props) => {
         terms,
         sessionData,
         termsData,
-        pointsData,
+        levelsData,
         lectureQuery,
     } = props;
 
@@ -25,7 +25,7 @@ const SessionTab = (props) => {
                     terms={terms}
                     sessionData={sessionData}
                     termsData={termsData}
-                    pointsData={pointsData}
+                    levelsData={levelsData}
                     lectureQuery={lectureQuery}
                 />
             )}

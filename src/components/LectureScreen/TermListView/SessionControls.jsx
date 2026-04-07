@@ -6,6 +6,7 @@ import { ImLab } from "react-icons/im";
 import { useCreateSessionMutation } from "../../../hooks/userDataQueryHook";
 import {
     getLectureQueryString,
+    isAvailable,
     ONE_HOUR,
     showDifference,
     shuffleArray,
@@ -20,14 +21,14 @@ const SessionControls = ({
     terms,
     sessionData,
     termsData = {}, //ADD default state
-    pointsData = {}, //ADD default state
+    levelsData = {}, //ADD default state
     lectureQuery, //ADD lecture query to read status
 }) => {
     const navigate = useNavigate();
 
     const hasSession = sessionData?.terms?.length > 0;
     const lastReviewDate = sessionData ? sessionData.lastReviewed : undefined;
-    const amountReviewedToday = calculateReviewed(); //REMOVE check for data
+    const amountReviewed = calculateReviewed();
 
     const amountInfo = hasSession
         ? sessionData.terms.length > 1
@@ -36,7 +37,7 @@ const SessionControls = ({
         : "";
 
     const [starred, setStarred] = useState(() =>
-        starredAmount(terms, termsData)
+        starredAmount(terms, termsData),
     );
 
     const [muted, setMuted] = useState(mutedAmount(terms, termsData));
@@ -44,7 +45,7 @@ const SessionControls = ({
     const [createSessionError, setCreateSessionError] = useState(false);
 
     const lectureSessionMutation = useCreateSessionMutation(
-        getLectureQueryString(lectureId)
+        getLectureQueryString(lectureId),
     );
 
     //FUNCTIONS
@@ -63,14 +64,19 @@ const SessionControls = ({
         onNewSessionCreate(language, newValue);
     }
 
-    //revisa cuantos de los terminos llevan mas de 12 horas sin estudiar
+    //revisa cuantos de los terminos ya han sido estudiados basado en 'nextDate'
     function calculateReviewed() {
         let amount = 0;
-        for (const [key, value] of Object.entries(pointsData)) {
+        // console.log("🚀 ~ calculateReviewed ~ levelsData:", levelsData);
+        for (const [key, value] of Object.entries(levelsData)) {
             //ADD check for muted state
             if (termsData[key] !== "muted") {
-                const moreThanTwelve = calculateTwelve(value.date);
-                if (!moreThanTwelve) {
+                const isTermAvailable = isAvailable(value.nextDate);
+                // console.log(
+                //     `🚀 ~ calculateReviewed ~ isTermAvailable ${language}:`,
+                //     isTermAvailable,
+                // );
+                if (!isTermAvailable) {
                     amount += 1;
                 }
             }
@@ -118,27 +124,31 @@ const SessionControls = ({
         onNewSessionCreate(language, newValue);
     }
 
+    //TODO: cambiar logica para staging, debe calcular diferente basandose en 'nextDate'
     function filterAndOrderElements() {
         const clonedTerms = JSON.parse(JSON.stringify(terms));
 
         //filtrar elementos, sacando los elementos que ya estudie 'hoy', y esten muteados
         const filteredTerms = clonedTerms.filter((term) => {
-            const hasBeenTwelve = calculateTwelve(pointsData?.[term.id]?.date);
-            return termsData[term.id] !== "muted" && hasBeenTwelve;
+            const isTermAvailable = isAvailable(
+                levelsData?.[term.id]?.nextDate,
+            );
+            return termsData[term.id] !== "muted" && isTermAvailable;
         });
 
         if (clonedTerms.length <= MAX_SESSION_SIZE) {
             return filteredTerms;
         }
 
-        if (!pointsData) {
+        if (!levelsData) {
             return filteredTerms.slice(0, MAX_SESSION_SIZE);
         }
 
+        //TODO: cambiar logica para staging, debe calcular diferente basandose en 'nextDate' y 'level'
         //ordenar elementos por fecha de estudio, dejando los elementos mas viejos primero (los que estudia hace mas tiempo)
         //ordenar elementos por puntaje, dejando los elementos con menor puntaje
         const orderedTerms = JSON.parse(JSON.stringify(filteredTerms)).sort(
-            sortByDateAndPoints
+            sortByDateAndPoints,
         );
 
         //elegir maximo 30
@@ -151,34 +161,34 @@ const SessionControls = ({
         //-1 los cambia de posicion
 
         //No hay informacion para ambos terminos, mantengo el orden
-        if (!pointsData[a.id] && !pointsData[b.id]) {
+        if (!levelsData[a.id] && !levelsData[b.id]) {
             return 0;
         }
 
-        const aDate = pointsData[a.id]?.date;
-        const aPoints = pointsData[a.id]?.points;
+        const aDate = levelsData[a.id]?.nextDate;
+        const aLevel = levelsData[a.id]?.level;
 
-        const bDate = pointsData[b.id]?.date;
-        const bPoints = pointsData[b.id]?.points;
+        const bDate = levelsData[b.id]?.nextDate;
+        const bLevel = levelsData[b.id]?.level;
 
         //significa que nunca he estudiado el termino A
         //mantengo orden
-        if (!pointsData[a.id]) {
+        if (!levelsData[a.id]) {
             return -1;
         }
 
         //significa que nunca he estudiado el termino B
         //cambio el orden
-        if (!pointsData[b.id]) {
+        if (!levelsData[b.id]) {
             return 1;
         }
 
         const aDateObject = new Date(aDate);
         const bDateObject = new Date(bDate);
 
-        if (aPoints < bPoints) {
+        if (aLevel < bLevel) {
             return -1;
-        } else if (aPoints > bPoints) {
+        } else if (aLevel > bLevel) {
             return 1;
         }
 
@@ -267,22 +277,22 @@ const SessionControls = ({
                 <p className="info">
                     Ultima sesion: {timeDifference(lastReviewDate)}
                 </p>
-                <p className="timeInfo">
+                {/* <p className="timeInfo">
                     *terminos se refrescan despues de 12 horas
-                </p>
+                </p> */}
                 <button disabled={!hasSession} onClick={changeToReviewScreen}>
                     <p>Continuar repaso </p>
                     <p>{amountInfo}</p>
                 </button>
 
                 <button
-                    disabled={amountReviewedToday === terms.length - muted}
+                    disabled={amountReviewed === terms.length - muted}
                     onClick={onNewStudySession}
                 >
                     <p>
                         Nuevo estudio <ImLab />
                     </p>
-                    <p>{`(${amountReviewedToday} - ${
+                    <p>{`(${amountReviewed} - ${
                         terms.length - muted
                     } estudiados*)`}</p>
                 </button>

@@ -24,7 +24,7 @@ const NormalSessionTabs = (props) => {
                     terms={lecture.termList}
                     sessionData={lectureQueryData?.japanese_session}
                     termsData={lectureQueryData?.japanese_terms_data}
-                    pointsData={lectureQueryData?.japanese_terms_points}
+                    levelsData={lectureQueryData?.japanese_terms_levels}
                     lectureQuery={lectureQuery}
                 />
             </Tab>
@@ -36,7 +36,7 @@ const NormalSessionTabs = (props) => {
                     terms={lecture.termList}
                     sessionData={lectureQueryData?.spanish_session}
                     termsData={lectureQueryData?.spanish_terms_data}
-                    pointsData={lectureQueryData?.spanish_terms_points}
+                    levelsData={lectureQueryData?.spanish_terms_levels}
                     lectureQuery={lectureQuery}
                 />
             </Tab>

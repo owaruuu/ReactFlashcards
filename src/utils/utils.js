@@ -344,7 +344,6 @@ const levelToMultiplier = {
 export function levelToHours(level) {
     if (level < 1) level = 1;
 
-    console.log("🚀 ~ levelToHours ~ level:", level);
     if (level > 8) return levelToMultiplier[8];
 
     return levelToMultiplier[level];
@@ -357,7 +356,6 @@ export function levelToHours(level) {
  * @returns {int} newLevel
  */
 export function getNewLevel(level, change) {
-    console.log("🚀 ~ getNewLevel ~ level, change:", level, change);
     if (level + change === 0) return 1;
 
     if (level + change > 9) return 9;
@@ -367,17 +365,12 @@ export function getNewLevel(level, change) {
 
 export function normalizeDate(date) {
     let newDate = new Date(date);
-    console.log("🚀 ~ normalizeDate ~ newDate: fecha original", newDate);
 
     if (newDate.getHours() < 17) {
         newDate.setHours(8);
         newDate.setMinutes(0);
         newDate.setSeconds(0);
         newDate.setMilliseconds(0);
-        console.log(
-            "🚀 ~ normalizeDate ~ newDate: fecha era menor a las 17",
-            new Date(newDate),
-        );
 
         return newDate;
     } else if (newDate.getHours() >= 17) {
@@ -385,10 +378,7 @@ export function normalizeDate(date) {
         newDate.setMinutes(0);
         newDate.setSeconds(0);
         newDate.setMilliseconds(0);
-        console.log(
-            "🚀 ~ normalizeDate ~ newDate: fecha era mayor a las 17",
-            new Date(newDate),
-        );
+
         return newDate;
     }
 
@@ -413,4 +403,15 @@ export function getShortTime(date) {
         hour12: true,
     });
     return `${dateStr}, ${timeStr}`;
+}
+
+export function isAvailable(nextDate) {
+    if (nextDate === undefined) return true;
+    //DEBUG
+    // const now = new Date("2026-04-07T05:00:00");
+    const now = new Date();
+    // console.log("🚀 ~ isAvailable ~ nextDate:", typeof nextDate);
+    // console.log("🚀 ~ isAvailable ~ now:", typeof now);
+    // console.log("🚀 ~ isAvailable ~ now:", now.toISOString());
+    return new Date(nextDate) < now;
 }
