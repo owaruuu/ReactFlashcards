@@ -18,6 +18,7 @@ import {
     getLectureQueryString,
     getNewLevel,
     levelToHours,
+    normalizeDate,
     ONE_HOUR,
 } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
@@ -329,32 +330,32 @@ const ReviewView = (props) => {
             : 1;
 
         const today = new Date();
-        let nextDate = new Date();
+        let nextDate = new Date(today);
+
         if (button === -1) {
-            nextDate = new Date(nextDate.setHours(nextDate.getHours() + 12));
+            nextDate = nextDate.setHours(nextDate.getHours() + 12);
         } else if (button === 0) {
-            nextDate = new Date(
-                nextDate.setHours(
-                    nextDate.getHours() + levelToHours(currentTermLevel - 1),
-                ),
+            nextDate = nextDate.setHours(
+                nextDate.getHours() + levelToHours(currentTermLevel - 1),
             );
         } else if (button === 1) {
-            nextDate = new Date(
-                nextDate.setHours(
-                    nextDate.getHours() + levelToHours(currentTermLevel),
-                ),
+            nextDate = nextDate.setHours(
+                nextDate.getHours() + levelToHours(currentTermLevel),
             );
         }
+
+        const diffHours =
+            (new Date(nextDate).getTime() - today.getTime()) / (1000 * 60 * 60);
+        console.log("🚀 ~ getNewPoints ~ diffHours:", diffHours);
+
+        nextDate = normalizeDate(nextDate);
 
         const newLevel = getNewLevel(currentTermLevel, button);
         console.log("🚀 ~ getNewPoints ~ currentTermLevel:", currentTermLevel);
         console.log("🚀 ~ getNewPoints ~ newLevel:", newLevel);
 
         console.log("🚀 ~ getNewPoints ~ today:", today);
-        console.log("🚀 ~ getNewPoints ~ nextDate:", nextDate);
-        const diffHours =
-            (nextDate.getTime() - today.getTime()) / (1000 * 60 * 60);
-        console.log("🚀 ~ getNewPoints ~ diffHours:", diffHours);
+        console.log("🚀 ~ getNewPoints ~ nextDate:", new Date(nextDate));
 
         //TODO: cambiar logica para staging
         //calcular que hacer con el nivel

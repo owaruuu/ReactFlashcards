@@ -364,3 +364,38 @@ export function getNewLevel(level, change) {
 
     return level + change;
 }
+
+export function normalizeDate(date) {
+    let newDate = new Date(date);
+    console.log("🚀 ~ normalizeDate ~ newDate: fecha original", newDate);
+
+    if (newDate.getHours() < 17) {
+        newDate.setHours(8);
+        newDate.setMinutes(0);
+        newDate.setSeconds(0);
+        newDate.setMilliseconds(0);
+        console.log(
+            "🚀 ~ normalizeDate ~ newDate: fecha era menor a las 17",
+            new Date(newDate),
+        );
+
+        return newDate;
+    } else if (newDate.getHours() >= 17) {
+        newDate.setHours(17);
+        newDate.setMinutes(0);
+        newDate.setSeconds(0);
+        newDate.setMilliseconds(0);
+        console.log(
+            "🚀 ~ normalizeDate ~ newDate: fecha era mayor a las 17",
+            new Date(newDate),
+        );
+        return newDate;
+    }
+
+    console.error(
+        "🚀 ~ normalizeDate ~ newDate: fecha no es valida",
+        new Date(newDate),
+    );
+
+    return newDate;
+}
