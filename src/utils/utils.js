@@ -399,3 +399,18 @@ export function normalizeDate(date) {
 
     return newDate;
 }
+
+export function getShortTime(date) {
+    const d = new Date(date);
+    const dateStr = d.toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "2-digit",
+        year: "2-digit",
+    });
+    const timeStr = d.toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+    });
+    return `${dateStr}, ${timeStr}`;
+}

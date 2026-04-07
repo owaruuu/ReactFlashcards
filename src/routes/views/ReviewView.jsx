@@ -20,6 +20,7 @@ import {
     levelToHours,
     normalizeDate,
     ONE_HOUR,
+    getShortTime,
 } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -88,6 +89,7 @@ const ReviewView = (props) => {
 
     //acceder a terminos directamente
     const termsIds = lectureQuery.data.data[`${lang}_session`].terms;
+    const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
 
     const handleOptionsButtonClick = (state) => {
         setShowModal(state);
@@ -178,7 +180,10 @@ const ReviewView = (props) => {
     //TODO: cambiar logica para staging
     //necesita calcular el nivel resultante y la hora en la que estara nuevamente disponible
     async function handleNextTerm(button) {
-        const newLevelsInfo = getNewPoints(button);
+        const termsInfo = termsQueryData ? termsQueryData : {};
+
+        const newLevelsInfo =
+            button === null ? termsInfo : getNewPoints(button);
         console.log("🚀 ~ handleNextTerm ~ newPoints:", newLevelsInfo);
         // const newLevel = calculateNewLevel(points);
         const newValue = removeFirstTerm();
@@ -227,7 +232,10 @@ const ReviewView = (props) => {
 
     const nextButton = (
         <div className="containerNextButton">
-            <p>Ya respondiste esta flashcard hoy</p>
+            <p>
+                Este termino estará disponible nuevamente{" "}
+                {getShortTime(termsQueryData?.[termsIds[0]]?.nextDate)}
+            </p>
             <NextButton
                 next={termsIds.length > 1 ? true : false}
                 onClick={handleNextTerm}
@@ -244,7 +252,46 @@ const ReviewView = (props) => {
     const validId =
         termsIds.length > 0 ? (termsDict[currentTermId] ? true : false) : true;
 
-    const timeElapsedSinceLastAnswer = getHoursSinceAnswer();
+    // const timeElapsedSinceLastAnswer = getHoursSinceAnswer();
+    const isTermAvailable = getTermAvailability();
+
+    function getTermAvailability() {
+        // const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
+        console.log("🚀 ~ isTermAvailable ~ termsQueryData:", termsQueryData);
+
+        const currentTermLevel = termsQueryData
+            ? termsQueryData[currentTermId]
+            : null;
+        console.log(
+            "🚀 ~ isTermAvailable ~ currentTermLevel:",
+            currentTermLevel,
+        );
+        const availableTime = currentTermLevel
+            ? new Date(currentTermLevel.nextDate)
+            : null;
+        console.log("🚀 ~ getTermAvailability ~ availableTime:", availableTime);
+
+        const now = new Date();
+        // if (availableTime) {
+        //     console.log("la fecha actual es: ", now);
+        //     console.log("la fecha disponible es: ", availableTime);
+        //     const availableTimeDate = new Date(availableTime);
+
+        //     if (now < availableTimeDate) {
+        //         console.log("la fecha actual es menor a la fecha disponible");
+        //     } else if (now > availableTimeDate) {
+        //         console.log("la fecha actual es mayor a la fecha disponible");
+        //     } else {
+        //         console.log("la fecha actual es igual a la fecha disponible");
+        //     }
+        // }
+
+        if (availableTime && now < availableTime) {
+            return false;
+        }
+
+        return true;
+    }
 
     function getHoursSinceAnswer() {
         const pointsData = lectureQuery.data.data[`${lang}_terms_points`];
@@ -274,7 +321,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
-            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
+            levelsInfo={termsQueryData}
         />
     );
 
@@ -287,7 +334,7 @@ const ReviewView = (props) => {
             state={
                 lectureQuery.data?.data?.[`${lang}_terms_data`]?.[currentTermId]
             }
-            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
+            levelsInfo={termsQueryData}
         />
     );
 
@@ -303,7 +350,7 @@ const ReviewView = (props) => {
             handleUndo={handleUndoClick}
             handleReset={handleResetClick}
             ref={childrenRef}
-            levelsInfo={lectureQuery.data.data[`${lang}_terms_levels`]}
+            levelsInfo={termsQueryData}
         />
     );
 
@@ -322,12 +369,16 @@ const ReviewView = (props) => {
 
     function getNewPoints(button) {
         console.log("🚀 ~ getNewPoints ~ button:", button);
-        const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
+        // const termsQueryData = lectureQuery.data.data[`${lang}_terms_levels`];
         const termsInfo = termsQueryData ? termsQueryData : {};
 
         const currentTermLevel = termsInfo[currentTermId]
             ? termsInfo[currentTermId].level
             : 1;
+        console.log(
+            "🚀 ~ isTermAvailable ~ currentTermLevel:",
+            currentTermLevel,
+        );
 
         const today = new Date();
         let nextDate = new Date(today);
@@ -469,7 +520,7 @@ const ReviewView = (props) => {
                 <div className="feedback">
                     <p>{feedbackMessage}</p>
                 </div>
-                {timeElapsedSinceLastAnswer >= 12 ? ( //TODO: cambiar logica para staging
+                {isTermAvailable ? (
                     <AnswerButtons
                         termPointsData={
                             lectureQuery.data.data[`${lang}_terms_points`]
