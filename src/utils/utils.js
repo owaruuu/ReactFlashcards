@@ -2,6 +2,7 @@ import _, { map } from "lodash";
 import { kanjiLookup } from "../data/kanjiLookup";
 
 export const ONE_HOUR = 1000 * 60 * 60;
+export const ONE_DAY = 1000 * 60 * 60 * 24;
 
 export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
 
@@ -414,4 +415,105 @@ export function isAvailable(nextDate) {
     // console.log("🚀 ~ isAvailable ~ now:", typeof now);
     // console.log("🚀 ~ isAvailable ~ now:", now.toISOString());
     return new Date(nextDate) < now;
+}
+
+export function getComingTerms(levelsData) {
+    let comingTerms = {};
+    let comingTermsArray = [];
+    // let sameDays = 0;
+    let sameDayEight = 0;
+    let sameDaySeventeen = 0;
+
+    //DEBUG
+    const now = new Date();
+
+    for (const [key, value] of Object.entries(levelsData)) {
+        // console.log("revisando termino ", levelsData[key]);+
+        const nextDate = new Date(value.nextDate);
+
+        if (isAvailable(nextDate)) {
+            continue;
+        }
+
+        if (isSameDay(now, nextDate)) {
+            // console.log("es el mismo dia");
+            // sameDays += 1;
+            if (nextDate.getHours() === 8) {
+                sameDayEight += 1;
+                comingTerms["08:00"] = {
+                    amount: (comingTerms["08:00"]?.amount || 0) + 1,
+                    date: nextDate,
+                };
+            } else if (nextDate.getHours() === 17) {
+                sameDaySeventeen += 1;
+                comingTerms["17:00"] = {
+                    amount: (comingTerms["17:00"]?.amount || 0) + 1,
+                    date: nextDate,
+                };
+            }
+        }
+
+        if (isTomorrow(now, nextDate)) {
+            comingTerms["tomorrow"] = {
+                amount: (comingTerms["tomorrow"]?.amount || 0) + 1,
+                date: nextDate,
+            };
+        }
+
+        if (isMoreThanOneDay(now, nextDate)) {
+            const date = toDDMMYY(nextDate);
+            comingTerms[date] = {
+                amount: (comingTerms[date]?.amount || 0) + 1,
+                date: nextDate,
+            };
+        }
+    }
+
+    comingTermsArray = Object.entries(comingTerms)
+        .map((entry) => {
+            return {
+                key: entry[0],
+                amount: entry[1]["amount"],
+                date: entry[1]["date"],
+            };
+        })
+        .sort((a, b) => a.date - b.date);
+
+    console.log("🚀 ~ getComingTerms ~ comingTermsArray:", comingTermsArray);
+}
+
+function isSameDay(a, b) {
+    const d1 = new Date(a);
+    // console.log("🚀 ~ isSameDay ~ d1:", d1);
+    const d2 = new Date(b);
+    // console.log("🚀 ~ isSameDay ~ d2:", d2);
+    d1.setHours(0, 0, 0, 0);
+    // console.log("🚀 ~ isSameDay ~ d1:", d1);
+    d2.setHours(0, 0, 0, 0);
+    // console.log("🚀 ~ isSameDay ~ d2:", d2);
+    return d1.getTime() === d2.getTime();
+}
+
+function isTomorrow(a, b) {
+    const d1 = new Date(a); //today
+    const d2 = new Date(b); //nextDate
+    d1.setHours(0, 0, 0, 0);
+    d2.setHours(0, 0, 0, 0);
+    return d1.getTime() + ONE_DAY === d2.getTime();
+}
+
+function isMoreThanOneDay(a, b) {
+    const d1 = new Date(a); //today
+    const d2 = new Date(b); //nextDate
+    d1.setHours(0, 0, 0, 0);
+    d2.setHours(0, 0, 0, 0);
+    return d1.getTime() + ONE_DAY < d2.getTime();
+}
+
+function toDDMMYY(date) {
+    const d = new Date(date);
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = String(d.getFullYear()).slice(-2);
+    return `${dd}/${mm}/${yy}`;
 }

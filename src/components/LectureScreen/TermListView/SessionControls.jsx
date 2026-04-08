@@ -5,6 +5,7 @@ import { HiStar } from "react-icons/hi2";
 import { ImLab } from "react-icons/im";
 import { useCreateSessionMutation } from "../../../hooks/userDataQueryHook";
 import {
+    getComingTerms,
     getLectureQueryString,
     isAvailable,
     ONE_HOUR,
@@ -24,11 +25,13 @@ const SessionControls = ({
     levelsData = {}, //ADD default state
     lectureQuery, //ADD lecture query to read status
 }) => {
+    // console.log("🚀 ~ SessionControls ~ levelsData:", levelsData);
     const navigate = useNavigate();
 
     const hasSession = sessionData?.terms?.length > 0;
     const lastReviewDate = sessionData ? sessionData.lastReviewed : undefined;
     const amountReviewed = calculateReviewed();
+    const comingTerms = getComingTerms(levelsData);
 
     const amountInfo = hasSession
         ? sessionData.terms.length > 1
@@ -277,9 +280,9 @@ const SessionControls = ({
                 <p className="info">
                     Ultima sesion: {timeDifference(lastReviewDate)}
                 </p>
-                {/* <p className="timeInfo">
+                <p className="timeInfo">
                     *terminos se refrescan despues de 12 horas
-                </p> */}
+                </p>
                 <button disabled={!hasSession} onClick={changeToReviewScreen}>
                     <p>Continuar repaso </p>
                     <p>{amountInfo}</p>
