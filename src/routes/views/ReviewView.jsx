@@ -38,6 +38,8 @@ const ReviewView = (props) => {
     //lectureQuery viene lista
     const { setTab, allLecturesDataQuery, lectureQuery, lecture } =
         useOutletContext();
+    // console.log("🚀 ~ ReviewView ~ lecture:", lecture);
+    // console.log("🚀 ~ ReviewView ~ lectureQuery:", lectureQuery);
 
     const childrenRef = useRef();
 
@@ -373,7 +375,7 @@ const ReviewView = (props) => {
         const today = new Date();
         let nextDate = new Date(today);
 
-        if (button === -1) {
+        if (button === -1 || button === -2) {
             nextDate = nextDate.setHours(nextDate.getHours() + 12);
         } else if (button === 0) {
             nextDate = nextDate.setHours(
@@ -506,8 +508,8 @@ const ReviewView = (props) => {
                 </div>
                 {isTermAvailable ? (
                     <AnswerButtons
-                        termPointsData={
-                            lectureQuery.data.data[`${lang}_terms_points`]
+                        termLevelsData={
+                            lectureQuery.data.data[`${lang}_terms_levels`]
                         }
                         currentTermId={currentTermId}
                         termsIds={termsIds}

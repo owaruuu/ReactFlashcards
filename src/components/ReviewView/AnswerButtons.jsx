@@ -4,10 +4,9 @@ import LearnButtonContent from "./LearnButtonContent.jsx";
 import AnswerButton from "./AnswerButton.jsx";
 
 const AnswerButtons = (props) => {
-    const MIN_POINTS = 5;
-    const MID_WAY_POINTS = 50;
+    const MID_WAY_POINT = 6;
     const {
-        termPointsData,
+        termLevelsData,
         currentTermId,
         termsIds,
         onClick,
@@ -15,9 +14,9 @@ const AnswerButtons = (props) => {
         loading,
         validId,
     } = props;
-    const currentTermData = termPointsData?.[currentTermId]
-        ? termPointsData[currentTermId]
-        : { points: MIN_POINTS };
+    const currentTermData = termLevelsData?.[currentTermId]
+        ? termLevelsData[currentTermId]
+        : { level: 1 };
 
     const lowerButtons = (
         <>
@@ -25,22 +24,25 @@ const AnswerButtons = (props) => {
                 loading={loading}
                 onClick={onClick}
                 content={"Aun no"}
-                points={-2}
+                level={-1}
                 type={"red"}
+                helper="-1 nivel"
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Ya casi"}
-                points={3}
+                level={0}
                 type={"yellow"}
+                helper="mantener nivel"
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Lo se"}
-                points={7}
+                level={1}
                 type={"green"}
+                helper="+1 nivel"
             />
         </>
     );
@@ -51,29 +53,32 @@ const AnswerButtons = (props) => {
                 loading={loading}
                 onClick={onClick}
                 content={"Lo olvide"}
-                points={-7}
+                level={-2}
                 type={"darkRed"}
+                helper="-2 nivel"
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
-                content={"Lo se"}
-                points={7}
-                type={"green"}
+                content={"Ya casi"}
+                level={0}
+                type={"yellow"}
+                helper="mantener nivel"
             />
             <AnswerButton
                 loading={loading}
                 onClick={onClick}
                 content={"Memorizado"}
-                points={10}
+                level={+1}
                 type={"purple"}
+                helper="+1 nivel"
             />
         </>
     );
 
     return validId ? (
         <div className="containerAnswerButtons">
-            {currentTermData.points >= MID_WAY_POINTS
+            {currentTermData.level >= MID_WAY_POINT
                 ? higherButtons
                 : lowerButtons}
         </div>
