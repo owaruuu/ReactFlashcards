@@ -288,21 +288,21 @@ const ReviewView = (props) => {
         return true;
     }
 
-    function getHoursSinceAnswer() {
-        const pointsData = lectureQuery.data.data[`${lang}_terms_points`];
-        const currentTermData = pointsData ? pointsData[currentTermId] : null;
-        const answerTime = currentTermData ? currentTermData.date : null;
+    // function getHoursSinceAnswer() {
+    //     const pointsData = lectureQuery.data.data[`${lang}_terms_points`];
+    //     const currentTermData = pointsData ? pointsData[currentTermId] : null;
+    //     const answerTime = currentTermData ? currentTermData.date : null;
 
-        if (!answerTime) {
-            return HOURS_MIN + 1;
-        }
+    //     if (!answerTime) {
+    //         return HOURS_MIN + 1;
+    //     }
 
-        const today = new Date().getTime();
-        const answerTimeMili = new Date(answerTime).getTime();
-        const hoursSinceAnswer = (today - answerTimeMili) / ONE_HOUR;
+    //     const today = new Date().getTime();
+    //     const answerTimeMili = new Date(answerTime).getTime();
+    //     const hoursSinceAnswer = (today - answerTimeMili) / ONE_HOUR;
 
-        return Math.trunc(hoursSinceAnswer);
-    }
+    //     return Math.trunc(hoursSinceAnswer);
+    // }
 
     const errorFlashcard = <ErrorFlashCard />;
 

@@ -1,5 +1,10 @@
 import LectureButton from "./LectureButton.js/LectureButton";
-import { pickDifference, getDiff, ONE_HOUR } from "../../utils/utils.js";
+import {
+    pickDifference,
+    getDiff,
+    ONE_HOUR,
+    isAvailable,
+} from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
     const {
@@ -73,6 +78,7 @@ const LectureButtons = (props) => {
 //FUNCTIONS
 
 function insertSessionData(lectures, dataObject, isKanjiView) {
+    // console.log("🚀 ~ insertSessionData ~ dataObject:", dataObject);
     let filledLectures = JSON.parse(JSON.stringify(lectures));
     if (isKanjiView) {
         filledLectures = filledLectures.map((lecture) => {
@@ -104,17 +110,17 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
                     lecture["recognize_terms_data"] =
                         dataObject[lecture.lectureId]["recognize_terms_data"];
                 }
-                if (dataObject[lecture.lectureId]["recognize_terms_points"]) {
-                    lecture["recognize_terms_points"] =
-                        dataObject[lecture.lectureId]["recognize_terms_points"];
+                if (dataObject[lecture.lectureId]["recognize_terms_levels"]) {
+                    lecture["recognize_terms_levels"] =
+                        dataObject[lecture.lectureId]["recognize_terms_levels"];
                 }
                 if (dataObject[lecture.lectureId]["write_terms_data"]) {
                     lecture["write_terms_data"] =
                         dataObject[lecture.lectureId]["write_terms_data"];
                 }
-                if (dataObject[lecture.lectureId]["write_terms_points"]) {
-                    lecture["write_terms_points"] =
-                        dataObject[lecture.lectureId]["write_terms_points"];
+                if (dataObject[lecture.lectureId]["write_terms_levels"]) {
+                    lecture["write_terms_levels"] =
+                        dataObject[lecture.lectureId]["write_terms_levels"];
                 }
             }
 
@@ -138,13 +144,13 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
                     lecture["spanish_session"] =
                         dataObject[lecture.lectureId]["spanish_session"];
                 }
-                if (dataObject[lecture.lectureId]["japanese_terms_points"]) {
-                    lecture["japanese_terms_points"] =
-                        dataObject[lecture.lectureId]["japanese_terms_points"];
+                if (dataObject[lecture.lectureId]["japanese_terms_levels"]) {
+                    lecture["japanese_terms_levels"] =
+                        dataObject[lecture.lectureId]["japanese_terms_levels"];
                 }
-                if (dataObject[lecture.lectureId]["spanish_terms_points"]) {
-                    lecture["spanish_terms_points"] =
-                        dataObject[lecture.lectureId]["spanish_terms_points"];
+                if (dataObject[lecture.lectureId]["spanish_terms_levels"]) {
+                    lecture["spanish_terms_levels"] =
+                        dataObject[lecture.lectureId]["spanish_terms_levels"];
                 }
                 if (dataObject[lecture.lectureId]["japanese_terms_data"]) {
                     lecture["japanese_terms_data"] =
@@ -156,6 +162,7 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
                 }
             }
 
+            // console.log("🚀 ~ insertSessionData ~ lecture:", lecture);
             return lecture;
         });
     }
@@ -218,8 +225,12 @@ function calculateAmountReady(dataArray, isKanjiView) {
                 ? lecture["spanish_terms_data"]
                 : {}; //ADD default value
 
-            const japanesePointsData = lecture["japanese_terms_points"];
-            const spanishPointsData = lecture["spanish_terms_points"];
+            const japaneseLevelsData = lecture["japanese_terms_levels"];
+            // console.log(
+            //     "🚀 ~ calculateAmountReady ~ japaneseLevelsData:",
+            //     japaneseLevelsData,
+            // );
+            const spanishLevelsData = lecture["spanish_terms_levels"];
 
             if (japaneseData) {
                 Object.entries(japaneseData).forEach((element) => {
@@ -241,23 +252,23 @@ function calculateAmountReady(dataArray, isKanjiView) {
                 });
             }
 
-            if (japanesePointsData) {
-                for (const [key, value] of Object.entries(japanesePointsData)) {
+            //TODO cambiar logica para usar nextDate
+            if (japaneseLevelsData) {
+                for (const [key, value] of Object.entries(japaneseLevelsData)) {
                     if (japaneseData[key] !== "muted") {
-                        //ADD check for muted state
-                        const moreThanTwelve = calculateTwelve(value.date);
-                        if (!moreThanTwelve) {
+                        const isTermAvailable = isAvailable(value.nextDate);
+                        if (!isTermAvailable) {
                             aAmountReviewedToday += 1;
                         }
                     }
                 }
             }
-            if (spanishPointsData) {
-                for (const [key, value] of Object.entries(spanishPointsData)) {
+            //TODO cambiar logica para usar nextDate
+            if (spanishLevelsData) {
+                for (const [key, value] of Object.entries(spanishLevelsData)) {
                     if (spanishData[key] !== "muted") {
-                        //ADD check for muted state
-                        const moreThanTwelve = calculateTwelve(value.date);
-                        if (!moreThanTwelve) {
+                        const isTermAvailable = isAvailable(value.nextDate);
+                        if (!isTermAvailable) {
                             bAmountReviewedToday += 1;
                         }
                     }
@@ -279,8 +290,8 @@ function calculateAmountReady(dataArray, isKanjiView) {
             const writeData = lecture["write_terms_data"]
                 ? lecture["write_terms_data"]
                 : {}; //ADD default value
-            const recognizePointsData = lecture["recognize_terms_points"];
-            const writePointsData = lecture["write_terms_points"];
+            const recognizeLevelsData = lecture["recognize_terms_levels"];
+            const writeLevelsData = lecture["write_terms_levels"];
 
             //NEW ahora revisa que el id del muted exista en la leccion
             if (recognizeData) {
@@ -303,25 +314,25 @@ function calculateAmountReady(dataArray, isKanjiView) {
                 });
             }
 
-            if (recognizePointsData) {
+            if (recognizeLevelsData) {
                 for (const [key, value] of Object.entries(
-                    recognizePointsData
+                    recognizeLevelsData,
                 )) {
                     if (recognizeData[key] !== "muted") {
                         //ADD check for muted state
-                        const moreThanTwelve = calculateTwelve(value.date);
-                        if (!moreThanTwelve) {
+                        const isTermAvailable = isAvailable(value.nextDate);
+                        if (!isTermAvailable) {
                             aAmountReviewedToday += 1;
                         }
                     }
                 }
             }
-            if (writePointsData) {
-                for (const [key, value] of Object.entries(writePointsData)) {
+            if (writeLevelsData) {
+                for (const [key, value] of Object.entries(writeLevelsData)) {
                     if (writeData[key] !== "muted") {
                         //ADD check for muted state
-                        const moreThanTwelve = calculateTwelve(value.date);
-                        if (!moreThanTwelve) {
+                        const isTermAvailable = isAvailable(value.nextDate);
+                        if (!isTermAvailable) {
                             bAmountReviewedToday += 1;
                         }
                     }
@@ -368,16 +379,16 @@ function buildLectureData(dataArray) {
         result[element.lecture_id] = {
             japanese_session: element["japanese_session"],
             japanese_terms_data: element["japanese_terms_data"],
-            japanese_terms_points: element["japanese_terms_points"],
+            japanese_terms_levels: element["japanese_terms_levels"],
             spanish_session: element["spanish_session"],
             spanish_terms_data: element["spanish_terms_data"],
-            spanish_terms_points: element["spanish_terms_points"],
+            spanish_terms_levels: element["spanish_terms_levels"],
             recognize_session: element["recognize_session"],
             recognize_terms_data: element["recognize_terms_data"],
-            recognize_terms_points: element["recognize_terms_points"],
+            recognize_terms_levels: element["recognize_terms_levels"],
             write_session: element["write_session"],
             write_terms_data: element["write_terms_data"],
-            write_terms_points: element["write_terms_points"],
+            write_terms_levels: element["write_terms_levels"],
         };
     });
 

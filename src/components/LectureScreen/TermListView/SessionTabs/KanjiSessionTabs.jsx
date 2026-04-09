@@ -23,7 +23,7 @@ const KanjiSessionTabs = (props) => {
                     terms={lecture.termList}
                     sessionData={lectureQueryData?.recognize_session}
                     termsData={lectureQueryData?.recognize_terms_data}
-                    pointsData={lectureQueryData?.recognize_terms_points}
+                    levelsData={lectureQueryData?.recognize_terms_levels}
                     lectureQuery={lectureQuery}
                 />
             </Tab>
@@ -35,7 +35,7 @@ const KanjiSessionTabs = (props) => {
                     terms={lecture.kanjiList}
                     sessionData={lectureQueryData?.write_session}
                     termsData={lectureQueryData?.write_terms_data}
-                    pointsData={lectureQueryData?.write_terms_points}
+                    levelsData={lectureQueryData?.write_terms_levels}
                     lectureQuery={lectureQuery}
                 />
             </Tab>
