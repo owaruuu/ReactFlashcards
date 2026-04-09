@@ -14,7 +14,7 @@ const TermCard = (props) => {
     return (
         <div className={classNames}>
             <div className="term">
-                {level && <div className="points">{level.level}</div>}
+                {level && <div className="points">nivel:{level.level}</div>}
                 <span>{props.term}</span>
             </div>
             <div className="divider"></div>

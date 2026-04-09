@@ -409,7 +409,7 @@ export function getShortTime(date) {
 export function isAvailable(nextDate) {
     if (nextDate === undefined) return true;
     //DEBUG
-    // const now = new Date("2026-04-07T05:00:00");
+    // const now = new Date("2026-04-06T05:00:00");
     const now = new Date();
     // console.log("🚀 ~ isAvailable ~ nextDate:", typeof nextDate);
     // console.log("🚀 ~ isAvailable ~ now:", typeof now);
@@ -426,6 +426,7 @@ export function getComingTerms(levelsData) {
 
     //DEBUG
     const now = new Date();
+    // const now = new Date("2026-04-07T05:00:00");
 
     for (const [key, value] of Object.entries(levelsData)) {
         // console.log("revisando termino ", levelsData[key]);+
@@ -454,8 +455,8 @@ export function getComingTerms(levelsData) {
         }
 
         if (isTomorrow(now, nextDate)) {
-            comingTerms["tomorrow"] = {
-                amount: (comingTerms["tomorrow"]?.amount || 0) + 1,
+            comingTerms["Mañana"] = {
+                amount: (comingTerms["Mañana"]?.amount || 0) + 1,
                 date: nextDate,
             };
         }
@@ -479,7 +480,9 @@ export function getComingTerms(levelsData) {
         })
         .sort((a, b) => a.date - b.date);
 
-    console.log("🚀 ~ getComingTerms ~ comingTermsArray:", comingTermsArray);
+    // console.log("🚀 ~ getComingTerms ~ comingTermsArray:", comingTermsArray);
+
+    return comingTermsArray;
 }
 
 function isSameDay(a, b) {

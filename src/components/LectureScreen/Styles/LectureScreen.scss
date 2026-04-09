@@ -137,14 +137,16 @@
                     width: 80%;
                     max-width: 1024px;
                     display: grid;
+                    align-items: center;
+                    gap: 10px;
 
                     grid-template-columns: 1fr;
-                    grid-template-rows: auto;
+                    grid-template-rows: 2fr 1fr 1fr;
                     grid-template-areas:
+                        "smartStudy"
+                        "comingTerms"
                         "."
                         "info"
-                        "."
-                        "timeInfo"
                         "."
                         ".";
 
@@ -172,8 +174,113 @@
                         font-size: 10px;
                     }
 
-                    button {
+                    .smartStudy {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        grid-area: smartStudy;
+
+                        font-size: 1rem;
+                        .smartStudyIcon {
+                            border: 1px solid white;
+                            height: 80px;
+                            width: 80px;
+                        }
+                        .smartStudyTitle {
+                            font-size: 1.6rem;
+                        }
+                    }
+
+                    .comingTerms {
+                        display: flex;
+                        flex-direction: column;
+                        position: relative;
+
+                        .comingEntry {
+                            display: flex;
+                            // flex-direction: column;
+                            justify-content: space-between;
+                            align-items: center;
+                            p {
+                                margin: 0;
+                            }
+                            .comingEntryKey {
+                                font-weight: 900;
+                            }
+                            .comingEntryAmount {
+                                font-weight: 400;
+                            }
+                        }
+
+                        p {
+                            text-align: left;
+                            margin-top: 10px;
+                        }
+                        .entries {
+                            display: flex;
+                            flex-direction: column;
+
+                            width: 50%;
+                            padding-top: 15px;
+                            padding-left: 5px;
+                            font-size: 0.9rem;
+                            height: 100%;
+                            justify-content: start;
+                            gap: 5px;
+                        }
+                        height: 100%;
+                        padding: 0 10px;
+                        border-bottom: 2px solid white;
+                        border-radius: 10px;
+                        grid-area: comingTerms;
+
+                        .info-icon {
+                            position: absolute;
+                            right: 10px;
+                            bottom: 5px;
+                            background-color: transparent;
+                            border: none;
+                            cursor: pointer;
+
+                            svg {
+                                font-size: 1.5rem;
+                            }
+                        }
+
+                        .all-terms-available {
+                            font-style: italic;
+                        }
+                    }
+
+                    .explanation {
+                        grid-area: explanation;
+                        display: none;
+                        overflow-y: auto;
+                        font-size: 0.8rem;
+                        height: 100%;
+                        border-radius: 10px;
+                        padding: 0 7px;
+                        // font-weight: 600;
+                        border: 2px solid white;
+
+                        p {
+                            margin: auto;
+                        }
+                        .greenButton {
+                            font-weight: 800;
+                            color: #3fd73f;
+                            text-wrap-mode: nowrap;
+                        }
+
+                        .italic {
+                            font-style: italic;
+                        }
+                    }
+
+                    .session-button {
                         // grid-area: boton;
+                        height: 100%;
                         font-size: clamp(0.4rem, 0.4rem + 1.5vw, 1rem);
                         font-weight: 400;
                         font-family: "Noto_Serif";
@@ -212,17 +319,28 @@
 
                     @media (min-width: 425px) {
                         grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 2fr 1fr 1fr;
                         grid-template-areas:
-                            ". ."
-                            "info timeInfo"
+                            "smartStudy comingTerms"
+                            ". info"
                             ". .";
                     }
 
                     @media (min-width: 768px) {
-                        grid-template-columns: 1fr 1fr 1fr 1fr;
+                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-rows: 12rem auto;
                         grid-template-areas:
-                            ". . . ."
-                            "info timeInfo . .";
+                            "smartStudy comingTerms explanation"
+                            ". . . "
+                            "info . .";
+                        .explanation {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .info-icon {
+                            display: none;
+                        }
                     }
                 }
 

@@ -1,13 +1,11 @@
 import React from "react";
 
 const LearnButtonContent = (props) => {
-    const { content } = props;
+    const { content, helper } = props;
     return (
         <>
             <p>{content}</p>
-            {/* <div className="points">
-                {points >= 0 ? `+${points}` : `${points.toString()}`}
-            </div> */}
+            <div className="points">{helper}</div>
         </>
     );
 };

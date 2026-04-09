@@ -120,9 +120,11 @@
   width: 80%;
   max-width: 1024px;
   display: grid;
+  align-items: center;
+  gap: 10px;
   grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: "." "info" "." "timeInfo" "." ".";
+  grid-template-rows: 2fr 1fr 1fr;
+  grid-template-areas: "smartStudy" "comingTerms" "." "info" "." ".";
   justify-content: space-around;
   padding: 15px 0;
 }
@@ -142,7 +144,100 @@
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .info {
   font-size: 10px;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-area: smartStudy;
+  font-size: 1rem;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyIcon {
+  border: 1px solid white;
+  height: 80px;
+  width: 80px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyTitle {
+  font-size: 1.6rem;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .comingEntry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .comingEntry p {
+  margin: 0;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .comingEntry .comingEntryKey {
+  font-weight: 900;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .comingEntry .comingEntryAmount {
+  font-weight: 400;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms p {
+  text-align: left;
+  margin-top: 10px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .entries {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 15px;
+  padding-left: 5px;
+  font-size: 0.9rem;
+  height: 100%;
+  justify-content: start;
+  gap: 5px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms {
+  height: 100%;
+  padding: 0 10px;
+  border-bottom: 2px solid white;
+  border-radius: 10px;
+  grid-area: comingTerms;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .info-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .info-icon svg {
+  font-size: 1.5rem;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .all-terms-available {
+  font-style: italic;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation {
+  grid-area: explanation;
+  display: none;
+  overflow-y: auto;
+  font-size: 0.8rem;
+  height: 100%;
+  border-radius: 10px;
+  padding: 0 7px;
+  border: 2px solid white;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation p {
+  margin: auto;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation .greenButton {
+  font-weight: 800;
+  color: #3fd73f;
+  text-wrap-mode: nowrap;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation .italic {
+  font-style: italic;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button {
+  height: 100%;
   font-size: clamp(0.4rem, 0.4rem + 1.5vw, 1rem);
   font-weight: 400;
   font-family: "Noto_Serif";
@@ -152,38 +247,47 @@
   background-color: #022343;
   color: #fefefe;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button p {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button p {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button:hover {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:hover {
   background-color: #153b5f;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button:disabled {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled {
   background-color: gray;
   color: rgb(77, 77, 77);
   border: 3px solid rgb(77, 77, 77);
   cursor: default;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button:disabled .mute-checked {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .mute-checked {
   color: #595252;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons button:disabled .star-checked {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .star-checked {
   color: #595252;
 }
 @media (min-width: 425px) {
   .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: ". ." "info timeInfo" ". .";
+    grid-template-rows: 2fr 1fr 1fr;
+    grid-template-areas: "smartStudy comingTerms" ". info" ". .";
   }
 }
 @media (min-width: 768px) {
   .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas: ". . . ." "info timeInfo . .";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 12rem auto;
+    grid-template-areas: "smartStudy comingTerms explanation" ". . . " "info . .";
+  }
+  .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation {
+    display: flex;
+    align-items: center;
+  }
+  .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .info-icon {
+    display: none;
   }
 }
 .lectureScreen .termListDiv .termOptions {

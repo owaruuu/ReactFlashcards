@@ -13,6 +13,7 @@ import {
     shuffleArray,
 } from "../../../utils/utils";
 import { useNavigate } from "react-router-dom";
+import ComingTerms from "../ComingTerms/ComingTerms.jsx";
 
 const MAX_SESSION_SIZE = 30;
 
@@ -280,27 +281,56 @@ const SessionControls = ({
                 <p className="info">
                     Ultima sesion: {timeDifference(lastReviewDate)}
                 </p>
-                <p className="timeInfo">
+                {/* <p className="timeInfo">
                     *terminos se refrescan despues de 12 horas
-                </p>
-                <button disabled={!hasSession} onClick={changeToReviewScreen}>
+                </p> */}
+                <button
+                    className="session-button"
+                    disabled={!hasSession}
+                    onClick={changeToReviewScreen}
+                >
                     <p>Continuar repaso </p>
                     <p>{amountInfo}</p>
                 </button>
 
                 <button
+                    className="session-button smartStudy"
                     disabled={amountReviewed === terms.length - muted}
                     onClick={onNewStudySession}
                 >
-                    <p>
+                    <div className="smartStudyIcon"></div>
+                    <p className="smartStudyTitle">
                         Nuevo estudio <ImLab />
                     </p>
-                    <p>{`(${amountReviewed} - ${
+                    <p>{`(${amountReviewed} / ${
                         terms.length - muted
                     } estudiados*)`}</p>
                 </button>
 
-                <button disabled={starred === 0} onClick={onOnlyStarredClick}>
+                <div className="comingTerms">
+                    <ComingTerms comingTerms={comingTerms} />
+                </div>
+
+                <div className="explanation">
+                    <p>
+                        Cada palabra tiene un nivel que va creciendo cuando
+                        respondes con el{" "}
+                        <span className="greenButton">boton verde</span> . A
+                        medida que incrementas el nivel, el tiempo de espera
+                        incrementa, desde 24 horas hasta 15 dias. Esto con la
+                        finalidad de <span className="italic">'espaciar'</span>{" "}
+                        la <span className="italic">'repeticion'</span> 😄 asi
+                        los terminos que mas te cuesten se mantendran con
+                        intervalos cortos y los que ya sabes iran apareciendo
+                        cada vez mas lejos.
+                    </p>
+                </div>
+
+                <button
+                    className="session-button"
+                    disabled={starred === 0}
+                    onClick={onOnlyStarredClick}
+                >
                     <p>
                         Solo <HiStar className="star-checked" />{" "}
                     </p>
@@ -308,7 +338,10 @@ const SessionControls = ({
                     <p>{`(${starred} terminos)`}</p>
                 </button>
 
-                <button onClick={onNewAllSessionClick}>
+                <button
+                    className="session-button"
+                    onClick={onNewAllSessionClick}
+                >
                     <p>Repasar todo</p>
                     <p>{`(${terms.length} terminos)`}</p>
                 </button>
