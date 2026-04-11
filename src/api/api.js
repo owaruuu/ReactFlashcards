@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export let URL = "https://api.owaruuu.xyz";
+export let URL = "https://staging-api.owaruuu.xyz/";
 // URL = "https://service.owaruuu.xyz";
-URL = "http://localhost:3005"; //cambiar puerto de staging para evitar confusion
+// URL = "http://localhost:3005"; //cambiar puerto de staging para evitar confusion
 
 export const cloudFrontURL = "https://d2x9kal0r3kbk6.cloudfront.net";
 
