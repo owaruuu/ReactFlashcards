@@ -298,7 +298,10 @@ const SessionControls = ({
                     disabled={amountReviewed === terms.length - muted}
                     onClick={onNewStudySession}
                 >
-                    <div className="smartStudyIcon"></div>
+                    <img
+                        className="smartStudyIcon"
+                        src="..\img\pengi vector transparente 4.png"
+                    ></img>
                     <p className="smartStudyTitle">
                         Nuevo estudio <ImLab />
                     </p>
@@ -309,6 +312,10 @@ const SessionControls = ({
 
                 <div className="comingTerms">
                     <ComingTerms comingTerms={comingTerms} />
+                    <img
+                        className="runningPenguin"
+                        src="..\img\pengi corriendo transparente 4 sin linea.png"
+                    ></img>
                 </div>
 
                 <div className="explanation">

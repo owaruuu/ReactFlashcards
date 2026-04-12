@@ -1,3 +1,23 @@
+@property --smart-study-stripe-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 45deg;
+}
+@property --smart-study-stripe-c1 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #51bceb;
+}
+@property --smart-study-stripe-c2 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #24a8e3;
+}
+@property --smart-study-stripe-w {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 10px;
+}
 .lectureTitle {
   text-align: center;
   color: #f5fcff;
@@ -144,18 +164,63 @@
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .info {
   font-size: 10px;
 }
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button {
+  height: 100%;
+  font-size: clamp(0.4rem, 0.4rem + 1.5vw, 1rem);
+  font-weight: 400;
+  font-family: "Noto_Serif";
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px #ab071d solid;
+  background-color: #022343;
+  color: #fefefe;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:hover {
+  background-color: #153b5f;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled {
+  background-color: gray;
+  color: rgb(77, 77, 77);
+  border: 3px solid rgb(77, 77, 77);
+  cursor: default;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .mute-checked {
+  color: #595252;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .star-checked {
+  color: #595252;
+}
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   grid-area: smartStudy;
+  border: none;
+  --smart-study-stripe-angle: 45deg;
+  --smart-study-stripe-c1: #51bceb;
+  --smart-study-stripe-c2: #24a8e3;
+  --smart-study-stripe-w: 10px;
+  background-color: var(--smart-study-stripe-c2);
+  background: repeating-linear-gradient(var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0, var(--smart-study-stripe-c1) var(--smart-study-stripe-w), var(--smart-study-stripe-c2) var(--smart-study-stripe-w), var(--smart-study-stripe-c2) calc(var(--smart-study-stripe-w) * 2));
+  transition: --smart-study-stripe-angle 0.45s ease, --smart-study-stripe-c1 0.45s ease, --smart-study-stripe-c2 0.45s ease, --smart-study-stripe-w 0.45s ease;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover {
+  --smart-study-stripe-angle: 65deg;
+  --smart-study-stripe-w: 20px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy {
   font-size: 1rem;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyIcon {
-  border: 1px solid white;
-  height: 80px;
-  width: 80px;
+  width: 120px;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyTitle {
   font-size: 1.6rem;
@@ -164,6 +229,13 @@
   display: flex;
   flex-direction: column;
   position: relative;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .runningPenguin {
+  z-index: 999;
+  position: absolute;
+  right: 50px;
+  bottom: -1px;
+  width: 75px;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .comingEntry {
   display: flex;
@@ -235,39 +307,6 @@
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .explanation .italic {
   font-style: italic;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button {
-  height: 100%;
-  font-size: clamp(0.4rem, 0.4rem + 1.5vw, 1rem);
-  font-weight: 400;
-  font-family: "Noto_Serif";
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 2px #ab071d solid;
-  background-color: #022343;
-  color: #fefefe;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button p {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:hover {
-  background-color: #153b5f;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled {
-  background-color: gray;
-  color: rgb(77, 77, 77);
-  border: 3px solid rgb(77, 77, 77);
-  cursor: default;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .mute-checked {
-  color: #595252;
-}
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled .star-checked {
-  color: #595252;
 }
 @media (min-width: 425px) {
   .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
