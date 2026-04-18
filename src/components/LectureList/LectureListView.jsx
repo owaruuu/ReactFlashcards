@@ -13,7 +13,7 @@ const LectureListView = ({ isKanjiView = false }) => {
     // console.log("🚀 ~ LectureListView ~ isKanjiView:", isKanjiView);
     // const { isKanjiView } = props;
     const outCtx = useOutletContext();
-    const { loggedIn, lectures, kanjiSets, gotLectures } =
+    const { serverError, loggedIn, lectures, kanjiSets, gotLectures } =
         useContext(AppContext);
 
     let filters = new Set();
@@ -31,7 +31,7 @@ const LectureListView = ({ isKanjiView = false }) => {
 
     return (
         <div className="lectureList">
-            {!loggedIn && (
+            {!loggedIn && !serverError && (
                 <DismissableBanner
                     text={
                         "Inicia sesion o crea una cuenta para guardar tu progreso y acceder a las funcionalidades premium."
