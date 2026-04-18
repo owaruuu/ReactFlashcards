@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .App {
-  background-color: #032745;
+  background-color: #0076c7;
   font-family: メイリオ, Meiryo !important;
   min-height: 100vh;
   display: flex;
@@ -8,20 +8,26 @@
   justify-content: space-between;
   align-items: center;
 }
+.App .palette {
+  position: fixed;
+  margin: auto;
+  z-index: 1000;
+}
 .App .backToTopDiv {
   display: flex;
   width: 100%;
   max-width: 900px;
 }
 .App .backToTopDiv .backToTopButton {
-  color: #f5fcff;
+  color: #27455f;
   background-color: rgba(32, 73, 107, 0);
   border: none;
   padding-bottom: 20px;
   margin-left: auto;
+  transition: color 0.3s ease;
 }
 .App .backToTopDiv .backToTopButton:hover {
-  color: #c3c3c3;
+  color: white;
 }
 .App .bronze-section {
   background-color: #724927;

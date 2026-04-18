@@ -267,6 +267,7 @@ const SessionControls = ({
                 errorMsg={
                     "Hubo un error, lo sentimos, intenta refrescar la pagina."
                 }
+                // loading={true}
                 loading={
                     lectureSessionMutation.status === "loading" ||
                     lectureQuery.isRefetching
@@ -300,21 +301,21 @@ const SessionControls = ({
                 >
                     <img
                         className="smartStudyIcon"
-                        src="..\img\pengi vector transparente 4.png"
+                        src="/img/pengi vector transparente 5.png"
                     ></img>
                     <p className="smartStudyTitle">
                         Nuevo estudio <ImLab />
                     </p>
                     <p>{`(${amountReviewed} / ${
                         terms.length - muted
-                    } estudiados*)`}</p>
+                    } estudiados)`}</p>
                 </button>
 
                 <div className="comingTerms">
                     <ComingTerms comingTerms={comingTerms} />
                     <img
                         className="runningPenguin"
-                        src="..\img\pengi corriendo transparente 4 sin linea.png"
+                        src="/img/pengi corriendo transparente 4 sin linea.png"
                     ></img>
                 </div>
 

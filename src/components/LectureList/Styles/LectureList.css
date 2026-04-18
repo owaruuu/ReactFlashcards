@@ -21,7 +21,7 @@
 }
 .lectureList .searchBar .resultElem .name {
   grid-area: lectureName;
-  border-right: goldenrod 2px solid;
+  border-right: #ffeb4c 2px solid;
   margin-right: 2px;
 }
 .lectureList .searchBar .resultElem .term {
@@ -57,15 +57,15 @@
   width: 16px;
 }
 .lectureList .titleContainer .lectureListTitle {
+  margin-bottom: 10px;
   grid-area: title;
   text-align: center;
   color: #f5fcff;
   font-family: "Noto Serif";
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: #dbb01c;
+  text-decoration-color: #025d9b;
   font-size: 2.2rem;
-  margin: 0;
 }
 .lectureList .titleContainer .ordering {
   display: flex;
@@ -75,7 +75,7 @@
   font-size: 14px;
 }
 .lectureList .titleContainer .filtering {
-  border-top: #ab071d solid 2px;
+  border-top: #e06c1f solid 2px;
   padding-top: 3px;
   color: white;
   display: flex;

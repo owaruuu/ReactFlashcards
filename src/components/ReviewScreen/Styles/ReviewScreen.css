@@ -71,6 +71,9 @@
 .ReviewV2Screen .controls .termOptions svg {
   filter: drop-shadow(2px 4px rgba(0, 0, 0, 0.4));
 }
+.ReviewV2Screen .controls .termOptions .mute-checked {
+  color: #892bcd;
+}
 @media (min-width: 768px) {
   .ReviewV2Screen .controls .termOptions button {
     width: 62px;
@@ -111,7 +114,7 @@
   top: 3px;
   right: 7px;
   font-size: 8px;
-  color: rgba(255, 255, 255, 0.495);
+  color: rgba(255, 255, 255, 0.911);
 }
 .ReviewV2Screen .controls .containerAnswerButtons .answerButton:hover:enabled {
   border: white 3px solid;
@@ -140,14 +143,14 @@
   background-color: rgb(207, 41, 41);
 }
 .ReviewV2Screen .controls .containerAnswerButtons .yellow {
-  border: #776201 3px solid;
+  border: #ab8d02 3px solid;
   color: rgb(255, 255, 255);
-  background-color: #b7980c;
+  background-color: #e5bc01;
 }
 .ReviewV2Screen .controls .containerAnswerButtons .green {
   border: rgb(13, 79, 0) 3px solid;
   color: rgb(255, 255, 255);
-  background-color: #108110;
+  background-color: #009b00;
 }
 .ReviewV2Screen .controls .containerAnswerButtons .purple {
   border: #220043 3px solid;
@@ -225,7 +228,7 @@
   color: white;
 }
 .ReviewV2Screen .termCard {
-  background-color: #4f4d63;
+  background-color: #00366b;
   color: white;
 }
 .ReviewV2Screen .termCard .points {
@@ -238,18 +241,18 @@
   color: rgba(255, 255, 255, 0.241);
 }
 .ReviewV2Screen .termCard .divider {
-  background-color: #b9b9b9;
+  background-color: white;
 }
 .ReviewV2Screen .gold {
-  border: 5px solid #ffbc00;
+  border: 5px solid #f1c805;
 }
 .ReviewV2Screen .gold .divider {
-  background-color: #ffbc00;
+  background-color: #ffeb4c;
 }
 .ReviewV2Screen .muted {
+  filter: brightness(0.9) contrast(0.9);
   border: 5px solid #7a059f;
-  background-color: #333333 !important;
-  color: #c1c1c1 !important;
+  background-color: #161616 !important;
 }
 .ReviewV2Screen .muted .divider {
   background-color: #9b00cd;

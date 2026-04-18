@@ -1,3 +1,4 @@
+@import "../../../Styles/_Theme.scss";
 .ReviewV2Screen {
     color: white;
     display: flex;
@@ -82,6 +83,10 @@
                 filter: drop-shadow(2px 4px rgb(0 0 0 / 0.4));
             }
 
+            .mute-checked {
+                color: $mute-purple-2;
+            }
+
             button {
                 @media (min-width: 768px) {
                     width: 62px;
@@ -126,7 +131,7 @@
                     top: 3px;
                     right: 7px;
                     font-size: 8px;
-                    color: rgba(255, 255, 255, 0.495);
+                    color: rgba(255, 255, 255, 0.911);
                 }
 
                 &:hover:enabled {
@@ -162,15 +167,15 @@
             }
 
             .yellow {
-                border: #776201 3px solid;
+                border: $answer-button-background-yellow-border 3px solid;
                 color: rgb(255, 255, 255);
-                background-color: #b7980c;
+                background-color: $answer-button-background-yellow;
             }
 
             .green {
                 border: rgb(13 79 0) 3px solid;
                 color: rgb(255, 255, 255);
-                background-color: #108110;
+                background-color: $answer-button-background-green;
             }
 
             .purple {
@@ -276,7 +281,7 @@
     }
 
     .termCard {
-        background-color: #4f4d63;
+        background-color: $button-background-blue;
         color: white;
 
         .points {
@@ -291,21 +296,23 @@
         }
 
         .divider {
-            background-color: #b9b9b9;
+            background-color: white;
         }
     }
 
     .gold {
-        border: 5px solid #ffbc00;
+        // border: 5px solid $gold-accent;
+        border: 5px solid #f1c805;
         .divider {
-            background-color: #ffbc00;
+            background-color: $gold-accent;
         }
     }
 
     .muted {
+        filter: brightness(0.9) contrast(0.9);
         border: 5px solid #7a059f;
-        background-color: #333333 !important;
-        color: #c1c1c1 !important;
+        background-color: #161616 !important;
+        // color: #c1c1c1 !important;
         .divider {
             background-color: #9b00cd;
         }

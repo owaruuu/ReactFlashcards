@@ -1,5 +1,5 @@
 hr {
-  border-top: 4px solid #ab071d !important;
+  border-top: 4px solid #e06c1f !important;
   opacity: 1 !important;
   margin: 5px 0;
 }
@@ -22,12 +22,12 @@ a {
 }
 .modal-body .languageText {
   text-decoration: underline;
-  text-decoration-color: #ab071d;
+  text-decoration-color: #e06c1f;
   font-weight: 600;
 }
 
 .modal-header {
-  background-color: #ab071d;
+  background-color: #e06c1f;
   color: white;
   border-bottom: 4px solid #032745;
 }
@@ -40,14 +40,14 @@ a {
 }
 
 .goldAccent {
-  color: goldenrod;
+  color: #ffeb4c;
 }
 
 .upperDivider {
   margin-top: 9px;
   width: 100%;
   height: 4px;
-  background-color: #ab071d;
+  background-color: black;
 }
 @media (min-width: 768px) {
   .upperDivider {
@@ -72,7 +72,7 @@ a {
   margin-top: 50px;
   width: 100%;
   height: 30px;
-  background-color: #ab071d;
+  background-color: black;
 }
 .divider .logo {
   width: 84px;
@@ -110,7 +110,7 @@ footer {
 
 #error-page {
   height: 100vh;
-  background-color: #032745;
+  background-color: #1f9ae1;
   color: white;
 }
 #error-page h1 {

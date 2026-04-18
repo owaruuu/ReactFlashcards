@@ -1,3 +1,10 @@
+@media (min-width: 768px) {
+  .header {
+    padding-left: 20px;
+    grid-template-areas: "title kanji user" !important;
+    grid-template-columns: auto 1fr auto;
+  }
+}
 .header {
   height: 80px;
   z-index: 15;
@@ -5,17 +12,9 @@
   align-items: center;
   justify-items: center;
   grid-template-areas: "title kanji" "user user";
-  background-color: #032745;
+  background-color: black;
   width: 100%;
   color: #f5fcff;
-  border-bottom: 4px solid #ab071d !important;
-}
-@media (min-width: 768px) {
-  .header {
-    padding-left: 20px;
-    grid-template-areas: "title kanji user";
-    grid-template-columns: auto 1fr auto;
-  }
 }
 .header #db-error-tooltip {
   z-index: 1;
@@ -28,7 +27,7 @@
   position: fixed;
   font-size: 2rem;
   top: 40vh;
-  color: gold;
+  color: #ffeb4c;
   right: 20px;
   z-index: 1;
   background-color: #c10000;
@@ -80,14 +79,6 @@
     justify-self: start;
   }
 }
-.header .loginControls {
-  width: 100%;
-  grid-area: user;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
 @media (min-width: 768px) {
   .header .loginControls {
     margin: 0;
@@ -95,7 +86,7 @@
   }
   .header .loginControls button {
     border: none;
-    background-color: #032745;
+    background-color: #1f9ae1;
     color: #f5fcff;
   }
   .header .loginControls button:hover {
@@ -106,7 +97,7 @@
   }
   .header .loginControls .username {
     flex: 1;
-    background: #ab071d;
+    background: #e06c1f;
     color: white;
     border-style: none;
     width: 100%;
@@ -129,6 +120,14 @@
   .header .loginControls:hover .yellowBar {
     left: 0px;
   }
+}
+.header .loginControls {
+  width: 100%;
+  grid-area: user;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
 }
 .header .loginControls .loggedOutControlsContainer {
   display: flex;
@@ -155,7 +154,7 @@
   }
 }
 .header .loginControls .username {
-  background: #ab071d;
+  background: #e06c1f;
   color: white;
   border-style: none;
   padding: 0 10px;
@@ -163,7 +162,7 @@
   cursor: pointer;
 }
 .header .loginControls .loginButton {
-  background-color: #ab071d;
+  background-color: #e06c1f;
   color: white;
   border: none;
 }
@@ -172,13 +171,13 @@
 }
 @media (min-width: 768px) {
   .header .loginControls .loginButton {
-    background-color: #ab071d;
+    background-color: #e06c1f;
     padding: 0 40px;
   }
 }
 .header .loginControls .registerButton {
   border: none;
-  background-color: #032745;
+  background-color: #1f9ae1;
   color: #f5fcff;
 }
 .header .not-logged {

@@ -1,7 +1,7 @@
 @import "Theme";
 
 .App {
-    background-color: $background-blue;
+    background-color: $v3-background-blue;
     font-family: メイリオ, Meiryo !important;
     min-height: 100vh;
     display: flex;
@@ -9,20 +9,27 @@
     justify-content: space-between;
     align-items: center;
 
+    .palette {
+        position: fixed;
+        margin: auto;
+
+        z-index: 1000;
+    }
     .backToTopDiv {
         display: flex;
         width: 100%;
         max-width: 900px;
 
         .backToTopButton {
-            color: $cloud-white;
+            color: $background-blue-dark2;
             background-color: #20496b00;
             border: none;
             padding-bottom: 20px;
             margin-left: auto;
+            transition: color 0.3s ease;
 
             &:hover {
-                color: #c3c3c3;
+                color: white;
             }
 
             // @media (min-width: 768px) {

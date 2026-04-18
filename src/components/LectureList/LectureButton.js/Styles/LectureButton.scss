@@ -15,12 +15,12 @@
     //     "info"
     //     "name"
     //     "extras";
-    background-color: $cloud-white;
-    color: $inner-type-color;
+    background-color: white;
+    color: $background-blue-dark2;
     font-family: "Noto_Serif";
     width: 100%;
-    border-top: 3px solid #dbb01c;
-    border-bottom: 3px solid #dbb01c;
+    // border-top: 3px solid #dbb01c;
+    // border-bottom: 3px solid #dbb01c;
     margin: 5px 0;
     padding: 10px 5px;
     justify-content: space-around;
@@ -137,12 +137,12 @@
     }
 
     &:hover {
-        background-color: rgb(221 221 221);
+        background-color: #cfe9fd;
     }
 
-    &:active {
-        background-color: rgb(227 235 255);
-    }
+    // &:active {
+    //     background-color: rgb(227 235 255);
+    // }
 
     .testIcon {
         font-size: 24px;
@@ -160,7 +160,7 @@
 
         width: 85vw;
         max-width: 870px;
-        border: 3px solid $border-yellow;
+        // border: 3px solid $border-yellow;
         border-radius: 17px;
         padding: 5px 0;
 

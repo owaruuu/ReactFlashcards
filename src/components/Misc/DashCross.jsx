@@ -5,7 +5,7 @@ const DashCross = () => {
         <svg>
             <path
                 fill="none"
-                stroke="#cccccc"
+                stroke="#ffffff"
                 d="M80,0L80,160"
                 strokeWidth="0.5"
                 strokeDasharray="6,3"
@@ -13,7 +13,7 @@ const DashCross = () => {
             ></path>
             <path
                 fill="none"
-                stroke="#cccccc"
+                stroke="#ffffff"
                 d="M0,80L160,80"
                 strokeWidth="0.5"
                 strokeDasharray="6, 3"

@@ -12,13 +12,14 @@
     button {
         background: 0;
         // margin: 0 10px;
+        margin-right: 5px;
         border-radius: 100px;
         color: #f5fcff;
         // border: 1px solid black;
         border: none;
 
         &:hover:enabled {
-            background-color: #113d61;
+            background-color: #4ba5ef;
         }
 
         &:active:enabled {

@@ -32,7 +32,9 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
             <div className="lectureScreen">
                 {!loggedIn && (
                     <DismissableBanner
-                        text={"Accede al modo Prueba o Repaso con tu cuenta."}
+                        text={
+                            "Accede al modo Prueba o Repaso inteligente con tu cuenta."
+                        }
                         bgColor={"#ab071d"}
                         color={"white"}
                         transition={1}

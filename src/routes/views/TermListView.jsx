@@ -31,7 +31,7 @@ const TermListView = () => {
 
     //MUTATIONS
     const termOptionsMutation = useTermOptionsMutation(
-        getLectureQueryString(lecture.lectureId)
+        getLectureQueryString(lecture.lectureId),
     );
 
     //funcion para los botones de highlight y mute
@@ -138,7 +138,7 @@ const TermListView = () => {
                 loggedIn={loggedIn}
                 isKanjiView={isKanjiView}
             />
-            <UpperDivider />
+            {/* <UpperDivider /> */}
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>
                 {/* {logData} */}

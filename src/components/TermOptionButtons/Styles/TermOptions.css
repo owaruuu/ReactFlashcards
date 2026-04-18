@@ -6,12 +6,13 @@
 }
 .termOptions button {
   background: 0;
+  margin-right: 5px;
   border-radius: 100px;
   color: #f5fcff;
   border: none;
 }
 .termOptions button:hover:enabled {
-  background-color: #113d61;
+  background-color: #4ba5ef;
 }
 .termOptions button:active:enabled {
   background-color: #316fa2;

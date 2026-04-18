@@ -39,10 +39,11 @@
     .interactionBlocker {
         display: flex;
         z-index: 1000;
+        backdrop-filter: blur(1px);
         // flex-direction: column;
         text-align: center;
         position: absolute;
-        background-color: rgb(32 73 107 / 88%);
+        background-color: rgb(0 66 121 / 82%);
         width: 100%;
         color: white;
         justify-content: center;
@@ -216,23 +217,24 @@
                 @media (min-width: 768px) {
                     display: block;
 
-                    border-style: solid;
+                    // border-style: solid;
+                    border: none;
                     border-radius: 41px;
-                    background-color: #656565;
+                    background-color: $stripes-orange;
                     color: aliceblue;
                     width: 51px;
                     transition: 0.3s;
-                    border-width: 3px;
-                    border-color: #868686;
+                    // border-width: 3px;
+                    // border-color: #868686;
                     z-index: 1;
 
                     &:hover {
-                        background-color: #474747;
+                        background-color: $orange-hover;
                     }
 
-                    &:active {
-                        background-color: #818181;
-                    }
+                    // &:active {
+                    //     background-color: #818181;
+                    // }
                 }
             }
 
@@ -287,7 +289,7 @@
             }
             .learningButton {
                 background-color: rgb(225 183 167);
-                color: $stripes-red;
+                color: $stripes-orange;
             }
 
             .learnedButton {
@@ -339,12 +341,12 @@
             padding: 10px 10px;
             border: none;
             border-radius: 6px;
-            background-color: #137508;
+            background-color: $answer-button-background-green;
             color: #e8ebed;
             width: 75%;
             margin-bottom: 20px;
             &:hover {
-                background-color: #269719;
+                background-color: $answer-button-background-green-hover;
             }
         }
 
@@ -371,45 +373,54 @@
             align-self: center;
         }
 
-        .titleAndPoints {
-            width: 100%;
-            display: grid;
+        .testContainer {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            grid-template-columns: 15% 70% 15%;
-            grid-template-areas: "counter title points";
+            background-color: #86beed;
+            border-radius: 15px;
+            padding: 30px 10px;
 
-            .problemCounter {
-                grid-area: counter;
-            }
+            .titleAndPoints {
+                width: 100%;
+                display: grid;
+                align-items: center;
+                grid-template-columns: 15% 70% 15%;
+                grid-template-areas: "counter title points";
 
-            .title {
-                font-size: 14px;
-                margin: 0;
-                grid-area: title;
-            }
-
-            .pointsCounter {
-                display: flex;
-                // position: absolute;
-                right: 10px;
-                background-color: #880000;
-                border-radius: 100px;
-                height: 40px;
-                width: 40px;
-
-                p {
-                    font-size: 10px;
-                    margin: auto;
+                .problemCounter {
+                    grid-area: counter;
                 }
 
-                @media (min-width: 768px) {
-                    right: 20%;
-                    // height: 60px;
-                    width: 75px;
+                .title {
+                    font-size: 14px;
+                    margin: 0;
+                    grid-area: title;
+                }
+
+                .pointsCounter {
+                    display: flex;
+                    // position: absolute;
+                    right: 10px;
+                    background-color: $background-blue-header;
+                    border-radius: 100px;
+                    height: 40px;
+                    width: 40px;
 
                     p {
-                        font-size: 15px;
+                        font-size: 10px;
                         margin: auto;
+                    }
+
+                    @media (min-width: 768px) {
+                        right: 20%;
+                        // height: 60px;
+                        width: 75px;
+
+                        p {
+                            font-size: 15px;
+                            margin: auto;
+                        }
                     }
                 }
             }
@@ -533,9 +544,9 @@
                 }
 
                 &:last-child {
-                    background-color: #997800;
+                    background-color: $best-try-yellow;
                     &:hover {
-                        background-color: #856800;
+                        background-color: $best-try-yellow-hover;
                     }
                 }
             }
@@ -570,12 +581,12 @@
                 margin-left: auto;
                 margin-right: auto;
                 margin-bottom: 20px;
-                background-color: #3a5c77;
+                background-color: #508abb;
                 width: 150px;
                 height: 150px;
                 border-radius: 15px;
                 border-style: dashed;
-                border-color: #9cb0c0;
+                border-color: white;
                 box-sizing: content-box;
 
                 .winSticker {
@@ -623,7 +634,7 @@
                         border-color: #9cb0c0;
                     }
                     100% {
-                        border-color: #f5b64e;
+                        border-color: $gold-accent;
                         border-style: inset;
                     }
                 }
@@ -658,7 +669,7 @@
             }
 
             .win {
-                border-color: #f5b64e;
+                border-color: $gold-accent;
                 border-style: inset;
             }
 
@@ -684,7 +695,7 @@
             .newRecord {
                 margin: 0;
                 font-size: 12px;
-                color: goldenrod;
+                color: $gold-accent;
                 position: absolute;
                 padding-left: 5px;
                 /* right: 0; */
@@ -764,7 +775,7 @@
         .problemCounter {
             display: flex;
             justify-self: end;
-            background-color: #880000;
+            background-color: $background-blue-header;
             border-radius: 100px;
             height: 40px;
             width: 40px;
@@ -794,7 +805,7 @@
             font-family: "Noto Serif";
             font-weight: 600;
             text-decoration: underline;
-            text-decoration-color: #dbb01c;
+            text-decoration-color: $text-decoration-blue;
             font-size: 2.2rem;
             margin: 10px;
             // display: grid;
@@ -839,6 +850,7 @@
         .testFeedbackContainer {
             width: 100%;
             position: relative;
+            border-radius: 15px;
 
             @media (min-width: 768px) {
                 width: 60%;
@@ -925,11 +937,12 @@
                 font-family: "Gidugu";
 
                 &.correct {
-                    color: $victory-green;
+                    color: #ffffff;
+                    filter: drop-shadow(1px 1px 1px green);
                 }
 
                 &.incorrect {
-                    color: $loser-red;
+                    color: $test-incorrect;
                 }
             }
 
@@ -951,7 +964,7 @@
                 min-height: 60px;
 
                 svg {
-                    color: red;
+                    color: $test-incorrect;
                     font-size: 48px;
                 }
 
@@ -996,7 +1009,7 @@
             p {
                 margin: 0;
                 font-size: 0.85rem;
-                color: #b5b5b5;
+                color: #ffffff;
             }
 
             @media (min-width: 768px) {
@@ -1041,7 +1054,7 @@
 
                 .testOptionButton {
                     color: $cloud-white;
-                    background-color: #001e37;
+                    background-color: $background-blue;
                     border: none;
                     margin: 3px 0;
                     padding: 12px 0;
@@ -1062,7 +1075,7 @@
 
                     &.incorrect {
                         color: $cloud-white;
-                        background-color: $loser-red;
+                        background-color: $test-button-incorrect;
                     }
                 }
             }
@@ -1093,7 +1106,7 @@
 
         h3 {
             text-decoration: underline;
-            text-decoration-color: goldenrod;
+            text-decoration-color: $background-blue-dark;
         }
 
         .userPanelContent {
@@ -1126,15 +1139,15 @@
                     flex-wrap: wrap;
                     height: 150px;
 
-                    background-color: #164b78;
-                    padding: 15px 5px;
-                    box-shadow: inset 0 8px 6px -6px #040329;
+                    background-color: $background-blue-light;
+                    padding: 15px 20px;
+                    box-shadow: inset 0 8px 6px -6px #0d5a9b;
                     overflow-x: scroll;
 
                     @media (min-width: 768px) {
                         height: auto;
                         flex-direction: row;
-                        width: 325px;
+                        width: 400px;
                         border-radius: 22px;
                         margin: auto;
                         overflow-x: hidden;
@@ -1151,7 +1164,8 @@
                     }
 
                     .selected {
-                        filter: sepia(1);
+                        filter: brightness(1.2) hue-rotate(140deg)
+                            drop-shadow(2px 4px 6px black);
                     }
                 }
             }
@@ -1170,6 +1184,32 @@
                     font-weight: 600;
                     font-size: 18px;
                 }
+            }
+        }
+    }
+}
+
+.nav-tabs {
+    border-width: 0;
+    border-bottom: 1px solid $cloud-white;
+    font-weight: 600;
+    width: 100%;
+    padding: 0;
+
+    @media screen and (min-width: 768px) {
+        padding: 0 20%;
+    }
+
+    @media screen and (min-width: 1024px) {
+        padding: 0 35%;
+    }
+
+    .nav-item {
+        button {
+            &:not(.active) {
+                border: 1px solid white;
+                border-bottom: none;
+                border-radius: 0.375rem 0.375rem 0 0;
             }
         }
     }
@@ -1213,7 +1253,7 @@
 
 .smallText {
     font-size: 10px;
-    color: $stripes-red;
+    color: $stripes-orange;
 }
 
 .optionsButton {
@@ -1232,13 +1272,13 @@
     justify-self: center;
 
     &:hover {
-        border-color: $stripes-red;
+        border-color: $stripes-orange;
     }
 
     &:disabled {
-        background-color: gray;
-        color: #606060;
-        border-color: #606060;
+        background-color: $review-options-button-background-muted;
+        color: $review-options-button-background-text;
+        border-color: $review-options-button-background-border;
         cursor: not-allowed;
     }
 
@@ -1255,7 +1295,7 @@
     background-color: #f5fcff;
     color: #532f00;
     font-family: "Noto_Serif";
-    border: 3px solid #f5b64e;
+    border: 3px solid #ffffff;
     border-radius: 100px;
     cursor: pointer;
 
@@ -1264,7 +1304,7 @@
     justify-self: center;
 
     &:hover {
-        border-color: $stripes-red;
+        border-color: $stripes-orange;
     }
 
     @media (min-width: 768px) {
@@ -1276,7 +1316,7 @@
 .squareIconButton {
     button {
         position: relative;
-        background-color: #38364b;
+        background-color: #6c83a5;
         border: none;
         border-radius: 15px;
         box-shadow: 1px 2px 1px 0px rgb(1 1 26 / 53%);
@@ -1372,7 +1412,7 @@
 }
 
 .gold {
-    border: 5px solid #ffbc00;
+    border: 5px solid $gold-accent;
 
     .backCard {
         .logo {
@@ -1383,7 +1423,7 @@
 }
 
 .muted {
-    border: 5px solid #7a059f;
+    // border: 5px solid #7a059f;
 
     .backCard {
         background-color: #333333 !important;
@@ -1442,14 +1482,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: #8b4500;
+        color: white;
 
-        background-color: #fdd2a6;
+        background-color: $background-blue-light;
         // background-color: #4f4d63;
         margin: 10px;
         border-radius: 15px;
         overflow: hidden;
-        box-shadow: 1px 5px 17px 7px rgb(1 1 26 / 71%);
+        box-shadow: 1px 5px 17px 7px rgb(0 0 47 / 30%);
 
         .error-message {
             text-align: center;
@@ -1561,11 +1601,16 @@
             align-items: center;
             width: 160px;
             height: 160px;
-            border: 0.0625rem solid rgb(156, 156, 156);
+            border: 0.0625rem solid rgb(255, 255, 255);
+            background-color: $kanji-background-blue;
 
             svg {
                 height: 100%;
                 width: 100%;
+            }
+
+            .canvas {
+                border: 0.0625rem solid rgb(255, 255, 255);
             }
         }
 

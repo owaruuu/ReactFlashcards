@@ -34,7 +34,7 @@ const LectureListView = ({ isKanjiView = false }) => {
             {!loggedIn && (
                 <DismissableBanner
                     text={
-                        "Inicia sesion o crea una cuenta para guardar tu progreso."
+                        "Inicia sesion o crea una cuenta para guardar tu progreso y acceder a las funcionalidades premium."
                     }
                     bgColor={"#ab071d"}
                     color={"white"}

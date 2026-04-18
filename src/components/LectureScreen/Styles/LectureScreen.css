@@ -6,17 +6,22 @@
 @property --smart-study-stripe-c1 {
   syntax: "<color>";
   inherits: false;
-  initial-value: #51bceb;
+  initial-value: #61b8ff;
 }
 @property --smart-study-stripe-c2 {
   syntax: "<color>";
   inherits: false;
-  initial-value: #24a8e3;
+  initial-value: #56b0ff;
 }
 @property --smart-study-stripe-w {
   syntax: "<length>";
   inherits: false;
-  initial-value: 10px;
+  initial-value: 20px;
+}
+@property --smart-study-stripe-speed {
+  syntax: "<time>";
+  inherits: false;
+  initial-value: 1s;
 }
 .lectureTitle {
   text-align: center;
@@ -24,7 +29,7 @@
   font-family: "Noto Serif";
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: #dbb01c;
+  text-decoration-color: #8bd0ff;
   margin: 10px 0;
 }
 
@@ -59,17 +64,17 @@
   font-weight: 400;
   text-transform: capitalize;
   font-size: 1.1rem;
-  background-color: #f5fcff;
-  color: #532f00;
+  background-color: #0383cc;
+  color: white;
   font-family: "Noto_Serif";
-  border: 3px solid #f5b64e;
+  border: 3px solid white;
   border-radius: 100px;
   cursor: pointer;
   padding: 10px 26px;
   margin: 10px 10px;
 }
 .lectureScreen .lectureScreenButtons button:hover {
-  border-color: #ab071d;
+  border-color: #e06c1f;
 }
 @media (min-width: 768px) {
   .lectureScreen .lectureScreenButtons .reviewButton {
@@ -101,8 +106,6 @@
 }
 @media (min-width: 768px) {
   .lectureScreen .lectureScreenButtons {
-    margin-top: 8px;
-    margin-bottom: 30px;
     flex-direction: row;
   }
 }
@@ -116,7 +119,7 @@
   color: white;
   font-family: serif;
   text-decoration: underline;
-  text-decoration-color: #dbb01c;
+  text-decoration-color: #8bd0ff;
 }
 .lectureScreen .termListDiv button {
   color: #f5fcff;
@@ -125,10 +128,11 @@
   width: 100%;
 }
 .lectureScreen .termListDiv .termTab {
-  background-color: #20496b;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #31a2ff;
+  border-bottom: 1px solid white;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer {
   width: 100%;
@@ -171,8 +175,8 @@
   font-family: "Noto_Serif";
   padding: 10px 12px;
   border-radius: 10px;
-  border: 2px #ab071d solid;
-  background-color: #022343;
+  border: 2px white solid;
+  background-color: #57b2ff;
   color: #fefefe;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button p {
@@ -183,7 +187,8 @@
   gap: 5px;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:hover {
-  background-color: #153b5f;
+  background-color: #368cd3;
+  border-color: black;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .session-button:disabled {
   background-color: gray;
@@ -198,29 +203,56 @@
   color: #595252;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy {
+  z-index: 1;
+  position: relative;
+  overflow-x: clip;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   grid-area: smartStudy;
-  border: none;
+  border-radius: 0px;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy::before {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(var(--smart-study-stripe-w) * 10 + 100%);
   --smart-study-stripe-angle: 45deg;
-  --smart-study-stripe-c1: #51bceb;
-  --smart-study-stripe-c2: #24a8e3;
-  --smart-study-stripe-w: 10px;
-  background-color: var(--smart-study-stripe-c2);
-  background: repeating-linear-gradient(var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0, var(--smart-study-stripe-c1) var(--smart-study-stripe-w), var(--smart-study-stripe-c2) var(--smart-study-stripe-w), var(--smart-study-stripe-c2) calc(var(--smart-study-stripe-w) * 2));
-  transition: --smart-study-stripe-angle 0.45s ease, --smart-study-stripe-c1 0.45s ease, --smart-study-stripe-c2 0.45s ease, --smart-study-stripe-w 0.45s ease;
+  --smart-study-stripe-c1: $stripe-blue-1;
+  --smart-study-stripe-c2: $stripe-blue-2;
+  --smart-study-stripe-w: 30px;
+  background: repeating-linear-gradient(var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 25%, var(--smart-study-stripe-c1) 50%, var(--smart-study-stripe-c2) 50%, var(--smart-study-stripe-c2) 75%);
+  background-size: var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+  animation: animateStripes var(--smart-study-stripe-speed) linear infinite;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover {
-  --smart-study-stripe-angle: 65deg;
-  --smart-study-stripe-w: 20px;
+  border-color: black;
+}
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover img {
+  transform: scale(1.25) rotateZ(3deg);
+}
+@keyframes animateStripes {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(var(--smart-study-stripe-w) * -1));
+  }
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy {
   font-size: 1rem;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyIcon {
-  width: 120px;
+  width: 140px;
+  transform: scale(1.15);
+  transform-origin: bottom;
+  transition: transform 0.2s ease;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy .smartStudyTitle {
   font-size: 1.6rem;
@@ -269,8 +301,7 @@
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms {
   height: 100%;
   padding: 0 10px;
-  border-bottom: 2px solid white;
-  border-radius: 10px;
+  border-bottom: 2px dashed white;
   grid-area: comingTerms;
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms .info-icon {
@@ -339,7 +370,7 @@
   overflow-anchor: none;
 }
 .lectureScreen .termListDiv .termList .termItem {
-  background-color: #001e37;
+  background-color: #00366b;
   display: flex;
   flex-direction: column;
   color: #f5fcff;
@@ -355,13 +386,13 @@
   padding-bottom: 5px;
 }
 .lectureScreen .termListDiv .termList .termItem .termDataDivider {
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid white;
 }
 .lectureScreen .termListDiv .termList .termItem .term {
   flex: 1;
 }
 .lectureScreen .termListDiv .termList .termItem .verticalRule {
-  background-color: #ab071d;
+  background-color: white;
   height: 20px;
   width: 2px;
 }
@@ -378,7 +409,7 @@
   }
 }
 .lectureScreen .termListDiv .termList .kanjiItem {
-  background-color: #001e37;
+  background-color: #005ca9;
   display: flex;
   flex-direction: column;
   color: #f5fcff;
@@ -397,7 +428,7 @@
   padding-bottom: 5px;
 }
 .lectureScreen .termListDiv .termList .kanjiItem .termDataDivider {
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #002e57;
 }
 .lectureScreen .termListDiv .termList .kanjiItem .termOptions {
   display: flex;
@@ -408,7 +439,7 @@
   font-size: 5rem;
 }
 .lectureScreen .termListDiv .termList .kanjiItem .horizontalRule {
-  background-color: #ab071d;
+  background-color: #e06c1f;
   height: 2px;
   width: 80%;
 }
@@ -425,17 +456,16 @@
   }
 }
 .lectureScreen .termListDiv .termList .highlighted {
-  border: gold solid 2px;
+  border: #ffeb4c solid 2px;
 }
 .lectureScreen .termListDiv .termList .highlighted .verticalRule {
-  background-color: gold;
+  background-color: #ffeb4c;
+}
+.lectureScreen .termListDiv .termList .highlighted .termDataDivider {
+  border-color: #ffeb4c;
 }
 .lectureScreen .termListDiv .termList .muted {
-  background-color: grey;
-  color: #505050;
-}
-.lectureScreen .termListDiv .termList .muted .verticalRule {
-  background-color: #535353;
+  filter: opacity(0.5) contrast(0.8);
 }
 @media (min-width: 768px) {
   .lectureScreen .termListDiv .termList {

@@ -23,8 +23,8 @@
   transition: 0.15s;
 }
 .form form .submitButton:hover {
-  background-color: #ab071d;
-  border-color: #ab071d;
+  background-color: #e06c1f;
+  border-color: #e06c1f;
   color: white;
 }
 .form form .submitButton:disabled {
@@ -85,10 +85,12 @@
 .registerHelp .needConfirmationButton {
   border: none;
   color: white;
-  background-color: #03213b;
-  text-decoration: underline;
 }
 .registerHelp .needConfirmationButton:hover {
-  color: gold;
-  background-color: #032745;
+  color: #ffeb4c;
+  background-color: #1f9ae1;
+}
+.registerHelp .needConfirmationButton {
+  background-color: #03213b;
+  text-decoration: underline;
 }/*# sourceMappingURL=Forms.css.map */

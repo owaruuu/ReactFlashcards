@@ -5,7 +5,7 @@
         // flex-direction: row;
         // justify-content: space-between;
         padding-left: 20px;
-        grid-template-areas: "title kanji user";
+        grid-template-areas: "title kanji user" !important;
         grid-template-columns: auto 1fr auto;
     }
 
@@ -18,10 +18,10 @@
         "title kanji"
         "user user";
     // flex-direction: column;
-    background-color: #032745;
+    background-color: black;
     width: 100%;
     color: $cloud-white;
-    border-bottom: 4px solid $stripes-red !important;
+    // border-bottom: 4px solid black !important;
 
     #db-error-tooltip {
         z-index: 1;
@@ -35,7 +35,7 @@
         position: fixed;
         font-size: 2rem;
         top: 40vh;
-        color: gold;
+        color: $gold-accent;
         right: 20px;
         z-index: 1;
         background-color: #c10000;
@@ -116,7 +116,7 @@
 
             .username {
                 flex: 1;
-                background: #ab071d;
+                background: $stripes-orange;
                 color: white;
                 border-style: none;
                 width: 100%;
@@ -186,7 +186,7 @@
         }
 
         .username {
-            background: #ab071d;
+            background: $stripes-orange;
             color: white;
             border-style: none;
             padding: 0 10px;
@@ -198,7 +198,7 @@
         }
 
         .loginButton {
-            background-color: $stripes-red;
+            background-color: $stripes-orange;
             // padding: 0 40px;
             color: white;
             border: none;
@@ -208,7 +208,7 @@
             }
 
             @media (min-width: 768px) {
-                background-color: $stripes-red;
+                background-color: $stripes-orange;
                 padding: 0 40px;
             }
         }

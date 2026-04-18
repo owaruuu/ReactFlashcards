@@ -3,12 +3,10 @@
   flex-direction: column;
   grid-template-areas: "icons terms  memo" "title title  title" "session amountJapanese lastReviewJapanese" ". amountSpanish lastReviewSpanish" "text bar jap-bar";
   grid-template-columns: 33% 33% 33%;
-  background-color: #f5fcff;
-  color: #532f00;
+  background-color: white;
+  color: #27455f;
   font-family: "Noto_Serif";
   width: 100%;
-  border-top: 3px solid #dbb01c;
-  border-bottom: 3px solid #dbb01c;
   margin: 5px 0;
   padding: 10px 5px;
   justify-content: space-around;
@@ -99,10 +97,7 @@
   display: none;
 }
 .lectureButton:hover {
-  background-color: rgb(221, 221, 221);
-}
-.lectureButton:active {
-  background-color: rgb(227, 235, 255);
+  background-color: #cfe9fd;
 }
 .lectureButton .testIcon {
   font-size: 24px;
@@ -115,10 +110,8 @@
     grid-template-areas: "bar terms session ." "jap-bar title amountJapanese amountSpanish" "memo icons lastReviewJapanese lastReviewSpanish";
     width: 85vw;
     max-width: 870px;
-    border: 3px solid #f5b64e;
     border-radius: 17px;
     padding: 5px 0;
-    flex-direction: row;
   }
   .lectureButton .terms {
     flex-direction: row;
@@ -153,5 +146,8 @@
     grid-area: amount;
     font-size: 14px;
     padding-left: 5px;
+  }
+  .lectureButton {
+    flex-direction: row;
   }
 }/*# sourceMappingURL=LectureButton.css.map */

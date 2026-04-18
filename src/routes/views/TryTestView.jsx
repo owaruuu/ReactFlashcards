@@ -32,7 +32,7 @@ const TryTestView = () => {
     //Bloquea la navegacion usando React Router
     let blocker = useBlocker(
         ({ currentLocation, nextLocation }) =>
-            !savedTest && currentLocation.pathname !== nextLocation.pathname
+            !savedTest && currentLocation.pathname !== nextLocation.pathname,
     );
     const testMutation = useTestMutation(() => setSavedTest(true));
     const [newRecord, setNewRecord] = useState(false);
@@ -48,8 +48,8 @@ const TryTestView = () => {
             test.mondai_easy,
             test.mondai_mid,
             test.mondai_hard,
-            test.mondai_options
-        )
+            test.mondai_options,
+        ),
     );
     // console.log("🚀 ~ TryTestView ~ mondai:", mondai);
     const [drag] = useState(() =>
@@ -57,8 +57,8 @@ const TryTestView = () => {
             test.drag_easy,
             test.drag_mid,
             test.drag_hard,
-            test.drag_options
-        )
+            test.drag_options,
+        ),
     );
     // console.log("🚀 ~ TryTestView ~ drag:", drag);
     const [currentTest] = useState({
@@ -439,8 +439,8 @@ const TryTestView = () => {
         stage === "mondai"
             ? currentTest.mondai.length
             : stage === "dragDrop"
-            ? currentTest.dragDrop.length
-            : currentTest.manga.length;
+              ? currentTest.dragDrop.length
+              : currentTest.manga.length;
 
     return (
         <>
@@ -456,72 +456,77 @@ const TryTestView = () => {
             {savedTest && (
                 <p style={{ fontSize: "12px" }}>
                     Se ha guardado tu prueba.
-                    <ImCheckmark color="green" />
+                    <ImCheckmark color="#04dd04" />
                 </p>
             )}
-            <div className="titleAndPoints">
-                <ProblemCounter
-                    className="problemCounter"
-                    stage={stage}
-                    problem={{ current: problem, max: currentMax }}
-                />
-                {title}
-                {stage !== "results" && pointsCounter}
-            </div>
-            <TestTimer
-                seconds={seconds}
-                minutes={minutes}
-                hours={hours}
-                pause={pause}
-            ></TestTimer>
-
-            {stage === "mondai" && (
-                <Mondai
-                    mondai={mondai}
-                    problem={problem}
-                    correct={correct}
-                    incorrect={incorrect}
-                    thinking={thinking}
-                    handleClick={handleOptionClick}
-                />
-            )}
-            {stage === "dragDrop" && (
-                <DragDrop
-                    drag={drag}
-                    problem={problem}
-                    correct={correct}
-                    incorrect={incorrectDrag}
-                    thinking={thinking}
-                    handleClick={handleDragAnswer}
-                />
-            )}
-            {stage === "results" && (
-                <ResultStage
-                    score={score}
-                    maxScore={maxScore}
-                    newRecord={newRecord}
-                    previousRecord={previousHighScore}
-                    hasWonMedal={hasWonMedal}
-                    results={answers}
-                    lectureId={lecture.lectureId}
-                    lectureName={lecture.name}
-                />
-            )}
-            {stage !== "results" && (
-                <div className="testFeedbackContainer">
-                    <InteractionBlocker
-                        error={null}
-                        errorMsg={"Hubo un error guardando los resultados..."}
-                        loading={testMutation.status === "loading"}
-                        loadingMsg={"Guardando resultados..."}
+            <div className="testContainer">
+                <div className="titleAndPoints">
+                    <ProblemCounter
+                        className="problemCounter"
+                        stage={stage}
+                        problem={{ current: problem, max: currentMax }}
                     />
-                    <FeedbackText
-                        feedbackArea={feedback}
-                        show={thinking}
-                        nextButton={handleNext}
-                    />
+                    {title}
+                    {stage !== "results" && pointsCounter}
                 </div>
-            )}
+                <TestTimer
+                    seconds={seconds}
+                    minutes={minutes}
+                    hours={hours}
+                    pause={pause}
+                ></TestTimer>
+
+                {stage === "mondai" && (
+                    <Mondai
+                        mondai={mondai}
+                        problem={problem}
+                        correct={correct}
+                        incorrect={incorrect}
+                        thinking={thinking}
+                        handleClick={handleOptionClick}
+                    />
+                )}
+                {stage === "dragDrop" && (
+                    <DragDrop
+                        drag={drag}
+                        problem={problem}
+                        correct={correct}
+                        incorrect={incorrectDrag}
+                        thinking={thinking}
+                        handleClick={handleDragAnswer}
+                    />
+                )}
+                {stage === "results" && (
+                    <ResultStage
+                        score={score}
+                        maxScore={maxScore}
+                        newRecord={newRecord}
+                        previousRecord={previousHighScore}
+                        hasWonMedal={hasWonMedal}
+                        results={answers}
+                        lectureId={lecture.lectureId}
+                        lectureName={lecture.name}
+                    />
+                )}
+                {stage !== "results" && (
+                    <div className="testFeedbackContainer">
+                        <InteractionBlocker
+                            error={null}
+                            errorMsg={
+                                "Hubo un error guardando los resultados..."
+                            }
+                            // loading={true}
+                            loading={testMutation.status === "loading"}
+                            loadingMsg={"Guardando resultados..."}
+                        />
+                        <FeedbackText
+                            feedbackArea={feedback}
+                            show={thinking}
+                            nextButton={handleNext}
+                        />
+                    </div>
+                )}
+            </div>
         </>
     );
 };

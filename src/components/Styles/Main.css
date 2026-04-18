@@ -30,9 +30,10 @@
 .main .interactionBlocker {
   display: flex;
   z-index: 1000;
+  backdrop-filter: blur(1px);
   text-align: center;
   position: absolute;
-  background-color: rgba(32, 73, 107, 0.88);
+  background-color: rgba(0, 66, 121, 0.82);
   width: 100%;
   color: white;
   justify-content: center;
@@ -180,21 +181,16 @@
 @media (min-width: 768px) {
   .main .learnScreen .termCardSection .termCardButtonDesktop {
     display: block;
-    border-style: solid;
+    border: none;
     border-radius: 41px;
-    background-color: #656565;
+    background-color: #e06c1f;
     color: aliceblue;
     width: 51px;
     transition: 0.3s;
-    border-width: 3px;
-    border-color: #868686;
     z-index: 1;
   }
   .main .learnScreen .termCardSection .termCardButtonDesktop:hover {
-    background-color: #474747;
-  }
-  .main .learnScreen .termCardSection .termCardButtonDesktop:active {
-    background-color: #818181;
+    background-color: #cf5301;
   }
 }
 .main .learnScreen .termCardSection button {
@@ -241,7 +237,7 @@
 }
 .main .learnScreen .learnButtons .learningButton {
   background-color: rgb(225, 183, 167);
-  color: #ab071d;
+  color: #e06c1f;
 }
 .main .learnScreen .learnButtons .learnedButton {
   background-color: rgb(235, 255, 218);
@@ -285,13 +281,13 @@
   padding: 10px 10px;
   border: none;
   border-radius: 6px;
-  background-color: #137508;
+  background-color: #009b00;
   color: #e8ebed;
   width: 75%;
   margin-bottom: 20px;
 }
 .main .beginTestDiv .beginTestButton:hover {
-  background-color: #269719;
+  background-color: #008800;
 }
 .main .beginTestDiv .info {
   padding: 15px 0;
@@ -312,39 +308,47 @@
   width: 45%;
   align-self: center;
 }
-.main .testScreen .titleAndPoints {
+.main .testScreen .testContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #86beed;
+  border-radius: 15px;
+  padding: 30px 10px;
+}
+.main .testScreen .testContainer .titleAndPoints {
   width: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: 15% 70% 15%;
   grid-template-areas: "counter title points";
 }
-.main .testScreen .titleAndPoints .problemCounter {
+.main .testScreen .testContainer .titleAndPoints .problemCounter {
   grid-area: counter;
 }
-.main .testScreen .titleAndPoints .title {
+.main .testScreen .testContainer .titleAndPoints .title {
   font-size: 14px;
   margin: 0;
   grid-area: title;
 }
-.main .testScreen .titleAndPoints .pointsCounter {
+.main .testScreen .testContainer .titleAndPoints .pointsCounter {
   display: flex;
   right: 10px;
-  background-color: #880000;
+  background-color: #005ca7;
   border-radius: 100px;
   height: 40px;
   width: 40px;
 }
-.main .testScreen .titleAndPoints .pointsCounter p {
+.main .testScreen .testContainer .titleAndPoints .pointsCounter p {
   font-size: 10px;
   margin: auto;
 }
 @media (min-width: 768px) {
-  .main .testScreen .titleAndPoints .pointsCounter {
+  .main .testScreen .testContainer .titleAndPoints .pointsCounter {
     right: 20%;
     width: 75px;
   }
-  .main .testScreen .titleAndPoints .pointsCounter p {
+  .main .testScreen .testContainer .titleAndPoints .pointsCounter p {
     font-size: 15px;
     margin: auto;
   }
@@ -444,10 +448,10 @@
   background-color: #2d628f;
 }
 .main .testScreen .savedResultsButtons button:last-child {
-  background-color: #997800;
+  background-color: #e1af06;
 }
 .main .testScreen .savedResultsButtons button:last-child:hover {
-  background-color: #856800;
+  background-color: #c99d00;
 }
 .main .testScreen .savedResultsButtons .deactivated {
   text-decoration: line-through;
@@ -473,12 +477,12 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
-  background-color: #3a5c77;
+  background-color: #508abb;
   width: 150px;
   height: 150px;
   border-radius: 15px;
   border-style: dashed;
-  border-color: #9cb0c0;
+  border-color: white;
   box-sizing: content-box;
 }
 .main .testScreen .stickerDiv .stickerTooltip .winSticker {
@@ -520,7 +524,7 @@
     border-color: #9cb0c0;
   }
   100% {
-    border-color: #f5b64e;
+    border-color: #ffeb4c;
     border-style: inset;
   }
 }
@@ -548,7 +552,7 @@
   }
 }
 .main .testScreen .stickerDiv .win {
-  border-color: #f5b64e;
+  border-color: #ffeb4c;
   border-style: inset;
 }
 .main .testScreen .stickerDiv .stickerContainer {
@@ -572,7 +576,7 @@
 .main .testScreen .scoreParent .newRecord {
   margin: 0;
   font-size: 12px;
-  color: goldenrod;
+  color: #ffeb4c;
   position: absolute;
   padding-left: 5px;
   /* right: 0; */
@@ -635,7 +639,7 @@
 .main .testScreen .problemCounter {
   display: flex;
   justify-self: end;
-  background-color: #880000;
+  background-color: #005ca7;
   border-radius: 100px;
   height: 40px;
   width: 40px;
@@ -664,7 +668,7 @@
   font-family: "Noto Serif";
   font-weight: 600;
   text-decoration: underline;
-  text-decoration-color: #dbb01c;
+  text-decoration-color: #025d9b;
   font-size: 2.2rem;
   margin: 10px;
   justify-content: center;
@@ -686,6 +690,7 @@
 .main .testScreen .testFeedbackContainer {
   width: 100%;
   position: relative;
+  border-radius: 15px;
 }
 @media (min-width: 768px) {
   .main .testScreen .testFeedbackContainer {
@@ -753,10 +758,11 @@
   font-family: "Gidugu";
 }
 .main .testScreen .feedbackSection .feedbackText.correct {
-  color: #30a929;
+  color: #ffffff;
+  filter: drop-shadow(1px 1px 1px green);
 }
 .main .testScreen .feedbackSection .feedbackText.incorrect {
-  color: #e31720;
+  color: #bd1107;
 }
 .main .testScreen .feedbackSection .feedbackButton {
   grid-area: nextButton;
@@ -774,7 +780,7 @@
   min-height: 60px;
 }
 .main .testScreen .testContent .dragAnswer svg {
-  color: red;
+  color: #bd1107;
   font-size: 48px;
 }
 @media (min-width: 768px) {
@@ -813,7 +819,7 @@
 .main .testScreen .testContent p {
   margin: 0;
   font-size: 0.85rem;
-  color: #b5b5b5;
+  color: #ffffff;
 }
 @media (min-width: 768px) {
   .main .testScreen .testContent {
@@ -853,7 +859,7 @@
 }
 .main .testScreen .testContent .mondaiOptions .testOptionButton {
   color: #f5fcff;
-  background-color: #001e37;
+  background-color: #1f9ae1;
   border: none;
   margin: 3px 0;
   padding: 12px 0;
@@ -871,7 +877,7 @@
 }
 .main .testScreen .testContent .mondaiOptions .testOptionButton.incorrect {
   color: #f5fcff;
-  background-color: #e31720;
+  background-color: #a92930;
 }
 .main .testScreen .testContent .answersBox {
   height: 200px;
@@ -894,7 +900,7 @@
 }
 .main .userPanel h3 {
   text-decoration: underline;
-  text-decoration-color: goldenrod;
+  text-decoration-color: #0383cc;
 }
 .main .userPanel .userPanelContent {
   display: flex;
@@ -925,16 +931,16 @@
   justify-content: space-between;
   flex-wrap: wrap;
   height: 150px;
-  background-color: #164b78;
-  padding: 15px 5px;
-  box-shadow: inset 0 8px 6px -6px #040329;
+  background-color: #86beed;
+  padding: 15px 20px;
+  box-shadow: inset 0 8px 6px -6px #0d5a9b;
   overflow-x: scroll;
 }
 @media (min-width: 768px) {
   .main .userPanel .userPanelContent .stickersDiv .allStickers {
     height: auto;
     flex-direction: row;
-    width: 325px;
+    width: 400px;
     border-radius: 22px;
     margin: auto;
     overflow-x: hidden;
@@ -949,7 +955,7 @@
   width: 100%;
 }
 .main .userPanel .userPanelContent .stickersDiv .allStickers .selected {
-  filter: sepia(1);
+  filter: brightness(1.2) hue-rotate(140deg) drop-shadow(2px 4px 6px black);
 }
 .main .userPanel .userPanelContent .infoDiv {
   display: flex;
@@ -963,6 +969,29 @@
 .main .userPanel .userPanelContent .infoDiv .title {
   font-weight: 600;
   font-size: 18px;
+}
+
+.nav-tabs {
+  border-width: 0;
+  border-bottom: 1px solid #f5fcff;
+  font-weight: 600;
+  width: 100%;
+  padding: 0;
+}
+@media screen and (min-width: 768px) {
+  .nav-tabs {
+    padding: 0 20%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .nav-tabs {
+    padding: 0 35%;
+  }
+}
+.nav-tabs .nav-item button:not(.active) {
+  border: 1px solid white;
+  border-bottom: none;
+  border-radius: 0.375rem 0.375rem 0 0;
 }
 
 .panel {
@@ -999,7 +1028,7 @@
 
 .smallText {
   font-size: 10px;
-  color: #ab071d;
+  color: #e06c1f;
 }
 
 .optionsButton {
@@ -1016,12 +1045,12 @@
   justify-self: center;
 }
 .optionsButton:hover {
-  border-color: #ab071d;
+  border-color: #e06c1f;
 }
 .optionsButton:disabled {
-  background-color: gray;
-  color: #606060;
-  border-color: #606060;
+  background-color: #7ea9c1;
+  color: #467493;
+  border-color: #4585b1;
   cursor: not-allowed;
 }
 @media (min-width: 768px) {
@@ -1037,7 +1066,7 @@
   background-color: #f5fcff;
   color: #532f00;
   font-family: "Noto_Serif";
-  border: 3px solid #f5b64e;
+  border: 3px solid #ffffff;
   border-radius: 100px;
   cursor: pointer;
   margin: 5px 20px 5px;
@@ -1045,7 +1074,7 @@
   justify-self: center;
 }
 .backButton:hover {
-  border-color: #ab071d;
+  border-color: #e06c1f;
 }
 @media (min-width: 768px) {
   .backButton {
@@ -1056,7 +1085,7 @@
 
 .squareIconButton button {
   position: relative;
-  background-color: #38364b;
+  background-color: #6c83a5;
   border: none;
   border-radius: 15px;
   box-shadow: 1px 2px 1px 0px rgba(1, 1, 26, 0.53);
@@ -1137,15 +1166,12 @@
 }
 
 .gold {
-  border: 5px solid #ffbc00;
+  border: 5px solid #ffeb4c;
 }
 .gold .backCard .logo {
   filter: invert(62%) sepia(97%) saturate(583%) hue-rotate(360deg) brightness(104%) contrast(103%);
 }
 
-.muted {
-  border: 5px solid #7a059f;
-}
 .muted .backCard {
   background-color: #333333 !important;
 }
@@ -1197,12 +1223,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #8b4500;
-  background-color: #fdd2a6;
+  color: white;
+  background-color: #86beed;
   margin: 10px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 1px 5px 17px 7px rgba(1, 1, 26, 0.71);
+  box-shadow: 1px 5px 17px 7px rgba(0, 0, 47, 0.3);
 }
 .termCardDiv .termCard .error-message {
   text-align: center;
@@ -1301,11 +1327,15 @@
   align-items: center;
   width: 160px;
   height: 160px;
-  border: 0.0625rem solid rgb(156, 156, 156);
+  border: 0.0625rem solid rgb(255, 255, 255);
+  background-color: #2098e5;
 }
 .termCardDiv .termCard .kanjiBackground svg {
   height: 100%;
   width: 100%;
+}
+.termCardDiv .termCard .kanjiBackground .canvas {
+  border: 0.0625rem solid rgb(255, 255, 255);
 }
 .termCardDiv .termCard .character {
   position: absolute;

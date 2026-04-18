@@ -28,8 +28,8 @@
             transition: 0.15s;
 
             &:hover {
-                background-color: $stripes-red;
-                border-color: $stripes-red;
+                background-color: $stripes-orange;
+                border-color: $stripes-orange;
                 color: white;
             }
 
@@ -98,7 +98,7 @@
         border: none;
         color: white;
         &:hover {
-            color: gold;
+            color: $gold-accent;
             background-color: $background-blue;
         }
 

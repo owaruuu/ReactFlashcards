@@ -29,7 +29,7 @@
             .name {
                 grid-area: lectureName;
 
-                border-right: goldenrod 2px solid;
+                border-right: $gold-accent 2px solid;
                 margin-right: 2px;
             }
 
@@ -85,15 +85,17 @@
         }
 
         .lectureListTitle {
+            margin-bottom: 10px;
             grid-area: title;
             text-align: center;
             color: #f5fcff;
             font-family: "Noto Serif";
             font-weight: 600;
             text-decoration: underline;
-            text-decoration-color: $decoration-yellow;
+            // text-decoration-color: $background-blue-dark;
+            text-decoration-color: $text-decoration-blue;
             font-size: 2.2rem;
-            margin: 0;
+            // margin: 0;
         }
 
         .ordering {
@@ -105,7 +107,7 @@
         }
 
         .filtering {
-            border-top: #ab071d solid 2px;
+            border-top: $stripes-orange solid 2px;
             padding-top: 3px;
             // background-color: rgb(34, 38, 94);
             color: white;
