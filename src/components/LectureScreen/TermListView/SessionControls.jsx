@@ -13,7 +13,11 @@ import {
     shuffleArray,
 } from "../../../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { ReactSVG } from "react-svg";
 import ComingTerms from "../ComingTerms/ComingTerms.jsx";
+import PengiTelescopeSvg1 from "../../../svg/pengi transparente for export.svg";
+import PengiTelescopeSvg2 from "../../../svg/pengi transparente 2 for export.svg";
+import PengiCorriendoSvg from "../../../svg/pengi corriendo transparente 1.svg";
 
 const MAX_SESSION_SIZE = 30;
 
@@ -26,7 +30,6 @@ const SessionControls = ({
     levelsData = {}, //ADD default state
     lectureQuery, //ADD lecture query to read status
 }) => {
-    // console.log("🚀 ~ SessionControls ~ levelsData:", levelsData);
     const navigate = useNavigate();
 
     const hasSession = sessionData?.terms?.length > 0;
@@ -299,10 +302,19 @@ const SessionControls = ({
                     disabled={amountReviewed === terms.length - muted}
                     onClick={onNewStudySession}
                 >
-                    <img
-                        className="smartStudyIcon"
-                        src="/img/pengi vector transparente 5.png"
-                    ></img>
+                    {language === "japanese" || language === "recognize" ? (
+                        <ReactSVG
+                            src={PengiTelescopeSvg1}
+                            className="smartStudyIcon"
+                            renumerateIRIElements
+                        />
+                    ) : (
+                        <ReactSVG
+                            src={PengiTelescopeSvg2}
+                            className="smartStudyIcon"
+                            renumerateIRIElements
+                        />
+                    )}
                     <p className="smartStudyTitle">
                         Nuevo estudio <ImLab />
                     </p>
@@ -313,10 +325,11 @@ const SessionControls = ({
 
                 <div className="comingTerms">
                     <ComingTerms comingTerms={comingTerms} />
-                    <img
+                    <ReactSVG
+                        src={PengiCorriendoSvg}
                         className="runningPenguin"
-                        src="/img/pengi corriendo transparente 4 sin linea.png"
-                    ></img>
+                        renumerateIRIElements
+                    />
                 </div>
 
                 <div className="explanation">

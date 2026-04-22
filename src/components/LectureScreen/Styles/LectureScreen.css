@@ -234,7 +234,7 @@
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover {
   border-color: black;
 }
-.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover img {
+.lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .smartStudy:hover .smartStudyIcon {
   transform: scale(1.25) rotateZ(3deg);
 }
 @keyframes animateStripes {
