@@ -287,7 +287,7 @@
                                 var(--smart-study-stripe-speed) linear infinite;
                         }
 
-                        &:hover {
+                        &:hover:not(:disabled) {
                             border-color: black;
 
                             .smartStudyIcon {
@@ -318,6 +318,19 @@
                         }
                         .smartStudyTitle {
                             font-size: 1.6rem;
+                        }
+
+                        &:disabled {
+                            &::before {
+                                animation-play-state: paused;
+                                --smart-study-stripe-angle: 0deg;
+                                --smart-study-stripe-c1: #777777;
+                                --smart-study-stripe-c2: #696969;
+                            }
+
+                            cursor: not-allowed;
+                            filter: contrast(0.8) grayscale(100%)
+                                brightness(1.05);
                         }
                     }
 
