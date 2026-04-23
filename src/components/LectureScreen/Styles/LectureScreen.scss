@@ -244,29 +244,6 @@
                         }
                     }
 
-                    // .stripes {
-                    //     position: relative;
-                    //     width: 100%;
-                    //     height: 100%;
-                    //     &::before {
-                    //         position: absolute;
-                    //         content: "";
-                    //         top: 0;
-                    //         left: 0;
-                    //         height: 100%;
-                    //         // width: 100%;
-                    //         width: calc(100% + 100px);
-                    //         background: repeating-linear-gradient(
-                    //             45deg,
-                    //             black 25%,
-                    //             black 50%,
-                    //             yellow 50%,
-                    //             yellow 75%
-                    //         );
-                    //         background-size: 100px 100px;
-                    //     }
-                    // }
-
                     .smartStudy {
                         z-index: 1;
                         position: relative;
@@ -312,13 +289,7 @@
 
                         &:hover {
                             border-color: black;
-                            // &::before {
-                            //     // --smart-study-stripe-angle: 65deg;
-                            //     // --smart-study-stripe-c1: #6dccf5;
-                            //     // --smart-study-stripe-c2: #54bbeb;
-                            //     // --smart-study-stripe-w: 20px;
-                            //     --smart-study-stripe-speed: 0.5s;
-                            // }
+
                             .smartStudyIcon {
                                 transform: scale(1.25) rotateZ(3deg);
                             }
@@ -337,66 +308,9 @@
                             }
                         }
 
-                        // height: 100px;
-                        // width: 100px;
-                        // border: 2px solid white;
-                        // border: none;
-
-                        // @keyframes stripe-drift {
-                        //     from {
-                        //         background-position: 0 0;
-                        //     }
-                        //     to {
-                        //         /* Move by one full stripe “period” in the direction you want */
-                        //         background-position: calc(
-                        //                 var(--smart-study-stripe-w) * 10
-                        //             )
-                        //             0;
-                        //     }
-                        // }
-
-                        // animation: stripe-drift 8s linear infinite;
-
-                        // background-color: var(--smart-study-stripe-c2);
-                        // background: repeating-linear-gradient(
-                        //     var(--smart-study-stripe-angle),
-                        //     var(--smart-study-stripe-c1) 0,
-                        //     var(--smart-study-stripe-c1)
-                        //         var(--smart-study-stripe-w),
-                        //     var(--smart-study-stripe-c2)
-                        //         var(--smart-study-stripe-w),
-                        //     var(--smart-study-stripe-c2)
-                        //         calc(var(--smart-study-stripe-w) * 2)
-                        // );
-
-                        // transition:
-                        //     --smart-study-stripe-angle 0.45s ease,
-                        //     --smart-study-stripe-c1 0.45s ease,
-                        //     --smart-study-stripe-c2 0.45s ease,
-                        //     --smart-study-stripe-w 0.45s ease;
-
-                        // &:hover {
-                        //     --smart-study-stripe-angle: 65deg;
-                        //     // --smart-study-stripe-c1: #6dccf5;
-                        //     // --smart-study-stripe-c2: #54bbeb;
-                        //     --smart-study-stripe-w: 20px;
-                        // }
-
-                        // animation: moveGradient 2s linear infinite;
-                        // @keyframes moveGradient {
-                        //     from {
-                        //         background-position: 0 0;
-                        //     }
-                        //     to {
-                        //         background-position: 40px 0;
-                        //     }
-                        // }
-
                         font-size: 1rem;
 
                         .smartStudyIcon {
-                            // border: 1px solid white;
-                            // height: 80px;
                             width: 140px;
                             transform: scale(1.15);
                             transform-origin: bottom;
@@ -422,7 +336,6 @@
 
                         .comingEntry {
                             display: flex;
-                            // flex-direction: column;
                             justify-content: space-between;
                             align-items: center;
                             p {
@@ -455,7 +368,6 @@
                         height: 100%;
                         padding: 0 10px;
                         border-bottom: 2px dashed white;
-                        // border-radius: 10px;
                         grid-area: comingTerms;
 
                         .info-icon {
