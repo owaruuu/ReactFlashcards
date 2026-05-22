@@ -105,6 +105,7 @@ const LecturesRoute = (props) => {
 
             try {
                 const response = await getExtraLessons(perms.data);
+                // console.log("🚀 ~ fetchLessons ~ perms:", perms);
 
                 if (!hasNormalPerms) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
@@ -112,13 +113,18 @@ const LecturesRoute = (props) => {
                     setLectures(response);
                 }
 
-                if (!hasKanjiPerms) {
-                    setExtraKanjiSetMessage(
-                        "No tienes acceso a mas lecciones Kanji.",
-                    );
-                } else {
-                    setKanjiLectures(response);
-                }
+                //TODO arreglar despues de agregar logica para kanji lectures
+                setExtraKanjiSetMessage(
+                    "No tienes acceso a mas lecciones Kanji.",
+                );
+
+                // if (!hasKanjiPerms) {
+                //     setExtraKanjiSetMessage(
+                //         "No tienes acceso a mas lecciones Kanji.",
+                //     );
+                // } else {
+                //     setKanjiLectures(response);
+                // }
 
                 return dispatch({
                     type: "SET_LECTURES_FLAG",
