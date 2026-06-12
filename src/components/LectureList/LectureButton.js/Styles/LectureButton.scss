@@ -75,6 +75,12 @@
         // margin-top: 4px;
         text-align: center;
 
+        svg {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: $stripes-orange;
+        }
+
         @media (min-width: 768px) {
             font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);
         }

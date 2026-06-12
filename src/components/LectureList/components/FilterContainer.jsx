@@ -2,7 +2,9 @@ import React from "react";
 import FilterCheckbox from "./FilterCheckbox";
 
 const FilterContainer = (props) => {
+    // console.log("🚀 ~ FilterContainer ~ props:", props);
     // console.log("🚀 ~ checkBoxes ~ props.filters:", props.filters);
+
     const filters = [...props.filters];
     // const filters = [
     //     "basico1",
@@ -25,13 +27,30 @@ const FilterContainer = (props) => {
                 onClick={props.onClick}
                 filter={filter}
                 state={props.state[filter]}
+                disabled={props.state["favoritos"]}
             />
         );
     });
+
+    const favoritosCheckBox = (
+        <FilterCheckbox
+            key={"favoritos"}
+            label={"Favoritos"}
+            onClick={props.onClick}
+            filter={"favoritos"}
+            state={props.state["favoritos"]}
+        />
+    );
+
+    // checkBoxes = [...checkBoxes, favoritosCheckBox];
+
     return (
         <div className="filtering">
             <span>filtrar por: </span>
-            <div className="checkboxes">{checkBoxes}</div>
+            <div className="checkboxes">
+                {checkBoxes}
+                {favoritosCheckBox}
+            </div>
         </div>
     );
 };

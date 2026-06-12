@@ -25,6 +25,7 @@ const LectureButtons = (props) => {
         allLecturesDataQuery?.status === "success"
             ? buildLectureData(allLecturesDataQuery.data)
             : {};
+    // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
 
     const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
     // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
@@ -72,7 +73,13 @@ const LectureButtons = (props) => {
             />
         );
     });
-    return lectureButtons;
+    return lectureButtons.length > 0 ? (
+        lectureButtons
+    ) : (
+        <div className="noLecturesMessage">
+            No hay lecciones que coincidan con los filtros
+        </div>
+    );
 };
 
 //FUNCTIONS
@@ -122,12 +129,17 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
                     lecture["write_terms_levels"] =
                         dataObject[lecture.lectureId]["write_terms_levels"];
                 }
+                if (dataObject[lecture.lectureId]["bookmarked"]) {
+                    lecture["bookmarked"] =
+                        dataObject[lecture.lectureId]["bookmarked"];
+                }
             }
 
             return lecture;
         });
     } else {
         filledLectures = filledLectures.map((lecture) => {
+            // console.log("🚀 ~ insertSessionData ~ lecture:", lecture);
             //NEW agregar mapa de lectures
             //sera un objeto
             lecture["termListObject"] = {};
@@ -159,6 +171,10 @@ function insertSessionData(lectures, dataObject, isKanjiView) {
                 if (dataObject[lecture.lectureId]["spanish_terms_data"]) {
                     lecture["spanish_terms_data"] =
                         dataObject[lecture.lectureId]["spanish_terms_data"];
+                }
+                if (dataObject[lecture.lectureId]["bookmarked"]) {
+                    lecture["bookmarked"] =
+                        dataObject[lecture.lectureId]["bookmarked"];
                 }
             }
 
@@ -377,6 +393,7 @@ function buildLectureData(dataArray) {
 
     dataArray.forEach((element) => {
         result[element.lecture_id] = {
+            bookmarked: element["bookmarked"],
             japanese_session: element["japanese_session"],
             japanese_terms_data: element["japanese_terms_data"],
             japanese_terms_levels: element["japanese_terms_levels"],
@@ -396,11 +413,22 @@ function buildLectureData(dataArray) {
 }
 
 function filterLectures(filters, lectures) {
+    // console.log("🚀 ~ filterLectures ~ filters:", filters);
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
+    // console.log("🚀 ~ filterLectures ~ clonedLectures:", clonedLectures);
 
-    clonedLectures = clonedLectures.filter((lecture) => {
-        return filters.includes(lecture.lectureGroup);
-    });
+    // let favoriteFiltered = clonedLectures.filter((lecture) => {
+    //     return lecture.bookmarked;
+    // });
+    if (filters.includes("favoritos")) {
+        clonedLectures = clonedLectures.filter((lecture) => {
+            return lecture.bookmarked;
+        });
+    } else {
+        clonedLectures = clonedLectures.filter((lecture) => {
+            return filters.includes(lecture.lectureGroup);
+        });
+    }
 
     return clonedLectures;
 }

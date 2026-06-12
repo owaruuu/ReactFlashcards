@@ -13,6 +13,7 @@ const LectureListView = ({ isKanjiView = false }) => {
     // console.log("🚀 ~ LectureListView ~ isKanjiView:", isKanjiView);
     // const { isKanjiView } = props;
     const outCtx = useOutletContext();
+    // console.log("🚀 ~ LectureListView ~ outCtx:", outCtx);
     const { serverError, loggedIn, lectures, kanjiSets, gotLectures } =
         useContext(AppContext);
 

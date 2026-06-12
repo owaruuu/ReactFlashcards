@@ -14,6 +14,7 @@ import TermsReviewAmount from "./components/TermsReviewAmount.jsx";
 import ReviewSessionTime from "./components/ReviewSessionTime.jsx";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FaStarOfLife } from "react-icons/fa6";
 
 import { showDifference } from "../../../utils/utils";
 
@@ -46,6 +47,7 @@ const LectureButton = (props) => {
     // console.log("🚀 ~ LectureButton ~ testId:", testId);
     const hasTest = testId !== "-1" && testId !== undefined;
 
+    // console.log("🚀 ~ LectureButton ~ lecture:", lecture);
     //Cambiar por leer un read en la data de la lecture en el testId
     // const [hasTest] = useState(testId);
 
@@ -74,7 +76,7 @@ const LectureButton = (props) => {
 
                 setPercentage(Math.trunc((learnedAmount / amount) * 100));
                 setJapanesePercentage(
-                    Math.trunc((japaneseLearnedAmount / amount) * 100)
+                    Math.trunc((japaneseLearnedAmount / amount) * 100),
                 );
             } else {
                 setPercentage(0);
@@ -149,7 +151,7 @@ const LectureButton = (props) => {
         ? {
               chosenDiff: Math.abs(
                   new Date(japaneseLastSessionTime).getTime() -
-                      new Date().getTime()
+                      new Date().getTime(),
               ),
               lang: firstAbreviation,
           }
@@ -159,11 +161,21 @@ const LectureButton = (props) => {
         ? {
               chosenDiff: Math.abs(
                   new Date(spanishLastSessionTime).getTime() -
-                      new Date().getTime()
+                      new Date().getTime(),
               ),
               lang: secondAbreviation,
           }
         : undefined;
+
+    const isBookmarked = userDataQueryData?.[id]?.bookmarked;
+    // console.log("🚀 ~ LectureButton ~ isBookmarked:", isBookmarked);
+    const lectureName = isBookmarked ? (
+        <>
+            <FaStarOfLife /> {title} <FaStarOfLife />
+        </>
+    ) : (
+        <>{title}</>
+    );
 
     return (
         <div
@@ -171,7 +183,7 @@ const LectureButton = (props) => {
             onClick={() => {
                 backToTop();
                 navigate(
-                    isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`
+                    isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`,
                 );
             }}
         >
@@ -190,7 +202,7 @@ const LectureButton = (props) => {
                     amount={props.amount}
                 />
             </div> */}
-            <span className="lectureButtonTitle">{title}</span>
+            <span className="lectureButtonTitle">{lectureName}</span>
             <div className="terms">
                 <span>{amount} Palabras</span>
                 {isKanjiView && <span> - {amountKanji} Kanji</span>}

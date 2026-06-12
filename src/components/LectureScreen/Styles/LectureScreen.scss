@@ -37,6 +37,11 @@
     text-decoration-color: $v3-text-decoration-blue-light;
     margin: 10px 0;
     // margin-top: 35px;
+
+    svg {
+        font-size: 1.5rem;
+        color: $stripes-orange;
+    }
 }
 
 .lectureScreen {
@@ -65,6 +70,34 @@
 
             @media (min-width: 768px) {
                 flex-direction: row;
+            }
+        }
+
+        .bookmark {
+            margin: 0 10px;
+            font-weight: 600;
+
+            .bookmarkToggleContainer {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: start;
+                gap: 10px;
+            }
+
+            .bookmarkToggle.form-switch {
+                font-size: 1.5rem;
+                // background-color: #5e7385; // off track (e.g. your $gray-2)
+                .form-check-input {
+                    border-color: #5e7385;
+                    &:checked {
+                        background-color: $stripes-orange; // on track (e.g. your $victory-green)
+                        border-color: $stripes-orange;
+                    }
+                    &:focus {
+                        // box-shadow: 0 0 0 0.25rem rgba(48, 169, 41, 0.25);
+                    }
+                }
             }
         }
 

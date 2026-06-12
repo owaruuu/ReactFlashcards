@@ -32,6 +32,10 @@
   text-decoration-color: #8bd0ff;
   margin: 10px 0;
 }
+.lectureTitle svg {
+  font-size: 1.5rem;
+  color: #e06c1f;
+}
 
 .lectureScreen {
   display: flex;
@@ -59,6 +63,27 @@
   .lectureScreen .lectureScreenButtons .learningButtons {
     flex-direction: row;
   }
+}
+.lectureScreen .lectureScreenButtons .bookmark {
+  margin: 0 10px;
+  font-weight: 600;
+}
+.lectureScreen .lectureScreenButtons .bookmark .bookmarkToggleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+.lectureScreen .lectureScreenButtons .bookmark .bookmarkToggle.form-switch {
+  font-size: 1.5rem;
+}
+.lectureScreen .lectureScreenButtons .bookmark .bookmarkToggle.form-switch .form-check-input {
+  border-color: #5e7385;
+}
+.lectureScreen .lectureScreenButtons .bookmark .bookmarkToggle.form-switch .form-check-input:checked {
+  background-color: #e06c1f;
+  border-color: #e06c1f;
 }
 .lectureScreen .lectureScreenButtons button {
   font-weight: 400;

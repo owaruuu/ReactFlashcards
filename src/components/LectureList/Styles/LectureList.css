@@ -95,6 +95,10 @@
 .lectureList .titleContainer .filtering .checkboxes div {
   display: flex;
 }
+.lectureList .titleContainer .filtering .checkboxes input[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .lectureList .titleContainer span {
   color: white;
 }

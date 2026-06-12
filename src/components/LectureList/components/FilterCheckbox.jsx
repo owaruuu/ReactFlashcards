@@ -1,18 +1,23 @@
 import React from "react";
 
-const FilterCheckbox = (props) => {
+const FilterCheckbox = ({
+    filter,
+    state,
+    onClick,
+    disabled = false,
+    label,
+}) => {
     return (
         <div>
             <input
                 type="checkbox"
-                id={props.filter}
-                name={props.filter}
-                checked={props.state}
-                onChange={() =>
-                    props.onClick({ type: props.filter, value: !props.state })
-                }
+                id={filter}
+                name={filter}
+                checked={state}
+                onChange={() => onClick({ type: filter, value: !state })}
+                disabled={disabled}
             />
-            <label htmlFor={props.filter}>{props.label}</label>
+            <label htmlFor={filter}>{label}</label>
         </div>
     );
 };

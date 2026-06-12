@@ -35,6 +35,7 @@ const LecturesRoute = (props) => {
         basico9: false,
         basico10: false,
         extra1: false,
+        favoritos: false,
     });
     const [kanjiFilterState, setKanjiFilterState] = useState({
         jlptn5: false,

@@ -89,3 +89,25 @@ export async function getLectureData(lectureId) {
         throw error;
     }
 }
+
+export async function bookmarkLecture({ lectureId, newState }) {
+    // console.log(
+    //     "🚀 ~ bookmarkLecture ~ lectureId, newState:",
+    //     lectureId,
+    //     newState,
+    // );
+    try {
+        const response = await api.post(
+            `${URL}/api/v2/user-data/${lectureId}/bookmark`,
+            {
+                lectureId,
+                newState,
+            },
+        );
+        // console.log("🚀 ~ bookmarkLecture ~ response:", response);
+        return response;
+    } catch (error) {
+        console.log("🚀 ~ bookmarkLecture ~ error:", error);
+        throw error;
+    }
+}

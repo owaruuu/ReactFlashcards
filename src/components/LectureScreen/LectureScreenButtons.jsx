@@ -3,6 +3,8 @@ import BackButton from "../BackButton";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
+import BookmarkLectureToggle from "./BookmarkLectureToggle";
+
 const LectureScreenButtons = (props) => {
     const navigate = useNavigate();
 
@@ -28,6 +30,14 @@ const LectureScreenButtons = (props) => {
             <div className="learningButtons">
                 {!props.isKanjiView && reviewButton}
                 {props.hasTest && testButton}
+            </div>
+
+            <div className="bookmark">
+                <BookmarkLectureToggle
+                    isBookmarked={props.isBookmarked}
+                    onBookmarkClick={props.onBookmarkClick}
+                    isLoading={props.bookmarkLectureMutation.isLoading}
+                />
             </div>
 
             <BackButton

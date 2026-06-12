@@ -46,6 +46,11 @@
   grid-area: title;
   text-align: center;
 }
+.lectureButton .lectureButtonTitle svg {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #e06c1f;
+}
 @media (min-width: 768px) {
   .lectureButton .lectureButtonTitle {
     font-size: clamp(0.4rem, 1rem + 0.3vw, 2.5rem);

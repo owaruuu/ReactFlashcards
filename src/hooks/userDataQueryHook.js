@@ -4,6 +4,7 @@ import {
     postLectureData,
     getAllUserData,
     postSessionPointsData,
+    bookmarkLecture,
 } from "../aws/userDataApi";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
@@ -271,4 +272,47 @@ function findLectureData(dataArray, lectureId) {
     }
 
     return result;
+}
+
+export function useBookmarkLectureMutation(lectureId) {
+    const queryClient = useQueryClient();
+    const queryKey = getLectureQueryString(lectureId);
+    const { dispatch } = useContext(AppContext);
+    return useMutation({
+        mutationFn: bookmarkLecture,
+        onError: (err, variables, context) => {
+            console.log("🚀 ~ useBookmarkLectureMutation ~ err:", err);
+            dispatch({ type: "SET_SAVE_ERROR", payload: true });
+        },
+        onSuccess: (data, variables, context) => {
+            const globalQuery = queryClient.getQueryData("allDataForUser");
+
+            const localValue = queryClient.getQueryData([queryKey]);
+
+            const allButChanged = globalQuery.filter((object) => {
+                return object.lecture_id != variables.lectureId;
+            });
+
+            const [oldValue] = globalQuery.filter((object) => {
+                return object.lecture_id == variables.lectureId;
+            });
+
+            const newValue = {
+                ...oldValue,
+                bookmarked: variables.newState,
+            };
+
+            const newArray = [...allButChanged, newValue];
+
+            queryClient.setQueryData("allDataForUser", newArray);
+            queryClient.setQueryData([queryKey], {
+                data: {
+                    ...localValue.data,
+                    bookmarked: variables.newState,
+                },
+            });
+
+            dispatch({ type: "SET_SAVE_ERROR", payload: false });
+        },
+    });
 }

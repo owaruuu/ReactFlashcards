@@ -7,13 +7,17 @@ import { AppContext } from "../../context/AppContext";
 import { useOutletContext } from "react-router-dom";
 import { getLectureQueryString } from "../../utils/utils";
 
-import { useTermOptionsMutation } from "../../hooks/userDataQueryHook";
+import {
+    useBookmarkLectureMutation,
+    useTermOptionsMutation,
+} from "../../hooks/userDataQueryHook";
 import NormalSessionTabs from "../../components/LectureScreen/TermListView/SessionTabs/NormalSessionTabs";
 import KanjiSessionTabs from "../../components/LectureScreen/TermListView/SessionTabs/KanjiSessionTabs";
 import NormalTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/NormalTermList";
 import SpanishTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/SpanishTermList";
 import RecognizeTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/RecognizeTermList";
 import WriteTermList from "../../components/LectureScreen/TermListView/SessionTabs/TermLists/WriteTermList";
+import { FaStarOfLife } from "react-icons/fa";
 
 // path: "/lectures/:lectureId",
 const TermListView = () => {
@@ -28,11 +32,25 @@ const TermListView = () => {
         isKanjiView,
     } = useOutletContext();
     const { loggedIn } = useContext(AppContext);
+    const isBookmarked = lectureQuery.data?.data?.bookmarked;
+    // console.log("🚀 ~ TermListView ~ isBookmarked:", isBookmarked);
+    // console.log("🚀 ~ TermListView ~ lectureQuery:", lectureQuery);
 
     //MUTATIONS
     const termOptionsMutation = useTermOptionsMutation(
         getLectureQueryString(lecture.lectureId),
     );
+
+    const bookmarkLectureMutation = useBookmarkLectureMutation(
+        lecture.lectureId,
+    );
+
+    function onBookmarkClick() {
+        bookmarkLectureMutation.mutate({
+            lectureId: lecture.lectureId,
+            newState: !isBookmarked,
+        });
+    }
 
     //funcion para los botones de highlight y mute
     //No va con fecha ya que no cuenta como estudio en si
@@ -127,16 +145,29 @@ const TermListView = () => {
         }
     }
 
+    // const isBookmarked = true;
+
+    const lectureName = isBookmarked ? (
+        <>
+            <FaStarOfLife /> {lecture.name} <FaStarOfLife />
+        </>
+    ) : (
+        <>{lecture.name}</>
+    );
+
     return (
         <div className="lectureScreen">
             <h2 id="title" className="lectureTitle" string={lecture.name}>
-                {lecture.name}
+                {lectureName}
             </h2>
             <LectureScreenButtons
                 testQuery={testQuery}
                 hasTest={hasTest}
                 loggedIn={loggedIn}
                 isKanjiView={isKanjiView}
+                isBookmarked={isBookmarked}
+                onBookmarkClick={onBookmarkClick}
+                bookmarkLectureMutation={bookmarkLectureMutation}
             />
             {/* <UpperDivider /> */}
             <div className="termListDiv">
