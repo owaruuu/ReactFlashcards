@@ -170,7 +170,7 @@ export async function saveTestTry(payload) {
  */
 export const getExtraPerms = async () => {
     const permissionsPromise = api.get(`${URL}/api/v2/permissions`);
-    return defer({ perms: permissionsPromise });
+    return { response: permissionsPromise };
 };
 
 export async function getTestData(testId) {
@@ -185,13 +185,13 @@ export async function getTestData(testId) {
     }
 }
 
-export const getExtraLessons = async (keys) => {
+export const getExtraLessons = async (perms) => {
     try {
-        const response = await api.post(`${URL}/api/v2/lessons`, { keys });
+        const { data } = await api.post(`${URL}/api/v2/lessons`, perms);
         // console.log("🚀 ~ getExtraLessons ~ response:", response);
         return {
-            data: response.data.Responses.lectures,
-            kanjiData: response.data.Responses.kanjiSets,
+            data: data[0].Responses.lectures,
+            kanjiData: data[1].Responses.kanjiSets,
         };
     } catch (error) {
         console.log("🚀 ~ getExtraLessons ~ error:", error);

@@ -1,4 +1,5 @@
-export const version = "12/6/2026 - add favorite lectures filter";
+export const version = "15/6/2026 - add back kanji lectures";
+// "12/6/2026 - add favorite lectures filter";
 // "24/4/2026 - merge staging into develop";
 // "17/4/2026 - finish theme changes";
 // "6/4/2026 - move all user-data routes to api/v2 to work with path cookies";

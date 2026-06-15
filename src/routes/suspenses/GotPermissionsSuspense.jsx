@@ -15,9 +15,9 @@ const GotPermissionsSuspense = () => {
                 </>
             }
         >
-            <Await resolve={data.perms} errorElement={<PermsError />}>
-                {(perms) => {
-                    return <LecturesRoute perms={{ data: perms.data }} />;
+            <Await resolve={data.response} errorElement={<PermsError />}>
+                {({ data }) => {
+                    return <LecturesRoute perms={data} />;
                 }}
             </Await>
         </React.Suspense>

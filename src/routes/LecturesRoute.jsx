@@ -102,11 +102,8 @@ const LecturesRoute = (props) => {
     //Obtener lectures extras con permisos
     useEffect(() => {
         const fetchLessons = async (hasNormalPerms, hasKanjiPerms) => {
-            // console.log("🚀 ~ fetchLessons ~ perms.data:", perms.data);
-
             try {
-                const response = await getExtraLessons(perms.data);
-                // console.log("🚀 ~ fetchLessons ~ perms:", perms);
+                const response = await getExtraLessons(perms);
 
                 if (!hasNormalPerms) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
@@ -114,18 +111,13 @@ const LecturesRoute = (props) => {
                     setLectures(response);
                 }
 
-                //TODO arreglar despues de agregar logica para kanji lectures
-                setExtraKanjiSetMessage(
-                    "No tienes acceso a mas lecciones Kanji.",
-                );
-
-                // if (!hasKanjiPerms) {
-                //     setExtraKanjiSetMessage(
-                //         "No tienes acceso a mas lecciones Kanji.",
-                //     );
-                // } else {
-                //     setKanjiLectures(response);
-                // }
+                if (!hasKanjiPerms) {
+                    setExtraKanjiSetMessage(
+                        "No tienes acceso a mas lecciones Kanji.",
+                    );
+                } else {
+                    setKanjiLectures(response);
+                }
 
                 return dispatch({
                     type: "SET_LECTURES_FLAG",
@@ -161,9 +153,12 @@ const LecturesRoute = (props) => {
         };
 
         const setLectures = async (response) => {
-            // console.log("🚀 ~ getLectures ~ response:", response);
             //si ambas queries fallan o estan vacias
-            if (response.error || response.data.length === 0) {
+            if (
+                response.error ||
+                response.data.length === 0 ||
+                response.kanjiData.length === 0
+            ) {
                 setExtraLessonMessage(
                     "Hubo un error obteniendo tus lecciones, intentalo mas tarde.",
                 );
@@ -193,7 +188,6 @@ const LecturesRoute = (props) => {
         };
 
         const setKanjiLectures = async (response) => {
-            // console.log("🚀 ~ getKanjiLectures ~ response:", response);
             //si ambas queries fallan o estan vacias
             if (response.error || response.kanjiData.length === 0) {
                 setExtraKanjiSetMessage(
@@ -231,14 +225,8 @@ const LecturesRoute = (props) => {
                 });
             }
 
-            const hasNormalPerms = perms.data.some((id) => {
-                return !kanjiSetsId.includes(id);
-            });
-            // console.log("🚀 ~ fetchLessons ~ hasNormalPerms:", hasNormalPerms);
-            const hasKanjiPerms = perms.data.some((id) => {
-                return kanjiSetsId.includes(id);
-            });
-            // console.log("🚀 ~ fetchLessons ~ hasKanjiPerms:", hasKanjiPerms);
+            const hasNormalPerms = perms.access.length > 0;
+            const hasKanjiPerms = perms.kanjiAccess.length > 0;
 
             //Case: no tiene ninguna leccion extra
             if (!hasNormalPerms && !hasKanjiPerms) {
@@ -281,7 +269,7 @@ const LecturesRoute = (props) => {
                 sizeButtonState,
                 filterState,
                 kanjiFilterState,
-                perms: [...perms.data, ...freePerms],
+                perms: [...perms.access, ...perms.kanjiAccess, ...freePerms],
                 setJapaneseDateButtonState,
                 setSpanishDateButtonState,
                 setRecognizeDateButtonState,
