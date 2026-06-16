@@ -13,7 +13,7 @@
 
     // display: grid;
     // grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 33% 33% 33%;
+    // grid-template-rows: 33% 33% 33%;
     grid-template-areas:
         "progress"
         "title"
@@ -30,9 +30,58 @@
     // border-bottom: 3px solid #dbb01c;
     margin: 5px 0;
     padding: 10px 5px;
-    justify-content: space-around;
+    // justify-content: space-around;
     align-items: center;
     cursor: pointer;
+
+    .title {
+        display: grid;
+        grid-template-areas:
+            "terms icons"
+            "lectureButtonTitle lectureButtonTitle";
+        text-align: center;
+
+        .terms {
+            grid-area: terms;
+        }
+
+        .icons {
+            grid-area: icons;
+
+            svg {
+                font-size: 1.4rem;
+            }
+        }
+
+        .lectureButtonTitle {
+            grid-area: lectureButtonTitle;
+        }
+    }
+
+    .session {
+        display: grid;
+        grid-template-areas: "japaneseTitle  japaneseSection spanishTitle spanishSection";
+
+        .japaneseTitle {
+            grid-area: japaneseTitle;
+            text-align: end;
+            padding-right: 10px;
+        }
+
+        .spanishTitle {
+            grid-area: spanishTitle;
+            text-align: end;
+            padding-right: 10px;
+        }
+
+        .japaneseSection {
+            grid-area: japaneseSection;
+        }
+
+        .spanishSection {
+            grid-area: spanishSection;
+        }
+    }
 
     .text {
         grid-area: text;
@@ -114,10 +163,10 @@
         text-align: center;
     }
 
-    .session {
-        grid-area: session;
-        font-size: 12px;
-    }
+    // .session {
+    //     grid-area: session;
+    //     font-size: 12px;
+    // }
 
     .lastReviewJapanese {
         grid-area: lastReviewJapanese;
@@ -161,6 +210,7 @@
         font-size: 24px;
     }
 
+    /* Desktop */
     @media (min-width: 768px) {
         display: grid;
         grid-template-rows: auto;
@@ -177,6 +227,36 @@
         // border: 3px solid $border-yellow;
         border-radius: 17px;
         padding: 5px 0;
+
+        .icons {
+            svg {
+                font-size: 1.3rem;
+            }
+        }
+
+        .session {
+            // display: grid;
+            height: 100%;
+            grid-template-rows: 33% auto;
+            grid-template-areas:
+                "japaneseTitle spanishTitle"
+                "japaneseSection spanishSection";
+
+            .japaneseTitle {
+                grid-area: japaneseTitle;
+                text-align: start;
+            }
+
+            .spanishTitle {
+                grid-area: spanishTitle;
+                text-align: start;
+            }
+
+            .japaneseSection,
+            .spanishSection {
+                align-content: center;
+            }
+        }
 
         .terms {
             flex-direction: row;
@@ -208,9 +288,9 @@
             display: block;
         }
 
-        .session {
-            grid-area: session;
-        }
+        // .session {
+        //     grid-area: session;
+        // }
 
         .lastReview {
             grid-area: lastReview;

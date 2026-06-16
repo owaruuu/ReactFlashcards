@@ -233,29 +233,29 @@ export const levelOrder = [
     "master",
 ];
 
-export function showDifference({ chosenDiff, lang }) {
+export function showDifference({ chosenDiff }) {
     const days = chosenDiff / (1000 * 60 * 60 * 24);
     // console.log("🚀 ~ showDifference ~ days:", days);
     const hours = chosenDiff / (1000 * 60 * 60);
 
     // console.log("🚀 ~ showDifference ~ Math.abs(days):", Math.abs(days));
     if (Math.floor(days) === 1) {
-        return `hace 1 dia.${lang || ""}`;
+        return `hace 1 dia.`;
     }
 
     if (days > 1) {
-        return `hace ${Math.round(days)} dias.${lang || ""}`;
+        return `hace ${Math.round(days)} dias.`;
     }
 
     if (hours < 1) {
-        return `hace un momento.${lang || ""}`;
+        return `hace un momento.`;
     }
 
     if (hours > 0 && hours < 2) {
-        return `hace 1 hora.${lang || ""}`;
+        return `hace 1 hora.`;
     }
 
-    return `hace ${Math.round(hours)} horas.${lang || ""}`;
+    return `hace ${Math.round(hours)} horas.`;
 }
 
 export function getDiff(timeObject) {

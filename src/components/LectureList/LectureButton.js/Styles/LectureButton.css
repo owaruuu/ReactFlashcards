@@ -1,7 +1,6 @@
 .lectureButton {
   display: grid;
   flex-direction: column;
-  grid-template-rows: 33% 33% 33%;
   grid-template-areas: "progress" "title" "session";
   background-color: white;
   color: #27455f;
@@ -9,9 +8,45 @@
   width: 100%;
   margin: 5px 0;
   padding: 10px 5px;
-  justify-content: space-around;
   align-items: center;
   cursor: pointer;
+}
+.lectureButton .title {
+  display: grid;
+  grid-template-areas: "terms icons" "lectureButtonTitle lectureButtonTitle";
+  text-align: center;
+}
+.lectureButton .title .terms {
+  grid-area: terms;
+}
+.lectureButton .title .icons {
+  grid-area: icons;
+}
+.lectureButton .title .icons svg {
+  font-size: 1.4rem;
+}
+.lectureButton .title .lectureButtonTitle {
+  grid-area: lectureButtonTitle;
+}
+.lectureButton .session {
+  display: grid;
+  grid-template-areas: "japaneseTitle  japaneseSection spanishTitle spanishSection";
+}
+.lectureButton .session .japaneseTitle {
+  grid-area: japaneseTitle;
+  text-align: end;
+  padding-right: 10px;
+}
+.lectureButton .session .spanishTitle {
+  grid-area: spanishTitle;
+  text-align: end;
+  padding-right: 10px;
+}
+.lectureButton .session .japaneseSection {
+  grid-area: japaneseSection;
+}
+.lectureButton .session .spanishSection {
+  grid-area: spanishSection;
 }
 .lectureButton .text {
   grid-area: text;
@@ -73,10 +108,6 @@
   grid-area: icons;
   text-align: center;
 }
-.lectureButton .session {
-  grid-area: session;
-  font-size: 12px;
-}
 .lectureButton .lastReviewJapanese {
   grid-area: lastReviewJapanese;
   font-size: 12px;
@@ -107,6 +138,9 @@
 .lectureButton .testIcon {
   font-size: 24px;
 }
+.lectureButton {
+  /* Desktop */
+}
 @media (min-width: 768px) {
   .lectureButton {
     display: grid;
@@ -117,6 +151,26 @@
     max-width: 870px;
     border-radius: 17px;
     padding: 5px 0;
+  }
+  .lectureButton .icons svg {
+    font-size: 1.3rem;
+  }
+  .lectureButton .session {
+    height: 100%;
+    grid-template-rows: 33% auto;
+    grid-template-areas: "japaneseTitle spanishTitle" "japaneseSection spanishSection";
+  }
+  .lectureButton .session .japaneseTitle {
+    grid-area: japaneseTitle;
+    text-align: start;
+  }
+  .lectureButton .session .spanishTitle {
+    grid-area: spanishTitle;
+    text-align: start;
+  }
+  .lectureButton .session .japaneseSection,
+  .lectureButton .session .spanishSection {
+    align-content: center;
   }
   .lectureButton .terms {
     flex-direction: row;
@@ -138,9 +192,6 @@
   }
   .lectureButton .mobile {
     display: block;
-  }
-  .lectureButton .session {
-    grid-area: session;
   }
   .lectureButton .lastReview {
     grid-area: lastReview;

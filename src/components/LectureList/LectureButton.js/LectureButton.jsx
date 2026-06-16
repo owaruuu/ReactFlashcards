@@ -110,9 +110,6 @@ const LectureButton = (props) => {
     const type1 = isKanjiView ? "recognize" : "japanese";
     const type2 = isKanjiView ? "write" : "spanish";
 
-    const firstAbreviation = getAbreviation(type1);
-    const secondAbreviation = getAbreviation(type2);
-
     const japaneseSessionTermsAmount = amountCanLearn[id]?.aAmount;
     const spanishSessionTermsAmount = amountCanLearn[id]?.bAmount;
 
@@ -129,7 +126,6 @@ const LectureButton = (props) => {
                   new Date(japaneseLastSessionTime).getTime() -
                       new Date().getTime(),
               ),
-              lang: firstAbreviation,
           }
         : undefined;
 
@@ -139,7 +135,6 @@ const LectureButton = (props) => {
                   new Date(spanishLastSessionTime).getTime() -
                       new Date().getTime(),
               ),
-              lang: secondAbreviation,
           }
         : undefined;
 
@@ -181,9 +176,9 @@ const LectureButton = (props) => {
             </div>
             <div className="session">
                 {loggedIn && (
-                    <div className="sessionInfo">
-                        <div>Sesiónes Repaso: </div>
-                        <>
+                    <>
+                        <div className="japaneseTitle">Japonés: </div>
+                        <div className="japaneseSection">
                             <div className="amountJapanese">
                                 <PiStackOverflowLogoFill /> :
                                 <TermsReviewAmount
@@ -191,21 +186,23 @@ const LectureButton = (props) => {
                                     amount={japaneseSessionTermsAmount}
                                 ></TermsReviewAmount>
                             </div>
-                            <div className="amountSpanish">
-                                <PiStackOverflowLogoFill /> :
-                                <TermsReviewAmount
-                                    status={allLecturesDataQueryStatus}
-                                    amount={spanishSessionTermsAmount}
-                                ></TermsReviewAmount>
-                            </div>
-                        </>
-                        <>
                             <div className="lastReviewJapanese">
                                 <FaClock /> :{" "}
                                 <ReviewSessionTime
                                     status={allLecturesDataQueryStatus}
                                     diff={japaneseSessionTimeDiff}
                                 ></ReviewSessionTime>
+                            </div>
+                        </div>
+
+                        <div className="spanishTitle">Español: </div>
+                        <div className="spanishSection">
+                            <div className="amountSpanish">
+                                <PiStackOverflowLogoFill /> :
+                                <TermsReviewAmount
+                                    status={allLecturesDataQueryStatus}
+                                    amount={spanishSessionTermsAmount}
+                                ></TermsReviewAmount>
                             </div>
                             <div className="lastReviewSpanish">
                                 <FaClock /> :{" "}
@@ -214,8 +211,8 @@ const LectureButton = (props) => {
                                     diff={spanishSessionTimeDiff}
                                 ></ReviewSessionTime>
                             </div>
-                        </>
-                    </div>
+                        </div>
+                    </>
                 )}
             </div>
         </LectureButton>
