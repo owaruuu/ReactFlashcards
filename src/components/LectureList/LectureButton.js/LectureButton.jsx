@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { FaStarOfLife } from "react-icons/fa6";
 
 import { showDifference } from "../../../utils/utils";
+import ProgressSection from "./ProgressSection/ProgressSection.jsx";
 
 const LectureButton = (props) => {
     const {
@@ -159,9 +160,22 @@ const LectureButton = (props) => {
         </div>
     );
 
+    const progress = userDataQueryData
+        ? getProgress(userDataQueryData, lecture)
+        : {};
+
     return (
         <LectureButton>
-            <div className="progress"></div>
+            <div className="lectureProgress">
+                <div className="japaneseTitle">Japonés: </div>
+                <div className="japaneseProgress">
+                    <ProgressSection progress={progress?.[id]?.japanese} />
+                </div>
+                <div className="spanishTitle">Español: </div>
+                <div className="spanishProgress">
+                    <ProgressSection progress={progress?.[id]?.spanish} />
+                </div>
+            </div>
             <div className="title">
                 <div className="terms">
                     <span>{amount} Palabras</span>
@@ -218,6 +232,55 @@ const LectureButton = (props) => {
         </LectureButton>
     );
 };
+
+function getProgress(userData, lecture) {
+    const progress = {};
+
+    for (const [lectureId, progressData] of Object.entries(userData)) {
+        const japaneseLevels = getLevels(
+            progressData.japanese_terms_levels,
+            lecture.termList.length,
+        );
+        const spanishLevels = getLevels(
+            progressData.spanish_terms_levels,
+            lecture.termList.length,
+        );
+
+        progress[lectureId] = {
+            japanese: japaneseLevels,
+            spanish: spanishLevels,
+        };
+    }
+
+    return progress;
+}
+
+function getLevels(data, total) {
+    const levels = {
+        noView: total,
+        learning: 0,
+        midPoint: 0,
+        memorized: 0,
+        total: total,
+    };
+
+    if (!data) return levels;
+
+    for (const termData of Object.values(data)) {
+        if (termData.level >= 9) {
+            levels.memorized += 1;
+            levels.noView -= 1;
+        } else if (termData.level >= 6) {
+            levels.midPoint += 1;
+            levels.noView -= 1;
+        } else if (termData.level > 0) {
+            levels.learning += 1;
+            levels.noView -= 1;
+        }
+    }
+
+    return levels;
+}
 
 function getAbreviation(type) {
     switch (type) {

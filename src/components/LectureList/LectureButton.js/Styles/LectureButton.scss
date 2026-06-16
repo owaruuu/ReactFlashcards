@@ -15,9 +15,9 @@
     // grid-template-columns: 33% 33% 33%;
     // grid-template-rows: 33% 33% 33%;
     grid-template-areas:
-        "progress"
         "title"
-        "session";
+        "session"
+        "lectureProgress";
     // grid-template-areas:
     //     "info"
     //     "name"
@@ -33,6 +33,48 @@
     // justify-content: space-around;
     align-items: center;
     cursor: pointer;
+
+    .progressBar {
+        width: 100%;
+        height: 10px;
+        background-color: $v3-progress-bar-background-blue; // empty part
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .progressBarFill {
+        height: 100%;
+        transition: width 0.3s ease; // optional smooth animation
+
+        &.memorized {
+            background-color: $memo-purple;
+        }
+        &.midPoint {
+            background-color: $mid-way-point-yellow;
+        }
+        &.learning {
+            background-color: $learning-green;
+        }
+        &.noView {
+            background-color: $not-seen-gray;
+        }
+    }
+
+    .lectureProgress {
+        grid-area: lectureProgress;
+        display: grid;
+        grid-template-areas: "japaneseTitle spanishTitle";
+        height: 100%;
+        .japaneseTitle {
+            grid-area: japaneseTitle;
+            text-align: end;
+            padding-right: 10px;
+        }
+        .spanishTitle {
+            grid-area: spanishTitle;
+            text-align: end;
+            padding-right: 10px;
+        }
+    }
 
     .title {
         display: grid;
@@ -80,6 +122,10 @@
 
         .spanishSection {
             grid-area: spanishSection;
+        }
+
+        svg {
+            font-size: 1.3em;
         }
     }
 
@@ -215,7 +261,7 @@
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: 30% 40% 30%;
-        grid-template-areas: "progress title session";
+        grid-template-areas: "lectureProgress title session";
         // grid-template-areas: "info name extras";
         // grid-template-areas:
         //     "bar terms session ."
@@ -231,6 +277,16 @@
         .icons {
             svg {
                 font-size: 1.3rem;
+            }
+        }
+
+        .lectureProgress {
+            padding-left: 10px;
+            .japaneseTitle {
+                text-align: start;
+            }
+            .spanishTitle {
+                text-align: start;
             }
         }
 
