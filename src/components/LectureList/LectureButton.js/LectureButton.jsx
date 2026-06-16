@@ -44,12 +44,7 @@ const LectureButton = (props) => {
     const [percentage, setPercentage] = useState(0); //for future use
     const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
     const navigate = useNavigate();
-    // console.log("🚀 ~ LectureButton ~ testId:", testId);
     const hasTest = testId !== "-1" && testId !== undefined;
-
-    // console.log("🚀 ~ LectureButton ~ lecture:", lecture);
-    //Cambiar por leer un read en la data de la lecture en el testId
-    // const [hasTest] = useState(testId);
 
     //Listens to user change to show the progress
     useEffect(() => {
@@ -118,17 +113,7 @@ const LectureButton = (props) => {
     const firstAbreviation = getAbreviation(type1);
     const secondAbreviation = getAbreviation(type2);
 
-    // VARS
-
-    // Terminos viejos
-    // const japaneseSessionTermsAmount =
-    //     userDataQueryData?.[id]?.[`${type1}_session`]?.terms?.length;
-
-    // const spanishSessionTermsAmount =
-    //     userDataQueryData?.[id]?.[`${type2}_session`]?.terms?.length;
-
     const japaneseSessionTermsAmount = amountCanLearn[id]?.aAmount;
-
     const spanishSessionTermsAmount = amountCanLearn[id]?.bAmount;
 
     //string date
@@ -137,15 +122,6 @@ const LectureButton = (props) => {
 
     const spanishLastSessionTime =
         userDataQueryData?.[id]?.[`${type2}_session`]?.lastReviewed;
-
-    // if (japaneseLastSessionTime) {
-    //     //data object
-    //     japaneseDateObject = new Date(japaneseLastSessionTime);
-    //  const japaneseDiff = Math.abs(
-    //      japaneseDateObject.getTime() - new Date().getTime()
-    //  );
-    //     return { chosenDiff: japaneseDiff, lang: "(jpn)" };
-    // }
 
     const japaneseSessionTimeDiff = japaneseLastSessionTime
         ? {
@@ -168,7 +144,7 @@ const LectureButton = (props) => {
         : undefined;
 
     const isBookmarked = userDataQueryData?.[id]?.bookmarked;
-    // console.log("🚀 ~ LectureButton ~ isBookmarked:", isBookmarked);
+
     const lectureName = isBookmarked ? (
         <>
             <FaStarOfLife /> {title} <FaStarOfLife />
@@ -187,41 +163,11 @@ const LectureButton = (props) => {
                 );
             }}
         >
-            {/* <div className="text">Progreso:</div>
-            <div className="bar">
-                <ProgressBar
-                    arrow={japaneseArrow}
-                    terms={props.progress?.japaneseTerms}
-                    amount={props.amount}
-                />
-            </div>
-            <div className="jap-bar">
-                <ProgressBar
-                    arrow={spanishArrow}
-                    terms={props.progress?.spanishTerms}
-                    amount={props.amount}
-                />
-            </div> */}
             <span className="lectureButtonTitle">{lectureName}</span>
             <div className="terms">
                 <span>{amount} Palabras</span>
                 {isKanjiView && <span> - {amountKanji} Kanji</span>}
-                {/* {loggedIn && (
-                    <>
-                        <span className="mobile"> - </span>
-                        <span>
-                            <StarAmount
-                                querySuccess={uallLecturesDataQueryStatus}
-                                starredAmount={starredAmount}
-                            />
-                        </span>
-                    </>
-                )} */}
             </div>
-            {/* <QuizQueue
-                japaneseQuizQueue={props.progress?.japaneseQuizQueue}
-                spanishQuizQueue={props.progress?.spanishQuizQueue}
-            /> */}
             {loggedIn && <div className="session">Sesiónes Repaso: </div>}
             {loggedIn && (
                 <>
