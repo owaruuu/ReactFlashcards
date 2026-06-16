@@ -153,63 +153,72 @@ const LectureButton = (props) => {
         <>{title}</>
     );
 
-    return (
-        <div
-            className="lectureButton"
-            onClick={() => {
-                backToTop();
-                navigate(
-                    isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`,
-                );
-            }}
-        >
-            <span className="lectureButtonTitle">{lectureName}</span>
-            <div className="terms">
-                <span>{amount} Palabras</span>
-                {isKanjiView && <span> - {amountKanji} Kanji</span>}
-            </div>
-            {loggedIn && <div className="session">Sesiónes Repaso: </div>}
-            {loggedIn && (
-                <>
-                    <div className="amountJapanese">
-                        <PiStackOverflowLogoFill /> :
-                        <TermsReviewAmount
-                            status={allLecturesDataQueryStatus}
-                            amount={japaneseSessionTermsAmount}
-                        ></TermsReviewAmount>
-                    </div>
-                    <div className="amountSpanish">
-                        <PiStackOverflowLogoFill /> :
-                        <TermsReviewAmount
-                            status={allLecturesDataQueryStatus}
-                            amount={spanishSessionTermsAmount}
-                        ></TermsReviewAmount>
-                    </div>
-                </>
-            )}
+    function navigateToLecture() {
+        backToTop();
+        navigate(isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`);
+    }
 
-            {loggedIn && (
-                <>
-                    <div className="lastReviewJapanese">
-                        <FaClock /> :{" "}
-                        <ReviewSessionTime
-                            status={allLecturesDataQueryStatus}
-                            diff={japaneseSessionTimeDiff}
-                        ></ReviewSessionTime>
-                    </div>
-                    <div className="lastReviewSpanish">
-                        <FaClock /> :{" "}
-                        <ReviewSessionTime
-                            status={allLecturesDataQueryStatus}
-                            diff={spanishSessionTimeDiff}
-                        ></ReviewSessionTime>
-                    </div>
-                </>
-            )}
-            <div className="icons">
-                {hasTest && <HiClipboardDocumentList className="testIcon" />}
-            </div>
+    const LectureButton = ({ children }) => (
+        <div className="lectureButton" onClick={navigateToLecture}>
+            {children}
         </div>
+    );
+
+    return (
+        <LectureButton>
+            <div className="progress"></div>
+            <div className="title">
+                <div className="terms">
+                    <span>{amount} Palabras</span>
+                    {isKanjiView && <span> - {amountKanji} Kanji</span>}
+                </div>
+                <span className="lectureButtonTitle">{lectureName}</span>
+                <div className="icons">
+                    {hasTest && (
+                        <HiClipboardDocumentList className="testIcon" />
+                    )}
+                </div>
+            </div>
+            <div className="session">
+                {loggedIn && (
+                    <div className="sessionInfo">
+                        <div>Sesiónes Repaso: </div>
+                        <>
+                            <div className="amountJapanese">
+                                <PiStackOverflowLogoFill /> :
+                                <TermsReviewAmount
+                                    status={allLecturesDataQueryStatus}
+                                    amount={japaneseSessionTermsAmount}
+                                ></TermsReviewAmount>
+                            </div>
+                            <div className="amountSpanish">
+                                <PiStackOverflowLogoFill /> :
+                                <TermsReviewAmount
+                                    status={allLecturesDataQueryStatus}
+                                    amount={spanishSessionTermsAmount}
+                                ></TermsReviewAmount>
+                            </div>
+                        </>
+                        <>
+                            <div className="lastReviewJapanese">
+                                <FaClock /> :{" "}
+                                <ReviewSessionTime
+                                    status={allLecturesDataQueryStatus}
+                                    diff={japaneseSessionTimeDiff}
+                                ></ReviewSessionTime>
+                            </div>
+                            <div className="lastReviewSpanish">
+                                <FaClock /> :{" "}
+                                <ReviewSessionTime
+                                    status={allLecturesDataQueryStatus}
+                                    diff={spanishSessionTimeDiff}
+                                ></ReviewSessionTime>
+                            </div>
+                        </>
+                    </div>
+                )}
+            </div>
+        </LectureButton>
     );
 };
 
