@@ -34,28 +34,66 @@
     align-items: center;
     cursor: pointer;
 
-    .progressBar {
-        width: 100%;
-        height: 10px;
-        background-color: $v3-progress-bar-background-blue; // empty part
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    .progressBarFill {
-        height: 100%;
-        transition: width 0.3s ease; // optional smooth animation
+    .progressSection {
+        margin: 0 10px;
+        .progressBarContainer {
+            display: flex;
+            gap: 3px;
+            align-items: center;
 
-        &.memorized {
-            background-color: $memo-purple;
-        }
-        &.midPoint {
-            background-color: $mid-way-point-yellow;
-        }
-        &.learning {
-            background-color: $learning-green;
-        }
-        &.noView {
-            background-color: $not-seen-gray;
+            .progressBarLabel {
+                width: 20%;
+                text-align: center;
+                font-size: 12px;
+                color: $background-blue-dark2;
+            }
+            .progressBar {
+                width: 100%;
+                height: 20px;
+                // height: 50px;
+                background-color: $v3-progress-bar-background-blue; // empty part
+                border-radius: 10px;
+                overflow: hidden;
+                margin: 3px 0;
+                position: relative;
+
+                .progressBarText {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    z-index: 100;
+                    font-size: 12px;
+                    color: white;
+
+                    &.zeroed {
+                        color: #b6b6b6;
+                    }
+                }
+
+                .progressBarFill {
+                    height: 100%;
+                    transition: width 0.3s ease; // optional smooth animation
+                    p {
+                        text-align: center;
+                    }
+
+                    &.memorized {
+                        background-color: $memo-purple;
+                    }
+                    &.midPoint {
+                        background-color: $mid-way-point-yellow;
+                    }
+                    &.learning {
+                        background-color: $learning-green;
+                    }
+                    &.noView {
+                        background-color: $not-seen-gray;
+                    }
+                }
+            }
         }
     }
 
@@ -66,13 +104,15 @@
         height: 100%;
         .japaneseTitle {
             grid-area: japaneseTitle;
-            text-align: end;
+            // text-align: ;
             padding-right: 10px;
+            margin-bottom: 5px;
         }
         .spanishTitle {
             grid-area: spanishTitle;
-            text-align: end;
+            // text-align: end;
             padding-right: 10px;
+            margin-bottom: 5px;
         }
     }
 
@@ -134,26 +174,26 @@
         text-align: center;
     }
 
-    .progressBarContainer {
-        display: flex;
-        align-items: center;
+    // .progressBarContainer {
+    //     display: flex;
+    //     align-items: center;
 
-        span {
-            line-height: 0px;
-        }
+    //     span {
+    //         line-height: 0px;
+    //     }
 
-        .arrowTypeKana {
-            font-size: 12px;
-        }
-        .progressBar {
-            display: flex;
-            background-color: $gray-2;
-            margin-left: 5px;
-            min-height: 10px;
-            max-height: 12px;
-            min-width: 100px;
-        }
-    }
+    //     .arrowTypeKana {
+    //         font-size: 12px;
+    //     }
+    //     .progressBar {
+    //         display: flex;
+    //         background-color: $gray-2;
+    //         margin-left: 5px;
+    //         min-height: 10px;
+    //         max-height: 12px;
+    //         min-width: 100px;
+    //     }
+    // }
 
     .bar {
         grid-area: bar;
@@ -257,7 +297,7 @@
     }
 
     /* Desktop */
-    @media (min-width: 768px) {
+    @media (min-width: 1056px) {
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: 30% 40% 30%;
@@ -269,7 +309,7 @@
         //     "memo icons lastReviewJapanese lastReviewSpanish";
 
         width: 85vw;
-        max-width: 870px;
+        max-width: 1000px;
         // border: 3px solid $border-yellow;
         border-radius: 17px;
         padding: 5px 0;

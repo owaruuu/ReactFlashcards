@@ -20,30 +20,43 @@ import ProgressBar from "./ProgressBar.jsx";
  * @param {ProgressSectionProps} props - The props object
  * @returns {JSX.Element} - The ProgressSection component
  */
-const ProgressSection = ({ progress }) => {
-    if (!progress) return null;
+const ProgressSection = ({ progress, total }) => {
+    if (!progress) {
+        progress = {
+            noView: total,
+            learning: 0,
+            midPoint: 0,
+            memorized: 0,
+            total: total,
+        };
+    }
+
     return (
         <div className="progressSection">
             <ProgressBar
                 amount={progress.memorized}
-                total={progress.total}
+                total={total}
                 color="memorized"
+                text="Memorizado"
             />
             <ProgressBar
                 amount={progress.midPoint}
-                total={progress.total}
+                total={total}
                 color="midPoint"
+                text="Ya casi"
             />
             <ProgressBar
                 amount={progress.learning}
-                total={progress.total}
+                total={total}
                 color="learning"
+                text="Estudiando"
             />
 
             <ProgressBar
                 amount={progress.noView}
-                total={progress.total}
+                total={total}
                 color="noView"
+                text="No visto"
             />
         </div>
     );

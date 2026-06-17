@@ -161,7 +161,7 @@ const LectureButton = (props) => {
     );
 
     const progress = userDataQueryData
-        ? getProgress(userDataQueryData, lecture)
+        ? getProgress(userDataQueryData, amount)
         : {};
 
     return (
@@ -169,16 +169,23 @@ const LectureButton = (props) => {
             <div className="lectureProgress">
                 <div className="japaneseTitle">Japonés: </div>
                 <div className="japaneseProgress">
-                    <ProgressSection progress={progress?.[id]?.japanese} />
+                    <ProgressSection
+                        progress={progress?.[id]?.japanese}
+                        total={amount}
+                    />
                 </div>
                 <div className="spanishTitle">Español: </div>
                 <div className="spanishProgress">
-                    <ProgressSection progress={progress?.[id]?.spanish} />
+                    <ProgressSection
+                        progress={progress?.[id]?.spanish}
+                        total={amount}
+                    />
                 </div>
             </div>
             <div className="title">
                 <div className="terms">
                     <span>{amount} Palabras</span>
+                    {/* Porque este check ? */}
                     {isKanjiView && <span> - {amountKanji} Kanji</span>}
                 </div>
                 <span className="lectureButtonTitle">{lectureName}</span>
@@ -233,17 +240,17 @@ const LectureButton = (props) => {
     );
 };
 
-function getProgress(userData, lecture) {
+function getProgress(userData, total) {
     const progress = {};
 
     for (const [lectureId, progressData] of Object.entries(userData)) {
         const japaneseLevels = getLevels(
             progressData.japanese_terms_levels,
-            lecture.termList.length,
+            total,
         );
         const spanishLevels = getLevels(
             progressData.spanish_terms_levels,
-            lecture.termList.length,
+            total,
         );
 
         progress[lectureId] = {
@@ -261,7 +268,6 @@ function getLevels(data, total) {
         learning: 0,
         midPoint: 0,
         memorized: 0,
-        total: total,
     };
 
     if (!data) return levels;
