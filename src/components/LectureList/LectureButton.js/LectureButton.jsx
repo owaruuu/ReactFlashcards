@@ -1,23 +1,14 @@
 import "./Styles/LectureButton.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../../context/AppContext.jsx";
 import { backToTop } from "../../../utils/utils";
-import { tests } from "../../../data/tests";
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { FaClock } from "react-icons/fa6";
-import { PiStackOverflowLogoFill } from "react-icons/pi";
-import QuizQueue from "./QuizQueue.jsx";
-import ProgressBar from "./ProgressBar/ProgressBar.jsx";
-import StarAmount from "./components/StarAmount.jsx";
-import TermsReviewAmount from "./components/TermsReviewAmount.jsx";
-import ReviewSessionTime from "./components/ReviewSessionTime.jsx";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FaStarOfLife } from "react-icons/fa6";
-
-import { showDifference } from "../../../utils/utils";
 import ProgressSection from "./ProgressSection/ProgressSection.jsx";
+import SessionSection from "./SessionSection/SessionSection.jsx";
 
 const LectureButton = (props) => {
     const {
@@ -35,15 +26,12 @@ const LectureButton = (props) => {
         id,
         amount,
         amountKanji,
-        starredAmount,
         userDataQueryData,
         allLecturesDataQueryStatus,
         title,
         isKanjiView,
         amountCanLearn,
     } = props;
-    const [percentage, setPercentage] = useState(0); //for future use
-    const [japanesePercentage, setJapanesePercentage] = useState(0); //for future use
     const navigate = useNavigate();
     const hasTest = testId !== "-1" && testId !== undefined;
 
@@ -69,44 +57,9 @@ const LectureButton = (props) => {
                         japaneseLearnedAmount += 1;
                     }
                 });
-
-                setPercentage(Math.trunc((learnedAmount / amount) * 100));
-                setJapanesePercentage(
-                    Math.trunc((japaneseLearnedAmount / amount) * 100),
-                );
-            } else {
-                setPercentage(0);
-                setJapanesePercentage(0);
             }
         }
     }, [user]);
-
-    const japaneseArrow = (
-        <span>
-            <span className="arrowTypeKana">あ</span>
-            <IoIosArrowRoundForward />a
-        </span>
-    );
-    const spanishArrow = (
-        <span>
-            a<IoIosArrowRoundForward />
-            <span className="arrowTypeKana">あ</span>
-        </span>
-    );
-
-    const termsAmount =
-        allLecturesDataQueryStatus === "loading" ? (
-            <Spinner size="sm" />
-        ) : (
-            "aaaaaaaaa"
-        );
-
-    const lastReviewDate =
-        allLecturesDataQueryStatus === "loading" ? (
-            <Spinner size="sm" />
-        ) : (
-            "aaaaaaaaa"
-        );
 
     const type1 = isKanjiView ? "recognize" : "japanese";
     const type2 = isKanjiView ? "write" : "spanish";
@@ -170,36 +123,23 @@ const LectureButton = (props) => {
             <div className="japaneseData">
                 {loggedIn && (
                     <>
-                        {/* <div className="japaneseTitle">Japonés: </div> */}
-                        <div className="japaneseProgress">
-                            <ProgressSection
-                                progress={progress?.[id]?.japanese}
-                                total={amount}
-                            />
-                        </div>
-                        <div className="japaneseSessions">
-                            <div className="amount">
-                                <PiStackOverflowLogoFill /> :
-                                <TermsReviewAmount
-                                    status={allLecturesDataQueryStatus}
-                                    amount={japaneseSessionTermsAmount}
-                                ></TermsReviewAmount>
-                            </div>
-                            <div className="lastReview">
-                                <FaClock /> :{" "}
-                                <ReviewSessionTime
-                                    status={allLecturesDataQueryStatus}
-                                    diff={japaneseSessionTimeDiff}
-                                ></ReviewSessionTime>
-                            </div>
-                        </div>
+                        <ProgressSection
+                            progress={progress?.[id]?.japanese}
+                            total={amount}
+                        />
+                        <SessionSection
+                            allLecturesDataQueryStatus={
+                                allLecturesDataQueryStatus
+                            }
+                            amount={japaneseSessionTermsAmount}
+                            timeDiff={japaneseSessionTimeDiff}
+                        />
                     </>
                 )}
             </div>
             <div className="title">
                 <div className="terms">
                     <span>{amount} Palabras</span>
-                    {/* Porque este check ? */}
                     {isKanjiView && <span> - {amountKanji} Kanji</span>}
                 </div>
                 <span className="lectureButtonTitle">
@@ -208,35 +148,21 @@ const LectureButton = (props) => {
                         <HiClipboardDocumentList className="testIcon" />
                     )}
                 </span>
-                {/* <div className="icons"></div> */}
             </div>
             <div className="spanishData">
                 {loggedIn && (
                     <>
-                        {/* <div className="spanishTitle">Español: </div> */}
-
-                        <div className="spanishProgress">
-                            <ProgressSection
-                                progress={progress?.[id]?.spanish}
-                                total={amount}
-                            />
-                        </div>
-                        <div className="spanishSessions">
-                            <div className="amount">
-                                <PiStackOverflowLogoFill /> :
-                                <TermsReviewAmount
-                                    status={allLecturesDataQueryStatus}
-                                    amount={spanishSessionTermsAmount}
-                                ></TermsReviewAmount>
-                            </div>
-                            <div className="lastReview">
-                                <FaClock /> :{" "}
-                                <ReviewSessionTime
-                                    status={allLecturesDataQueryStatus}
-                                    diff={spanishSessionTimeDiff}
-                                ></ReviewSessionTime>
-                            </div>
-                        </div>
+                        <ProgressSection
+                            progress={progress?.[id]?.spanish}
+                            total={amount}
+                        />
+                        <SessionSection
+                            allLecturesDataQueryStatus={
+                                allLecturesDataQueryStatus
+                            }
+                            amount={spanishSessionTermsAmount}
+                            timeDiff={spanishSessionTimeDiff}
+                        />
                     </>
                 )}
             </div>
@@ -290,21 +216,6 @@ function getLevels(data, total) {
     }
 
     return levels;
-}
-
-function getAbreviation(type) {
-    switch (type) {
-        case "japanese":
-            return "(jpn)";
-        case "spanish":
-            return "(esp)";
-        case "recognize":
-            return "(reconocer)";
-        case "write":
-            return "(escribir)";
-        default:
-            throw new Error("wrong lang type: " + type);
-    }
 }
 
 export default LectureButton;

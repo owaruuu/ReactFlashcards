@@ -72,22 +72,6 @@
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarFill.noView {
   background-color: #131313;
 }
-.lectureButton .lectureProgress {
-  grid-area: lectureProgress;
-  display: grid;
-  grid-template-areas: "japaneseTitle spanishTitle";
-  height: 100%;
-}
-.lectureButton .lectureProgress .japaneseTitle {
-  grid-area: japaneseTitle;
-  padding-right: 10px;
-  margin-bottom: 5px;
-}
-.lectureButton .lectureProgress .spanishTitle {
-  grid-area: spanishTitle;
-  padding-right: 10px;
-  margin-bottom: 5px;
-}
 .lectureButton .title {
   display: grid;
   grid-area: title;
@@ -107,30 +91,19 @@
 .lectureButton .title .lectureButtonTitle {
   grid-area: lectureButtonTitle;
 }
-.lectureButton .japaneseSessions,
-.lectureButton .spanishSessions {
+.lectureButton .sessions {
   display: grid;
   grid-template-areas: "amount" "lastReview";
-  justify-content: space-between;
   font-size: 12px;
 }
-.lectureButton .japaneseSessions svg,
-.lectureButton .spanishSessions svg {
+.lectureButton .sessions svg {
   font-size: 1.2em;
 }
-.lectureButton .japaneseSessions .amount,
-.lectureButton .spanishSessions .amount {
+.lectureButton .sessions .amount {
   grid-area: amount;
 }
-.lectureButton .japaneseSessions .lastReview,
-.lectureButton .spanishSessions .lastReview {
+.lectureButton .sessions .lastReview {
   grid-area: lastReview;
-}
-.lectureButton .japaneseSessions {
-  grid-area: japaneseSessions;
-}
-.lectureButton .spanishSessions {
-  grid-area: spanishSessions;
 }
 .lectureButton .text {
   grid-area: text;
@@ -221,15 +194,12 @@
   .lectureButton .icons svg {
     font-size: 1.3rem;
   }
-  .lectureButton .japaneseSessions,
-  .lectureButton .spanishSessions {
+  .lectureButton .sessions {
     height: 100%;
     grid-template-areas: "amount lastReview";
   }
-  .lectureButton .japaneseSessions .japaneseSessions,
-  .lectureButton .japaneseSessions .spanishSessions,
-  .lectureButton .spanishSessions .japaneseSessions,
-  .lectureButton .spanishSessions .spanishSessions {
+  .lectureButton .sessions .japaneseSessions,
+  .lectureButton .sessions .spanishSessions {
     align-content: center;
   }
   .lectureButton .terms {

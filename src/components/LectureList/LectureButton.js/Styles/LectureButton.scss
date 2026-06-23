@@ -3,27 +3,10 @@
 .lectureButton {
     display: grid;
     flex-direction: column;
-
-    // grid-template-areas:
-    //     "icons terms  memo"
-    //     "title title  title"
-    //     "session amountJapanese lastReviewJapanese"
-    //     ". amountSpanish lastReviewSpanish"
-    //     "text bar jap-bar";
-
-    // display: grid;
-    // grid-template-columns: 33% 33% 33%;
-    // grid-template-rows: 33% 33% 33%;
     grid-template-areas:
         "title title"
         "japaneseData spanishData";
-    // grid-template-columns: 1fr 1fr;
-    // grid-template-rows: 1fr 1fr;
 
-    // grid-template-areas:
-    //     "info"
-    //     "name"
-    //     "extras";
     background-color: white;
     color: $background-blue-dark2;
     font-family: "Noto_Serif";
@@ -38,12 +21,10 @@
 
     .japaneseData {
         grid-area: japaneseData;
-
         padding: 0 15px 0 5px;
     }
     .spanishData {
         grid-area: spanishData;
-
         padding: 0 15px 0 5px;
     }
 
@@ -109,28 +90,8 @@
         }
     }
 
-    .lectureProgress {
-        grid-area: lectureProgress;
-        display: grid;
-        grid-template-areas: "japaneseTitle spanishTitle";
-        height: 100%;
-        .japaneseTitle {
-            grid-area: japaneseTitle;
-            // text-align: ;
-            padding-right: 10px;
-            margin-bottom: 5px;
-        }
-        .spanishTitle {
-            grid-area: spanishTitle;
-            // text-align: end;
-            padding-right: 10px;
-            margin-bottom: 5px;
-        }
-    }
-
     .title {
         display: grid;
-        // grid-area: 1 / 1 / 2 / 3;
         grid-area: title;
         grid-template-areas:
             "terms terms"
@@ -155,26 +116,13 @@
         }
     }
 
-    .japaneseSessions,
-    .spanishSessions {
+    .sessions {
         display: grid;
         grid-template-areas:
             "amount"
             "lastReview";
-        justify-content: space-between;
+        // justify-content: space-between;
         font-size: 12px;
-
-        // .japaneseTitle {
-        //     grid-area: japaneseTitle;
-        //     text-align: end;
-        //     padding-right: 10px;
-        // }
-
-        // .spanishTitle {
-        //     grid-area: spanishTitle;
-        //     text-align: end;
-        //     padding-right: 10px;
-        // }
 
         svg {
             font-size: 1.2em;
@@ -187,39 +135,11 @@
             grid-area: lastReview;
         }
     }
-    .japaneseSessions {
-        grid-area: japaneseSessions;
-    }
-
-    .spanishSessions {
-        grid-area: spanishSessions;
-    }
 
     .text {
         grid-area: text;
         text-align: center;
     }
-
-    // .progressBarContainer {
-    //     display: flex;
-    //     align-items: center;
-
-    //     span {
-    //         line-height: 0px;
-    //     }
-
-    //     .arrowTypeKana {
-    //         font-size: 12px;
-    //     }
-    //     .progressBar {
-    //         display: flex;
-    //         background-color: $gray-2;
-    //         margin-left: 5px;
-    //         min-height: 10px;
-    //         max-height: 12px;
-    //         min-width: 100px;
-    //     }
-    // }
 
     .bar {
         grid-area: bar;
@@ -228,14 +148,6 @@
     .jap-bar {
         grid-area: jap-bar;
     }
-
-    // .set-buttons-helper {
-    //     display: flex;
-    //     width: 80%;
-    //     justify-content: space-between;
-    //     grid-area: info;
-    //     font-size: clamp(0.4rem, 0.5rem + 2vw, 2rem);
-    // }
 
     .lectureButtonTitle {
         font-size: clamp(0.4rem, 1rem + 4vw, 2.5rem);
@@ -356,8 +268,7 @@
         //     }
         // }
 
-        .japaneseSessions,
-        .spanishSessions {
+        .sessions {
             // display: grid;
             height: 100%;
             grid-template-areas: "amount lastReview";
