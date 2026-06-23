@@ -5,7 +5,6 @@ const ProgressBar = ({ amount, total, color, text }) => {
     const zeroedClass = amount === 0 ? "zeroed" : "";
     return (
         <div className="progressBarContainer">
-            <div className="progressBarLabel">{amount}</div>
             <div className="progressBar">
                 <div
                     className={`progressBarFill ${color}`}

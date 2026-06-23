@@ -33,31 +33,39 @@ const ProgressSection = ({ progress, total }) => {
 
     return (
         <div className="progressSection">
-            <ProgressBar
-                amount={progress.memorized}
-                total={total}
-                color="memorized"
-                text="Memorizado"
-            />
-            <ProgressBar
-                amount={progress.midPoint}
-                total={total}
-                color="midPoint"
-                text="Ya casi"
-            />
-            <ProgressBar
-                amount={progress.learning}
-                total={total}
-                color="learning"
-                text="Estudiando"
-            />
+            <div className="progressNumbers">
+                <div className="progressBarLabel">{progress.memorized}</div>
+                <div className="progressBarLabel">{progress.midPoint}</div>
+                <div className="progressBarLabel">{progress.learning}</div>
+                <div className="progressBarLabel">{progress.noView}</div>
+            </div>
+            <div className="progressBars">
+                <ProgressBar
+                    amount={progress.memorized}
+                    total={total}
+                    color="memorized"
+                    text="Memorizado"
+                />
+                <ProgressBar
+                    amount={progress.midPoint}
+                    total={total}
+                    color="midPoint"
+                    text="Ya casi"
+                />
+                <ProgressBar
+                    amount={progress.learning}
+                    total={total}
+                    color="learning"
+                    text="Estudiando"
+                />
 
-            <ProgressBar
-                amount={progress.noView}
-                total={total}
-                color="noView"
-                text="No visto"
-            />
+                <ProgressBar
+                    amount={progress.noView}
+                    total={total}
+                    color="noView"
+                    text="No visto"
+                />
+            </div>
         </div>
     );
 };

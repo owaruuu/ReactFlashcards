@@ -19,41 +19,62 @@
   grid-area: spanishData;
   padding: 0 15px 0 5px;
 }
-.lectureButton .progressSection .progressBarContainer {
-  display: flex;
-  gap: 3px;
+.lectureButton .progressSection {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "progressNumbers progressBars";
   align-items: center;
+  gap: 10px;
+  margin: 10px 0;
 }
-.lectureButton .progressSection .progressBarContainer .progressBarLabel {
-  width: 10%;
+.lectureButton .progressSection .progressNumbers,
+.lectureButton .progressSection .progressBars {
+  gap: 6px;
+}
+.lectureButton .progressSection .progressNumbers {
+  grid-area: progressNumbers;
+  display: flex;
+  flex-direction: column;
+}
+.lectureButton .progressSection .progressNumbers .progressBarLabel {
   text-align: center;
-  font-size: 12px;
   color: #27455f;
 }
+.lectureButton .progressSection .progressBars {
+  grid-area: progressBars;
+  display: flex;
+  flex-direction: column;
+}
+.lectureButton .progressSection .progressBarContainer {
+  display: flex;
+  align-items: center;
+}
 .lectureButton .progressSection .progressBarContainer .progressBar {
+  display: grid;
+  align-items: center;
   width: 100%;
-  height: 20px;
+  height: 24px;
   background-color: #797979;
   border-radius: 10px;
   overflow: hidden;
-  margin: 3px 0;
   position: relative;
 }
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarText {
-  position: absolute;
+  grid-area: 1/1;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   text-align: center;
   z-index: 100;
   font-size: 12px;
   color: white;
+  margin: 0;
 }
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarText.zeroed {
   color: #b6b6b6;
 }
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarFill {
+  grid-area: 1/1;
   height: 100%;
   transition: width 0.3s ease;
 }
@@ -77,7 +98,6 @@
   grid-area: title;
   grid-template-areas: "terms terms" "lectureButtonTitle lectureButtonTitle";
   text-align: center;
-  margin-bottom: 15px;
 }
 .lectureButton .title .terms {
   grid-area: terms;
@@ -94,7 +114,7 @@
 .lectureButton .sessions {
   display: grid;
   grid-template-areas: "amount" "lastReview";
-  font-size: 12px;
+  font-size: 14px;
 }
 .lectureButton .sessions svg {
   font-size: 1.2em;
@@ -180,7 +200,7 @@
 .lectureButton {
   /* Desktop */
 }
-@media (min-width: 1056px) {
+@media (min-width: 1087px) {
   .lectureButton {
     display: grid;
     grid-template-rows: auto;
@@ -196,7 +216,6 @@
   }
   .lectureButton .sessions {
     height: 100%;
-    grid-template-areas: "amount lastReview";
   }
   .lectureButton .sessions .japaneseSessions,
   .lectureButton .sessions .spanishSessions {
@@ -235,5 +254,13 @@
   }
   .lectureButton {
     flex-direction: row;
+  }
+}
+@media (min-width: 768px) {
+  .lectureButton .sessions {
+    grid-template-areas: "amount lastReview";
+  }
+  .lectureButton .sessions .lastReview {
+    text-align: end;
   }
 }/*# sourceMappingURL=LectureButton.css.map */
