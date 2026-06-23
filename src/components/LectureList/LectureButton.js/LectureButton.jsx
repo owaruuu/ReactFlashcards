@@ -143,7 +143,8 @@ const LectureButton = (props) => {
 
     const lectureName = isBookmarked ? (
         <>
-            <FaStarOfLife /> {title} <FaStarOfLife />
+            <FaStarOfLife className="bookmarkIcon" /> {title}{" "}
+            <FaStarOfLife className="bookmarkIcon" />
         </>
     ) : (
         <>{title}</>
@@ -166,48 +167,25 @@ const LectureButton = (props) => {
 
     return (
         <LectureButton>
-            <div className="lectureProgress">
-                <div className="japaneseTitle">Japonés: </div>
-                <div className="japaneseProgress">
-                    <ProgressSection
-                        progress={progress?.[id]?.japanese}
-                        total={amount}
-                    />
-                </div>
-                <div className="spanishTitle">Español: </div>
-                <div className="spanishProgress">
-                    <ProgressSection
-                        progress={progress?.[id]?.spanish}
-                        total={amount}
-                    />
-                </div>
-            </div>
-            <div className="title">
-                <div className="terms">
-                    <span>{amount} Palabras</span>
-                    {/* Porque este check ? */}
-                    {isKanjiView && <span> - {amountKanji} Kanji</span>}
-                </div>
-                <span className="lectureButtonTitle">{lectureName}</span>
-                <div className="icons">
-                    {hasTest && (
-                        <HiClipboardDocumentList className="testIcon" />
-                    )}
-                </div>
-            </div>
-            <div className="session">
+            <div className="japaneseData">
                 {loggedIn && (
                     <>
-                        <div className="japaneseTitle">Japonés: </div>
-                        <div className="japaneseSection">
-                            <div className="amountJapanese">
+                        {/* <div className="japaneseTitle">Japonés: </div> */}
+                        <div className="japaneseProgress">
+                            <ProgressSection
+                                progress={progress?.[id]?.japanese}
+                                total={amount}
+                            />
+                        </div>
+                        <div className="japaneseSessions">
+                            <div className="amount">
                                 <PiStackOverflowLogoFill /> :
                                 <TermsReviewAmount
                                     status={allLecturesDataQueryStatus}
                                     amount={japaneseSessionTermsAmount}
                                 ></TermsReviewAmount>
                             </div>
-                            <div className="lastReviewJapanese">
+                            <div className="lastReview">
                                 <FaClock /> :{" "}
                                 <ReviewSessionTime
                                     status={allLecturesDataQueryStatus}
@@ -215,17 +193,43 @@ const LectureButton = (props) => {
                                 ></ReviewSessionTime>
                             </div>
                         </div>
+                    </>
+                )}
+            </div>
+            <div className="title">
+                <div className="terms">
+                    <span>{amount} Palabras</span>
+                    {/* Porque este check ? */}
+                    {isKanjiView && <span> - {amountKanji} Kanji</span>}
+                </div>
+                <span className="lectureButtonTitle">
+                    {lectureName}{" "}
+                    {hasTest && (
+                        <HiClipboardDocumentList className="testIcon" />
+                    )}
+                </span>
+                {/* <div className="icons"></div> */}
+            </div>
+            <div className="spanishData">
+                {loggedIn && (
+                    <>
+                        {/* <div className="spanishTitle">Español: </div> */}
 
-                        <div className="spanishTitle">Español: </div>
-                        <div className="spanishSection">
-                            <div className="amountSpanish">
+                        <div className="spanishProgress">
+                            <ProgressSection
+                                progress={progress?.[id]?.spanish}
+                                total={amount}
+                            />
+                        </div>
+                        <div className="spanishSessions">
+                            <div className="amount">
                                 <PiStackOverflowLogoFill /> :
                                 <TermsReviewAmount
                                     status={allLecturesDataQueryStatus}
                                     amount={spanishSessionTermsAmount}
                                 ></TermsReviewAmount>
                             </div>
-                            <div className="lastReviewSpanish">
+                            <div className="lastReview">
                                 <FaClock /> :{" "}
                                 <ReviewSessionTime
                                     status={allLecturesDataQueryStatus}

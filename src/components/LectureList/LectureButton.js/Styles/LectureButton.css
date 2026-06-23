@@ -1,7 +1,7 @@
 .lectureButton {
   display: grid;
   flex-direction: column;
-  grid-template-areas: "title" "session" "lectureProgress";
+  grid-template-areas: "title title" "japaneseData spanishData";
   background-color: white;
   color: #27455f;
   font-family: "Noto_Serif";
@@ -11,8 +11,13 @@
   align-items: center;
   cursor: pointer;
 }
-.lectureButton .progressSection {
-  margin: 0 10px;
+.lectureButton .japaneseData {
+  grid-area: japaneseData;
+  padding: 0 15px 0 5px;
+}
+.lectureButton .spanishData {
+  grid-area: spanishData;
+  padding: 0 15px 0 5px;
 }
 .lectureButton .progressSection .progressBarContainer {
   display: flex;
@@ -20,7 +25,7 @@
   align-items: center;
 }
 .lectureButton .progressSection .progressBarContainer .progressBarLabel {
-  width: 20%;
+  width: 10%;
   text-align: center;
   font-size: 12px;
   color: #27455f;
@@ -59,7 +64,7 @@
   background-color: #b103d4;
 }
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarFill.midPoint {
-  background-color: #0364f0;
+  background-color: #e4a600;
 }
 .lectureButton .progressSection .progressBarContainer .progressBar .progressBarFill.learning {
   background-color: #30a929;
@@ -85,8 +90,10 @@
 }
 .lectureButton .title {
   display: grid;
-  grid-template-areas: "terms icons" "lectureButtonTitle lectureButtonTitle";
+  grid-area: title;
+  grid-template-areas: "terms terms" "lectureButtonTitle lectureButtonTitle";
   text-align: center;
+  margin-bottom: 15px;
 }
 .lectureButton .title .terms {
   grid-area: terms;
@@ -100,28 +107,30 @@
 .lectureButton .title .lectureButtonTitle {
   grid-area: lectureButtonTitle;
 }
-.lectureButton .session {
+.lectureButton .japaneseSessions,
+.lectureButton .spanishSessions {
   display: grid;
-  grid-template-areas: "japaneseTitle  japaneseSection spanishTitle spanishSection";
+  grid-template-areas: "amount" "lastReview";
+  justify-content: space-between;
+  font-size: 12px;
 }
-.lectureButton .session .japaneseTitle {
-  grid-area: japaneseTitle;
-  text-align: end;
-  padding-right: 10px;
+.lectureButton .japaneseSessions svg,
+.lectureButton .spanishSessions svg {
+  font-size: 1.2em;
 }
-.lectureButton .session .spanishTitle {
-  grid-area: spanishTitle;
-  text-align: end;
-  padding-right: 10px;
+.lectureButton .japaneseSessions .amount,
+.lectureButton .spanishSessions .amount {
+  grid-area: amount;
 }
-.lectureButton .session .japaneseSection {
-  grid-area: japaneseSection;
+.lectureButton .japaneseSessions .lastReview,
+.lectureButton .spanishSessions .lastReview {
+  grid-area: lastReview;
 }
-.lectureButton .session .spanishSection {
-  grid-area: spanishSection;
+.lectureButton .japaneseSessions {
+  grid-area: japaneseSessions;
 }
-.lectureButton .session svg {
-  font-size: 1.3em;
+.lectureButton .spanishSessions {
+  grid-area: spanishSessions;
 }
 .lectureButton .text {
   grid-area: text;
@@ -138,7 +147,7 @@
   grid-area: title;
   text-align: center;
 }
-.lectureButton .lectureButtonTitle svg {
+.lectureButton .lectureButtonTitle .bookmarkIcon {
   font-size: 1.2rem;
   margin-bottom: 5px;
   color: #e06c1f;
@@ -203,39 +212,24 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 30% 40% 30%;
-    grid-template-areas: "lectureProgress title session";
+    grid-template-areas: "japaneseData title spanishData";
     width: 85vw;
     max-width: 1000px;
     border-radius: 17px;
-    padding: 5px 0;
+    padding: 5px 24px;
   }
   .lectureButton .icons svg {
     font-size: 1.3rem;
   }
-  .lectureButton .lectureProgress {
-    padding-left: 10px;
-  }
-  .lectureButton .lectureProgress .japaneseTitle {
-    text-align: start;
-  }
-  .lectureButton .lectureProgress .spanishTitle {
-    text-align: start;
-  }
-  .lectureButton .session {
+  .lectureButton .japaneseSessions,
+  .lectureButton .spanishSessions {
     height: 100%;
-    grid-template-rows: 33% auto;
-    grid-template-areas: "japaneseTitle spanishTitle" "japaneseSection spanishSection";
+    grid-template-areas: "amount lastReview";
   }
-  .lectureButton .session .japaneseTitle {
-    grid-area: japaneseTitle;
-    text-align: start;
-  }
-  .lectureButton .session .spanishTitle {
-    grid-area: spanishTitle;
-    text-align: start;
-  }
-  .lectureButton .session .japaneseSection,
-  .lectureButton .session .spanishSection {
+  .lectureButton .japaneseSessions .japaneseSessions,
+  .lectureButton .japaneseSessions .spanishSessions,
+  .lectureButton .spanishSessions .japaneseSessions,
+  .lectureButton .spanishSessions .spanishSessions {
     align-content: center;
   }
   .lectureButton .terms {
