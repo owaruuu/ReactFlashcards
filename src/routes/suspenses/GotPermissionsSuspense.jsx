@@ -26,7 +26,7 @@ const GotPermissionsSuspense = () => {
 
 function PermsError() {
     const error = useAsyncError();
-    return <LecturesRoute perms={{ error, data: [] }} />;
+    return <LecturesRoute perms={{ error, access: [], kanjiAccess: [] }} />;
 }
 
 export default GotPermissionsSuspense;

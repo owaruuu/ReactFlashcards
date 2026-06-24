@@ -10,7 +10,7 @@ import { Spinner } from "react-bootstrap";
 
 const LecturesRoute = (props) => {
     const { perms } = props;
-    // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
+    // console.log("🚀 ~ LecturesRoute ~ perms:", perms)
 
     const { loggedIn, dispatch, freeLectures, gotLectures } =
         useContext(AppContext);
@@ -135,6 +135,7 @@ const LecturesRoute = (props) => {
         const fetchFreeLessons = async () => {
             try {
                 const response = await getFreeLessons(freePerms);
+                // console.log("🚀 ~ fetchFreeLessons ~ response:", response);
 
                 //Temporal, hasta que hayan lecciones kanji libres
                 setExtraKanjiSetMessage("No tienes acceso a lecciones Kanji.");
@@ -157,7 +158,7 @@ const LecturesRoute = (props) => {
             if (
                 response.error ||
                 response.data.length === 0 ||
-                response.kanjiData.length === 0
+                response.kanjiData?.length === 0
             ) {
                 setExtraLessonMessage(
                     "Hubo un error obteniendo tus lecciones, intentalo mas tarde.",

@@ -25,13 +25,13 @@ const LectureButton = (props) => {
         testId,
         id,
         amount,
-        amountKanji,
         userDataQueryData,
         allLecturesDataQueryStatus,
         title,
         isKanjiView,
         amountCanLearn,
     } = props;
+    // console.log("🚀 ~ LectureButton ~ id:", id);
     const navigate = useNavigate();
     const hasTest = testId !== "-1" && testId !== undefined;
 
@@ -64,29 +64,29 @@ const LectureButton = (props) => {
     const type1 = isKanjiView ? "recognize" : "japanese";
     const type2 = isKanjiView ? "write" : "spanish";
 
-    const japaneseSessionTermsAmount = amountCanLearn[id]?.aAmount;
-    const spanishSessionTermsAmount = amountCanLearn[id]?.bAmount;
+    const leftSessionTermsAmount = amountCanLearn[id]?.aAmount;
+    const rightSessionTermsAmount = amountCanLearn[id]?.bAmount;
 
     //string date
-    const japaneseLastSessionTime =
+    const leftLastSessionTime =
         userDataQueryData?.[id]?.[`${type1}_session`]?.lastReviewed;
 
-    const spanishLastSessionTime =
+    const rightLastSessionTime =
         userDataQueryData?.[id]?.[`${type2}_session`]?.lastReviewed;
 
-    const japaneseSessionTimeDiff = japaneseLastSessionTime
+    const leftSessionTimeDiff = leftLastSessionTime
         ? {
               chosenDiff: Math.abs(
-                  new Date(japaneseLastSessionTime).getTime() -
+                  new Date(leftLastSessionTime).getTime() -
                       new Date().getTime(),
               ),
           }
         : undefined;
 
-    const spanishSessionTimeDiff = spanishLastSessionTime
+    const rightSessionTimeDiff = rightLastSessionTime
         ? {
               chosenDiff: Math.abs(
-                  new Date(spanishLastSessionTime).getTime() -
+                  new Date(rightLastSessionTime).getTime() -
                       new Date().getTime(),
               ),
           }
@@ -114,33 +114,37 @@ const LectureButton = (props) => {
         </div>
     );
 
-    const progress = userDataQueryData
-        ? getProgress(userDataQueryData, amount)
+    const progress = userDataQueryData?.[id]
+        ? getProgress(userDataQueryData[id], lecture, isKanjiView)
         : {};
+
+    // if (lecture.lectureId === "20240131001") {
+    //     console.log("🚀 ~ LectureButton ~ progress:", progress);
+    // }
 
     return (
         <LectureButton>
-            <div className="japaneseData">
+            <div className="leftData">
                 {loggedIn && (
                     <>
                         <ProgressSection
-                            progress={progress?.[id]?.japanese}
-                            total={amount}
+                            progress={progress?.left}
+                            total={amount.termList}
                         />
                         <SessionSection
                             allLecturesDataQueryStatus={
                                 allLecturesDataQueryStatus
                             }
-                            amount={japaneseSessionTermsAmount}
-                            timeDiff={japaneseSessionTimeDiff}
+                            amount={leftSessionTermsAmount}
+                            timeDiff={leftSessionTimeDiff}
                         />
                     </>
                 )}
             </div>
             <div className="title">
                 <div className="terms">
-                    <span>{amount} Palabras</span>
-                    {isKanjiView && <span> - {amountKanji} Kanji</span>}
+                    <span>{amount.termList} Palabras</span>
+                    {isKanjiView && <span> - {amount.kanjiList} Kanji</span>}
                 </div>
                 <span className="lectureButtonTitle">
                     {lectureName}{" "}
@@ -149,19 +153,21 @@ const LectureButton = (props) => {
                     )}
                 </span>
             </div>
-            <div className="spanishData">
+            <div className="rightData">
                 {loggedIn && (
                     <>
                         <ProgressSection
-                            progress={progress?.[id]?.spanish}
-                            total={amount}
+                            progress={progress?.right}
+                            total={
+                                isKanjiView ? amount.kanjiList : amount.termList
+                            }
                         />
                         <SessionSection
                             allLecturesDataQueryStatus={
                                 allLecturesDataQueryStatus
                             }
-                            amount={spanishSessionTermsAmount}
-                            timeDiff={spanishSessionTimeDiff}
+                            amount={rightSessionTermsAmount}
+                            timeDiff={rightSessionTimeDiff}
                         />
                     </>
                 )}
@@ -170,29 +176,33 @@ const LectureButton = (props) => {
     );
 };
 
-function getProgress(userData, total) {
-    const progress = {};
+function getProgress(lectureData, lecture, isKanjiView) {
+    // console.log("🚀 ~ getProgress ~ lecture:", lecture);
+    let progress = {};
 
-    for (const [lectureId, progressData] of Object.entries(userData)) {
-        const japaneseLevels = getLevels(
-            progressData.japanese_terms_levels,
-            total,
-        );
-        const spanishLevels = getLevels(
-            progressData.spanish_terms_levels,
-            total,
-        );
+    const leftLevels = getLevels(
+        lectureData[
+            isKanjiView ? "recognize_terms_levels" : "japanese_terms_levels"
+        ],
+        lecture.termList.length,
+    );
+    const rightLevels = getLevels(
+        lectureData[
+            isKanjiView ? "write_terms_levels" : "spanish_terms_levels"
+        ],
+        isKanjiView ? lecture.kanjiList.length : lecture.termList.length,
+    );
 
-        progress[lectureId] = {
-            japanese: japaneseLevels,
-            spanish: spanishLevels,
-        };
-    }
+    progress = {
+        left: leftLevels,
+        right: rightLevels,
+    };
 
     return progress;
 }
 
 function getLevels(data, total) {
+    // console.log("🚀 ~ getLevels ~ data:", data);
     const levels = {
         noView: total,
         learning: 0,

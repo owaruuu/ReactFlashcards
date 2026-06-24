@@ -61,15 +61,15 @@ const LectureButtons = (props) => {
                 lecture={lecture}
                 testId={lecture.testId}
                 id={lecture.lectureId}
-                amount={lecture.termList.length}
-                amountKanji={lecture.kanjiList?.length}
-                starredAmount={starredAmountObject?.[lecture.lectureId]}
+                amount={{
+                    termList: lecture.termList.length,
+                    kanjiList: lecture.kanjiList?.length,
+                }}
                 userDataQueryData={dataObject}
                 allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
                 isKanjiView={isKanjiView}
                 amountCanLearn={amountCanLearn}
-                // progress={myProgress[lecture.lectureId]}
             />
         );
     });
@@ -298,7 +298,7 @@ function calculateAmountReady(dataArray, isKanjiView) {
                     lecture.termList.length - bMuted - bAmountReviewedToday,
             };
         } else {
-            // console.warn("here");
+            // console.log("🚀 ~ calculateAmountReady ~ here");
 
             const recognizeData = lecture["recognize_terms_data"]
                 ? lecture["recognize_terms_data"]

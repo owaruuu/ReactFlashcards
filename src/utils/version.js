@@ -1,4 +1,6 @@
-export const version = "15/6/2026 - add back kanji lectures";
+export const version =
+    "23/6/2026 - finish adding progress bar to lecture buttons, fix bug with logged out user";
+// "15/6/2026 - add back kanji lectures";
 // "12/6/2026 - add favorite lectures filter";
 // "24/4/2026 - merge staging into develop";
 // "17/4/2026 - finish theme changes";

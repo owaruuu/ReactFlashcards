@@ -32,13 +32,15 @@ const LectureScreenButtons = (props) => {
                 {props.hasTest && testButton}
             </div>
 
-            <div className="bookmark">
-                <BookmarkLectureToggle
-                    isBookmarked={props.isBookmarked}
-                    onBookmarkClick={props.onBookmarkClick}
-                    isLoading={props.bookmarkLectureMutation.isLoading}
-                />
-            </div>
+            {props.loggedIn && (
+                <div className="bookmark">
+                    <BookmarkLectureToggle
+                        isBookmarked={props.isBookmarked}
+                        onBookmarkClick={props.onBookmarkClick}
+                        isLoading={props.bookmarkLectureMutation.isLoading}
+                    />
+                </div>
+            )}
 
             <BackButton
                 className="backButton"

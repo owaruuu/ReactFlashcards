@@ -5,7 +5,7 @@
     flex-direction: column;
     grid-template-areas:
         "title title"
-        "japaneseData spanishData";
+        "leftData rightData";
 
     background-color: white;
     color: $background-blue-dark2;
@@ -19,12 +19,12 @@
     align-items: center;
     cursor: pointer;
 
-    .japaneseData {
-        grid-area: japaneseData;
+    .leftData {
+        grid-area: leftData;
         padding: 0 15px 0 5px;
     }
-    .spanishData {
-        grid-area: spanishData;
+    .rightData {
+        grid-area: rightData;
         padding: 0 15px 0 5px;
     }
 
@@ -268,7 +268,7 @@
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: 30% 40% 30%;
-        grid-template-areas: "japaneseData title spanishData";
+        grid-template-areas: "leftData title rightData";
         // grid-template-areas: "info name extras";
         // grid-template-areas:
         //     "bar terms session ."
@@ -276,7 +276,7 @@
         //     "memo icons lastReviewJapanese lastReviewSpanish";
 
         width: 85vw;
-        max-width: 1000px;
+        max-width: 1100px;
         // border: 3px solid $border-yellow;
         border-radius: 17px;
         padding: 5px 24px;
