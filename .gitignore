@@ -16,6 +16,9 @@ secret.js
 /build
 /dist
 
+# refactor working notes (local audit / checklist)
+/refactor-notes
+
 # misc
 .DS_Store
 .env.local
