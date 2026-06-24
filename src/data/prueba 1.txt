@@ -1,0 +1,217 @@
+
+mondaiTitle: "Selecciona la traduccion correcta.",
+dragTitle: "Ordena la traduccion de la siguiente frase. (debes ocupar todas las palabras)",
+mondaiOptions: easy: 2, mid: 2, hard: 1,
+dragOptions: quantity: 3, (antes no teniamos distincion entre dificultad para los drag***)
+mondai:
+EASY: 
+
+わたしは、チリじんです。                  
+Yo soy chileno.
+Yo soy americano.
+Yo soy japones.
+                
+わたしは、エンジニアです。
+Yo soy ingeniero.
+Yo soy profesor.
+Yo soy estudiante.
+
+わたしは、おとなです。
+Yo soy adulto.
+Yo soy niño.
+Yo soy hombre.
+
+じぶんは、がくせいじゃありません。
+Yo no soy estudiante.
+Yo no soy profesor.
+Yo no soy trabajador.
+
+あなたは、ねこではありません。
+Usted no es gato.
+Usted no es perro.
+Usted no es animal.
+
+
+MID:
+
+うちは、にほんじんじゃありません。
+Yo no soy japones.
+Yo no soy koreano.
+Yo no soy chino.
+
+あなたは、チリじんですか
+Usted es chileno?
+Usted es japones?
+Usted es americano?
+
+カスエラは、たべものですか
+Cazuela es comida?
+Cazuela es sopa?
+Cazuela es salado?
+ 
+リャマは、どうつぶですか
+Llama es un animal?
+Llama es ser vivo?
+Llama es un objeto?
+
+カーラさんは、(お)いしゃ(さん)です。 わたしもです。
+Carla es doctora. Yo tambien.
+Carla es enfermera. Yo no.
+Carla es profesora. Yo tambien. 
+
+
+HARD:
+
+きょうは、はれです。 あしたもです。
+Hoydia esta soleado. Mañana tambien.
+Hoydia esta nublado. Mañana tambien.
+Hoydia esta lloviendo. Mañana no.
+
+ピスコラは、チリののみものです。チチャもです。
+Piscola es un trago de chile. Chicha tambien.
+Piscola es un jugo de chile. Chicha no.
+Piscola es de chile. Chirimoya tambien.
+
+わたしのスマホです。
+Mi celular.
+Tu celular.
+Es un celular.
+
+ともだちのかのじょのかばんです。
+Es la cartera de la polola de mi amig@.
+Es la mochila del amig@ de mi polola.
+Es la maleta del mejor amig@ de mi polola.
+
+こんしゅうのにほんごのじゅぎょうのしゅくだいです。
+Es la tarea de la clase de idioma japones de esta semana.
+Es el repaso de la clase de idioma japones de la proxima semana.
+Es la practica de la clase de idioma japones de la semana pasada.
+
+
+
+dragDrop: 
+
+Es el celular de mi mejor amigo.
+しんゆう
+の
+スマホ
+です。
+
+Claro es una empresa de celulares.
+クラロ
+は、
+スマホ
+の
+かいしゃ
+です。
+
+Yo estoy bien(animado). Usted tambien esta bien(animado)?
+わたし
+は、
+げんき
+です。
+あなた
+も
+げんき
+です
+か？
+                    
+El lunes es clase de japones.
+げつようび
+は、
+にほんご
+の
+じゅぎょう
+です。
+
+Viña del mar es una ciudad de Chile.
+ビーニャ
+デルマル
+は、
+チリ
+の
+まち
+です。
+
+Nihonshu no es un bebestible de Chile.
+にほんしゅ
+は、
+チリ
+の
+のみもの
+じゃ
+ありません。
+
+Goku no es una mujer.
+ごくう
+は、
+おんな
+の
+ひと
+では
+ありません。
+
+Cazuela es sopa.
+カズエラ
+は、
+スープ
+です。
+
+Ustedes son Argentinos?
+みなさん
+は、
+アルゼンチン
+じん
+です
+か？
+
+Hiragana es idioma Japones?
+ひらがな
+は、
+にほんご
+です"
+か？
+
+El Sushi es comida de Japon. Omuraisu tambien.
+すし
+は、
+にほん
+の
+たべもの
+です。
+オムライス
+も
+です。
+
+Usted es ingeniero?
+あなた
+は、
+エンジニア
+です
+か？
+
+Mari san es tu amiga?
+まり
+さん
+は、
+あなた
+の
+ともだち
+です
+か？
+
+Pikachu es personaje de anime?
+ピカチュウ
+は、
+アニメ
+の
+キャラクター
+です
+か？
+
+Yo no soy hombre.
+わたし
+は、
+おとこ
+じゃ
+ありません。
