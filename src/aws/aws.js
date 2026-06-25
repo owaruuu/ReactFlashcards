@@ -53,7 +53,7 @@ export const registerUser = async (email, password, repeatPassword) => {
 
 //intenta obtener tokens usando mis credenciales y las guarda en las cookies
 export const authenticateUser = async (email, password) => {
-    console.log("ON AUTH USER");
+    // console.log("ON AUTH USER");
 
     try {
         const response = await api.post(
@@ -64,7 +64,7 @@ export const authenticateUser = async (email, password) => {
             },
             { withCredentials: true },
         );
-        console.log("🚀 ~ authenticateUser ~ response:", response);
+        // console.log("🚀 ~ authenticateUser ~ response:", response);
 
         return response;
     } catch (error) {
