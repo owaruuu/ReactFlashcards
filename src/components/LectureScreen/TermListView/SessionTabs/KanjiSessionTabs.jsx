@@ -11,6 +11,7 @@ const KanjiSessionTabs = (props) => {
         lecture,
         lectureQueryData,
         lectureQuery,
+        amountCanLearn,
     } = props;
 
     return (
@@ -25,6 +26,7 @@ const KanjiSessionTabs = (props) => {
                     termsData={lectureQueryData?.recognize_terms_data}
                     levelsData={lectureQueryData?.recognize_terms_levels}
                     lectureQuery={lectureQuery}
+                    amountCanLearn={amountCanLearn[lecture.lectureId].aAmount}
                 />
             </Tab>
             <Tab eventKey="write" title="Escribir">
@@ -37,6 +39,7 @@ const KanjiSessionTabs = (props) => {
                     termsData={lectureQueryData?.write_terms_data}
                     levelsData={lectureQueryData?.write_terms_levels}
                     lectureQuery={lectureQuery}
+                    amountCanLearn={amountCanLearn[lecture.lectureId].bAmount}
                 />
             </Tab>
         </Tabs>

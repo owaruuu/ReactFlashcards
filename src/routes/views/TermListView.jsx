@@ -30,6 +30,7 @@ const TermListView = () => {
         lecture,
         hasTest,
         isKanjiView,
+        amountCanLearn,
     } = useOutletContext();
     const { loggedIn } = useContext(AppContext);
     const isBookmarked = lectureQuery.data?.data?.bookmarked;
@@ -128,6 +129,7 @@ const TermListView = () => {
                     writeList={writeTermList}
                     lectureQueryData={lectureQuery.data?.data}
                     lectureQuery={lectureQuery}
+                    amountCanLearn={amountCanLearn.kanjiSets}
                 />
             );
         } else {
@@ -140,6 +142,7 @@ const TermListView = () => {
                     spanishList={spanishTermList}
                     lectureQueryData={lectureQuery.data?.data}
                     lectureQuery={lectureQuery}
+                    amountCanLearn={amountCanLearn.lectures}
                 />
             );
         }

@@ -29,11 +29,13 @@ const SessionControls = ({
     termsData = {}, //ADD default state
     levelsData = {}, //ADD default state
     lectureQuery, //ADD lecture query to read status
+    amountCanLearn,
 }) => {
     const navigate = useNavigate();
 
     const hasSession = sessionData?.terms?.length > 0;
     const lastReviewDate = sessionData ? sessionData.lastReviewed : undefined;
+    // const amountLeft = 0;
     const amountReviewed = calculateReviewed();
     const comingTerms = getComingTerms(levelsData);
 
@@ -299,6 +301,7 @@ const SessionControls = ({
 
                 <button
                     className="session-button smartStudy"
+                    // TODO change this check ?
                     disabled={amountReviewed === terms.length - muted}
                     onClick={onNewStudySession}
                 >
@@ -318,9 +321,9 @@ const SessionControls = ({
                     <p className="smartStudyTitle">
                         Nuevo estudio <ImLab />
                     </p>
-                    <p>{`(${amountReviewed} / ${
+                    <p>{`(${amountCanLearn} / ${
                         terms.length - muted
-                    } estudiados)`}</p>
+                    } disponibles)`}</p>
                 </button>
 
                 <div className="comingTerms">
