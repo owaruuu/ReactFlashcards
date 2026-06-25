@@ -1,4 +1,5 @@
-export const version = "25/6/2026 - move amount can learn to lecture route";
+export const version =
+    "25/6/2026 - move amount can learn to lecture route, fix no kanji access bug";
 // "24/6/2026 - update vite to 8.1.0";
 //  "23/6/2026 - finish adding progress bar to lecture buttons, fix bug with logged out user";
 // "15/6/2026 - add back kanji lectures";
