@@ -39,12 +39,10 @@ const LecturesRoute = (props) => {
         { lectures, kanjiSets },
         dataObject,
     );
-    console.log("🚀 ~ LecturesRoute ~ filledLectures:", filledLectures);
 
     const amountCanLearn = filledLectures
         ? calculateAmountReady(filledLectures)
         : {};
-    console.log("🚀 ~ LecturesRoute ~ amountCanLearn:", amountCanLearn);
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -376,30 +374,6 @@ function insertSessionData(lectures, dataObject) {
                 lecture["spanish_terms_data"] =
                     dataObject[lecture.lectureId]["spanish_terms_data"];
             }
-            if (dataObject[lecture.lectureId]["recognize_session"]) {
-                lecture["recognize_session"] =
-                    dataObject[lecture.lectureId]["recognize_session"];
-            }
-            if (dataObject[lecture.lectureId]["write_session"]) {
-                lecture["write_session"] =
-                    dataObject[lecture.lectureId]["write_session"];
-            }
-            if (dataObject[lecture.lectureId]["recognize_terms_data"]) {
-                lecture["recognize_terms_data"] =
-                    dataObject[lecture.lectureId]["recognize_terms_data"];
-            }
-            if (dataObject[lecture.lectureId]["recognize_terms_levels"]) {
-                lecture["recognize_terms_levels"] =
-                    dataObject[lecture.lectureId]["recognize_terms_levels"];
-            }
-            if (dataObject[lecture.lectureId]["write_terms_data"]) {
-                lecture["write_terms_data"] =
-                    dataObject[lecture.lectureId]["write_terms_data"];
-            }
-            if (dataObject[lecture.lectureId]["write_terms_levels"]) {
-                lecture["write_terms_levels"] =
-                    dataObject[lecture.lectureId]["write_terms_levels"];
-            }
             if (dataObject[lecture.lectureId]["bookmarked"]) {
                 lecture["bookmarked"] =
                     dataObject[lecture.lectureId]["bookmarked"];
@@ -461,10 +435,6 @@ function insertSessionData(lectures, dataObject) {
 }
 
 function calculateAmountReady(lecturesObject) {
-    // {
-    //     filledLectures: [],
-    //     filledKanjiSets: [],
-    // }
     const amountReady = {
         lectures: {},
         kanjiSets: {},
