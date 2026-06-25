@@ -31,6 +31,7 @@ const LectureButton = (props) => {
         isKanjiView,
         amountCanLearn,
     } = props;
+    // console.log("🚀 ~ LectureButton ~ amountCanLearn:", amountCanLearn);
     // console.log("🚀 ~ LectureButton ~ id:", id);
     const navigate = useNavigate();
     const hasTest = testId !== "-1" && testId !== undefined;
@@ -64,8 +65,9 @@ const LectureButton = (props) => {
     const type1 = isKanjiView ? "recognize" : "japanese";
     const type2 = isKanjiView ? "write" : "spanish";
 
-    const leftSessionTermsAmount = amountCanLearn[id]?.aAmount;
-    const rightSessionTermsAmount = amountCanLearn[id]?.bAmount;
+    //TODO cambiar por referencia que no ocupe ID
+    const leftSessionTermsAmount = amountCanLearn.aAmount;
+    const rightSessionTermsAmount = amountCanLearn.bAmount;
 
     //string date
     const leftLastSessionTime =

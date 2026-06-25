@@ -59,8 +59,8 @@ const LectureButtons = (props) => {
                 isKanjiView={isKanjiView}
                 amountCanLearn={
                     isKanjiView
-                        ? amountCanLearn.kanjiSets
-                        : amountCanLearn.lectures
+                        ? amountCanLearn.kanjiSets[lecture.lectureId]
+                        : amountCanLearn.lectures[lecture.lectureId]
                 }
             />
         );
