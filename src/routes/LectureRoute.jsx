@@ -51,6 +51,7 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
                         lectureId,
                         hasTest,
                         isKanjiView,
+                        amountCanLearn: outCtx.amountCanLearn,
                     }}
                 />
             </div>
