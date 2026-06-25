@@ -11,9 +11,12 @@ const LectureButtons = (props) => {
         allLecturesDataQuery,
         orderingState,
         filterState,
-        lectures,
+        filledLectures,
+        amountCanLearn,
+        dataObject,
         isKanjiView,
     } = props;
+    // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
     // console.log("🚀 ~ LectureButtons ~ lectures:", lectures);
 
     const starredAmountObject =
@@ -21,19 +24,26 @@ const LectureButtons = (props) => {
             ? calculateStarred(allLecturesDataQuery.data)
             : {};
 
-    const dataObject =
-        allLecturesDataQuery?.status === "success"
-            ? buildLectureData(allLecturesDataQuery.data)
-            : {};
+    //TODO intentar move esto antes
+    // const dataObject =
+    //     allLecturesDataQuery?.status === "success"
+    //         ? buildLectureData(allLecturesDataQuery.data)
+    //         : {};
     // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
 
-    const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
+    // const filledLectures = insertSessionData(lectures, dataObject, isKanjiView);
     // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
 
-    const amountCanLearn =
-        allLecturesDataQuery?.status === "success"
-            ? calculateAmountReady(filledLectures, isKanjiView)
-            : {};
+    // const amountCanLearn = filledLectures
+    //     ? calculateAmountReady(
+    //           isKanjiView
+    //               ? filledLectures?.filledKanjiSets
+    //               : filledLectures?.filledLectures,
+    //           isKanjiView,
+    //       )
+    //     : {};
+    //TODO end
+
     // console.log("🚀 ~ LectureButtons ~ amountCanLearn:", amountCanLearn);
 
     let filters = [];
@@ -47,9 +57,16 @@ const LectureButtons = (props) => {
     let filteredLectures = [];
 
     if (filters.length > 0) {
-        filteredLectures = filterLectures(filters, filledLectures);
+        filteredLectures = filterLectures(
+            filters,
+            isKanjiView
+                ? filledLectures?.filledKanjiSets
+                : filledLectures?.filledLectures,
+        );
     } else {
-        filteredLectures = filledLectures;
+        filteredLectures = isKanjiView
+            ? filledLectures?.filledKanjiSets
+            : filledLectures?.filledLectures;
     }
 
     const sortedLectures = sortLectures(orderingState, filteredLectures);
@@ -69,7 +86,11 @@ const LectureButtons = (props) => {
                 allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
                 isKanjiView={isKanjiView}
-                amountCanLearn={amountCanLearn}
+                amountCanLearn={
+                    isKanjiView
+                        ? amountCanLearn.kanjiSets
+                        : amountCanLearn.lectures
+                }
             />
         );
     });

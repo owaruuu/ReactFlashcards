@@ -7,18 +7,44 @@ import { freePerms } from "../data/freePerms.js";
 import { kanjiSetsId } from "../data/extraKanjiLessons.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 import { Spinner } from "react-bootstrap";
+import { isAvailable } from "../utils/utils.js";
 
 const LecturesRoute = (props) => {
     const { perms } = props;
     // console.log("🚀 ~ LecturesRoute ~ perms:", perms)
 
-    const { loggedIn, dispatch, freeLectures, gotLectures } =
-        useContext(AppContext);
+    const {
+        loggedIn,
+        dispatch,
+        freeLectures,
+        lectures,
+        kanjiSets,
+        gotLectures,
+    } = useContext(AppContext);
+    // console.log("🚀 ~ LecturesRoute ~ kanjiSets:", kanjiSets);
+    // console.log("🚀 ~ LecturesRoute ~ lectures:", lectures);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
         loggedIn ? true : false,
     );
+
+    const dataObject =
+        allLecturesDataQuery.status === "success"
+            ? buildLectureData(allLecturesDataQuery.data)
+            : {};
+    // console.log("🚀 ~ LecturesRoute ~ dataObject:", dataObject);
+
+    const filledLectures = insertSessionData(
+        { lectures, kanjiSets },
+        dataObject,
+    );
+    console.log("🚀 ~ LecturesRoute ~ filledLectures:", filledLectures);
+
+    const amountCanLearn = filledLectures
+        ? calculateAmountReady(filledLectures)
+        : {};
+    console.log("🚀 ~ LecturesRoute ~ amountCanLearn:", amountCanLearn);
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -259,6 +285,9 @@ const LecturesRoute = (props) => {
         <Outlet
             context={{
                 allLecturesDataQuery,
+                dataObject,
+                filledLectures,
+                amountCanLearn,
                 extraLessonMessage,
                 extraKanjiSetMessage,
                 orderingState,
@@ -284,5 +313,306 @@ const LecturesRoute = (props) => {
         />
     );
 };
+
+function buildLectureData(dataArray) {
+    let result = {};
+
+    dataArray.forEach((element) => {
+        result[element.lecture_id] = {
+            bookmarked: element["bookmarked"],
+            japanese_session: element["japanese_session"],
+            japanese_terms_data: element["japanese_terms_data"],
+            japanese_terms_levels: element["japanese_terms_levels"],
+            spanish_session: element["spanish_session"],
+            spanish_terms_data: element["spanish_terms_data"],
+            spanish_terms_levels: element["spanish_terms_levels"],
+            recognize_session: element["recognize_session"],
+            recognize_terms_data: element["recognize_terms_data"],
+            recognize_terms_levels: element["recognize_terms_levels"],
+            write_session: element["write_session"],
+            write_terms_data: element["write_terms_data"],
+            write_terms_levels: element["write_terms_levels"],
+        };
+    });
+
+    return result;
+}
+
+function insertSessionData(lectures, dataObject) {
+    let filledLectures = JSON.parse(JSON.stringify(lectures.lectures));
+    let filledKanjiSets = JSON.parse(JSON.stringify(lectures.kanjiSets));
+
+    filledLectures = filledLectures.map((lecture) => {
+        //NEW agregar mapa de lectures
+        //sera un objeto
+        lecture["termListObject"] = {};
+
+        lecture.termList.map((term) => {
+            lecture["termListObject"][term.id] = term;
+        });
+
+        if (dataObject[lecture.lectureId]) {
+            if (dataObject[lecture.lectureId]["japanese_session"]) {
+                lecture["japanese_session"] =
+                    dataObject[lecture.lectureId]["japanese_session"];
+            }
+            if (dataObject[lecture.lectureId]["spanish_session"]) {
+                lecture["spanish_session"] =
+                    dataObject[lecture.lectureId]["spanish_session"];
+            }
+            if (dataObject[lecture.lectureId]["japanese_terms_levels"]) {
+                lecture["japanese_terms_levels"] =
+                    dataObject[lecture.lectureId]["japanese_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["spanish_terms_levels"]) {
+                lecture["spanish_terms_levels"] =
+                    dataObject[lecture.lectureId]["spanish_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["japanese_terms_data"]) {
+                lecture["japanese_terms_data"] =
+                    dataObject[lecture.lectureId]["japanese_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["spanish_terms_data"]) {
+                lecture["spanish_terms_data"] =
+                    dataObject[lecture.lectureId]["spanish_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["recognize_session"]) {
+                lecture["recognize_session"] =
+                    dataObject[lecture.lectureId]["recognize_session"];
+            }
+            if (dataObject[lecture.lectureId]["write_session"]) {
+                lecture["write_session"] =
+                    dataObject[lecture.lectureId]["write_session"];
+            }
+            if (dataObject[lecture.lectureId]["recognize_terms_data"]) {
+                lecture["recognize_terms_data"] =
+                    dataObject[lecture.lectureId]["recognize_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["recognize_terms_levels"]) {
+                lecture["recognize_terms_levels"] =
+                    dataObject[lecture.lectureId]["recognize_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["write_terms_data"]) {
+                lecture["write_terms_data"] =
+                    dataObject[lecture.lectureId]["write_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["write_terms_levels"]) {
+                lecture["write_terms_levels"] =
+                    dataObject[lecture.lectureId]["write_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["bookmarked"]) {
+                lecture["bookmarked"] =
+                    dataObject[lecture.lectureId]["bookmarked"];
+            }
+        }
+
+        return lecture;
+    });
+
+    filledKanjiSets = filledKanjiSets.map((lecture) => {
+        lecture["termListObject"] = {};
+
+        lecture.termList.map((term) => {
+            lecture["termListObject"][term.id] = term;
+        });
+
+        //NEW agregar mapa de kanjis
+        lecture["kanjiListObject"] = {};
+
+        lecture.kanjiList.map((kanji) => {
+            lecture["kanjiListObject"][kanji.id] = kanji;
+        });
+
+        if (dataObject[lecture.lectureId]) {
+            if (dataObject[lecture.lectureId]["recognize_session"]) {
+                lecture["recognize_session"] =
+                    dataObject[lecture.lectureId]["recognize_session"];
+            }
+            if (dataObject[lecture.lectureId]["write_session"]) {
+                lecture["write_session"] =
+                    dataObject[lecture.lectureId]["write_session"];
+            }
+            if (dataObject[lecture.lectureId]["recognize_terms_data"]) {
+                lecture["recognize_terms_data"] =
+                    dataObject[lecture.lectureId]["recognize_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["recognize_terms_levels"]) {
+                lecture["recognize_terms_levels"] =
+                    dataObject[lecture.lectureId]["recognize_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["write_terms_data"]) {
+                lecture["write_terms_data"] =
+                    dataObject[lecture.lectureId]["write_terms_data"];
+            }
+            if (dataObject[lecture.lectureId]["write_terms_levels"]) {
+                lecture["write_terms_levels"] =
+                    dataObject[lecture.lectureId]["write_terms_levels"];
+            }
+            if (dataObject[lecture.lectureId]["bookmarked"]) {
+                lecture["bookmarked"] =
+                    dataObject[lecture.lectureId]["bookmarked"];
+            }
+        }
+
+        return lecture;
+    });
+
+    return { filledLectures, filledKanjiSets };
+}
+
+function calculateAmountReady(lecturesObject) {
+    // {
+    //     filledLectures: [],
+    //     filledKanjiSets: [],
+    // }
+    const amountReady = {
+        lectures: {},
+        kanjiSets: {},
+    };
+
+    lecturesObject.filledLectures.forEach((lecture) => {
+        let aMuted = 0;
+        let bMuted = 0;
+        let aAmountReviewedToday = 0;
+        let bAmountReviewedToday = 0;
+
+        //calcular muteados
+
+        const japaneseData = lecture["japanese_terms_data"]
+            ? lecture["japanese_terms_data"]
+            : {}; //ADD default value
+        const spanishData = lecture["spanish_terms_data"]
+            ? lecture["spanish_terms_data"]
+            : {}; //ADD default value
+
+        const japaneseLevelsData = lecture["japanese_terms_levels"];
+        // console.log(
+        //     "🚀 ~ calculateAmountReady ~ japaneseLevelsData:",
+        //     japaneseLevelsData,
+        // );
+        const spanishLevelsData = lecture["spanish_terms_levels"];
+
+        if (japaneseData) {
+            Object.entries(japaneseData).forEach((element) => {
+                if (lecture["termListObject"][element[0]]) {
+                    if (element[1] === "muted") {
+                        aMuted += 1;
+                    }
+                }
+            });
+        }
+
+        if (spanishData) {
+            Object.entries(spanishData).forEach((element) => {
+                if (lecture["termListObject"][element[0]]) {
+                    if (element[1] === "muted") {
+                        bMuted += 1;
+                    }
+                }
+            });
+        }
+
+        //TODO cambiar logica para usar nextDate
+        if (japaneseLevelsData) {
+            for (const [key, value] of Object.entries(japaneseLevelsData)) {
+                if (japaneseData[key] !== "muted") {
+                    const isTermAvailable = isAvailable(value.nextDate);
+                    if (!isTermAvailable) {
+                        aAmountReviewedToday += 1;
+                    }
+                }
+            }
+        }
+        //TODO cambiar logica para usar nextDate
+        if (spanishLevelsData) {
+            for (const [key, value] of Object.entries(spanishLevelsData)) {
+                if (spanishData[key] !== "muted") {
+                    const isTermAvailable = isAvailable(value.nextDate);
+                    if (!isTermAvailable) {
+                        bAmountReviewedToday += 1;
+                    }
+                }
+            }
+        }
+
+        amountReady.lectures[lecture.lectureId] = {
+            aAmount: lecture.termList.length - aMuted - aAmountReviewedToday,
+            bAmount: lecture.termList.length - bMuted - bAmountReviewedToday,
+        };
+
+        // amountReady[lecture.lectureId] = {
+        //     aAmount: lecture.termList.length - aMuted - aAmountReviewedToday,
+        //     bAmount: lecture.kanjiList.length - bMuted - bAmountReviewedToday,
+        // };
+    });
+
+    lecturesObject.filledKanjiSets.forEach((lecture) => {
+        // console.log("🚀 ~ calculateAmountReady ~ here");
+        let aMuted = 0;
+        let bMuted = 0;
+        let aAmountReviewedToday = 0;
+        let bAmountReviewedToday = 0;
+
+        const recognizeData = lecture["recognize_terms_data"]
+            ? lecture["recognize_terms_data"]
+            : {}; //ADD default value
+        const writeData = lecture["write_terms_data"]
+            ? lecture["write_terms_data"]
+            : {}; //ADD default value
+        const recognizeLevelsData = lecture["recognize_terms_levels"];
+        const writeLevelsData = lecture["write_terms_levels"];
+
+        //NEW ahora revisa que el id del muted exista en la leccion
+        if (recognizeData) {
+            Object.entries(recognizeData).forEach((element) => {
+                if (lecture["termListObject"][element[0]]) {
+                    if (element[1] === "muted") {
+                        aMuted += 1;
+                    }
+                }
+            });
+        }
+
+        if (writeData) {
+            Object.entries(writeData).forEach((element) => {
+                if (lecture["kanjiListObject"][element[0]]) {
+                    if (element[1] === "muted") {
+                        bMuted += 1;
+                    }
+                }
+            });
+        }
+
+        if (recognizeLevelsData) {
+            for (const [key, value] of Object.entries(recognizeLevelsData)) {
+                if (recognizeData[key] !== "muted") {
+                    //ADD check for muted state
+                    const isTermAvailable = isAvailable(value.nextDate);
+                    if (!isTermAvailable) {
+                        aAmountReviewedToday += 1;
+                    }
+                }
+            }
+        }
+        if (writeLevelsData) {
+            for (const [key, value] of Object.entries(writeLevelsData)) {
+                if (writeData[key] !== "muted") {
+                    //ADD check for muted state
+                    const isTermAvailable = isAvailable(value.nextDate);
+                    if (!isTermAvailable) {
+                        bAmountReviewedToday += 1;
+                    }
+                }
+            }
+        }
+
+        amountReady.kanjiSets[lecture.lectureId] = {
+            aAmount: lecture.termList.length - aMuted - aAmountReviewedToday,
+            bAmount: lecture.kanjiList.length - bMuted - bAmountReviewedToday,
+        };
+    });
+
+    return amountReady;
+}
 
 export default LecturesRoute;
