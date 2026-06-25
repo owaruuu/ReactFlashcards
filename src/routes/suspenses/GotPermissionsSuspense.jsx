@@ -5,6 +5,7 @@ import { Spinner } from "react-bootstrap";
 
 const GotPermissionsSuspense = () => {
     let data = useLoaderData();
+    // console.log("🚀 ~ GotPermissionsSuspense ~ data:", data);
 
     return (
         <React.Suspense
@@ -17,7 +18,12 @@ const GotPermissionsSuspense = () => {
         >
             <Await resolve={data.response} errorElement={<PermsError />}>
                 {({ data }) => {
-                    return <LecturesRoute perms={data} />;
+                    const permsData = {
+                        access: data.access || [],
+                        kanjiAccess: data.kanjiAccess || [],
+                    };
+                    // console.log("🚀 ~ GotPermissionsSuspense ~ data:", data);
+                    return <LecturesRoute perms={permsData} />;
                 }}
             </Await>
         </React.Suspense>

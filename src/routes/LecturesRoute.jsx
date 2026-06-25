@@ -11,7 +11,7 @@ import { isAvailable } from "../utils/utils.js";
 
 const LecturesRoute = (props) => {
     const { perms } = props;
-    // console.log("🚀 ~ LecturesRoute ~ perms:", perms)
+    // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
 
     const {
         loggedIn,
@@ -39,10 +39,12 @@ const LecturesRoute = (props) => {
         { lectures, kanjiSets },
         dataObject,
     );
+    // console.log("🚀 ~ LecturesRoute ~ filledLectures:", filledLectures);
 
     const amountCanLearn = filledLectures
         ? calculateAmountReady(filledLectures)
         : {};
+    // console.log("🚀 ~ LecturesRoute ~ amountCanLearn:", amountCanLearn);
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -178,11 +180,12 @@ const LecturesRoute = (props) => {
         };
 
         const setLectures = async (response) => {
+            // console.log("🚀 ~ setLectures ~ response:", response);
+            // console.log("🚀 ~ LecturesRoute ~ response:", "estoy aqui");
             //si ambas queries fallan o estan vacias
             if (
                 response.error ||
-                response.data.length === 0 ||
-                response.kanjiData?.length === 0
+                (response.data.length === 0 && response.kanjiData?.length === 0)
             ) {
                 setExtraLessonMessage(
                     "Hubo un error obteniendo tus lecciones, intentalo mas tarde.",
@@ -249,9 +252,13 @@ const LecturesRoute = (props) => {
                     payload: true,
                 });
             }
+            // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
 
             const hasNormalPerms = perms.access.length > 0;
-            const hasKanjiPerms = perms.kanjiAccess.length > 0;
+            const hasKanjiPerms = perms.kanjiAccess
+                ? perms.kanjiAccess.length > 0
+                : false;
+            // console.log("🚀 ~ LecturesRoute ~ hasKanjiPerms:", hasKanjiPerms);
 
             //Case: no tiene ninguna leccion extra
             if (!hasNormalPerms && !hasKanjiPerms) {
