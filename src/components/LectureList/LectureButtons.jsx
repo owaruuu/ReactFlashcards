@@ -9,8 +9,16 @@ const LectureButtons = (props) => {
         filledLectures,
         amountCanLearn,
         dataObject,
+        progressObject,
         isKanjiView,
     } = props;
+    console.log("🚀 ~ LectureButtons ~ progressObject:", progressObject);
+    // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
+    // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
+    // console.log(
+    //     "🚀 ~ LectureButtons ~ allLecturesDataQuery:",
+    //     allLecturesDataQuery,
+    // );
 
     const starredAmountObject =
         allLecturesDataQuery?.status === "success"
@@ -46,6 +54,7 @@ const LectureButtons = (props) => {
         return (
             <LectureButton
                 key={lecture.lectureId}
+                progress={progressObject[lecture.lectureId]}
                 lecture={lecture}
                 testId={lecture.testId}
                 id={lecture.lectureId}
@@ -53,7 +62,7 @@ const LectureButtons = (props) => {
                     termList: lecture.termList.length,
                     kanjiList: lecture.kanjiList?.length,
                 }}
-                userDataQueryData={dataObject}
+                dataObject={dataObject}
                 allLecturesDataQueryStatus={allLecturesDataQuery?.status}
                 title={lecture.name}
                 isKanjiView={isKanjiView}

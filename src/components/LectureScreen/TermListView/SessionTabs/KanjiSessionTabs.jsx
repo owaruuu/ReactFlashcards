@@ -12,7 +12,13 @@ const KanjiSessionTabs = (props) => {
         lectureQueryData,
         lectureQuery,
         amountCanLearn,
+        progress,
     } = props;
+
+    const localProgress = {
+        left: progress?.recognize,
+        right: progress?.write,
+    };
 
     return (
         <Tabs activeKey={tab} onSelect={(k) => setTab(k)} id="lists-tab" fill>
@@ -27,6 +33,7 @@ const KanjiSessionTabs = (props) => {
                     levelsData={lectureQueryData?.recognize_terms_levels}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn[lecture.lectureId].aAmount}
+                    progress={localProgress.left}
                 />
             </Tab>
             <Tab eventKey="write" title="Escribir">
@@ -40,6 +47,7 @@ const KanjiSessionTabs = (props) => {
                     levelsData={lectureQueryData?.write_terms_levels}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn[lecture.lectureId].bAmount}
+                    progress={localProgress.right}
                 />
             </Tab>
         </Tabs>

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import BackToTopButton from "../../../Buttons/BackToTopButton";
 import SessionControls from "../SessionControls";
 import { AppContext } from "../../../../context/AppContext";
+import ProgressInfoForTab from "./ProgressInfo/ProgressInfoForTab.jsx";
 
 const SessionTab = (props) => {
     const { loggedIn } = useContext(AppContext);
@@ -15,10 +16,15 @@ const SessionTab = (props) => {
         levelsData,
         lectureQuery,
         amountCanLearn,
+        progress,
     } = props;
+    // console.log("🚀 ~ SessionTab ~ terms:", terms);
+    console.log("🚀 ~ SessionTab ~ progress:", progress);
 
     return (
         <div className="termTab">
+            <ProgressInfoForTab progress={progress} total={terms.length} />
+            {/* <div className="divider"></div> */}
             {loggedIn && (
                 <SessionControls
                     language={language}

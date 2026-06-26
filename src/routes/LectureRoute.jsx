@@ -11,6 +11,7 @@ import DismissableBanner from "../components/DismissableBanner/DismissableBanner
 const LectureRoute = ({ lecture, isKanjiView = false }) => {
     // const { lecture, isKanjiView } = props;
     const outCtx = useOutletContext();
+    // console.log("🚀 ~ LectureRoute ~ outCtx:", outCtx);
     const [tab, setTab] = useState(isKanjiView ? "recognize" : "japanese");
     const { loggedIn } = useContext(AppContext);
     const { lectureId } = useParams();
@@ -86,6 +87,8 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
                     hasTest,
                     isKanjiView,
                     amountCanLearn: outCtx.amountCanLearn,
+                    dataObject: outCtx.dataObject,
+                    progress: outCtx.progressObject,
                 }}
             />
         ) : (

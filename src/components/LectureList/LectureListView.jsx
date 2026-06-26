@@ -131,6 +131,7 @@ const LectureListView = ({ isKanjiView = false }) => {
                 <div className="lectureButtons">
                     <LectureButtons
                         allLecturesDataQuery={outCtx.allLecturesDataQuery}
+                        progressObject={outCtx.progressObject}
                         orderingState={
                             isKanjiView
                                 ? outCtx.kanjiOrderingState

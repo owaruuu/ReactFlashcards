@@ -13,8 +13,25 @@ const NormalSessionTabs = (props) => {
         lectureQueryData,
         lectureQuery,
         amountCanLearn,
+        dataObject,
+        progress,
     } = props;
+    console.log("🚀 ~ NormalSessionTabs ~ progress:", progress);
+    // console.log("🚀 ~ NormalSessionTabs ~ dataObject:", dataObject);
+    // console.log("🚀 ~ NormalSessionTabs ~ lectureQuery:", lectureQuery);
     // console.log("🚀 ~ NormalSessionTabs ~ lectureQueryData:", lectureQueryData);
+
+    // const progress = dataObject?.[lecture.lectureId]
+    //     ? getProgress(dataObject[lecture.lectureId], lecture, false)
+    //     : {};
+
+    // const progress = {};
+
+    const localProgress = {
+        left: progress?.japanese,
+        right: progress?.spanish,
+    };
+
     return (
         <Tabs
             activeKey={tab}
@@ -33,6 +50,7 @@ const NormalSessionTabs = (props) => {
                     levelsData={lectureQueryData?.japanese_terms_levels}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn[lecture.lectureId].aAmount}
+                    progress={localProgress.left}
                 />
             </Tab>
             <Tab eventKey="spanish" title="Español">
@@ -46,10 +64,63 @@ const NormalSessionTabs = (props) => {
                     levelsData={lectureQueryData?.spanish_terms_levels}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn[lecture.lectureId].bAmount}
+                    progress={localProgress.right}
                 />
             </Tab>
         </Tabs>
     );
 };
+
+function getProgress(lectureData, lecture, isKanjiView) {
+    // console.log("🚀 ~ getProgress ~ lecture:", lecture);
+    let progress = {};
+
+    const leftLevels = getLevels(
+        lectureData[
+            isKanjiView ? "recognize_terms_levels" : "japanese_terms_levels"
+        ],
+        lecture.termList.length,
+    );
+    const rightLevels = getLevels(
+        lectureData[
+            isKanjiView ? "write_terms_levels" : "spanish_terms_levels"
+        ],
+        isKanjiView ? lecture.kanjiList.length : lecture.termList.length,
+    );
+
+    progress = {
+        left: leftLevels,
+        right: rightLevels,
+    };
+
+    return progress;
+}
+
+function getLevels(data, total) {
+    // console.log("🚀 ~ getLevels ~ data:", data);
+    const levels = {
+        noView: total,
+        learning: 0,
+        midPoint: 0,
+        memorized: 0,
+    };
+
+    if (!data) return levels;
+
+    for (const termData of Object.values(data)) {
+        if (termData.level >= 9) {
+            levels.memorized += 1;
+            levels.noView -= 1;
+        } else if (termData.level >= 6) {
+            levels.midPoint += 1;
+            levels.noView -= 1;
+        } else if (termData.level > 0) {
+            levels.learning += 1;
+            levels.noView -= 1;
+        }
+    }
+
+    return levels;
+}
 
 export default NormalSessionTabs;

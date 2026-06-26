@@ -25,12 +25,14 @@ const LectureButton = (props) => {
         testId,
         id,
         amount,
-        userDataQueryData,
+        dataObject,
         allLecturesDataQueryStatus,
         title,
         isKanjiView,
         amountCanLearn,
+        progress,
     } = props;
+    console.log("🚀 ~ LectureButton ~ progress:", progress);
     // console.log("🚀 ~ LectureButton ~ amountCanLearn:", amountCanLearn);
     // console.log("🚀 ~ LectureButton ~ id:", id);
     const navigate = useNavigate();
@@ -71,10 +73,10 @@ const LectureButton = (props) => {
 
     //string date
     const leftLastSessionTime =
-        userDataQueryData?.[id]?.[`${type1}_session`]?.lastReviewed;
+        dataObject?.[id]?.[`${type1}_session`]?.lastReviewed;
 
     const rightLastSessionTime =
-        userDataQueryData?.[id]?.[`${type2}_session`]?.lastReviewed;
+        dataObject?.[id]?.[`${type2}_session`]?.lastReviewed;
 
     const leftSessionTimeDiff = leftLastSessionTime
         ? {
@@ -94,7 +96,7 @@ const LectureButton = (props) => {
           }
         : undefined;
 
-    const isBookmarked = userDataQueryData?.[id]?.bookmarked;
+    const isBookmarked = dataObject?.[id]?.bookmarked;
 
     const lectureName = isBookmarked ? (
         <>
@@ -116,13 +118,17 @@ const LectureButton = (props) => {
         </div>
     );
 
-    const progress = userDataQueryData?.[id]
-        ? getProgress(userDataQueryData[id], lecture, isKanjiView)
-        : {};
+    //TODO subir mas arriba en el tree
+    // const progress = dataObject?.[id]
+    //     ? getProgress(dataObject[id], lecture, isKanjiView)
+    //     : {};
 
     // if (lecture.lectureId === "20240131001") {
     //     console.log("🚀 ~ LectureButton ~ progress:", progress);
     // }
+    const localProgress = isKanjiView
+        ? { left: progress?.recognize, right: progress?.write }
+        : { left: progress?.japanese, right: progress?.spanish };
 
     return (
         <LectureButton>
@@ -130,7 +136,7 @@ const LectureButton = (props) => {
                 {loggedIn && (
                     <>
                         <ProgressSection
-                            progress={progress?.left}
+                            progress={localProgress.left}
                             total={amount.termList}
                         />
                         <SessionSection
@@ -159,7 +165,7 @@ const LectureButton = (props) => {
                 {loggedIn && (
                     <>
                         <ProgressSection
-                            progress={progress?.right}
+                            progress={localProgress.right}
                             total={
                                 isKanjiView ? amount.kanjiList : amount.termList
                             }

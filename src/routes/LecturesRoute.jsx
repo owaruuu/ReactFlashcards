@@ -35,6 +35,14 @@ const LecturesRoute = (props) => {
             : {};
     // console.log("🚀 ~ LecturesRoute ~ dataObject:", dataObject);
 
+    const lecturesObject = makeLecturesObject([...lectures, ...kanjiSets]);
+    // console.log("🚀 ~ LecturesRoute ~ lecturesObject:", lecturesObject);
+
+    const progressObject = dataObject
+        ? getProgress(dataObject, lecturesObject)
+        : {};
+    // console.log("🚀 ~ LecturesRoute ~ progressObject:", progressObject);
+
     const filledLectures = insertSessionData(
         { lectures, kanjiSets },
         dataObject,
@@ -293,6 +301,7 @@ const LecturesRoute = (props) => {
                 dataObject,
                 filledLectures,
                 amountCanLearn,
+                progressObject,
                 extraLessonMessage,
                 extraKanjiSetMessage,
                 orderingState,
@@ -590,6 +599,75 @@ function calculateAmountReady(lecturesObject) {
     });
 
     return amountReady;
+}
+
+function getProgress(lectureData, lecturesObject) {
+    // console.log("🚀 ~ getProgress ~ lecture:", lecture);
+    let progress = {};
+
+    for (const [key, value] of Object.entries(lectureData)) {
+        progress[key] = {
+            recognize: getLevels(
+                value["recognize_terms_levels"],
+                lecturesObject[key]?.termList?.length || 0,
+            ),
+            write: getLevels(
+                value["write_terms_levels"],
+                lecturesObject[key]?.kanjiList?.length || 0,
+            ),
+            japanese: getLevels(
+                value["japanese_terms_levels"],
+                lecturesObject[key]?.termList?.length || 0,
+            ),
+            spanish: getLevels(
+                value["spanish_terms_levels"],
+                lecturesObject[key]?.termList?.length || 0,
+            ),
+        };
+    }
+
+    return progress;
+}
+
+function getLevels(data, total = 0) {
+    // console.log("🚀 ~ getLevels ~ data:", data);
+    const levels = {
+        noView: total,
+        learning: 0,
+        midPoint: 0,
+        memorized: 0,
+    };
+
+    if (!data) return levels;
+
+    for (const termData of Object.values(data)) {
+        if (termData.level >= 9) {
+            levels.memorized += 1;
+            levels.noView -= 1;
+        } else if (termData.level >= 6) {
+            levels.midPoint += 1;
+            levels.noView -= 1;
+        } else if (termData.level > 0) {
+            levels.learning += 1;
+            levels.noView -= 1;
+        }
+    }
+
+    return levels;
+}
+
+function makeLecturesObject(lectures) {
+    // console.log("🚀 ~ makeLecturesObject ~ lectures:", lectures);
+    const lecturesObject = {};
+
+    for (const lecture of lectures) {
+        lecturesObject[lecture.lectureId] = {
+            termList: lecture.termList,
+            kanjiList: lecture.kanjiList,
+        };
+    }
+
+    return lecturesObject;
 }
 
 export default LecturesRoute;

@@ -31,7 +31,10 @@ const TermListView = () => {
         hasTest,
         isKanjiView,
         amountCanLearn,
+        dataObject,
+        progress,
     } = useOutletContext();
+    // console.log("🚀 ~ TermListView ~ amountCanLearn:", amountCanLearn);
     const { loggedIn } = useContext(AppContext);
     const isBookmarked = lectureQuery.data?.data?.bookmarked;
     // console.log("🚀 ~ TermListView ~ isBookmarked:", isBookmarked);
@@ -130,6 +133,8 @@ const TermListView = () => {
                     lectureQueryData={lectureQuery.data?.data}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn.kanjiSets}
+                    dataObject={dataObject}
+                    progress={progress[lecture.lectureId]}
                 />
             );
         } else {
@@ -143,6 +148,8 @@ const TermListView = () => {
                     lectureQueryData={lectureQuery.data?.data}
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn.lectures}
+                    dataObject={dataObject}
+                    progress={progress[lecture.lectureId]}
                 />
             );
         }

@@ -53,6 +53,17 @@
 
     margin: auto;
 
+    --smart-study-stripe-angle: 45deg; // or -45deg, 0deg, etc.
+    --smart-study-stripe-c1: #0060b2;
+    --smart-study-stripe-c2: #0071c0;
+    --smart-study-stripe-w: 40px;
+    background: repeating-conic-gradient(
+            from var(--smart-study-stripe-angle),
+            var(--smart-study-stripe-c1) 0% 25%,
+            var(--smart-study-stripe-c2) 0% 50%
+        )
+        50% / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+
     .lectureScreenButtons {
         display: flex;
         flex-direction: column;
@@ -181,20 +192,266 @@
 
         .tab-content {
             width: 100%;
+
+            --smart-study-stripe-angle: 45deg; // or -45deg, 0deg, etc.
+            --smart-study-stripe-c1: #42a8ff;
+            --smart-study-stripe-c2: #4eaeff;
+            --smart-study-stripe-w: 20px;
+            background: repeating-conic-gradient(
+                    from var(--smart-study-stripe-angle),
+                    var(--smart-study-stripe-c1) 0% 25%,
+                    var(--smart-study-stripe-c2) 0% 50%
+                )
+                50% / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
         }
 
         .termTab {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: $v3-background-blue-2;
+            // background-color: $v3-background-blue-2;
             border-bottom: 1px solid white;
+
+            // --smart-study-stripe-angle: 45deg;
+            // --smart-study-stripe-c1: blue;
+            // --smart-study-stripe-c2: red;
+            // --smart-study-stripe-w: 500px;
+            // background: repeating-linear-gradient(
+            //     var(--smart-study-stripe-angle),
+            //     var(--smart-study-stripe-c1) 25%,
+            //     var(--smart-study-stripe-c1) 50%,
+            //     var(--smart-study-stripe-c2) 50%,
+            //     var(--smart-study-stripe-c2) 75%
+            // );
+            // background-size: var(--smart-study-stripe-w)
+            //     var(--smart-study-stripe-w);
+
+            // --smart-study-stripe-angle: 45deg; // or -45deg, 0deg, etc.
+            // --smart-study-stripe-c1: #42a8ff;
+            // --smart-study-stripe-c2: #4eaeff;
+            // --smart-study-stripe-w: 20px;
+            // background: repeating-conic-gradient(
+            //         from var(--smart-study-stripe-angle),
+            //         var(--smart-study-stripe-c1) 0% 25%,
+            //         var(--smart-study-stripe-c2) 0% 50%
+            //     )
+            //     50% / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+
+            .divider {
+                width: 80%;
+                max-width: 1024px;
+                height: 1px;
+                background-color: white;
+                margin: 30px 0;
+            }
+
+            .ProgressInfoForTabContainer {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                // --smart-study-stripe-angle: 45deg;
+                // --smart-study-stripe-c1: $stripe-blue-1;
+                // --smart-study-stripe-c2: $stripe-blue-2;
+                // --smart-study-stripe-w: 100px;
+                // background: repeating-linear-gradient(
+                //     var(--smart-study-stripe-angle),
+                //     var(--smart-study-stripe-c1) 25%,
+                //     var(--smart-study-stripe-c1) 50%,
+                //     var(--smart-study-stripe-c2) 50%,
+                //     var(--smart-study-stripe-c2) 75%
+                // );
+                // background-size: var(--smart-study-stripe-w)
+                //     var(--smart-study-stripe-w);
+                // max-width: 1024px;
+                // margin: 10px 0;
+
+                // margin-top: 30px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                .snowflakeIconContainer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    // margin-bottom: 10px;
+
+                    .snowflakeIcon {
+                        font-size: 1.5rem;
+
+                        animation: snowflakeIconAnimation 5s linear infinite;
+                        @keyframes snowflakeIconAnimation {
+                            0% {
+                                transform: rotate(0deg);
+                            }
+                            100% {
+                                transform: rotate(360deg);
+                            }
+                        }
+                    }
+                }
+
+                .ProgressInfoForTabHeader {
+                    width: 100%;
+                    max-width: 1024px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    // margin-bottom: 10px;
+                }
+
+                .ProgressBarsContainer {
+                    width: 100%;
+                    display: grid;
+                    max-width: 1024px;
+                    column-gap: 10px;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    margin-bottom: 10px;
+
+                    align-items: center;
+                    grid-template-areas:
+                        "bigProgressBar bigProgressBar bigProgressBar"
+                        "noView learning midPoint";
+
+                    .lectureBigProgressBar {
+                        display: grid;
+                        width: 100%;
+                        border-radius: 35px;
+                        overflow: hidden;
+                        border: 4px solid white;
+                        // background-color: $v3-background-blue;
+                        background-color: #b8b8b8;
+
+                        // gap: 3px;
+                        grid-area: bigProgressBar;
+                        margin-top: 5px;
+                        margin-bottom: 15px;
+                        box-shadow: inset 1px 1px 11px #00000047;
+
+                        &.zeroed {
+                            border: none !important;
+                            .lectureBigProgressBarLabel {
+                                color: #0b1a378a;
+                                font-weight: 100;
+                            }
+                        }
+
+                        .ProgressBarFill {
+                            grid-area: 1/1;
+                            &.memorized {
+                                // width: 25%;
+                                // background-color: $memo-purple;
+                                background-color: #c542e0;
+                                // border-right: 3px solid white;
+                            }
+                        }
+
+                        .lectureBigProgressBarLabel {
+                            grid-area: 1/1;
+                            text-align: center;
+                            margin: 0;
+                            padding: 10px 0;
+                            font-weight: 600;
+                        }
+                    }
+
+                    .lectureProgressBar {
+                        display: grid;
+                        // width: 100%;
+                        border-radius: 3px;
+                        overflow: hidden;
+                        // border: 3px solid white;
+                        // background-color: $v3-background-blue;
+                        background-color: #b8b8b8;
+                        // grid-area: progressBar;
+
+                        &.left {
+                            margin-left: 5px;
+                        }
+                        &.right {
+                            margin-right: 5px;
+                        }
+
+                        &.noView {
+                            grid-area: noView;
+                        }
+                        &.learning {
+                            grid-area: learning;
+                        }
+                        &.midPoint {
+                            grid-area: midPoint;
+                        }
+
+                        .ProgressBarFill {
+                            grid-area: 1/1;
+                            &.noView {
+                                // width: 25%;
+                                background-color: $not-seen-gray;
+                                // border-right: 3px solid white;
+                            }
+                            &.learning {
+                                // width: 25%;
+                                // background-color: $learning-green;
+                                background-color: #46c43f;
+                                // border-right: 3px solid white;
+                            }
+                            &.midPoint {
+                                // width: 25%;
+                                background-color: $mid-way-point-yellow;
+                                // border-right: 3px solid white;
+                            }
+                        }
+
+                        .lectureProgressBarLabel {
+                            grid-area: 1/1;
+                            text-align: center;
+                            margin: 0;
+                            &.zeroed {
+                                color: #0b1a378a;
+                            }
+                        }
+                    }
+                }
+
+                .ProgressBar {
+                    display: flex;
+                    width: 100%;
+                    height: 30px;
+                    // background-color: $v3-background-blue-3;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    border: 3px solid white;
+                    background-color: white;
+                    gap: 3px;
+                }
+                .ProgressText {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 10px;
+                }
+
+                .progressBarLabel {
+                    &.noView {
+                        color: $not-seen-gray;
+                    }
+                    &.learning {
+                        color: $learning-green;
+                    }
+
+                    &.midPoint {
+                        color: $mid-way-point-yellow;
+                    }
+                    &.memorized {
+                        color: $memo-purple;
+                    }
+                }
+            }
 
             .termListButtonContainer {
                 width: 100%;
                 display: flex;
                 justify-content: center;
                 position: relative;
+                padding-top: 20px;
 
                 .termListButtons {
                     width: 80%;
@@ -214,7 +471,7 @@
                         ".";
 
                     justify-content: space-around;
-                    padding: 15px 0;
+                    padding-bottom: 15px;
 
                     .timeInfo {
                         grid-area: timeInfo;
@@ -371,6 +628,7 @@
                         display: flex;
                         flex-direction: column;
                         position: relative;
+                        backdrop-filter: blur(2px);
 
                         .runningPenguin {
                             z-index: 999;
@@ -444,6 +702,7 @@
                         padding: 0 7px;
                         // font-weight: 600;
                         border: 2px solid white;
+                        backdrop-filter: blur(2px);
 
                         p {
                             margin: auto;
