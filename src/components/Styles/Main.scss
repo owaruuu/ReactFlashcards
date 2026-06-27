@@ -10,7 +10,7 @@
     width: 100%;
     min-height: 70vh;
     overflow: hidden;
-    margin-bottom: 125px;
+    // margin-bottom: 125px;
     // margin-top: 115px;
     // justify-content: space-evenly;
 
@@ -37,22 +37,40 @@
     }
 
     .interactionBlocker {
-        display: flex;
+        display: grid;
         z-index: 1000;
-        backdrop-filter: blur(1px);
-        // flex-direction: column;
-        text-align: center;
         position: absolute;
-        background-color: rgb(0 66 121 / 82%);
+        top: 0;
         width: 100%;
-        color: white;
-        justify-content: center;
         height: 100%;
-        font-size: 1.5rem;
-        line-height: 100px;
 
         p {
             margin: 0;
+        }
+
+        .interactionBlockerBackground {
+            grid-area: 1 / 1;
+            /* backdrop-filter: opacity(0); */
+            background-color: rgb(0 66 121 / 83%);
+            width: 100%;
+            color: white;
+            height: 100%;
+            font-size: 1.5rem;
+            line-height: 100px;
+            filter: blur(7px);
+            backdrop-filter: opacity(0.9);
+        }
+
+        .interactionBlockerContent {
+            grid-area: 1/1;
+            display: flex;
+            z-index: 1001;
+            margin: auto;
+            // flex-direction: column;
+            // align-items: center;
+            // justify-content: center;
+            // height: 100%;
+            // width: 100%;
         }
     }
 
@@ -1095,6 +1113,7 @@
         color: white;
         display: flex;
         flex-direction: column;
+        margin: auto;
 
         align-items: center;
         // height: 70vh;
@@ -1105,8 +1124,15 @@
         }
 
         h3 {
+            font-family: "Noto Serif";
+            font-weight: 600;
+            font-size: 2rem;
             text-decoration: underline;
-            text-decoration-color: $background-blue-dark;
+            text-decoration-color: #025d9b;
+
+            @media (min-width: 768px) {
+                font-size: 2.2rem;
+            }
         }
 
         .userPanelContent {

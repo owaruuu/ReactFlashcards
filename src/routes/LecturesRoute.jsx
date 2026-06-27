@@ -281,7 +281,7 @@ const LecturesRoute = (props) => {
 
     if (!gotLectures) {
         return (
-            <div className="lectureScreen">
+            <div className="loaderLectureScreen">
                 <Spinner
                     id="spinner-lectureScreen"
                     animation="border"

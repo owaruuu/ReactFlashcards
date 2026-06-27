@@ -10,10 +10,10 @@ const GotPermissionsSuspense = () => {
     return (
         <React.Suspense
             fallback={
-                <>
+                <div className="loaderMain">
                     <Spinner id="spinner-main" />
                     <p style={{ color: "white" }}>Cargando Permisos...</p>
-                </>
+                </div>
             }
         >
             <Await resolve={data.response} errorElement={<PermsError />}>

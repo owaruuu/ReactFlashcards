@@ -167,18 +167,21 @@ const TermListView = () => {
 
     return (
         <div className="lectureScreen">
-            <h2 id="title" className="lectureTitle" string={lecture.name}>
-                {lectureName}
-            </h2>
-            <LectureScreenButtons
-                testQuery={testQuery}
-                hasTest={hasTest}
-                loggedIn={loggedIn}
-                isKanjiView={isKanjiView}
-                isBookmarked={isBookmarked}
-                onBookmarkClick={onBookmarkClick}
-                bookmarkLectureMutation={bookmarkLectureMutation}
-            />
+            <div className="lectureScreenHeader">
+                <h2 id="title" className="lectureTitle" string={lecture.name}>
+                    {lectureName}
+                </h2>
+                <LectureScreenButtons
+                    // progress={progress}
+                    testQuery={testQuery}
+                    hasTest={hasTest}
+                    loggedIn={loggedIn}
+                    isKanjiView={isKanjiView}
+                    isBookmarked={isBookmarked}
+                    onBookmarkClick={onBookmarkClick}
+                    bookmarkLectureMutation={bookmarkLectureMutation}
+                />
+            </div>
             {/* <UpperDivider /> */}
             <div className="termListDiv">
                 <h2>Lista Palabras</h2>

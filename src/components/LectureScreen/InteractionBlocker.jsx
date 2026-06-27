@@ -13,8 +13,11 @@ const InteractionBlocker = (props) => {
     if (props.loading) {
         return (
             <div className="interactionBlocker loading">
-                <p>{props.loadingMsg}</p>
-                <Spinner />
+                <div className="interactionBlockerBackground"></div>
+                <span className="interactionBlockerContent">
+                    <p>{props.loadingMsg}</p>
+                    <Spinner />
+                </span>
             </div>
         );
     }

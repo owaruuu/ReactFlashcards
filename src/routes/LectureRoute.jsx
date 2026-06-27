@@ -92,7 +92,7 @@ const LectureRoute = ({ lecture, isKanjiView = false }) => {
                 }}
             />
         ) : (
-            <div className="lectureScreen">
+            <div className="loaderLectureScreen">
                 <Spinner
                     id="spinner-lectureScreen"
                     animation="border"

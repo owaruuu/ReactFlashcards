@@ -31,6 +31,7 @@
 .lectureTitle {
     text-align: center;
     color: $cloud-white;
+    font-size: 2rem;
     font-family: "Noto Serif";
     font-weight: 600;
     text-decoration: underline;
@@ -38,10 +39,28 @@
     margin: 10px 0;
     // margin-top: 35px;
 
+    @media (min-width: 768px) {
+        font-size: 2.5rem;
+    }
+
     svg {
         font-size: 1.5rem;
         color: $stripes-orange;
     }
+}
+
+.loaderLectureScreen {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loaderMain {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .lectureScreen {
@@ -53,6 +72,15 @@
 
     margin: auto;
 
+    .lectureScreenHeader {
+        width: 100%;
+        max-width: 1024px;
+
+        @media (min-width: 768px) {
+            width: 80%;
+        }
+    }
+
     --smart-study-stripe-angle: 45deg; // or -45deg, 0deg, etc.
     --smart-study-stripe-c1: #0060b2;
     --smart-study-stripe-c2: #0071c0;
@@ -62,7 +90,7 @@
             var(--smart-study-stripe-c1) 0% 25%,
             var(--smart-study-stripe-c2) 0% 50%
         )
-        50% / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+        0 0 / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
 
     .lectureScreenButtons {
         display: flex;
@@ -85,7 +113,7 @@
         }
 
         .bookmark {
-            margin: 0 10px;
+            margin: auto 10px;
             font-weight: 600;
 
             .bookmarkToggleContainer {
@@ -202,7 +230,7 @@
                     var(--smart-study-stripe-c1) 0% 25%,
                     var(--smart-study-stripe-c2) 0% 50%
                 )
-                50% / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+                0 0 / var(--smart-study-stripe-w) var(--smart-study-stripe-w);
         }
 
         .termTab {
@@ -246,7 +274,8 @@
             }
 
             .ProgressInfoForTabContainer {
-                width: 100%;
+                width: 80%;
+                max-width: 1024px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -304,17 +333,39 @@
                     display: grid;
                     max-width: 1024px;
                     column-gap: 10px;
-                    grid-template-columns: 1fr 1fr 1fr;
+
                     margin-bottom: 10px;
 
                     align-items: center;
+
                     grid-template-areas:
-                        "bigProgressBar bigProgressBar bigProgressBar"
-                        "noView learning midPoint";
+                        "bigProgressBar"
+                        "noView"
+                        "learning"
+                        "midPoint";
+
+                    grid-template-columns: 1fr;
+
+                    @media (min-width: 768px) {
+                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-areas:
+                            "bigProgressBar bigProgressBar bigProgressBar"
+                            "noView learning midPoint";
+
+                        .lectureProgressBar {
+                            &.left {
+                                margin-left: 5px;
+                            }
+                            &.right {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
 
                     .lectureBigProgressBar {
                         display: grid;
                         width: 100%;
+                        box-sizing: border-box;
                         border-radius: 35px;
                         overflow: hidden;
                         border: 4px solid white;
@@ -357,19 +408,12 @@
                     .lectureProgressBar {
                         display: grid;
                         // width: 100%;
-                        border-radius: 3px;
+                        // border-radius: 3px;
                         overflow: hidden;
                         // border: 3px solid white;
                         // background-color: $v3-background-blue;
-                        background-color: #b8b8b8;
+                        background-color: #808080;
                         // grid-area: progressBar;
-
-                        &.left {
-                            margin-left: 5px;
-                        }
-                        &.right {
-                            margin-right: 5px;
-                        }
 
                         &.noView {
                             grid-area: noView;
@@ -406,7 +450,7 @@
                             text-align: center;
                             margin: 0;
                             &.zeroed {
-                                color: #0b1a378a;
+                                color: #4d4d4d;
                             }
                         }
                     }
@@ -451,7 +495,10 @@
                 display: flex;
                 justify-content: center;
                 position: relative;
-                padding-top: 20px;
+
+                @media (min-width: 768px) {
+                    padding-top: 20px;
+                }
 
                 .termListButtons {
                     width: 80%;
@@ -671,6 +718,7 @@
                         }
                         height: 100%;
                         padding: 0 10px;
+                        border-top: 2px solid white;
                         border-bottom: 2px dashed white;
                         grid-area: comingTerms;
 
@@ -762,6 +810,7 @@
             // padding: 10px 0;
 
             .termItem {
+                box-sizing: border-box;
                 background-color: $button-background-blue;
                 display: flex;
                 flex-direction: column;
@@ -865,6 +914,14 @@
                     width: 300px;
                     max-width: 1024px;
                 }
+
+                &.muted {
+                    background-color: var(--muted-background-color);
+
+                    .horizontalRule {
+                        background-color: var(--muted-color);
+                    }
+                }
             }
 
             .highlighted {
@@ -880,16 +937,32 @@
             }
 
             .muted {
-                filter: opacity(0.5) contrast(0.8);
+                --muted-color: #0e0e0e;
+                --muted-background-color: #3b4e61;
+                &.termItem {
+                    background-color: var(--muted-background-color);
+                }
+                // filter: opacity(0.5) contrast(0.8);
+                color: var(--muted-color);
                 // background-color: $button-background-blue-muted;
                 // color: $button-text-blue-muted;
 
                 .verticalRule {
-                    // background-color: #535353;
+                    background-color: var(--muted-color);
                 }
 
                 button {
                     // color: $button-text-blue-muted;
+                }
+
+                .termDataDivider {
+                    border-color: var(--muted-color);
+                }
+
+                .termOptions {
+                    button {
+                        color: var(--muted-color);
+                    }
                 }
             }
 

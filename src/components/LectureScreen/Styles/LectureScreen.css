@@ -26,15 +26,35 @@
 .lectureTitle {
   text-align: center;
   color: #f5fcff;
+  font-size: 2rem;
   font-family: "Noto Serif";
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: #8bd0ff;
   margin: 10px 0;
 }
+@media (min-width: 768px) {
+  .lectureTitle {
+    font-size: 2.5rem;
+  }
+}
 .lectureTitle svg {
   font-size: 1.5rem;
   color: #e06c1f;
+}
+
+.loaderLectureScreen {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loaderMain {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .lectureScreen {
@@ -44,11 +64,22 @@
   width: 100%;
   color: white;
   margin: auto;
+}
+.lectureScreen .lectureScreenHeader {
+  width: 100%;
+  max-width: 1024px;
+}
+@media (min-width: 768px) {
+  .lectureScreen .lectureScreenHeader {
+    width: 80%;
+  }
+}
+.lectureScreen {
   --smart-study-stripe-angle: 45deg;
   --smart-study-stripe-c1: #0060b2;
   --smart-study-stripe-c2: #0071c0;
   --smart-study-stripe-w: 40px;
-  background: repeating-conic-gradient(from var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0% 25%, var(--smart-study-stripe-c2) 0% 50%) 50%/var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+  background: repeating-conic-gradient(from var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0% 25%, var(--smart-study-stripe-c2) 0% 50%) 0 0/var(--smart-study-stripe-w) var(--smart-study-stripe-w);
 }
 .lectureScreen .lectureScreenButtons {
   display: flex;
@@ -70,7 +101,7 @@
   }
 }
 .lectureScreen .lectureScreenButtons .bookmark {
-  margin: 0 10px;
+  margin: auto 10px;
   font-weight: 600;
 }
 .lectureScreen .lectureScreenButtons .bookmark .bookmarkToggleContainer {
@@ -160,7 +191,7 @@
   --smart-study-stripe-c1: #42a8ff;
   --smart-study-stripe-c2: #4eaeff;
   --smart-study-stripe-w: 20px;
-  background: repeating-conic-gradient(from var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0% 25%, var(--smart-study-stripe-c2) 0% 50%) 50%/var(--smart-study-stripe-w) var(--smart-study-stripe-w);
+  background: repeating-conic-gradient(from var(--smart-study-stripe-angle), var(--smart-study-stripe-c1) 0% 25%, var(--smart-study-stripe-c2) 0% 50%) 0 0/var(--smart-study-stripe-w) var(--smart-study-stripe-w);
 }
 .lectureScreen .termListDiv .termTab {
   display: flex;
@@ -176,7 +207,8 @@
   margin: 30px 0;
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer {
-  width: 100%;
+  width: 80%;
+  max-width: 1024px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,14 +244,27 @@
   max-width: 1024px;
   -moz-column-gap: 10px;
        column-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: 10px;
   align-items: center;
-  grid-template-areas: "bigProgressBar bigProgressBar bigProgressBar" "noView learning midPoint";
+  grid-template-areas: "bigProgressBar" "noView" "learning" "midPoint";
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "bigProgressBar bigProgressBar bigProgressBar" "noView learning midPoint";
+  }
+  .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar.left {
+    margin-left: 5px;
+  }
+  .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar.right {
+    margin-right: 5px;
+  }
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureBigProgressBar {
   display: grid;
   width: 100%;
+  box-sizing: border-box;
   border-radius: 35px;
   overflow: hidden;
   border: 4px solid white;
@@ -251,15 +296,8 @@
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar {
   display: grid;
-  border-radius: 3px;
   overflow: hidden;
-  background-color: #b8b8b8;
-}
-.lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar.left {
-  margin-left: 5px;
-}
-.lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar.right {
-  margin-right: 5px;
+  background-color: #808080;
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar.noView {
   grid-area: noView;
@@ -288,7 +326,7 @@
   margin: 0;
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBarsContainer .lectureProgressBar .lectureProgressBarLabel.zeroed {
-  color: rgba(11, 26, 55, 0.5411764706);
+  color: #4d4d4d;
 }
 .lectureScreen .termListDiv .termTab .ProgressInfoForTabContainer .ProgressBar {
   display: flex;
@@ -322,7 +360,11 @@
   display: flex;
   justify-content: center;
   position: relative;
-  padding-top: 20px;
+}
+@media (min-width: 768px) {
+  .lectureScreen .termListDiv .termTab .termListButtonContainer {
+    padding-top: 20px;
+  }
 }
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons {
   width: 80%;
@@ -496,6 +538,7 @@
 .lectureScreen .termListDiv .termTab .termListButtonContainer .termListButtons .comingTerms {
   height: 100%;
   padding: 0 10px;
+  border-top: 2px solid white;
   border-bottom: 2px dashed white;
   grid-area: comingTerms;
 }
@@ -566,6 +609,7 @@
   overflow-anchor: none;
 }
 .lectureScreen .termListDiv .termList .termItem {
+  box-sizing: border-box;
   background-color: #00366b;
   display: flex;
   flex-direction: column;
@@ -651,6 +695,12 @@
     max-width: 1024px;
   }
 }
+.lectureScreen .termListDiv .termList .kanjiItem.muted {
+  background-color: var(--muted-background-color);
+}
+.lectureScreen .termListDiv .termList .kanjiItem.muted .horizontalRule {
+  background-color: var(--muted-color);
+}
 .lectureScreen .termListDiv .termList .highlighted {
   border: #ffeb4c solid 2px;
 }
@@ -661,7 +711,23 @@
   border-color: #ffeb4c;
 }
 .lectureScreen .termListDiv .termList .muted {
-  filter: opacity(0.5) contrast(0.8);
+  --muted-color: #0e0e0e;
+  --muted-background-color: #3b4e61;
+}
+.lectureScreen .termListDiv .termList .muted.termItem {
+  background-color: var(--muted-background-color);
+}
+.lectureScreen .termListDiv .termList .muted {
+  color: var(--muted-color);
+}
+.lectureScreen .termListDiv .termList .muted .verticalRule {
+  background-color: var(--muted-color);
+}
+.lectureScreen .termListDiv .termList .muted .termDataDivider {
+  border-color: var(--muted-color);
+}
+.lectureScreen .termListDiv .termList .muted .termOptions button {
+  color: var(--muted-color);
 }
 @media (min-width: 768px) {
   .lectureScreen .termListDiv .termList {
