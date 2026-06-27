@@ -1,5 +1,9 @@
 @import "../../Styles/Theme.scss";
 
+* {
+    box-sizing: border-box;
+}
+
 .main {
     // background-color: #20496b !important;
     display: flex;

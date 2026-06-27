@@ -365,6 +365,7 @@
                     .lectureBigProgressBar {
                         display: grid;
                         width: 100%;
+                        height: 50px;
                         box-sizing: border-box;
                         border-radius: 35px;
                         overflow: hidden;
@@ -399,8 +400,8 @@
                         .lectureBigProgressBarLabel {
                             grid-area: 1/1;
                             text-align: center;
-                            margin: 0;
-                            padding: 10px 0;
+                            margin: auto;
+                            // padding: 10px 0;
                             font-weight: 600;
                         }
                     }
