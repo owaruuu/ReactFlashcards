@@ -16,7 +16,7 @@ const NormalSessionTabs = (props) => {
         dataObject,
         progress,
     } = props;
-    console.log("🚀 ~ NormalSessionTabs ~ progress:", progress);
+    // console.log("🚀 ~ NormalSessionTabs ~ progress:", progress);
     // console.log("🚀 ~ NormalSessionTabs ~ dataObject:", dataObject);
     // console.log("🚀 ~ NormalSessionTabs ~ lectureQuery:", lectureQuery);
     // console.log("🚀 ~ NormalSessionTabs ~ lectureQueryData:", lectureQueryData);

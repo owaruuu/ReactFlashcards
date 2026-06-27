@@ -34,6 +34,26 @@ const TermListView = () => {
         dataObject,
         progress,
     } = useOutletContext();
+
+    const defaultProgressObject = {
+        noView: lecture.termList.length,
+        learning: 0,
+        midPoint: 0,
+        memorized: 0,
+    };
+
+    const defaultProgress = {
+        japanese: defaultProgressObject,
+        spanish: defaultProgressObject,
+        recognize: defaultProgressObject,
+        write: defaultProgressObject,
+    };
+
+    const localProgress = progress?.[lecture.lectureId] ?? defaultProgress;
+
+    // console.log("🚀 ~ TermListView ~ localProgress:", localProgress);
+    // console.log("🚀 ~ TermListView ~ progress:", progress);
+
     // console.log("🚀 ~ TermListView ~ amountCanLearn:", amountCanLearn);
     const { loggedIn } = useContext(AppContext);
     const isBookmarked = lectureQuery.data?.data?.bookmarked;
@@ -134,7 +154,7 @@ const TermListView = () => {
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn.kanjiSets}
                     dataObject={dataObject}
-                    progress={progress[lecture.lectureId]}
+                    progress={localProgress}
                 />
             );
         } else {
@@ -149,7 +169,7 @@ const TermListView = () => {
                     lectureQuery={lectureQuery}
                     amountCanLearn={amountCanLearn.lectures}
                     dataObject={dataObject}
-                    progress={progress[lecture.lectureId]}
+                    progress={localProgress}
                 />
             );
         }

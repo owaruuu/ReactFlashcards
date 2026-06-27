@@ -4,10 +4,9 @@ import LectureProgressBar from "./LectureProgressBar.jsx";
 import LectureBigProgressBar from "./LectureBigProgressBar.jsx";
 import { FaRegSnowflake } from "react-icons/fa";
 
-const ProgressInfoForTab = ({
-    progress = { noView: 100, learning: 20, midPoint: 33, memorized: 2 },
-    total,
-}) => {
+const ProgressInfoForTab = ({ progress, total }) => {
+    // console.log("🚀 ~ ProgressInfoForTab ~ progress:", progress);
+
     return (
         <div className="ProgressInfoForTabContainer">
             <div className="ProgressInfoForTabHeader">Tu progreso:</div>

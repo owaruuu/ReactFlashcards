@@ -32,7 +32,7 @@ const LectureButton = (props) => {
         amountCanLearn,
         progress,
     } = props;
-    console.log("🚀 ~ LectureButton ~ progress:", progress);
+    // console.log("🚀 ~ LectureButton ~ progress:", progress);
     // console.log("🚀 ~ LectureButton ~ amountCanLearn:", amountCanLearn);
     // console.log("🚀 ~ LectureButton ~ id:", id);
     const navigate = useNavigate();

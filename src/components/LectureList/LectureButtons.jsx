@@ -12,7 +12,7 @@ const LectureButtons = (props) => {
         progressObject,
         isKanjiView,
     } = props;
-    console.log("🚀 ~ LectureButtons ~ progressObject:", progressObject);
+    // console.log("🚀 ~ LectureButtons ~ progressObject:", progressObject);
     // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
     // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
     // console.log(

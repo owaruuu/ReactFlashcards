@@ -19,23 +19,28 @@ const SessionTab = (props) => {
         progress,
     } = props;
     // console.log("🚀 ~ SessionTab ~ terms:", terms);
-    console.log("🚀 ~ SessionTab ~ progress:", progress);
+    // console.log("🚀 ~ SessionTab ~ progress:", progress);
 
     return (
         <div className="termTab">
-            <ProgressInfoForTab progress={progress} total={terms.length} />
             {/* <div className="divider"></div> */}
             {loggedIn && (
-                <SessionControls
-                    language={language}
-                    lectureId={lectureId}
-                    terms={terms}
-                    sessionData={sessionData}
-                    termsData={termsData}
-                    levelsData={levelsData}
-                    lectureQuery={lectureQuery}
-                    amountCanLearn={amountCanLearn}
-                />
+                <>
+                    <ProgressInfoForTab
+                        progress={progress}
+                        total={terms.length}
+                    />
+                    <SessionControls
+                        language={language}
+                        lectureId={lectureId}
+                        terms={terms}
+                        sessionData={sessionData}
+                        termsData={termsData}
+                        levelsData={levelsData}
+                        lectureQuery={lectureQuery}
+                        amountCanLearn={amountCanLearn}
+                    />
+                </>
             )}
             {termList}
             <div className="backToTopDiv">
