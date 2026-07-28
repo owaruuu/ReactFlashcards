@@ -117,7 +117,7 @@ export function MultipleContainers(
         renderItem,
         strategy = () => ({}),
         scrollable,
-    }
+    },
 ) {
     // console.log("🚀 ~ props.options:", props.options);
     const populateItems = (options) => {
@@ -194,21 +194,27 @@ export function MultipleContainers(
                     // If a container is matched and it contains items (columns 'A', 'B', 'C')
                     if (containerItems.length > 0) {
                         // Return the closest droppable within that container
-                        overId = closestCenter({
-                            ...args,
-                            droppableContainers:
-                                args.droppableContainers.filter((container) => {
-                                    const isDifferent = container.id !== overId;
-                                    let includes = false;
-                                    containerItems.forEach((element) => {
-                                        if (element.id === container.id) {
-                                            includes = true;
-                                        }
-                                    });
+                        overId =
+                            closestCenter({
+                                ...args,
+                                droppableContainers:
+                                    args.droppableContainers.filter(
+                                        (container) => {
+                                            const isDifferent =
+                                                container.id !== overId;
+                                            let includes = false;
+                                            containerItems.forEach((element) => {
+                                                if (
+                                                    element.id === container.id
+                                                ) {
+                                                    includes = true;
+                                                }
+                                            });
 
-                                    return isDifferent && includes;
-                                }),
-                        })[0]?.id;
+                                            return isDifferent && includes;
+                                        },
+                                    ),
+                            })[0]?.id ?? overId;
                     }
                 }
 
@@ -227,7 +233,7 @@ export function MultipleContainers(
             // If no droppable is matched, return the last match
             return lastOverId.current ? [{ id: lastOverId.current }] : [];
         },
-        [activeId, items]
+        [activeId, items],
     );
     const [clonedItems, setClonedItems] = useState(null);
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
@@ -330,25 +336,30 @@ export function MultipleContainers(
             }}
             onDragStart={({ active }) => {
                 setActiveId(active.id);
+                lastOverId.current = active.id;
                 const activeContainer = findContainer(active.id);
                 const dragValue = getDrag(activeContainer, active.id);
                 setActiveValue(dragValue);
                 setClonedItems(items);
             }}
             onDragOver={({ active, over }) => {
-                const overId = over?.id;
+                const overId = over?.id ?? lastOverId.current;
+                if (!overId) {
+                    return;
+                }
 
                 const overContainer = findContainer(overId);
                 const activeContainer = findContainer(active.id);
+                if (!overContainer || !activeContainer) {
+                    return;
+                }
 
                 if (activeContainer !== overContainer) {
-                    //console.log("Mi active container es: ", activeContainer);
-                    //console.log("Mi over container es: ", overContainer);
                     let copy = _.cloneDeep(items[overContainer]);
 
                     const activeIndex = getIndexOf(
                         items[activeContainer],
-                        active.id
+                        active.id,
                     );
                     copy.push(items[activeContainer][activeIndex]);
 
@@ -390,22 +401,29 @@ export function MultipleContainers(
                         newIndex = overItems.length + 1;
                     } else {
                         //calculo en que posicion meter el nuevo item
-                        const activeHalf =
-                            active.rect.current.translated.width / 2;
-                        const overHalf = over.rect.width / 2;
+                        if (!over?.rect) {
+                            newIndex =
+                                overIndex >= 0
+                                    ? overIndex
+                                    : overItems.length;
+                        } else {
+                            const activeHalf =
+                                active.rect.current.translated.width / 2;
+                            const overHalf = over.rect.width / 2;
 
-                        const isAfterOverItem =
-                            over &&
-                            active.rect.current.translated &&
-                            active.rect.current.translated.left + activeHalf >
-                                over.rect.left + overHalf;
+                            const isAfterOverItem =
+                                active.rect.current.translated &&
+                                active.rect.current.translated.left +
+                                    activeHalf >
+                                    over.rect.left + overHalf;
 
-                        const modifier = isAfterOverItem ? 1 : 0;
+                            const modifier = isAfterOverItem ? 1 : 0;
 
-                        newIndex =
-                            overIndex >= 0
-                                ? overIndex + modifier
-                                : overItems.length;
+                            newIndex =
+                                overIndex >= 0
+                                    ? overIndex + modifier
+                                    : overItems.length;
+                        }
                     }
 
                     recentlyMovedToNewContainer.current = true;
@@ -413,25 +431,20 @@ export function MultipleContainers(
                     const newItems = {
                         ...items,
                         [activeContainer]: items[activeContainer].filter(
-                            (item) => item.id !== active.id
+                            (item) => item.id !== active.id,
                         ),
                         [overContainer]: [
                             ...items[overContainer].slice(0, newIndex),
                             items[activeContainer][activeIndex],
                             ...items[overContainer].slice(
                                 newIndex,
-                                items[overContainer].length
+                                items[overContainer].length,
                             ),
                         ],
                     };
 
                     setItems(newItems);
                 } else {
-                    //console.log("On Drag Over same container");
-                    const overId = over?.id;
-
-                    const overContainer = findContainer(overId);
-
                     if (overContainer) {
                         let indexOf = -1;
                         items[activeContainer].forEach((element, index) => {
@@ -457,7 +470,7 @@ export function MultipleContainers(
                                 [overContainer]: arrayMove(
                                     items[overContainer],
                                     activeIndex,
-                                    overIndex
+                                    overIndex,
                                 ),
                             }));
                         }
@@ -560,7 +573,7 @@ export function MultipleContainers(
                 >
                     {renderSortableItemDragOverlay(activeId, activeValue)}
                 </DragOverlay>,
-                document.body
+                document.body,
             )}
         </DndContext>
     );
