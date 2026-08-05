@@ -284,6 +284,9 @@ export function useBookmarkLectureMutation(lectureId) {
             console.log("🚀 ~ useBookmarkLectureMutation ~ err:", err);
             dispatch({ type: "SET_SAVE_ERROR", payload: true });
         },
+        onMutate: async (variables) => {
+            //TODO add optimistic update
+        },
         onSuccess: (data, variables, context) => {
             const globalQuery = queryClient.getQueryData("allDataForUser");
 
@@ -297,10 +300,15 @@ export function useBookmarkLectureMutation(lectureId) {
                 return object.lecture_id == variables.lectureId;
             });
 
-            const newValue = {
-                ...oldValue,
-                bookmarked: variables.newState,
-            };
+            const newValue = oldValue
+                ? {
+                      ...oldValue,
+                      bookmarked: variables.newState,
+                  }
+                : {
+                      lecture_id: variables.lectureId,
+                      bookmarked: variables.newState,
+                  };
 
             const newArray = [...allButChanged, newValue];
 
