@@ -29,7 +29,7 @@ const Header = () => {
                 -Renshuu-
             </h1>
             <div className="kanjiButton">
-                {loggedIn & (kanjiSets.length > 1) ? (
+                {loggedIn & (kanjiSets.length > 0) ? (
                     <TextButton
                         small
                         content={
