@@ -160,6 +160,7 @@ export function MultipleContainers(
     const [activeId, setActiveId] = useState(null);
     const [activeValue, setActiveValue] = useState(null);
     const lastOverId = useRef(null);
+    const lastInsertHint = useRef({ overId: null, after: false });
     const recentlyMovedToNewContainer = useRef(false);
     const containerWidth = useRef(null);
     const [width, setWidth] = useState(0);
@@ -194,6 +195,7 @@ export function MultipleContainers(
                     // If a container is matched and it contains items (columns 'A', 'B', 'C')
                     if (containerItems.length > 0) {
                         // Return the closest droppable within that container
+                        //BUG FIX: keep the overId if closestCenter returns nothing
                         overId =
                             closestCenter({
                                 ...args,
@@ -203,13 +205,16 @@ export function MultipleContainers(
                                             const isDifferent =
                                                 container.id !== overId;
                                             let includes = false;
-                                            containerItems.forEach((element) => {
-                                                if (
-                                                    element.id === container.id
-                                                ) {
-                                                    includes = true;
-                                                }
-                                            });
+                                            containerItems.forEach(
+                                                (element) => {
+                                                    if (
+                                                        element.id ===
+                                                        container.id
+                                                    ) {
+                                                        includes = true;
+                                                    }
+                                                },
+                                            );
 
                                             return isDifferent && includes;
                                         },
@@ -276,6 +281,32 @@ export function MultipleContainers(
         return indexOf;
     };
 
+    const getInsertionIndex = (overItems, overId, active, over) => {
+        if (overId in items) {
+            return overItems.length;
+        }
+
+        const overIndex = getIndexOf(overItems, overId);
+
+        if (over?.rect && active.rect.current?.translated) {
+            const activeRect = active.rect.current.translated;
+            const isAfterOverItem =
+                activeRect.left + activeRect.width / 2 >
+                over.rect.left + over.rect.width / 2;
+
+            lastInsertHint.current = { overId, after: isAfterOverItem };
+
+            return overIndex >= 0
+                ? overIndex + (isAfterOverItem ? 1 : 0)
+                : overItems.length;
+        }
+
+        const hint = lastInsertHint.current;
+        const modifier = hint.overId === overId && hint.after ? 1 : 0;
+
+        return overIndex >= 0 ? overIndex + modifier : overItems.length;
+    };
+
     const getIndex = (id) => {
         const container = findContainer(id);
 
@@ -336,14 +367,19 @@ export function MultipleContainers(
             }}
             onDragStart={({ active }) => {
                 setActiveId(active.id);
+                //BUG FIX: seed lastOverId early to avoid issues when dragging to a new container
                 lastOverId.current = active.id;
+                lastInsertHint.current = { overId: null, after: false };
                 const activeContainer = findContainer(active.id);
                 const dragValue = getDrag(activeContainer, active.id);
                 setActiveValue(dragValue);
                 setClonedItems(items);
             }}
             onDragOver={({ active, over }) => {
+                //BUG FIX: use lastOverId instead of over?.id to avoid issues when dragging to a new container
                 const overId = over?.id ?? lastOverId.current;
+
+                //BUG FIX: the above fix should be enough, not sure if checking for null should be needed
                 if (!overId) {
                     return;
                 }
@@ -386,45 +422,14 @@ export function MultipleContainers(
                         return;
                     }
 
-                    //console.log("entre a setItems((items) => {");
-                    //items del container de donde vengo
-                    const activeItems = items[activeContainer];
                     //items del container al que me estoy moviendo
                     const overItems = items[overContainer];
-
-                    const overIndex = getIndexOf(overItems, overId);
-
-                    let newIndex;
-
-                    if (overId in items) {
-                        //si el overId es un container
-                        newIndex = overItems.length + 1;
-                    } else {
-                        //calculo en que posicion meter el nuevo item
-                        if (!over?.rect) {
-                            newIndex =
-                                overIndex >= 0
-                                    ? overIndex
-                                    : overItems.length;
-                        } else {
-                            const activeHalf =
-                                active.rect.current.translated.width / 2;
-                            const overHalf = over.rect.width / 2;
-
-                            const isAfterOverItem =
-                                active.rect.current.translated &&
-                                active.rect.current.translated.left +
-                                    activeHalf >
-                                    over.rect.left + overHalf;
-
-                            const modifier = isAfterOverItem ? 1 : 0;
-
-                            newIndex =
-                                overIndex >= 0
-                                    ? overIndex + modifier
-                                    : overItems.length;
-                        }
-                    }
+                    const newIndex = getInsertionIndex(
+                        overItems,
+                        overId,
+                        active,
+                        over,
+                    );
 
                     recentlyMovedToNewContainer.current = true;
 
@@ -445,41 +450,35 @@ export function MultipleContainers(
 
                     setItems(newItems);
                 } else {
-                    if (overContainer) {
-                        let indexOf = -1;
-                        items[activeContainer].forEach((element, index) => {
-                            if (element.id === active.id) {
-                                indexOf = index;
-                            }
-                        });
+                    const overItems = items[overContainer];
+                    const activeIndex = getIndexOf(overItems, active.id);
+                    const insertIndex = getInsertionIndex(
+                        overItems,
+                        overId,
+                        active,
+                        over,
+                    );
 
-                        const activeIndex = indexOf;
-
-                        indexOf = -1;
-
-                        items[overContainer].forEach((element, index) => {
-                            if (element.id === overId) {
-                                indexOf = index;
-                            }
-                        });
-                        const overIndex = indexOf;
-
-                        if (activeIndex !== overIndex) {
-                            setItems((items) => ({
-                                ...items,
-                                [overContainer]: arrayMove(
-                                    items[overContainer],
-                                    activeIndex,
-                                    overIndex,
-                                ),
-                            }));
-                        }
+                    if (
+                        activeIndex >= 0 &&
+                        activeIndex !== insertIndex &&
+                        overId !== active.id
+                    ) {
+                        setItems((items) => ({
+                            ...items,
+                            [overContainer]: arrayMove(
+                                items[overContainer],
+                                activeIndex,
+                                insertIndex,
+                            ),
+                        }));
                     }
                 }
             }}
             onDragEnd={() => {
                 setActiveId(null);
                 setActiveValue(null);
+                lastInsertHint.current = { overId: null, after: false };
             }}
             cancelDrop={cancelDrop}
             onDragCancel={onDragCancel}
