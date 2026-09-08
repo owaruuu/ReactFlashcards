@@ -326,26 +326,34 @@ export function getKanjiSvgName(kanji) {
     return kanjiLookup[kanji].at(-1);
 }
 
+// each level corresponds to an amount of hours to wait before the next review.
 const levelToMultiplier = {
-    1: 24,
-    2: 24,
-    3: 48,
-    4: 72,
-    5: 120,
-    6: 168,
-    7: 240,
-    8: 360,
+    1: 24, // 1 day
+    2: 24, // 1 day
+    3: 48, // 2 days
+    4: 72, // 3 days
+    5: 120, // 5 days
+    6: 168, // 7 days
+    7: 240, // 10 days
+    8: 360, // 15 days
+    9: 480, // 20 days
+    10: 648, // 27 days
 };
 
+const MIN_LEVEL = 1;
+const MAX_LEVEL = 10;
+
 /**
- *
- * @param {int} level
+ * Returns the amount of hours to wait before the next review based on the CURRENT level.
+ * @param {int} level level before change
  * @returns {int} hours
  */
 export function levelToHours(level) {
-    if (level < 1) level = 1;
+    // if level is 0 calculate as level 1, used on new terms that have not been reviewed yet.
+    if (level <= 0) return levelToMultiplier[1];
 
-    if (level > 8) return levelToMultiplier[8];
+    // if level is greater than max level, just in case the level is higher than the max level, return the max level multiplier.
+    if (level > MAX_LEVEL) return levelToMultiplier[MAX_LEVEL];
 
     return levelToMultiplier[level];
 }
@@ -357,9 +365,11 @@ export function levelToHours(level) {
  * @returns {int} newLevel
  */
 export function getNewLevel(level, change) {
-    if (level + change === 0) return 1;
+    // avoid going negative
+    if (level + change < MIN_LEVEL) return MIN_LEVEL;
 
-    if (level + change > 9) return 9;
+    // avoid going over max level
+    if (level + change > MAX_LEVEL) return MAX_LEVEL;
 
     return level + change;
 }

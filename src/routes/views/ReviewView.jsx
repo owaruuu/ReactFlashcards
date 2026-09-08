@@ -376,12 +376,15 @@ const ReviewView = (props) => {
         let nextDate = new Date(today);
 
         if (button === -1 || button === -2) {
+            // if left button is pressed always set next date to 12 hours from now.
             nextDate = nextDate.setHours(nextDate.getHours() + 12);
         } else if (button === 0) {
+            // if middle button is pressed set next date to the amount of hours corresponding to the current level - 1
             nextDate = nextDate.setHours(
                 nextDate.getHours() + levelToHours(currentTermLevel - 1),
             );
         } else if (button === 1) {
+            // if right button is pressed set next date to the amount of hours corresponding to the current level
             nextDate = nextDate.setHours(
                 nextDate.getHours() + levelToHours(currentTermLevel),
             );

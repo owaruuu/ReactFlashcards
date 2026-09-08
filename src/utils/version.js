@@ -1,4 +1,6 @@
-export const version = "03/9/2026 - update react to 18.3";
+export const version = "08/9/2026 - update levels code, bumped max level to 10";
+// "03/9/2026 - update react to 19.2";
+// "03/9/2026 - update react to 18.3";
 // "04/8/2026 - FIX BUG, favorite lecture updates the lecture list for lectures with no progress yet";
 // "26/6/2026 - add progress bar to lecture screen, add some styles to the lecture screen";
 // "25/6/2026 - move amount can learn to lecture route, fix no kanji access bug";
