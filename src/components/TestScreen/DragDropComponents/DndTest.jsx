@@ -117,7 +117,7 @@ export function MultipleContainers(
         renderItem,
         strategy = () => ({}),
         scrollable,
-    },
+    } = {},
 ) {
     // console.log("🚀 ~ props.options:", props.options);
     const populateItems = (options) => {
@@ -203,13 +203,16 @@ export function MultipleContainers(
                                             const isDifferent =
                                                 container.id !== overId;
                                             let includes = false;
-                                            containerItems.forEach((element) => {
-                                                if (
-                                                    element.id === container.id
-                                                ) {
-                                                    includes = true;
-                                                }
-                                            });
+                                            containerItems.forEach(
+                                                (element) => {
+                                                    if (
+                                                        element.id ===
+                                                        container.id
+                                                    ) {
+                                                        includes = true;
+                                                    }
+                                                },
+                                            );
 
                                             return isDifferent && includes;
                                         },
@@ -403,9 +406,7 @@ export function MultipleContainers(
                         //calculo en que posicion meter el nuevo item
                         if (!over?.rect) {
                             newIndex =
-                                overIndex >= 0
-                                    ? overIndex
-                                    : overItems.length;
+                                overIndex >= 0 ? overIndex : overItems.length;
                         } else {
                             const activeHalf =
                                 active.rect.current.translated.width / 2;
