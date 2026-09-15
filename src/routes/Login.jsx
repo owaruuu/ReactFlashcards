@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { authenticateUser, getUserClass, getUserProgress } from "../aws/aws";
 import { loginFormSchema } from "../schemas/schemas";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import "../components/Forms/Styles/Forms.css";
 import Spinner from "react-bootstrap/Spinner";
 import FormInfo from "../components/Forms/FormInfo";

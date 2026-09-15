@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getKanjiSvgData } from "../cloudFront/cloudFront";
 
 export function useGetKanjiSvgDataQuery(kanji, kanjiName, enabled) {

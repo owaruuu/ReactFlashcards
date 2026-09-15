@@ -4,7 +4,7 @@ import { getArray, getDescription } from "../../utils/StickersUtils";
 import { logoutUser } from "../../aws/aws";
 import { useNavigate, useRevalidator } from "react-router-dom";
 import PromptModal from "../../components/Modals/PromptModal";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { LuLogOut } from "react-icons/lu";
 import "../../components/UserPanel/Styles/UserPanelView.css";
 
@@ -57,7 +57,7 @@ const UserPanelView = () => {
         } catch (error) {
             console.log(
                 "🚀 ~ file: LoginControls.js:23 ~ logout ~ error:",
-                error
+                error,
             );
             alert("Logout failed, server is probably down, try again later.");
         }

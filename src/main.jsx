@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./Fonts.css";
 import { AppProvider } from "./context/AppContext";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getSession, getExtraPerms } from "./aws/aws";
 import ErrorPage from "./error-page";
 
@@ -203,5 +203,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <RouterProvider router={router} />
             </AppProvider>
         </QueryClientProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
 );

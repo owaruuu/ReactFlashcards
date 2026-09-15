@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer.jsx";
 import svg from "./svg/cherry-blossom-petal.svg";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProvider } from "./context/AppContext";
 
 function App() {
