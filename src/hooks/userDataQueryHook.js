@@ -28,7 +28,7 @@ export function useAllLecturesDataQuery(enabled) {
 
 //query local para una leccion
 export function useLectureQuery(lectureId, enabled) {
-    const allUserData = useQueryClient().getQueryData("allDataForUser");
+    const allUserData = useQueryClient().getQueryData(["allDataForUser"]);
     const initialData = findLectureData(allUserData, lectureId);
     const queryKey = getLectureQueryString(lectureId);
 
@@ -72,7 +72,6 @@ export function useTermOptionsMutation(queryKey) {
             //get previos values to return as context
             //contiene todos los attributos de una leccion
             const previousValue = queryClient.getQueryData([queryKey]);
-            // console.log("🚀 ~ onMutate: ~ previousValue:", previousValue);
 
             //optimistic update
             queryClient.setQueryData([queryKey], {
@@ -92,7 +91,7 @@ export function useTermOptionsMutation(queryKey) {
         },
         onSuccess: (data, variables, context) => {
             // console.log("on success en mutation");
-            const globalQuery = queryClient.getQueryData("allDataForUser");
+            const globalQuery = queryClient.getQueryData(["allDataForUser"]);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;
@@ -112,7 +111,7 @@ export function useTermOptionsMutation(queryKey) {
             ];
 
             //cambio el estado de la query global
-            queryClient.setQueryData("allDataForUser", newArray);
+            queryClient.setQueryData(["allDataForUser"], newArray);
             dispatch({ type: "SET_SAVE_ERROR", payload: false });
         },
     });
@@ -168,7 +167,7 @@ export function useCreateSessionMutation(queryKey) {
         },
         onSuccess: (data, variables, context) => {
             // console.log("on success en session mutation");
-            const globalQuery = queryClient.getQueryData("allDataForUser");
+            const globalQuery = queryClient.getQueryData(["allDataForUser"]);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;
@@ -188,7 +187,7 @@ export function useCreateSessionMutation(queryKey) {
             ];
 
             //cambio el estado de la query global
-            queryClient.setQueryData("allDataForUser", newArray);
+            queryClient.setQueryData(["allDataForUser"], newArray);
             dispatch({ type: "SET_SAVE_ERROR", payload: false });
         },
     });
@@ -232,7 +231,7 @@ export function useSessionPointsMutation(queryKey) {
         },
         onSuccess: (data, variables, context) => {
             // console.log("on success en session points mutation");
-            const globalQuery = queryClient.getQueryData("allDataForUser");
+            const globalQuery = queryClient.getQueryData(["allDataForUser"]);
 
             const allButChanged = globalQuery.filter((object) => {
                 return object.lecture_id != variables.lectureId;
@@ -288,7 +287,7 @@ export function useBookmarkLectureMutation(lectureId) {
             //TODO add optimistic update
         },
         onSuccess: (data, variables, context) => {
-            const globalQuery = queryClient.getQueryData("allDataForUser");
+            const globalQuery = queryClient.getQueryData(["allDataForUser"]);
 
             const localValue = queryClient.getQueryData([queryKey]);
 
