@@ -1,5 +1,6 @@
 export const version = 
-"09/9/2026 - update react to 19.2";
+"15/9/2026 - update react to 19.2, update to react query 5, with @tanstack/react-query";
+// "09/9/2026 - update react to 19.2";
 // "08/9/2026 - update levels code, bumped max level to 10";
 // "03/9/2026 - update react to 18.3";
 // "04/8/2026 - FIX BUG, favorite lecture updates the lecture list for lectures with no progress yet";
