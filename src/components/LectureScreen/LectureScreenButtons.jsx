@@ -37,7 +37,7 @@ const LectureScreenButtons = (props) => {
                     <BookmarkLectureToggle
                         isBookmarked={props.isBookmarked}
                         onBookmarkClick={props.onBookmarkClick}
-                        isLoading={props.bookmarkLectureMutation.isLoading}
+                        isLoading={props.bookmarkLectureMutation.isPending}
                     />
                 </div>
             )}

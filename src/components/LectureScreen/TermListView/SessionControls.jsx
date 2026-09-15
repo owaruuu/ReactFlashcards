@@ -274,7 +274,7 @@ const SessionControls = ({
                 }
                 // loading={true}
                 loading={
-                    lectureSessionMutation.status === "loading" ||
+                    lectureSessionMutation.status === "pending" ||
                     lectureQuery.isRefetching
                 }
                 loadingMsg={

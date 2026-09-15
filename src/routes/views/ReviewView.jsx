@@ -242,9 +242,9 @@ const ReviewView = (props) => {
                 next={termsIds.length > 1 ? true : false}
                 onClick={handleNextTerm}
                 loading={
-                    lectureCreateSessionMutation.status === "loading" ||
-                    lectureSessionAndPointsMutation.status === "loading" ||
-                    termOptionsMutation.status === "loading"
+                    lectureCreateSessionMutation.status === "pending" ||
+                    lectureSessionAndPointsMutation.status === "pending" ||
+                    termOptionsMutation.status === "pending"
                 }
             />
         </div>
@@ -501,9 +501,9 @@ const ReviewView = (props) => {
                     termId={currentTermId}
                     validId={validId}
                     loading={
-                        lectureCreateSessionMutation.status === "loading" ||
-                        lectureSessionAndPointsMutation.status === "loading" ||
-                        termOptionsMutation.status === "loading"
+                        lectureCreateSessionMutation.status === "pending" ||
+                        lectureSessionAndPointsMutation.status === "pending" ||
+                        termOptionsMutation.status === "pending"
                     }
                 />
                 <div className="feedback">
@@ -520,10 +520,10 @@ const ReviewView = (props) => {
                         onClick={handleNextTerm}
                         fixSession={fixSession}
                         loading={
-                            lectureCreateSessionMutation.status === "loading" ||
+                            lectureCreateSessionMutation.status === "pending" ||
                             lectureSessionAndPointsMutation.status ===
-                                "loading" ||
-                            termOptionsMutation.status === "loading"
+                                "pending" ||
+                            termOptionsMutation.status === "pending"
                         }
                         validId={validId}
                     />

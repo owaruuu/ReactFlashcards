@@ -516,7 +516,7 @@ const TryTestView = () => {
                                 "Hubo un error guardando los resultados..."
                             }
                             // loading={true}
-                            loading={testMutation.status === "loading"}
+                            loading={testMutation.status === "pending"}
                             loadingMsg={"Guardando resultados..."}
                         />
                         <FeedbackText

@@ -2,9 +2,13 @@ import React from "react";
 import { Spinner } from "react-bootstrap";
 
 const TermsReviewAmount = (props) => {
-    if (props.status === "loading") {
-        return <Spinner size="sm" style={{ color: "#532f00" }} />;
-    }
+    // console.log("🚀 ~ TermsReviewAmount ~ props.status:", props.status);
+    // status siempre es 'success', en algun momento debi haber hecho cambios al codigo que solo muestra la lista cuando ya tengo la informacion
+    // cambie loading a pending por el update de tanstack
+    // if (props.status === "pending") {
+    //     return <Spinner size="sm" style={{ color: "#532f00" }} />;
+    // }
+
     // console.log("🚀 ~ TermsReviewAmount ~  props.data:", props.data);
 
     // let japaneseAmount =

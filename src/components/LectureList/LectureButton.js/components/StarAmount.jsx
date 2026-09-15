@@ -7,7 +7,7 @@ const StarAmount = ({ querySuccess, starredAmount }) => {
         return "";
     }
 
-    if (querySuccess === "loading") {
+    if (querySuccess === "pending") {
         return <Spinner size="sm" />;
     }
 

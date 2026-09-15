@@ -3,9 +3,12 @@ import { Spinner } from "react-bootstrap";
 import { showDifference, pickDifference } from "../../../../utils/utils";
 
 const ReviewSessionTime = (props) => {
-    if (props.status === "loading") {
-        return <Spinner size="sm" style={{ color: "#532f00" }} />;
-    }
+    // console.log("🚀 ~ ReviewSessionTime ~ props.status:", props.status);
+    // status siempre es 'success', en algun momento debi haber hecho cambios al codigo que solo muestra la lista cuando ya tengo la informacion
+    // cambie loading a pending por el update de tanstack
+    // if (props.status === "pending") {
+    //     return <Spinner size="sm" style={{ color: "#532f00" }} />;
+    // }
 
     // let japaneseLastSessionTime =
     //     props.data?.[props.id]?.["japanese_session"]?.lastReviewed;
@@ -39,23 +42,23 @@ const ReviewSessionTime = (props) => {
 
     if (japaneseDateObject && spanishDateObject) {
         const japaneseDiff = Math.abs(
-            japaneseDateObject.getTime() - new Date().getTime()
+            japaneseDateObject.getTime() - new Date().getTime(),
         );
 
         const spanishDiff = Math.abs(
-            spanishDateObject.getTime() - new Date().getTime()
+            spanishDateObject.getTime() - new Date().getTime(),
         );
 
         const biggerDiff = Math.max(japaneseDiff, spanishDiff);
         return <span>{showDifference(biggerDiff)}</span>;
     } else if (japaneseDateObject && !spanishDateObject) {
         const japaneseDiff = Math.abs(
-            japaneseDateObject.getTime() - new Date().getTime()
+            japaneseDateObject.getTime() - new Date().getTime(),
         );
         return <span>{showDifference(japaneseDiff)}</span>;
     } else if (!japaneseDateObject && spanishDateObject) {
         const spanishDiff = Math.abs(
-            spanishDateObject.getTime() - new Date().getTime()
+            spanishDateObject.getTime() - new Date().getTime(),
         );
         return <span>{showDifference(spanishDiff)}</span>;
     }
