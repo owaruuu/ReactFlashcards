@@ -1,5 +1,6 @@
 export const version = 
-"15/9/2026 - update react to 19.2, update to react query 5, with @tanstack/react-query, update some dependencies";
+"16/9/2026 - fix session onSuccess bug with new array for mutation key";
+// "15/9/2026 - update react to 19.2, update to react query 5, with @tanstack/react-query, update some dependencies";
 // "09/9/2026 - update react to 19.2";
 // "08/9/2026 - update levels code, bumped max level to 10";
 // "03/9/2026 - update react to 18.3";

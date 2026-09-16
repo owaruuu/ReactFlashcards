@@ -254,7 +254,7 @@ export function useSessionPointsMutation(queryKey) {
             const newArray = [...allButChanged, newValue];
 
             //cambio el estado de la query global
-            queryClient.setQueryData("allDataForUser", newArray);
+            queryClient.setQueryData(["allDataForUser"], newArray);
             dispatch({ type: "SET_SAVE_ERROR", payload: false });
         },
     });
@@ -311,7 +311,7 @@ export function useBookmarkLectureMutation(lectureId) {
 
             const newArray = [...allButChanged, newValue];
 
-            queryClient.setQueryData("allDataForUser", newArray);
+            queryClient.setQueryData(["allDataForUser"], newArray);
             queryClient.setQueryData([queryKey], {
                 data: {
                     ...localValue.data,
