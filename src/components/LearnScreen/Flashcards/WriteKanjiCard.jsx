@@ -5,7 +5,6 @@ import { Button, Spinner } from "react-bootstrap";
 import { MdOutlineClear } from "react-icons/md";
 import SquareIconButton from "../../Buttons/SquareIconButton";
 import DashCross from "../../Misc/DashCross";
-import DayKanji from "../../temp svg/DayKanji";
 import { getKanjiSvgName } from "../../../utils/utils";
 import { useGetKanjiSvgDataQuery } from "../../../hooks/kanjiSvgDataQueryHook";
 import parse from "html-react-parser";
@@ -28,8 +27,8 @@ const WriteKanjiCard = forwardRef((props, ref) => {
         state === "highlighted"
             ? "termCard gold"
             : state === "muted"
-            ? "termCard muted"
-            : "termCard";
+              ? "termCard muted"
+              : "termCard";
 
     const term = termsDict[termId];
 
@@ -38,7 +37,7 @@ const WriteKanjiCard = forwardRef((props, ref) => {
     const getKanjiSvgNameQuery = useGetKanjiSvgDataQuery(
         term?.kanji,
         tempKanjiName,
-        term ? true : false
+        term ? true : false,
     );
 
     // useEffect(() => {
