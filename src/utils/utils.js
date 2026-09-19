@@ -1,4 +1,4 @@
-import _, { map } from "lodash";
+import _ from "lodash";
 import { kanjiLookup } from "../data/kanjiLookup";
 
 export const ONE_HOUR = 1000 * 60 * 60;
@@ -98,78 +98,6 @@ export const getRandomQuestions = (easy, mid, hard, options) => {
     }
 
     return random;
-
-    // if (test.mondai_options.mid > 0) {
-    // }
-
-    // if (test.mondai_options.hard > 0) {
-    // }
-
-    // // const options = test.mondai_options;
-    // const questions = test.mondai;
-
-    // let randomArray = [];
-    // let randomNumbers = [];
-
-    // const easyLimit =
-    //     options.easy > questions.easy.length
-    //         ? questions.easy.length
-    //         : options.easy;
-    // const midLimit =
-    //     options.mid > questions.mid.length ? questions.mid.length : options.mid;
-    // const hardLimit =
-    //     options.hard > questions.hard.length
-    //         ? questions.hard.length
-    //         : options.hard;
-
-    // //pick questions from easy
-    // while (randomNumbers.length < easyLimit) {
-    //     let number = randomInt(0, questions.easy.length - 1);
-
-    //     //si randomNumbersArray no contiene
-    //     if (!randomNumbers.includes(number)) {
-    //         randomNumbers.push(number);
-    //     }
-    // }
-
-    // randomArray = [
-    //     ...randomArray,
-    //     ...randomNumbers.map((item) => questions.easy[item]),
-    // ];
-    // randomNumbers = [];
-
-    // //pick questions from mid
-    // while (randomNumbers.length < midLimit) {
-    //     let number = randomInt(0, questions.mid.length - 1);
-
-    //     //si randomNumbersArray no contiene
-    //     if (!randomNumbers.includes(number)) {
-    //         randomNumbers.push(number);
-    //     }
-    // }
-
-    // randomArray = [
-    //     ...randomArray,
-    //     ...randomNumbers.map((item) => questions.mid[item]),
-    // ];
-    // randomNumbers = [];
-
-    // //pick questions from hard
-    // while (randomNumbers.length < hardLimit) {
-    //     let number = randomInt(0, questions.hard.length - 1);
-
-    //     //si randomNumbersArray no contiene
-    //     if (!randomNumbers.includes(number)) {
-    //         randomNumbers.push(number);
-    //     }
-    // }
-
-    // randomArray = [
-    //     ...randomArray,
-    //     ...randomNumbers.map((item) => questions.hard[item]),
-    // ];
-
-    // return randomArray;
 };
 
 function getRandomNumbers(amount, max) {
@@ -235,10 +163,8 @@ export const levelOrder = [
 
 export function showDifference({ chosenDiff }) {
     const days = chosenDiff / (1000 * 60 * 60 * 24);
-    // console.log("🚀 ~ showDifference ~ days:", days);
     const hours = chosenDiff / (1000 * 60 * 60);
 
-    // console.log("🚀 ~ showDifference ~ Math.abs(days):", Math.abs(days));
     if (Math.floor(days) === 1) {
         return `hace 1 dia.`;
     }
@@ -259,7 +185,6 @@ export function showDifference({ chosenDiff }) {
 }
 
 export function getDiff(timeObject) {
-    // console.log("🚀 ~ getDiff ~ timeObject:", timeObject);
     if (!timeObject) {
         return null;
     }
@@ -267,8 +192,6 @@ export function getDiff(timeObject) {
 }
 
 export function pickDifference(japanese, spanish) {
-    // console.log("🚀 ~ pickDifference ~ japanese, spanish:", japanese, spanish);
-    //
     if (japanese && spanish) {
         const japaneseDiff = Math.abs(
             japanese.getTime() - new Date().getTime(),
@@ -418,28 +341,21 @@ export function getShortTime(date) {
 
 export function isAvailable(nextDate) {
     if (nextDate === undefined) return true;
-    //DEBUG
-    // const now = new Date("2026-04-06T05:00:00");
+
     const now = new Date();
-    // console.log("🚀 ~ isAvailable ~ nextDate:", typeof nextDate);
-    // console.log("🚀 ~ isAvailable ~ now:", typeof now);
-    // console.log("🚀 ~ isAvailable ~ now:", now.toISOString());
+
     return new Date(nextDate) < now;
 }
 
 export function getComingTerms(levelsData) {
     let comingTerms = {};
     let comingTermsArray = [];
-    // let sameDays = 0;
     let sameDayEight = 0;
     let sameDaySeventeen = 0;
 
-    //DEBUG
     const now = new Date();
-    // const now = new Date("2026-04-07T05:00:00");
 
     for (const [key, value] of Object.entries(levelsData)) {
-        // console.log("revisando termino ", levelsData[key]);+
         const nextDate = new Date(value.nextDate);
 
         if (isAvailable(nextDate)) {
@@ -447,8 +363,6 @@ export function getComingTerms(levelsData) {
         }
 
         if (isSameDay(now, nextDate)) {
-            // console.log("es el mismo dia");
-            // sameDays += 1;
             if (nextDate.getHours() === 8) {
                 sameDayEight += 1;
                 comingTerms["08:00"] = {
@@ -490,20 +404,14 @@ export function getComingTerms(levelsData) {
         })
         .sort((a, b) => a.date - b.date);
 
-    // console.log("🚀 ~ getComingTerms ~ comingTermsArray:", comingTermsArray);
-
     return comingTermsArray;
 }
 
 function isSameDay(a, b) {
     const d1 = new Date(a);
-    // console.log("🚀 ~ isSameDay ~ d1:", d1);
     const d2 = new Date(b);
-    // console.log("🚀 ~ isSameDay ~ d2:", d2);
     d1.setHours(0, 0, 0, 0);
-    // console.log("🚀 ~ isSameDay ~ d1:", d1);
     d2.setHours(0, 0, 0, 0);
-    // console.log("🚀 ~ isSameDay ~ d2:", d2);
     return d1.getTime() === d2.getTime();
 }
 
