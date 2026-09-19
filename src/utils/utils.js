@@ -10,23 +10,6 @@ import {
 
 export const getLectureQueryString = (id) => `id-${id}-LectureQuery`;
 
-export const readFromLocal = (key) => {
-    const local = localStorage.getItem(key);
-    if (local == null) return {};
-
-    return JSON.parse(local);
-};
-
-export const writeToLocal = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-};
-
-export const fakeBusy = (length = 5000) => {
-    setTimeout(() => {
-        console.log("fake busy ended");
-    }, length);
-};
-
 export const shuffleArray = (array) => {
     const newArray = _.cloneDeep(array);
     let currentIndex = newArray.length;
@@ -51,9 +34,25 @@ export const shuffleArray = (array) => {
 export const backToTop = () => {
     window.scrollTo(0, 0);
 };
-export const randomInt = (lower, upper) => {
+
+const randomInt = (lower, upper) => {
     return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
+
+function getRandomNumbers(amount, max) {
+    let randomNumbersArray = [];
+
+    while (randomNumbersArray.length < amount) {
+        let number = randomInt(0, max - 1);
+
+        //si randomNumbersArray no contiene
+        if (!randomNumbersArray.includes(number)) {
+            randomNumbersArray.push(number);
+        }
+    }
+
+    return randomNumbersArray;
+}
 
 //Eligo una cantidad x al azar de problemas por dificultad basado en la config
 export const getRandomQuestions = (easy, mid, hard, options) => {
@@ -104,67 +103,6 @@ export const getRandomQuestions = (easy, mid, hard, options) => {
     return random;
 };
 
-function getRandomNumbers(amount, max) {
-    let randomNumbersArray = [];
-
-    while (randomNumbersArray.length < amount) {
-        let number = randomInt(0, max - 1);
-
-        //si randomNumbersArray no contiene
-        if (!randomNumbersArray.includes(number)) {
-            randomNumbersArray.push(number);
-        }
-    }
-
-    return randomNumbersArray;
-}
-
-export const chooseFiveMondai = (test, randomNumberArray) => {
-    let mondaiArray = [];
-
-    mondaiArray = randomNumberArray.map((index) => {
-        return test.mondai[index];
-    });
-
-    return mondaiArray;
-};
-
-export const getRandomNumbersSimple = (ammount, size) => {
-    let randomNumbersArray = [];
-
-    while (randomNumbersArray.length < ammount) {
-        let number = randomInt(0, size - 1);
-
-        //si randomNumbersArray no contiene
-        if (!randomNumbersArray.includes(number)) {
-            randomNumbersArray.push(number);
-        }
-    }
-
-    randomNumbersArray.sort((a, b) => a - b);
-
-    return randomNumbersArray;
-};
-
-export const chooseThreeDrag = (test, randomNumberArray) => {
-    let dragArray = [];
-
-    dragArray = randomNumberArray.map((index) => {
-        return test.dragDrop[index];
-    });
-
-    return dragArray;
-};
-
-export const levelOrder = [
-    "bronze",
-    "silver",
-    "gold",
-    "platinum",
-    "diamond",
-    "master",
-];
-
 export function showDifference({ chosenDiff }) {
     const days = chosenDiff / (1000 * 60 * 60 * 24);
     const hours = chosenDiff / (1000 * 60 * 60);
@@ -193,34 +131,6 @@ export function getDiff(timeObject) {
         return null;
     }
     return Math.abs(timeObject.getTime() - new Date().getTime());
-}
-
-export function pickDifference(japanese, spanish) {
-    if (japanese && spanish) {
-        const japaneseDiff = Math.abs(
-            japanese.getTime() - new Date().getTime(),
-        );
-
-        const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
-
-        if (japaneseDiff > spanishDiff) {
-            return { chosenDiff: japaneseDiff, lang: "(jpn)" };
-        } else if (spanishDiff > japaneseDiff) {
-            return { chosenDiff: spanishDiff, lang: "(esp)" };
-        }
-
-        return { chosenDiff: japaneseDiff, lang: "(jpn)" };
-    } else if (japanese && !spanish) {
-        const japaneseDiff = Math.abs(
-            japanese.getTime() - new Date().getTime(),
-        );
-        return { chosenDiff: japaneseDiff, lang: "(jpn)" };
-    } else if (!japanese && spanish) {
-        const spanishDiff = Math.abs(spanish.getTime() - new Date().getTime());
-        return { chosenDiff: spanishDiff, lang: "(esp)" };
-    } else {
-        return null;
-    }
 }
 
 export function reorderTermsList(originalList, data) {

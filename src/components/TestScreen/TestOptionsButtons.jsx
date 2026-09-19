@@ -4,11 +4,11 @@ import { lectures } from "../../data/lectures";
 import { tests } from "../../data/tests";
 import TestDivider from "../Misc/TestDivider";
 import FeedbackText from "./FeedbackText";
-import { randomInt, shuffleArray } from "../../utils/utils";
+import { shuffleArray } from "../../utils/utils";
 
 const TestOptionsButtons = (props) => {
     const [optionsArray] = useState(
-        shuffleArray(props.test.mondai[props.problem][1])
+        shuffleArray(props.test.mondai[props.problem][1]),
     );
 
     const optionsElements = optionsArray.map((option, index) => {

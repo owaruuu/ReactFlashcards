@@ -1,6 +1,6 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
-import { showDifference, pickDifference } from "../../../../utils/utils";
+import { showDifference } from "../../../../utils/utils";
 
 const ReviewSessionTime = (props) => {
     // console.log("🚀 ~ ReviewSessionTime ~ props.status:", props.status);
