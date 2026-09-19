@@ -7,7 +7,7 @@ import { freePerms } from "../data/freePerms.js";
 import { kanjiSetsId } from "../data/extraKanjiLessons.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 import { Spinner } from "react-bootstrap";
-import { isAvailable } from "../utils/utils.js";
+import { isAvailable } from "../utils/dateUtils.js";
 
 const LecturesRoute = (props) => {
     const { perms } = props;

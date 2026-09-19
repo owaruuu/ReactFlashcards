@@ -7,11 +7,10 @@ import { useCreateSessionMutation } from "../../../hooks/userDataQueryHook";
 import {
     getComingTerms,
     getLectureQueryString,
-    isAvailable,
-    ONE_HOUR,
     showDifference,
     shuffleArray,
 } from "../../../utils/utils";
+import { isAvailable, ONE_HOUR } from "../../../utils/dateUtils";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import ComingTerms from "../ComingTerms/ComingTerms.jsx";

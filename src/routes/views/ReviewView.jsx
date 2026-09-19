@@ -18,10 +18,6 @@ import {
     getLectureQueryString,
     getNewLevel,
     levelToHours,
-    normalizeDate,
-    ONE_HOUR,
-    getShortTime,
-    isAvailable,
 } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +27,11 @@ import WriteKanjiCard from "../../components/LearnScreen/Flashcards/WriteKanjiCa
 import DisappearingElement from "../../components/Misc/DisappearingElement";
 import AnswerButtons from "../../components/ReviewView/AnswerButtons.jsx";
 import ErrorFlashCard from "../../components/LearnScreen/Flashcards/ErrorFlashCard.jsx";
+import {
+    isAvailable,
+    getShortTime,
+    normalizeDate,
+} from "../../utils/dateUtils";
 
 const HOURS_MIN = 12;
 
