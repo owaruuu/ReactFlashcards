@@ -21,6 +21,9 @@ secret.js
 
 # refactor working notes (local audit / checklist)
 /refactor-notes
+.opencode
+AGENTS.md
+learning/
 
 # misc
 .DS_Store
