@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useBlocker, useOutletContext } from "react-router-dom";
 import { useTestMutation } from "../../hooks/userDataQueryHook";
-import { getRandomQuestions } from "../../utils/utils";
+import { getRandomQuestions } from "../../utils/testUtils";
 import ExitTestModal from "../../components/Modals/ExitTestModal";
 import Mondai from "../../components/TestScreen/Mondai";
 import DragDrop from "../../components/TestScreen/DragDrop";
