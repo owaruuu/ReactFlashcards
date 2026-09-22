@@ -51,13 +51,6 @@ export function showDifference({ chosenDiff }) {
     return `hace ${Math.round(hours)} horas.`;
 }
 
-export function getDiff(timeObject) {
-    if (!timeObject) {
-        return null;
-    }
-    return Math.abs(timeObject.getTime() - new Date().getTime());
-}
-
 export function reorderTermsList(originalList, data) {
     let reorderedList = [];
     let index = 0;

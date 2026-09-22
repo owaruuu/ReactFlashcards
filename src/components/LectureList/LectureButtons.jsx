@@ -1,5 +1,4 @@
 import LectureButton from "./LectureButton.js/LectureButton";
-import { getDiff } from "../../utils/utils.js";
 
 const LectureButtons = (props) => {
     const {
@@ -373,6 +372,19 @@ function sortBySessionSize(a, b, lang) {
     }
 
     return 0;
+}
+
+/**
+ *
+ * @param {*} timeObject
+ * @returns
+ */
+function getDiff(timeObject) {
+    if (!timeObject) {
+        return null;
+    }
+
+    return Math.abs(timeObject.getTime() - new Date().getTime());
 }
 
 export default LectureButtons;
