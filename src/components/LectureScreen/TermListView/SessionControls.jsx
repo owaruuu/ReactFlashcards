@@ -5,11 +5,11 @@ import { HiStar } from "react-icons/hi2";
 import { ImLab } from "react-icons/im";
 import { useCreateSessionMutation } from "../../../hooks/userDataQueryHook";
 import {
-    getComingTerms,
     getLectureQueryString,
     showDifference,
     shuffleArray,
 } from "../../../utils/utils";
+import { getComingTerms } from "../../../utils/sessionUtils";
 import { isAvailable, ONE_HOUR } from "../../../utils/dateUtils";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";

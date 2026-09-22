@@ -14,11 +14,8 @@ import {
 } from "../../hooks/userDataQueryHook";
 import TermOptionsContainer from "../../components/TermOptionButtons/TermOptionsContainer";
 import { useParams } from "react-router-dom";
-import {
-    getLectureQueryString,
-    getNewLevel,
-    levelToHours,
-} from "../../utils/utils";
+import { getNewLevel, levelToHours } from "../../utils/sessionUtils";
+import { getLectureQueryString } from "../../utils/utils";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NormalTermCard from "../../components/LearnScreen/NormalTermCard";
