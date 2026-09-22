@@ -11,18 +11,12 @@ const LectureButtons = (props) => {
         progressObject,
         isKanjiView,
     } = props;
-    // console.log("🚀 ~ LectureButtons ~ progressObject:", progressObject);
-    // console.log("🚀 ~ LectureButtons ~ dataObject:", dataObject);
-    // console.log("🚀 ~ LectureButtons ~ filledLectures:", filledLectures);
-    // console.log(
-    //     "🚀 ~ LectureButtons ~ allLecturesDataQuery:",
-    //     allLecturesDataQuery,
-    // );
 
-    const starredAmountObject =
-        allLecturesDataQuery?.status === "success"
-            ? calculateStarred(allLecturesDataQuery.data)
-            : {};
+    // old code to show the amount of starred terms in each lecture button.
+    // const starredAmountObject =
+    //     allLecturesDataQuery?.status === "success"
+    //         ? calculateStarred(allLecturesDataQuery.data)
+    //         : {};
 
     let filters = [];
 
@@ -83,6 +77,14 @@ const LectureButtons = (props) => {
 };
 
 //FUNCTIONS
+//
+
+/**
+ * Calculate the amount of starred terms in a lecture
+ * NOT USED
+ * @param {*} dataArray
+ * @returns
+ */
 function calculateStarred(dataArray) {
     let result = {};
 
@@ -115,25 +117,26 @@ function calculateStarred(dataArray) {
     return result;
 }
 
+/**
+ * Filter lectures, with special rules for the 'favoritos' filter
+ * @param {*} filters
+ * @param {*} lectures
+ * @returns
+ */
 function filterLectures(filters, lectures) {
-    // console.log("🚀 ~ filterLectures ~ filters:", filters);
-    let clonedLectures = JSON.parse(JSON.stringify(lectures));
-    // console.log("🚀 ~ filterLectures ~ clonedLectures:", clonedLectures);
+    let filteredLectures = JSON.parse(JSON.stringify(lectures));
 
-    // let favoriteFiltered = clonedLectures.filter((lecture) => {
-    //     return lecture.bookmarked;
-    // });
     if (filters.includes("favoritos")) {
-        clonedLectures = clonedLectures.filter((lecture) => {
+        filteredLectures = filteredLectures.filter((lecture) => {
             return lecture.bookmarked;
         });
     } else {
-        clonedLectures = clonedLectures.filter((lecture) => {
+        filteredLectures = filteredLectures.filter((lecture) => {
             return filters.includes(lecture.lectureGroup);
         });
     }
 
-    return clonedLectures;
+    return filteredLectures;
 }
 
 function sortLectures(orderingState, lectures) {
@@ -202,22 +205,13 @@ function sortWriteByDateDESC(a, b) {
     return sortBySessionLang(b, a, "write");
 }
 
-// function sortByDateASC(a, b) {
-//     return sortByDate(a, b);
-// }
-
-// function sortByDateDESC(a, b) {
-//     return sortByDate(b, a);
-// }
-
-// function sortBySpanishDateASC(a, b) {
-//     return sortBySpanishDate(a, b);
-// }
-
-// function sortBySpanishDateDESC(a, b) {
-//     return sortBySpanishDate(b, a);
-// }
-
+/**
+ *
+ * @param {*} a
+ * @param {*} b
+ * @param {*} lang
+ * @returns
+ */
 function sortBySessionLang(a, b, lang) {
     const japaneseDateA = a[`${lang}_session`]?.lastReviewed;
     let japaneseDataObjectA;
