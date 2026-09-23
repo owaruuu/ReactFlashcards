@@ -77,7 +77,6 @@ const LectureButtons = (props) => {
 };
 
 //FUNCTIONS
-//
 
 /**
  * Calculate the amount of starred terms in a lecture
@@ -139,184 +138,87 @@ function filterLectures(filters, lectures) {
     return filteredLectures;
 }
 
+/**
+ * Sort lectures based on the current state of `orderingState`, returns the same array if no ordering is present
+ * @param {*} orderingState
+ * @param {*} lectures
+ * @returns
+ */
 function sortLectures(orderingState, lectures) {
     let clonedLectures = JSON.parse(JSON.stringify(lectures));
 
     switch (orderingState) {
         case "jpnDateASC":
-            // console.log("Date ASC");
-            return clonedLectures.sort(sortJapaneseByDateASC);
+            return clonedLectures.sort(byLastReviewed("japanese", 1));
         case "jpnDateDESC":
-            // console.log("Date DESC");
-            return clonedLectures.sort(sortJapaneseByDateDESC);
+            return clonedLectures.sort(byLastReviewed("japanese", -1));
         case "espDateASC":
-            // console.log("Date ASC");
-            return clonedLectures.sort(sortSpanishByDateASC);
+            return clonedLectures.sort(byLastReviewed("spanish", 1));
         case "espDateDESC":
-            // console.log("Date DESC");
-            return clonedLectures.sort(sortSpanishByDateDESC);
+            return clonedLectures.sort(byLastReviewed("spanish", -1));
         case "recDateASC":
-            return clonedLectures.sort(sortRecognizeByDateASC);
+            return clonedLectures.sort(byLastReviewed("recognize", 1));
         case "recDateDESC":
-            return clonedLectures.sort(sortRecognizeByDateDESC);
+            return clonedLectures.sort(byLastReviewed("recognize", -1));
         case "wrtDateASC":
-            return clonedLectures.sort(sortWriteByDateASC);
+            return clonedLectures.sort(byLastReviewed("write", 1));
         case "wrtDateDESC":
-            return clonedLectures.sort(sortWriteByDateDESC);
-        case "sizeASC":
-            // console.log("Name ASC");
-            return clonedLectures.sort(sortJapaneseBySessionSizeASC);
-        case "sizeDESC":
-            // console.log("Name DESC");
-            return clonedLectures.sort(sortJapaneseBySessionSizeDESC);
+            return clonedLectures.sort(byLastReviewed("write", -1));
+        // case "sizeASC":
+        //     return clonedLectures.sort(sortJapaneseBySessionSizeASC);
+        // case "sizeDESC":
+        //     return clonedLectures.sort(sortJapaneseBySessionSizeDESC);
     }
 
     return clonedLectures;
 }
 
-function sortJapaneseByDateASC(a, b) {
-    return sortBySessionLang(a, b, "japanese");
-}
-
-function sortJapaneseByDateDESC(a, b) {
-    return sortBySessionLang(b, a, "japanese");
-}
-
-function sortSpanishByDateASC(a, b) {
-    return sortBySessionLang(a, b, "spanish");
-}
-function sortSpanishByDateDESC(a, b) {
-    return sortBySessionLang(b, a, "spanish");
-}
-
-function sortRecognizeByDateASC(a, b) {
-    return sortBySessionLang(a, b, "recognize");
-}
-
-function sortRecognizeByDateDESC(a, b) {
-    return sortBySessionLang(b, a, "recognize");
-}
-
-function sortWriteByDateASC(a, b) {
-    return sortBySessionLang(a, b, "write");
-}
-
-function sortWriteByDateDESC(a, b) {
-    return sortBySessionLang(b, a, "write");
-}
-
 /**
- *
- * @param {*} a
- * @param {*} b
- * @param {*} lang
+ * Returns a comparator function to sort lectures by the last reviewed date of a given language session.
+ * @param {*} lang the language session to sort by (e.g., "japanese", "spanish", "recognize", "write")
+ * @param {*} dir the direction of sorting: 1 for ascending, -1 for descending
  * @returns
  */
-function sortBySessionLang(a, b, lang) {
-    const japaneseDateA = a[`${lang}_session`]?.lastReviewed;
-    let japaneseDataObjectA;
-    if (japaneseDateA) {
-        japaneseDataObjectA = new Date(japaneseDateA);
-    }
-    const aDiff = getDiff(japaneseDataObjectA);
-
-    const japaneseDateB = b[`${lang}_session`]?.lastReviewed;
-    let japaneseDataObjectB;
-    if (japaneseDateB) {
-        japaneseDataObjectB = new Date(japaneseDateB);
-    }
-    const bDiff = getDiff(japaneseDataObjectB);
-
-    //a is less than b by some ordering criterion
-
-    if (aDiff && bDiff) {
-        if (aDiff < bDiff) {
-            // console.log("a is less than b by some ordering criterion");
-            return 1;
-        } else if (aDiff > bDiff) {
-            // console.log("a is greater than b by the ordering criterion");
-            //a is greater than b by the ordering criterion
-            return -1;
+function byLastReviewed(lang, dir = 1) {
+    function comparator(a, b) {
+        const dateA = a[`${lang}_session`]?.lastReviewed;
+        let dataObjectA;
+        if (dateA) {
+            dataObjectA = new Date(dateA);
         }
-    } else if (aDiff && !bDiff) {
-        return 1;
-    } else if (!aDiff && bDiff) {
-        return -1;
+        const aDiff = getDiff(dataObjectA);
+
+        const dateB = b[`${lang}_session`]?.lastReviewed;
+        let dataObjectB;
+        if (dateB) {
+            dataObjectB = new Date(dateB);
+        }
+        const bDiff = getDiff(dataObjectB);
+
+        //a is less than b by some ordering criterion
+
+        if (aDiff && bDiff) {
+            if (aDiff < bDiff) {
+                // console.log("a is less than b by some ordering criterion");
+                return 1 * dir;
+            } else if (aDiff > bDiff) {
+                // console.log("a is greater than b by the ordering criterion");
+                //a is greater than b by the ordering criterion
+                return -1 * dir;
+            }
+        } else if (aDiff && !bDiff) {
+            return 1 * dir;
+        } else if (!aDiff && bDiff) {
+            return -1 * dir;
+        }
+
+        return 0;
     }
 
-    return 0;
+    return comparator;
 }
 
-function sortByDate(a, b) {
-    const japaneseDateA = a["japanese_session"]?.lastReviewed;
-    let japaneseDataObjectA;
-    if (japaneseDateA) {
-        japaneseDataObjectA = new Date(japaneseDateA);
-    }
-    const aDiff = getDiff(japaneseDataObjectA);
-
-    const japaneseDateB = b["japanese_session"]?.lastReviewed;
-    let japaneseDataObjectB;
-    if (japaneseDateB) {
-        japaneseDataObjectB = new Date(japaneseDateB);
-    }
-    const bDiff = getDiff(japaneseDataObjectB);
-
-    //a is less than b by some ordering criterion
-
-    if (aDiff && bDiff) {
-        if (aDiff < bDiff) {
-            // console.log("a is less than b by some ordering criterion");
-            return 1;
-        } else if (aDiff > bDiff) {
-            // console.log("a is greater than b by the ordering criterion");
-            //a is greater than b by the ordering criterion
-            return -1;
-        }
-    } else if (aDiff && !bDiff) {
-        return 1;
-    } else if (!aDiff && bDiff) {
-        return -1;
-    }
-
-    return 0;
-}
-
-function sortBySpanishDate(a, b) {
-    const spanishDateA = a["spanish_session"]?.lastReviewed;
-    let spanishDataObjectA;
-    if (spanishDateA) {
-        spanishDataObjectA = new Date(spanishDateA);
-    }
-    const aDiff = getDiff(spanishDataObjectA);
-
-    const spanishDateB = b["spanish_session"]?.lastReviewed;
-    let spanishDataObjectB;
-    if (spanishDateB) {
-        spanishDataObjectB = new Date(spanishDateB);
-    }
-    const bDiff = getDiff(spanishDataObjectB);
-
-    //a is less than b by some ordering criterion
-
-    if (aDiff && bDiff) {
-        if (aDiff < bDiff) {
-            // console.log("a is less than b by some ordering criterion");
-            return 1;
-        } else if (aDiff > bDiff) {
-            // console.log("a is greater than b by the ordering criterion");
-            //a is greater than b by the ordering criterion
-            return -1;
-        }
-    } else if (aDiff && !bDiff) {
-        return 1;
-    } else if (!aDiff && bDiff) {
-        return -1;
-    }
-
-    return 0;
-}
-
+//OLD sort functions wrappers
 function sortJapaneseBySessionSizeASC(a, b) {
     return sortBySessionSize(a, b, "japanese");
 }
@@ -333,6 +235,7 @@ function sortSpanishBySessionSizeDESC(a, b) {
     return sortBySessionSize(b, a, "spanish");
 }
 
+//OLD sort function for amount of terms in session left
 function sortBySessionSize(a, b, lang) {
     let japaneseSessionSizeA = a[`${lang}_session`]?.terms.length;
     let spanishSessionSizeA = a[`${lang}_session`]?.terms.length;
@@ -369,7 +272,7 @@ function sortBySessionSize(a, b, lang) {
 }
 
 /**
- *
+ * Helper function to calculate the difference in milliseconds between a given date and the current date. Return null if the date is invalid or not provided.
  * @param {*} timeObject
  * @returns
  */
