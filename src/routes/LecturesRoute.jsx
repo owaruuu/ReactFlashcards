@@ -4,14 +4,12 @@ import { AppContext } from "../context/AppContext.jsx";
 import { Outlet } from "react-router-dom";
 import { getExtraLessons, getFreeLessons } from "../aws/aws.js";
 import { freePerms } from "../data/freePerms.js";
-import { kanjiSetsId } from "../data/extraKanjiLessons.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 import { Spinner } from "react-bootstrap";
 import { isAvailable } from "../utils/dateUtils.js";
 
 const LecturesRoute = (props) => {
     const { perms } = props;
-    // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
 
     const {
         loggedIn,
@@ -21,8 +19,6 @@ const LecturesRoute = (props) => {
         kanjiSets,
         gotLectures,
     } = useContext(AppContext);
-    // console.log("🚀 ~ LecturesRoute ~ kanjiSets:", kanjiSets);
-    // console.log("🚀 ~ LecturesRoute ~ lectures:", lectures);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
@@ -33,26 +29,21 @@ const LecturesRoute = (props) => {
         allLecturesDataQuery.status === "success"
             ? buildLectureData(allLecturesDataQuery.data)
             : {};
-    // console.log("🚀 ~ LecturesRoute ~ dataObject:", dataObject);
 
     const lecturesObject = makeLecturesObject([...lectures, ...kanjiSets]);
-    // console.log("🚀 ~ LecturesRoute ~ lecturesObject:", lecturesObject);
 
     const progressObject = dataObject
         ? getProgress(dataObject, lecturesObject)
         : {};
-    // console.log("🚀 ~ LecturesRoute ~ progressObject:", progressObject);
 
     const filledLectures = insertSessionData(
         { lectures, kanjiSets },
         dataObject,
     );
-    // console.log("🚀 ~ LecturesRoute ~ filledLectures:", filledLectures);
 
     const amountCanLearn = filledLectures
         ? calculateAmountReady(filledLectures)
         : {};
-    // console.log("🚀 ~ LecturesRoute ~ amountCanLearn:", amountCanLearn);
 
     //State
     const [extraLessonMessage, setExtraLessonMessage] = useState("");
@@ -188,8 +179,6 @@ const LecturesRoute = (props) => {
         };
 
         const setLectures = async (response) => {
-            // console.log("🚀 ~ setLectures ~ response:", response);
-            // console.log("🚀 ~ LecturesRoute ~ response:", "estoy aqui");
             //si ambas queries fallan o estan vacias
             if (
                 response.error ||
@@ -260,13 +249,11 @@ const LecturesRoute = (props) => {
                     payload: true,
                 });
             }
-            // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
 
             const hasNormalPerms = perms.access.length > 0;
             const hasKanjiPerms = perms.kanjiAccess
                 ? perms.kanjiAccess.length > 0
                 : false;
-            // console.log("🚀 ~ LecturesRoute ~ hasKanjiPerms:", hasKanjiPerms);
 
             //Case: no tiene ninguna leccion extra
             if (!hasNormalPerms && !hasKanjiPerms) {
@@ -472,10 +459,6 @@ function calculateAmountReady(lecturesObject) {
             : {}; //ADD default value
 
         const japaneseLevelsData = lecture["japanese_terms_levels"];
-        // console.log(
-        //     "🚀 ~ calculateAmountReady ~ japaneseLevelsData:",
-        //     japaneseLevelsData,
-        // );
         const spanishLevelsData = lecture["spanish_terms_levels"];
 
         if (japaneseData) {
@@ -533,7 +516,6 @@ function calculateAmountReady(lecturesObject) {
     });
 
     lecturesObject.filledKanjiSets.forEach((lecture) => {
-        // console.log("🚀 ~ calculateAmountReady ~ here");
         let aMuted = 0;
         let bMuted = 0;
         let aAmountReviewedToday = 0;
@@ -602,7 +584,6 @@ function calculateAmountReady(lecturesObject) {
 }
 
 function getProgress(lectureData, lecturesObject) {
-    // console.log("🚀 ~ getProgress ~ lecture:", lecture);
     let progress = {};
 
     for (const [key, value] of Object.entries(lectureData)) {
@@ -630,7 +611,6 @@ function getProgress(lectureData, lecturesObject) {
 }
 
 function getLevels(data, total = 0) {
-    // console.log("🚀 ~ getLevels ~ data:", data);
     const levels = {
         noView: total,
         learning: 0,
@@ -657,7 +637,6 @@ function getLevels(data, total = 0) {
 }
 
 function makeLecturesObject(lectures) {
-    // console.log("🚀 ~ makeLecturesObject ~ lectures:", lectures);
     const lecturesObject = {};
 
     for (const lecture of lectures) {
