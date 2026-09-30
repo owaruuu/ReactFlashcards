@@ -39,10 +39,9 @@ const SORT_BT_STATE = {
  * @returns
  */
 export function sortLectures(orderingState, lectures) {
-    let clonedLectures = JSON.parse(JSON.stringify(lectures));
     const comparator = SORT_BT_STATE[orderingState];
 
-    return comparator ? clonedLectures.sort(comparator) : clonedLectures;
+    return comparator ? lectures.toSorted(comparator) : lectures;
 }
 
 /**
