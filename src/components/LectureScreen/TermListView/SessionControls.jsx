@@ -155,9 +155,7 @@ const SessionControls = ({
         //TODO: cambiar logica para staging, debe calcular diferente basandose en 'nextDate' y 'level'
         //ordenar elementos por fecha de estudio, dejando los elementos mas viejos primero (los que estudia hace mas tiempo)
         //ordenar elementos por puntaje, dejando los elementos con menor puntaje
-        const orderedTerms = JSON.parse(JSON.stringify(filteredTerms)).sort(
-            sortByDateAndPoints,
-        );
+        const orderedTerms = filteredTerms.toSorted(sortByDateAndPoints);
 
         //elegir maximo 30
         return orderedTerms.slice(0, MAX_SESSION_SIZE);

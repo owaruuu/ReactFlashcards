@@ -193,7 +193,7 @@ const LecturesRoute = (props) => {
 
             //TODO FIX
             if (response.data.length > 0) {
-                const orderedResults = response.data.sort(
+                const orderedResults = response.data.toSorted(
                     (a, b) => a.orderNumber - b.orderNumber,
                 );
 
@@ -222,7 +222,7 @@ const LecturesRoute = (props) => {
             }
 
             if (response.kanjiData.length > 0) {
-                const orderedKanjiSets = response.kanjiData.sort(
+                const orderedKanjiSets = response.kanjiData.toSorted(
                     (a, b) => a.orderNumber - b.orderNumber,
                 );
                 const kanjiSets = orderedKanjiSets.map((item) =>
