@@ -51,20 +51,22 @@ export function sortLectures(orderingState, lectures) {
  * @returns
  */
 function byLastReviewed(lang, dir = 1) {
+    const now = new Date();
+
     function comparator(a, b) {
         const dateA = a[`${lang}_session`]?.lastReviewed;
         let dataObjectA;
         if (dateA) {
             dataObjectA = new Date(dateA);
         }
-        const aDiff = getDiff(dataObjectA);
+        const aDiff = getDiff(dataObjectA, now);
 
         const dateB = b[`${lang}_session`]?.lastReviewed;
         let dataObjectB;
         if (dateB) {
             dataObjectB = new Date(dateB);
         }
-        const bDiff = getDiff(dataObjectB);
+        const bDiff = getDiff(dataObjectB, now);
 
         //a is less than b by some ordering criterion
 
@@ -94,10 +96,10 @@ function byLastReviewed(lang, dir = 1) {
  * @param {*} timeObject
  * @returns
  */
-function getDiff(timeObject) {
+function getDiff(timeObject, now) {
     if (!timeObject) {
         return null;
     }
 
-    return Math.abs(timeObject.getTime() - new Date().getTime());
+    return Math.abs(timeObject.getTime() - now.getTime());
 }
