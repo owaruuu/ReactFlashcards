@@ -107,18 +107,12 @@ const LectureButton = (props) => {
         navigate(isKanjiView ? `/lectures/kanji/${id}` : `/lectures/${id}`);
     }
 
-    const LectureButton = ({ children }) => (
-        <div className="lectureButton" onClick={navigateToLecture}>
-            {children}
-        </div>
-    );
-
     const localProgress = isKanjiView
         ? { left: progress?.recognize, right: progress?.write }
         : { left: progress?.japanese, right: progress?.spanish };
 
     return (
-        <LectureButton>
+        <div className="lectureButton" onClick={navigateToLecture}>
             <div className="leftData">
                 {loggedIn && (
                     <>
@@ -167,7 +161,7 @@ const LectureButton = (props) => {
                     </>
                 )}
             </div>
-        </LectureButton>
+        </div>
     );
 };
 
