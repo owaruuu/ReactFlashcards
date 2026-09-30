@@ -1,5 +1,5 @@
 export const version = 
-"22/9/2026 - refactor filtering code";
+"22/9/2026 - refactor filtering code, move study session and tests utils into separate file";
 // "19/9/2026 - move date utils to separate file";
 // "16/9/2026 - fix session onSuccess bug with new array for mutation key";
 // "15/9/2026 - update react to 19.2, update to react query 5, with @tanstack/react-query, update some dependencies";
