@@ -5,14 +5,14 @@
  * @returns
  */
 export function filterLectures(filters, lectures) {
-    let filteredLectures = JSON.parse(JSON.stringify(lectures));
+    let filteredLectures = [];
 
     if (filters.includes("favoritos")) {
-        filteredLectures = filteredLectures.filter((lecture) => {
+        filteredLectures = lectures.filter((lecture) => {
             return lecture.bookmarked;
         });
     } else {
-        filteredLectures = filteredLectures.filter((lecture) => {
+        filteredLectures = lectures.filter((lecture) => {
             return filters.includes(lecture.lectureGroup);
         });
     }
