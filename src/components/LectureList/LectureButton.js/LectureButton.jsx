@@ -3,8 +3,6 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../../../context/AppContext.jsx";
 import { backToTop } from "../../../utils/utils";
 import { HiClipboardDocumentList } from "react-icons/hi2";
-import { IoIosArrowRoundForward } from "react-icons/io";
-import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FaStarOfLife } from "react-icons/fa6";
 import ProgressSection from "./ProgressSection/ProgressSection.jsx";
@@ -32,9 +30,6 @@ const LectureButton = (props) => {
         amountCanLearn,
         progress,
     } = props;
-    // console.log("🚀 ~ LectureButton ~ progress:", progress);
-    // console.log("🚀 ~ LectureButton ~ amountCanLearn:", amountCanLearn);
-    // console.log("🚀 ~ LectureButton ~ id:", id);
     const navigate = useNavigate();
     const hasTest = testId !== "-1" && testId !== undefined;
 
@@ -118,14 +113,6 @@ const LectureButton = (props) => {
         </div>
     );
 
-    //TODO subir mas arriba en el tree
-    // const progress = dataObject?.[id]
-    //     ? getProgress(dataObject[id], lecture, isKanjiView)
-    //     : {};
-
-    // if (lecture.lectureId === "20240131001") {
-    //     console.log("🚀 ~ LectureButton ~ progress:", progress);
-    // }
     const localProgress = isKanjiView
         ? { left: progress?.recognize, right: progress?.write }
         : { left: progress?.japanese, right: progress?.spanish };
@@ -183,57 +170,5 @@ const LectureButton = (props) => {
         </LectureButton>
     );
 };
-
-function getProgress(lectureData, lecture, isKanjiView) {
-    // console.log("🚀 ~ getProgress ~ lecture:", lecture);
-    let progress = {};
-
-    const leftLevels = getLevels(
-        lectureData[
-            isKanjiView ? "recognize_terms_levels" : "japanese_terms_levels"
-        ],
-        lecture.termList.length,
-    );
-    const rightLevels = getLevels(
-        lectureData[
-            isKanjiView ? "write_terms_levels" : "spanish_terms_levels"
-        ],
-        isKanjiView ? lecture.kanjiList.length : lecture.termList.length,
-    );
-
-    progress = {
-        left: leftLevels,
-        right: rightLevels,
-    };
-
-    return progress;
-}
-
-function getLevels(data, total) {
-    // console.log("🚀 ~ getLevels ~ data:", data);
-    const levels = {
-        noView: total,
-        learning: 0,
-        midPoint: 0,
-        memorized: 0,
-    };
-
-    if (!data) return levels;
-
-    for (const termData of Object.values(data)) {
-        if (termData.level >= 9) {
-            levels.memorized += 1;
-            levels.noView -= 1;
-        } else if (termData.level >= 6) {
-            levels.midPoint += 1;
-            levels.noView -= 1;
-        } else if (termData.level > 0) {
-            levels.learning += 1;
-            levels.noView -= 1;
-        }
-    }
-
-    return levels;
-}
 
 export default LectureButton;
