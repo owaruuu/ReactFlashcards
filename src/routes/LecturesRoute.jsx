@@ -2,23 +2,27 @@ import React from "react";
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { Outlet } from "react-router-dom";
-import { getExtraLessons, getFreeLessons } from "../aws/aws.js";
-import { freePerms } from "../data/freePerms.js";
+import { getLessons } from "../aws/aws.js";
+// import { freePerms } from "../data/freePerms.js";
 import { useAllLecturesDataQuery } from "../hooks/userDataQueryHook.js";
 import { Spinner } from "react-bootstrap";
 import { isAvailable } from "../utils/dateUtils.js";
 
 const LecturesRoute = (props) => {
-    const { perms } = props;
+    // const { perms } = props;
+    // console.log("🚀 ~ LecturesRoute ~ perms:", perms);
 
     const {
         loggedIn,
         dispatch,
-        freeLectures,
+        // freeLectures,
         lectures,
         kanjiSets,
         gotLectures,
     } = useContext(AppContext);
+    console.log("🚀 ~ LecturesRoute ~ kanjiSets:", kanjiSets);
+    console.log("🚀 ~ LecturesRoute ~ lectures:", lectures);
+    // console.log("🚀 ~ setLectures ~ freeLectures:", freeLectures);
 
     // en /lectures creo la query global para todas las lecciones
     const allLecturesDataQuery = useAllLecturesDataQuery(
@@ -126,9 +130,16 @@ const LecturesRoute = (props) => {
 
     //Obtener lectures extras con permisos
     useEffect(() => {
-        const fetchLessons = async (hasNormalPerms, hasKanjiPerms) => {
+        const fetchLessons = async () => {
             try {
-                const response = await getExtraLessons(perms);
+                // console.log("🚀 ~ fetchLessons ~ perms:", perms);
+                const response = await getLessons();
+                console.log("🚀 ~ fetchLessons ~ response:", response);
+
+                const hasNormalPerms = response.data.length > 0;
+                const hasKanjiPerms = response.kanjiData
+                    ? response.kanjiData.length > 0
+                    : false;
 
                 if (!hasNormalPerms) {
                     setExtraLessonMessage("No tienes acceso a mas lecciones.");
@@ -157,28 +168,30 @@ const LecturesRoute = (props) => {
             }
         };
 
-        const fetchFreeLessons = async () => {
-            try {
-                const response = await getFreeLessons(freePerms);
-                // console.log("🚀 ~ fetchFreeLessons ~ response:", response);
+        // UNUSED
+        // const fetchFreeLessons = async () => {
+        //     try {
+        //         const response = await getFreeLessons();
+        //         console.log("🚀 ~ fetchFreeLessons ~ response:", response);
 
-                //Temporal, hasta que hayan lecciones kanji libres
-                setExtraKanjiSetMessage("No tienes acceso a lecciones Kanji.");
-                setLectures(response);
-                return dispatch({
-                    type: "SET_LECTURES_FLAG",
-                    payload: true,
-                });
-            } catch (error) {
-                console.log(
-                    "🚀 ~ file: LectureList.js:25 ~ getLectures ~ error:",
-                    error,
-                );
-                return "Hubo un error";
-            }
-        };
+        //         //Temporal, hasta que hayan lecciones kanji libres
+        //         setExtraKanjiSetMessage("No tienes acceso a lecciones Kanji.");
+        //         setLectures(response);
+        //         return dispatch({
+        //             type: "SET_LECTURES_FLAG",
+        //             payload: true,
+        //         });
+        //     } catch (error) {
+        //         console.log(
+        //             "🚀 ~ file: LectureList.js:25 ~ getLectures ~ error:",
+        //             error,
+        //         );
+        //         return "Hubo un error";
+        //     }
+        // };
 
         const setLectures = async (response) => {
+            console.log("🚀 ~ setLectures ~ response:", response);
             //si ambas queries fallan o estan vacias
             if (
                 response.error ||
@@ -197,17 +210,17 @@ const LecturesRoute = (props) => {
                     (a, b) => a.orderNumber - b.orderNumber,
                 );
 
-                const extraLectures = orderedResults.map((item) => {
+                const lectures = orderedResults.map((item) => {
                     const lecture = JSON.parse(item.lecture);
                     lecture["testId"] = item.testId;
                     return lecture;
                 });
 
-                const newLectures = [...freeLectures, ...extraLectures];
+                // const newLectures = [...freeLectures, ...extraLectures];
 
                 dispatch({
                     type: "SET_LECTURES",
-                    payload: newLectures,
+                    payload: lectures,
                 });
             }
         };
@@ -235,35 +248,42 @@ const LecturesRoute = (props) => {
             }
         };
 
-        if (loggedIn) {
-            //&& !gotLectures
-            if (perms.error) {
-                setExtraLessonMessage(
-                    "Hubo un error obteniendo tus permisos, intentalo mas tarde.",
-                );
-                setExtraKanjiSetMessage(
-                    "Hubo un error obteniendo tus permisos, intentalo mas tarde.",
-                );
-                return dispatch({
-                    type: "SET_LECTURES_FLAG",
-                    payload: true,
-                });
-            }
+        fetchLessons();
 
-            const hasNormalPerms = perms.access.length > 0;
-            const hasKanjiPerms = perms.kanjiAccess
-                ? perms.kanjiAccess.length > 0
-                : false;
+        // if (loggedIn) {
+        //     //&& !gotLectures
+        //     // if (perms.error) {
+        //     //     setExtraLessonMessage(
+        //     //         "Hubo un error obteniendo tus permisos, intentalo mas tarde.",
+        //     //     );
+        //     //     setExtraKanjiSetMessage(
+        //     //         "Hubo un error obteniendo tus permisos, intentalo mas tarde.",
+        //     //     );
+        //     //     return dispatch({
+        //     //         type: "SET_LECTURES_FLAG",
+        //     //         payload: true,
+        //     //     });
+        //     // }
 
-            //Case: no tiene ninguna leccion extra
-            if (!hasNormalPerms && !hasKanjiPerms) {
-                fetchFreeLessons();
-            } else {
-                fetchLessons(hasNormalPerms, hasKanjiPerms);
-            }
-        } else {
-            fetchFreeLessons();
-        }
+        //     fetchLessons();
+
+        //     // const hasNormalPerms = perms.access.length > 0;
+        //     // const hasKanjiPerms = perms.kanjiAccess
+        //     //     ? perms.kanjiAccess.length > 0
+        //     //     : false;
+
+        //     // //Case: no tiene ninguna leccion extra
+        //     // if (!hasNormalPerms && !hasKanjiPerms) {
+        //     //     // fetchFreeLessons();
+        //     //     //
+        //     //     fetchLessons(false, false);
+        //     // } else {
+        //     //     fetchLessons(hasNormalPerms, hasKanjiPerms);
+        //     // }
+        // } else {
+        //     // fetchFreeLessons();
+        //     fetchLessons(true, false);
+        // }
     }, []);
 
     if (!gotLectures) {
@@ -300,7 +320,7 @@ const LecturesRoute = (props) => {
                 sizeButtonState,
                 filterState,
                 kanjiFilterState,
-                perms: [...perms.access, ...perms.kanjiAccess, ...freePerms],
+                // perms: [...perms.access, ...perms.kanjiAccess],
                 setJapaneseDateButtonState,
                 setSpanishDateButtonState,
                 setRecognizeDateButtonState,

@@ -3,6 +3,7 @@ import LecturesRoute from "../LecturesRoute";
 import { Await, useLoaderData, useAsyncError } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
+//UNUSED
 const GotPermissionsSuspense = () => {
     let data = useLoaderData();
     // console.log("🚀 ~ GotPermissionsSuspense ~ data:", data);
@@ -22,8 +23,12 @@ const GotPermissionsSuspense = () => {
                         access: data.access || [],
                         kanjiAccess: data.kanjiAccess || [],
                     };
+                    console.log(
+                        "🚀 ~ GotPermissionsSuspense ~ permsData:",
+                        permsData,
+                    );
                     // console.log("🚀 ~ GotPermissionsSuspense ~ data:", data);
-                    return <LecturesRoute perms={permsData} />;
+                    return <LecturesRoute />;
                 }}
             </Await>
         </React.Suspense>
@@ -32,6 +37,7 @@ const GotPermissionsSuspense = () => {
 
 function PermsError() {
     const error = useAsyncError();
+    console.log("🚀 ~ PermsError ~ error:", error);
     return <LecturesRoute perms={{ error, access: [], kanjiAccess: [] }} />;
 }
 

@@ -7,6 +7,7 @@ export const getSession = async () => {
         //intenta revisar los tokens del usuario
         //retorna el contenido del idToken si funciona
         const response = await api.get(`${URL}/api/v2/auth/session`);
+        // console.log("🚀 ~ getSession ~ response:", response);
 
         return response.data;
     } catch (error) {
@@ -17,6 +18,7 @@ export const getSession = async () => {
 
         //status code que me llega desde el auth route
         if (error.response.status === 401) {
+            console.log("no sessions found");
             return { error: "no credentials", value: 0 };
         }
     }
@@ -185,33 +187,35 @@ export async function getTestData(testId) {
     }
 }
 
-export const getExtraLessons = async (perms) => {
+// Cambio de getExtraLessons a getLessons, ahora es un get que obtiene 'todas' las lecciones desde el servidor.
+export const getLessons = async () => {
     try {
-        const { data } = await api.post(`${URL}/api/v2/lessons`, perms);
+        const { data } = await api.get(`${URL}/api/v2/lessons`);
         // console.log("🚀 ~ getExtraLessons ~ response:", response);
         return {
             data: data[0].Responses.lectures,
             kanjiData: data[1].Responses.kanjiSets,
         };
     } catch (error) {
-        console.log("🚀 ~ getExtraLessons ~ error:", error);
+        console.log("🚀 ~ getLessons ~ error:", error);
         return { error };
     }
 };
 
-export const getFreeLessons = async (keys) => {
-    try {
-        const response = await api.post(`${URL}/free-lessons`, { keys });
-        // console.log("🚀 ~ getExtraLessons ~ response:", response);
-        return {
-            data: response.data.Responses.lectures,
-            kanjiData: response.data.Responses.kanjiSets,
-        };
-    } catch (error) {
-        console.log("🚀 ~ getExtraLessons ~ error:", error);
-        return { error };
-    }
-};
+// UNUSED
+// export const getFreeLessons = async (keys) => {
+//     try {
+//         const response = await api.get(`${URL}/free-lessons`);
+//         // console.log("🚀 ~ getExtraLessons ~ response:", response);
+//         return {
+//             data: response.data.Responses.lectures,
+//             kanjiData: response.data.Responses.kanjiSets,
+//         };
+//     } catch (error) {
+//         console.log("🚀 ~ getExtraLessons ~ error:", error);
+//         return { error };
+//     }
+// };
 
 //Intenta obtener una lecture desde la DB
 //necesito verificar que tengo el permiso ?

@@ -16,7 +16,7 @@ const UserPanelView = () => {
     const navigate = useNavigate();
     const revalidator = useRevalidator();
     const queryClient = useQueryClient();
-    const { dispatch, user, freeLectures } = useContext(AppContext);
+    const { dispatch, user } = useContext(AppContext);
     const [showModal, setShowModal] = useState(false);
     const [currentSticker, setCurrentSticker] = useState(-1);
     const [selectedSticker, setSelectedSticker] = useState(-1);
@@ -71,7 +71,11 @@ const UserPanelView = () => {
             type: "SET_USER",
             payload: { currentProgress: null, userName: "" },
         });
-        dispatch({ type: "SET_LECTURES", payload: freeLectures });
+
+        // Reset lectures and kanjiSets to empty arrays and set their flags to false
+        dispatch({ type: "SET_LECTURES", payload: [] });
+
+        // Tengo que agregar kanji lectures ?
         dispatch({ type: "SET_LECTURES_FLAG", payload: false });
 
         //4. invalidar

@@ -75,7 +75,7 @@ const initialState = {
     userData: { currentData: {} },
     lectures: [],
     kanjiSets: [],
-    freeLectures: [],
+    // freeLectures: [],
     //app state
     init: false, //true despues de haber intentado conectarse a cognito
     cognitoError: false, //para fallas con el servicio de cognito
@@ -106,7 +106,7 @@ export const AppProvider = (props) => {
                 userData: state.userData,
                 lectures: state.lectures,
                 kanjiSets: state.kanjiSets,
-                freeLectures: state.freeLectures,
+                // freeLectures: state.freeLectures,
                 //app state
                 init: state.init,
                 cognitoError: state.cognitoError,

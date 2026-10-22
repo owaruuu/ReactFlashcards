@@ -42,6 +42,7 @@ import IsTakingTest from "./routes/guards/IsTakingTest";
 import KanjiSetsListView from "./routes/views/KanjiSetsListView";
 import KanjisListView from "./routes/views/KanjisListView";
 import { version } from "./utils/version.js";
+import LecturesRoute from "./routes/LecturesRoute.jsx";
 
 const router = createBrowserRouter([
     {
@@ -60,8 +61,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "/lectures",
-                element: <GotPermissionsSuspense />, // return <LecturesRoute perms={{ data: perms.data }} />
-                loader: getExtraPerms, //obtiene mis permisos de lecciones extras
+                // element: <GotPermissionsSuspense />, // return <LecturesRoute perms={{ data: perms.data }} />
+                element: <LecturesRoute />,
+                // loader: getExtraPerms, //obtiene mis permisos de lecciones extras
                 //*useEffect obtiene las lecciones extra
                 //*useQuery obtiene data de avanze en las lecciones
                 children: [
