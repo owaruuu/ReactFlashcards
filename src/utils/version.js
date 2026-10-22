@@ -1,5 +1,5 @@
 export const version = 
-"22/10/2026 - improve lecture permissions flow, remove got permissions suspense";
+"22/10/2026 - improve lecture permissions flow, remove got permissions suspense, run audit fix";
 // "29/9/2026 - remove clone and some sorts, finish refactor filtering code, move study session and tests utils into separate file";
 // "22/9/2026 - refactor filtering code, move study session and tests utils into separate file";
 // "19/9/2026 - move date utils to separate file";
